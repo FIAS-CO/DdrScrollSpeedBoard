@@ -1,0 +1,38 @@
+package com.example.ddrscrollspeedboard.model
+
+import kotlin.math.roundToInt
+
+class ResultRowSetFactory {
+    private val highSpeedSet = doubleArrayOf(
+        0.25, 0.5,
+        1.0, 1.25, 1.5, 1.75,
+        2.0, 2.25, 2.5, 2.75,
+        3.0, 3.25, 3.5, 3.75,
+        4.0, 4.5,
+        5.0, 5.5,
+        6.0, 6.5,
+        7.0, 7.5,
+        8.0
+    )
+
+    fun create(scrollSpeed: Int): List<ResultRow> {
+        val resultRowSet: MutableList<ResultRow> = mutableListOf()
+
+        for ((index, highSpeed) in highSpeedSet.withIndex()) {
+            val maxBpm = (scrollSpeed.toDouble() / highSpeed).roundToInt()
+            val maxScrollSpeed = maxBpm * highSpeed
+
+            // minBpm = 次の行の maxBpm + 1
+            val minBpm = if (index < highSpeedSet.size - 1) {
+                (scrollSpeed.toDouble() / highSpeedSet[index + 1]).roundToInt() + 1
+            } else {
+                0
+            }
+            val minScrollSpeed = minBpm * highSpeed
+
+            resultRowSet.add(ResultRow(minBpm, maxBpm, highSpeed, minScrollSpeed, maxScrollSpeed))
+        }
+
+        return resultRowSet
+    }
+}

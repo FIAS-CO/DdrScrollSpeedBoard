@@ -1,0 +1,12 @@
+TODO
+・ボタン削除する
+・スピンボタン
+・RecyclerView の初期位置設定
+・RecyclerView のいち保存
+・入力値の最大値設定
+・テスト実装
+・キーボードのエンター入力時に更新処理をしつつキーボード消去
+・横向き無効
+・バーないほうがいい？
+・？ボタン
+https://qiita.com/shyne/items/b2bfbc479ba685ae011d
