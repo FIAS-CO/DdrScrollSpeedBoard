@@ -25,7 +25,7 @@ class ScrollSpeedBoardFragment : Fragment() {
     private val displayedTopIndex = 4
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var SettingsDataStore: InputDataStore
+    private lateinit var settingsDataStore: InputDataStore
 
     // TODO 入力したスクロールスピード
     private val viewModel: ScrollSpeedBoardViewModel by viewModels()
@@ -88,8 +88,8 @@ class ScrollSpeedBoardFragment : Fragment() {
             }
         }
 
-        SettingsDataStore = InputDataStore(requireContext())
-        SettingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+        settingsDataStore = InputDataStore(requireContext())
+        settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // この中は onViewCreated 全体よりあとで実行される
             // TODO viewModel と View をつなぐ
             viewModel.setScrollSpeed(value)
@@ -97,7 +97,7 @@ class ScrollSpeedBoardFragment : Fragment() {
 
             scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
         }
-        SettingsDataStore.topRowIndexFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+        settingsDataStore.topRowIndexFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // この中は onViewCreated 全体よりあとで実行される
             (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(value, 0)
         }
@@ -116,13 +116,13 @@ class ScrollSpeedBoardFragment : Fragment() {
         val inputSpeedStr = binding.textInputEditText.text.toString()
         // Launch a coroutine and write the layout setting in the preference Datastore
         lifecycleScope.launch {
-            SettingsDataStore.saveInputScrollSpeedStore(inputSpeedStr, requireContext())
+            settingsDataStore.saveInputScrollSpeedStore(inputSpeedStr, requireContext())
         }
 
         val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
         val position = linearLayoutManager.findFirstVisibleItemPosition()
         lifecycleScope.launch {
-            SettingsDataStore.saveDisplayTopRowIndexStore(position, requireContext())
+            settingsDataStore.saveDisplayTopRowIndexStore(position, requireContext())
         }
     }
 
