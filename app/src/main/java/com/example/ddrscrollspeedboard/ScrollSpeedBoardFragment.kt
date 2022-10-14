@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -22,25 +23,31 @@ class ScrollSpeedBoardFragment : Fragment() {
 
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
     private val binding get() = _fragmentBinding!!
-    private val displayedTopIndex = 4
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var settingsDataStore: InputDataStore
 
-    // TODO 入力したスクロールスピード
     private val viewModel: ScrollSpeedBoardViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _fragmentBinding = FragmentScrollSpeedBoardBinding.inflate(inflater, container, false)
+        _fragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_scroll_speed_board,
+            container,
+            false
+        )
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.boardViewModel = viewModel
+        viewModel.setScrollSpeed("400") // 初回起動時設定
+        binding.lifecycleOwner = viewLifecycleOwner
 
         val textEditView = binding.textInputEditText
 
@@ -59,10 +66,8 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
 
         binding.button.setOnClickListener {
-            viewModel.setScrollSpeed(textEditView.text.toString())
-            Log.d("test", viewModel.scrollSpeed)
-            Log.d("test", viewModel.resultRows()[0].toString())
-//            scrollSpeedBoardAdapter.submitList(viewModel.resultRows)
+            Log.d("ScrollSpeedBoardFragment", viewModel.scrollSpeed.value!!)
+            Log.d("ScrollSpeedBoardFragment", viewModel.resultRows()[0].toString())
             scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
             textEditView.clearFocus()
         }
@@ -90,11 +95,7 @@ class ScrollSpeedBoardFragment : Fragment() {
 
         settingsDataStore = InputDataStore(requireContext())
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
-            // この中は onViewCreated 全体よりあとで実行される
-            // TODO viewModel と View をつなぐ
             viewModel.setScrollSpeed(value)
-            textEditView.setText(viewModel.scrollSpeed)
-
             scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
         }
         settingsDataStore.topRowIndexFlow.asLiveData().observe(viewLifecycleOwner) { value ->
@@ -102,13 +103,6 @@ class ScrollSpeedBoardFragment : Fragment() {
             (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(value, 0)
         }
     }
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-//            ScrollSpeedBoardViewModel::class.java
-//        )
-//        // TODO: Use the ViewModel
-//    }
 
     override fun onPause() {
         super.onPause()
@@ -132,7 +126,7 @@ class ScrollSpeedBoardFragment : Fragment() {
     }
 
     // TODO Fragment と共有したい
-    fun showOffKeyboard() {
+    private fun showOffKeyboard() {
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)

@@ -13,38 +13,44 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/result_row_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:paddingLeft="@dimen/bus_stop_item_horizontal_padding"
-    android:paddingRight="@dimen/bus_stop_item_horizontal_padding"
-    android:paddingTop="@dimen/bus_stop_item_vertical_padding"
-    android:paddingBottom="@dimen/bus_stop_item_vertical_padding">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/bpm_view"
-        android:textSize="20sp"
-        android:layout_width="0dp"
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/result_row_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10" />
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingLeft="@dimen/bus_stop_item_horizontal_padding"
+        android:paddingRight="@dimen/bus_stop_item_horizontal_padding"
+        android:paddingTop="@dimen/bus_stop_item_vertical_padding"
+        android:paddingBottom="@dimen/bus_stop_item_vertical_padding">
 
-    <TextView
-        android:id="@+id/high_speed_view"
-        android:textSize="20sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="4" />
+        <TextView
+            android:id="@+id/bpm_view"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10" />
 
-    <TextView
-        android:id="@+id/scroll_speed_view"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="14"
-        android:gravity="end" />
+        <TextView
+            android:id="@+id/high_speed_view"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/scroll_speed_view"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:gravity="end" />
+
+    </LinearLayout>
+</layout>

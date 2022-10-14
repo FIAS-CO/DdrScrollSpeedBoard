@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,7 +33,7 @@ android {
     }
     // task:ViewBinding のために必須
     buildFeatures {
-        viewBinding true
+        dataBinding = true
     }
 }
 
