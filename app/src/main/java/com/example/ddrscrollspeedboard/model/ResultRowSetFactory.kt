@@ -19,7 +19,7 @@ class ResultRowSetFactory {
         val resultRowSet: MutableList<ResultRow> = mutableListOf()
 
         for ((index, highSpeed) in highSpeedSet.withIndex()) {
-            val maxBpm = (scrollSpeed.toDouble() / highSpeed).roundToInt()
+            val maxBpm = (scrollSpeed.toDouble() / highSpeed).toInt()
             val maxScrollSpeed = maxBpm * highSpeed
 
             // minBpm = 次の行の maxBpm + 1

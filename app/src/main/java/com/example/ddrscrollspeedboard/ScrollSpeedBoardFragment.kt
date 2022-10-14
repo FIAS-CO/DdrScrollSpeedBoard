@@ -2,6 +2,8 @@ package com.example.ddrscrollspeedboard
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,13 +21,13 @@ import com.example.ddrscrollspeedboard.data.InputDataStore
 import com.example.ddrscrollspeedboard.databinding.FragmentScrollSpeedBoardBinding
 import kotlinx.coroutines.launch
 
-
 class ScrollSpeedBoardFragment : Fragment() {
 
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
     private val binding get() = _fragmentBinding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var settingsDataStore: InputDataStore
+    private val handler: Handler = Handler(Looper.getMainLooper())
 
     private val viewModel: ScrollSpeedBoardViewModel by viewModels()
 
@@ -46,7 +49,6 @@ class ScrollSpeedBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.boardViewModel = viewModel
-        viewModel.setScrollSpeed("400") // 初回起動時設定
         binding.lifecycleOwner = viewLifecycleOwner
 
         val textEditView = binding.textInputEditText
@@ -92,6 +94,23 @@ class ScrollSpeedBoardFragment : Fragment() {
                 showOffKeyboard()
             }
         }
+
+        val scrollSpeedObserver = Observer<String> {
+            val scrollSpeed = viewModel.scrollSpeed.value
+
+            // スピンボタン長押し時にテーブルが更新されないように
+            handler.postDelayed({
+                if (scrollSpeed == viewModel.scrollSpeed.value) {
+                    Log.d(this.javaClass.name, "$scrollSpeed, ${viewModel.scrollSpeed.value}")
+                    scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
+                } else {
+                    Log.d(this.javaClass.name, "board not updated.")
+                }
+            }, 200)
+        }
+        viewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+
+        viewModel.setScrollSpeed("400") // 初回起動時設定
 
         settingsDataStore = InputDataStore(requireContext())
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
