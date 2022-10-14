@@ -67,13 +67,6 @@ class ScrollSpeedBoardFragment : Fragment() {
             recyclerView.setFadingEdgeLength(scrollSpeedLabelView.height * 3)
         }
 
-        binding.button.setOnClickListener {
-            Log.d("ScrollSpeedBoardFragment", viewModel.scrollSpeed.value!!)
-            Log.d("ScrollSpeedBoardFragment", viewModel.resultRows()[0].toString())
-            scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
-            textEditView.clearFocus()
-        }
-
         val incrementUpView = binding.incrementUp
         val spinButtonListener = SpinButtonListener { countUp() }
         with(incrementUpView) {

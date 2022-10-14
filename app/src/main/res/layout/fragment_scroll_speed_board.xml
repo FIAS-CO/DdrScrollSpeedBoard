@@ -36,7 +36,7 @@
             android:hint="BPM×ハイスピードの希望する最大値を入力"
             app:errorIconDrawable="@drawable/ic_error"
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintBottom_toTopOf="@id/button"
+            app:layout_constraintBottom_toTopOf="@id/increment_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
@@ -51,15 +51,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Button"
-            app:layout_constraintBottom_toTopOf="@id/table_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textField" />
 
         <Button
             android:id="@+id/increment_up"
@@ -69,7 +60,7 @@
             android:text="▲"
             app:layout_constraintBottom_toTopOf="@id/table_header"
             app:layout_constraintEnd_toStartOf="@id/increment_down"
-            app:layout_constraintStart_toEndOf="@id/button"
+            app:layout_constraintStart_toEndOf="@id/increment_up"
             app:layout_constraintTop_toBottomOf="@id/textField" />
 
         <Button
@@ -94,7 +85,7 @@
             app:layout_constraintBottom_toTopOf="@id/recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button">
+            app:layout_constraintTop_toBottomOf="@id/increment_up">
 
             <TextView
                 android:id="@+id/bpm_label"
@@ -106,7 +97,7 @@
                 app:layout_constraintBottom_toTopOf="@id/recycler_view"
                 app:layout_constraintEnd_toStartOf="@id/high_speed_label"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button" />
+                app:layout_constraintTop_toBottomOf="@id/increment_up" />
 
             <TextView
                 android:id="@+id/high_speed_label"
@@ -118,7 +109,7 @@
                 app:layout_constraintBottom_toTopOf="@id/recycler_view"
                 app:layout_constraintEnd_toStartOf="@id/scroll_speed_label"
                 app:layout_constraintStart_toEndOf="@id/bpm_label"
-                app:layout_constraintTop_toBottomOf="@id/button" />
+                app:layout_constraintTop_toBottomOf="@id/increment_up" />
 
             <TextView
                 android:id="@+id/scroll_speed_label"
@@ -132,7 +123,7 @@
                 app:layout_constraintBottom_toTopOf="@id/recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/high_speed_label"
-                app:layout_constraintTop_toBottomOf="@id/button" />
+                app:layout_constraintTop_toBottomOf="@id/increment_up" />
 
         </LinearLayout>
 
