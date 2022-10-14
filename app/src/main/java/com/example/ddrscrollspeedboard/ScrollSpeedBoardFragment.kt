@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,11 +26,11 @@ class ScrollSpeedBoardFragment : Fragment() {
 
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
     private val binding get() = _fragmentBinding!!
+    private val handler: Handler = Handler(Looper.getMainLooper())
+    private val viewModel: ScrollSpeedBoardViewModel by viewModels()
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var settingsDataStore: InputDataStore
-    private val handler: Handler = Handler(Looper.getMainLooper())
-
-    private val viewModel: ScrollSpeedBoardViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,19 +69,12 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
 
         val incrementUpView = binding.incrementUp
-        val spinButtonListener = SpinButtonListener { countUp() }
-        with(incrementUpView) {
-            // TODO 終了後にリスト更新
-            setOnClickListener(spinButtonListener)
-            setOnLongClickListener(spinButtonListener)
-            setOnTouchListener(spinButtonListener)
-        }
+        val upSpinButtonListener = SpinButtonListener { viewModel.countUpScrollSpeed() }
+        setSpinButtonListener(incrementUpView, upSpinButtonListener)
 
         val incrementDownView = binding.incrementDown
-        incrementDownView.setOnClickListener {
-            // TODO 実装
-            countDown()
-        }
+        val downSpinButtonListener = SpinButtonListener { viewModel.countDownScrollSpeed() }
+        setSpinButtonListener(incrementDownView, downSpinButtonListener)
 
         textEditView.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
@@ -144,19 +138,14 @@ class ScrollSpeedBoardFragment : Fragment() {
         imm.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
-    private fun countUp() {
-        val textEditView = binding.textInputEditText
-
-        var input = textEditView.text.toString().toIntOrNull() ?: 1
-        input++
-        textEditView.setText(input.toString())
-    }
-
-    private fun countDown() {
-        val textEditView = binding.textInputEditText
-
-        var input = textEditView.text.toString().toIntOrNull() ?: 30
-        input = if (input <= 30) 30 else --input
-        textEditView.setText(input.toString())
+    private fun setSpinButtonListener(
+        incrementButtonView: Button,
+        spinButtonListener: SpinButtonListener
+    ) {
+        with(incrementButtonView) {
+            setOnClickListener(spinButtonListener)
+            setOnLongClickListener(spinButtonListener)
+            setOnTouchListener(spinButtonListener)
+        }
     }
 }

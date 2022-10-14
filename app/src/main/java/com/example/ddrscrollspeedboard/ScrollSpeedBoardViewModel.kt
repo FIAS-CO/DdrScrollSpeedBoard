@@ -17,4 +17,15 @@ class ScrollSpeedBoardViewModel : ViewModel() {
         scrollSpeed.value = s
     }
 
+    fun countUpScrollSpeed() {
+        var input = scrollSpeed.value?.toIntOrNull() ?: 1
+        input++
+        setScrollSpeed(input.toString())
+    }
+
+    fun countDownScrollSpeed() {
+        var input = scrollSpeed.value?.toIntOrNull() ?: 30
+        input = if (input <= 30) 30 else --input
+        setScrollSpeed(input.toString())
+    }
 }
