@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,7 +22,6 @@ import com.example.ddrscrollspeedboard.databinding.FragmentScrollSpeedBoardBindi
 import kotlinx.coroutines.launch
 
 class ScrollSpeedBoardFragment : Fragment() {
-
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
     private val binding get() = _fragmentBinding!!
     private val handler: Handler = Handler(Looper.getMainLooper())
@@ -52,10 +50,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         binding.boardViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val textEditView = binding.textInputEditText
-
         recyclerView = binding.recyclerView
-
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
@@ -69,13 +64,12 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
 
         val incrementUpView = binding.incrementUp
-        val upSpinButtonListener = SpinButtonListener { viewModel.countUpScrollSpeed() }
-        setSpinButtonListener(incrementUpView, upSpinButtonListener)
+        incrementUpView.setSpinButtonListener(viewModel.countUp)
 
         val incrementDownView = binding.incrementDown
-        val downSpinButtonListener = SpinButtonListener { viewModel.countDownScrollSpeed() }
-        setSpinButtonListener(incrementDownView, downSpinButtonListener)
+        incrementDownView.setSpinButtonListener(viewModel.countDown)
 
+        val textEditView = binding.textInputEditText
         textEditView.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 showOffKeyboard()
@@ -96,8 +90,6 @@ class ScrollSpeedBoardFragment : Fragment() {
             }, 200)
         }
         viewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
-
-        viewModel.setScrollSpeed("400") // 初回起動時設定
 
         settingsDataStore = InputDataStore(requireContext())
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
@@ -131,21 +123,9 @@ class ScrollSpeedBoardFragment : Fragment() {
         _fragmentBinding = null
     }
 
-    // TODO Fragment と共有したい
     private fun showOffKeyboard() {
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-    }
-
-    private fun setSpinButtonListener(
-        incrementButtonView: Button,
-        spinButtonListener: SpinButtonListener
-    ) {
-        with(incrementButtonView) {
-            setOnClickListener(spinButtonListener)
-            setOnLongClickListener(spinButtonListener)
-            setOnTouchListener(spinButtonListener)
-        }
     }
 }

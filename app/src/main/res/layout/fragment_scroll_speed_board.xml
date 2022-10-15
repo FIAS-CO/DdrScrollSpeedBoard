@@ -52,7 +52,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <Button
+        <com.example.ddrscrollspeedboard.SpinButton
             android:id="@+id/increment_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             app:layout_constraintStart_toEndOf="@id/increment_up"
             app:layout_constraintTop_toBottomOf="@id/textField" />
 
-        <Button
+        <com.example.ddrscrollspeedboard.SpinButton
             android:id="@+id/increment_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
