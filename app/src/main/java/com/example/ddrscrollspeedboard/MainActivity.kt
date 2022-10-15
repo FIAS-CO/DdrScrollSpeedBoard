@@ -2,7 +2,6 @@ package com.example.ddrscrollspeedboard
 
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setContentView(binding.root)
 
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         binding.root.requestFocus()
         return super.dispatchTouchEvent(ev)
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()

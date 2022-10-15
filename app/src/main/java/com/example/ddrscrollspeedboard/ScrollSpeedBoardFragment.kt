@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -34,12 +33,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _fragmentBinding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_scroll_speed_board,
-            container,
-            false
-        )
+        _fragmentBinding = FragmentScrollSpeedBoardBinding.inflate(inflater, container, false)
 
         return binding.root
     }
