@@ -77,7 +77,7 @@ class ScrollSpeedBoardFragment : Fragment() {
             handler.postDelayed({
                 if (scrollSpeed == viewModel.scrollSpeed.value) {
                     Log.d(this.javaClass.name, "$scrollSpeed, ${viewModel.scrollSpeed.value}")
-                    scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
+                    scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
                 } else {
                     Log.d(this.javaClass.name, "board not updated.")
                 }
@@ -88,7 +88,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         settingsDataStore = InputDataStore(requireContext())
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             viewModel.setScrollSpeed(value)
-            scrollSpeedBoardAdapter.submitScrollSpeedBoard(viewModel.resultRows())
+            scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
         }
         settingsDataStore.topRowIndexFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // この中は onViewCreated 全体よりあとで実行される

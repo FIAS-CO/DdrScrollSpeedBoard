@@ -39,9 +39,6 @@ class ScrollSpeedBoardAdapter :
         holder.bind(getItem(position))
     }
 
-    // TODO fragment で submitList を呼び出しても動かない
-    fun submitScrollSpeedBoard(rowResults: List<ResultRow>) = submitList(rowResults)
-
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<ResultRow>() {
             override fun areItemsTheSame(oldItem: ResultRow, newItem: ResultRow): Boolean {
