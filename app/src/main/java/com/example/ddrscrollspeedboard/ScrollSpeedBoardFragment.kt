@@ -85,6 +85,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
         viewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
 
+        // TODO ここになくていいかも。
         settingsDataStore = InputDataStore(requireContext())
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             viewModel.setScrollSpeed(value)
