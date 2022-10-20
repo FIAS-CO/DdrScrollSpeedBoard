@@ -6,21 +6,25 @@ import com.example.ddrscrollspeedboard.model.ResultRow
 import com.example.ddrscrollspeedboard.model.ResultRowSetFactory
 
 class ScrollSpeedBoardViewModel : ViewModel() {
-    var scrollSpeed = MutableLiveData<String>()
+    // TODO 変数の扱いはこれでいいのか
+    private var _scrollSpeed = MutableLiveData<String>()
+    val scrollSpeed = _scrollSpeed
 
+    // TODO resultRows が Listを返さないのわかりにくい
     val resultRows: () -> List<ResultRow> = {
-        val resultRows = scrollSpeed.value?.toIntOrNull()?.let { ResultRowSetFactory().create(it) }
+        val resultRows = _scrollSpeed.value?.toIntOrNull()?.let { ResultRowSetFactory().create(it) }
         if (!resultRows.isNullOrEmpty()) resultRows else listOf()
     }
 
     fun setScrollSpeed(s: String) {
-        scrollSpeed.value = s
+        // TODO 数字以外が入った場合
+        _scrollSpeed.value = s
     }
 
     val countUp: () -> Unit = { countUpScrollSpeed() }
 
     private fun countUpScrollSpeed() {
-        var input = scrollSpeed.value?.toIntOrNull() ?: 1
+        var input = _scrollSpeed.value?.toIntOrNull() ?: 1
         input++
         setScrollSpeed(input.toString())
     }
