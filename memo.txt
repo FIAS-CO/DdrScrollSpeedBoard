@@ -12,3 +12,5 @@ https://qiita.com/shyne/items/b2bfbc479ba685ae011d
     ・クラス閉じカッコの前の空行なし
     ・空行に空白文字を残さない
 ・ProjectError なぜ
+警告:ERROR: View field scrollSpeedLabel collides with a variable or import file://app\src\main\res\layout\fragment_scroll_speed_board.xml Line:114
+

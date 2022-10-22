@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlin_version = "1.6.20"
+        kotlin_version = "1.6.10"
         nav_version = "2.4.1"
         room_version = '2.4.2'
 
@@ -26,7 +26,7 @@ buildscript {
         junitVersion = '4.13.2'
         materialVersion = '1.4.0'
         recyclerViewVersion = '1.2.1'
-        robolectricVersion = '4.5.1'
+        robolectricVersion = '4.9'
         roomVersion = '2.3.0'
         rulesVersion = '1.0.1'
         swipeRefreshLayoutVersion = '1.1.0'
