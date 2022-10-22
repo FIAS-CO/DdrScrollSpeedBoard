@@ -17,7 +17,7 @@ class ScrollSpeedBoardViewModel : ViewModel() {
     }
 
     fun setScrollSpeed(s: String) {
-        // TODO 数字以外が入った場合
+        // TODO 数字以外が入った場合や30未満・2001以上の際にwarningを出したい
         _scrollSpeed.value = s
     }
 

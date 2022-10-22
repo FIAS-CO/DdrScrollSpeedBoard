@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:theme="@style/Theme.DdrScrollSpeedBoard"
         tools:context=".ScrollSpeedBoardFragment">
 
         <!--  TextEdit 以外をタッチしたときのために focus 関連プロパティを設定している  -->
@@ -29,8 +30,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:id="@+id/textField"
-            style="@style/Widget.Unscramble.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/input_hint"

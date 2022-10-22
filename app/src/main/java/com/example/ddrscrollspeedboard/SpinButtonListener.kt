@@ -27,7 +27,7 @@ class SpinButtonListener(private val func: () -> Unit) : View.OnClickListener,
 
     override fun onLongClick(_view: View): Boolean {
         func()
-        handler.postDelayed(runnable, 1000)
+        handler.postDelayed(runnable, 500)
 
         return true       // trueはonClick処理しない。falseでonClick処理を続けて実行。
     }
