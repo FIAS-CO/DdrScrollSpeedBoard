@@ -17,11 +17,11 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
 import com.example.ddrscrollspeedboard.util.LongLongTapper
 import com.google.android.material.textfield.TextInputEditText
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.closeTo
 import org.junit.Before
 import org.junit.Test
@@ -29,8 +29,7 @@ import org.junit.runner.RunWith
 
 @Suppress("NonAsciiCharacters", "TestFunctionName")
 @RunWith(AndroidJUnit4::class)
-@SmallTest
-internal class ScrollSpeedBoardFragmentTest {
+class ScrollSpeedBoardFragmentTest {
 
     @Before
     fun setup() {
@@ -44,7 +43,7 @@ internal class ScrollSpeedBoardFragmentTest {
     @Test
     fun scrollSpeed入力_recyclerViewが表示される() {
         onView(withId(R.id.text_input_edit_text))
-            .perform().perform(replaceText("500"))
+            .perform(replaceText("500"))
             .check(matches(withText("500")))
 
         // recyclerView の表示が間に合わないことがあるため一時待機
@@ -61,7 +60,7 @@ internal class ScrollSpeedBoardFragmentTest {
     @Test
     fun upSpinButton押下_scrollSpeedがインクリメントされrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
-            .perform().perform(replaceText("600"))
+            .perform(replaceText("600"))
 
         onView(withId(R.id.increment_up)).perform(click())
 
@@ -79,7 +78,7 @@ internal class ScrollSpeedBoardFragmentTest {
     @Test
     fun downSpinButton押下_scrollSpeedがインクリメントされrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
-            .perform().perform(replaceText("600"))
+            .perform(replaceText("600"))
 
         onView(withId(R.id.increment_down)).perform(click())
 
@@ -97,7 +96,7 @@ internal class ScrollSpeedBoardFragmentTest {
     @Test
     fun upSpinButton長押し_scrollSpeedがプラス2されrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
-            .perform().perform(replaceText("600"))
+            .perform(replaceText("600"))
 
         onView(withId(R.id.increment_up)).perform(longLongClick())
 
@@ -118,7 +117,7 @@ internal class ScrollSpeedBoardFragmentTest {
     @Test
     fun downSpinButton長押し_scrollSpeedがマイナス2されrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
-            .perform().perform(replaceText("600"))
+            .perform(replaceText("600"))
 
         onView(withId(R.id.increment_down)).perform(longLongClick())
 
@@ -134,6 +133,23 @@ internal class ScrollSpeedBoardFragmentTest {
         }
 
         checkRecyclerView(input)
+    }
+
+    @Test
+    fun テキストエリアクリックでキーボード表示_エンター押下でキーボード非表示() {
+        onView(withId(R.id.text_input_edit_text))
+            .perform(replaceText("600"))
+            .check { view, _ ->
+                assertThat(view.hasFocus(), `is`(false))
+            }
+            .perform(click())
+            .check { view, _ ->
+                assertThat(view.hasFocus(), `is`(true))
+            }
+            .perform(pressImeActionButton())
+            .check { view, _ ->
+                assertThat(view.hasFocus(), `is`(false))
+            }
     }
 
     // 既存の longClick() の長さが足りないので使用
