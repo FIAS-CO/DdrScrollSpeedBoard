@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.example.ddrscrollspeedboard"
         minSdk 29
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -37,6 +37,14 @@ android {
     // task:ViewBinding のために必須
     buildFeatures {
         dataBinding = true
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
+
+        //Robolectrics: No Verify for Java 8
+        unitTests.all {
+            jvmArgs '-noverify' //ここを追加
+        }
     }
 }
 
@@ -132,3 +140,5 @@ dependencies {
 
     //TODO テストを書き終えたら Implementation を整理する
 }
+
+apply from: './jacoco.gradle'
