@@ -39,7 +39,7 @@ android.applicationVariants.all { variant ->
                           '**/*Lambda*.*',
                           '**/*Builder.*'
         ]
-        def javaDebugTree = fileTree(dir: "${buildDir}/intermediates/javac/${realVariantName}/compile${variantName}JavaWithJavac/classes", excludes: fileFilter)
+        def javaDebugTree = fileTree(dir: "${buildDir}/intermediates/javac/${realVariantName}/classes", excludes: fileFilter)
         def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${realVariantName}", excludes: fileFilter)
 
         def mainSrc = "${project.projectDir}/src/main/java"
@@ -47,9 +47,11 @@ android.applicationVariants.all { variant ->
         getSourceDirectories().setFrom(files([mainSrc]))
         //Java, Kotlin混在ファイル対応
         getClassDirectories().setFrom(files([javaDebugTree, kotlinDebugTree]))
-        getExecutionData().setFrom(fileTree(dir: project.projectDir, includes: [
+        getExecutionData().from(fileTree(dir: "${buildDir}", includes: [
                 '**/*.exec',    //JUnit Test Result
-                '**/*.ec'])     //Espresso Test Result
+                '**/*.ec',
+                "outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
+                "outputs/code_coverage/debugAndroidTest/connected/*/coverage.ec"])     //Espresso Test Result
         )
     }
 }
