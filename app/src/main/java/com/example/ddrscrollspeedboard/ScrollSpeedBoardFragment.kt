@@ -28,6 +28,7 @@ class ScrollSpeedBoardFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var settingsDataStore: InputDataStore
+    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +48,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
+        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
         recyclerView.adapter = scrollSpeedBoardAdapter
 
         val scrollSpeedLabelView = binding.scrollSpeedLabel
@@ -71,13 +72,13 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
 
         val scrollSpeedObserver = Observer<String> {
-            val scrollSpeed = viewModel.scrollSpeed.value
+            val scrollSpeed = viewModel.getScrollSpeedValue()
 
             // スピンボタン長押し時にテーブルが更新されないように
             handler.postDelayed({
-                if (scrollSpeed == viewModel.scrollSpeed.value) {
-                    Log.d(this.javaClass.name, "$scrollSpeed, ${viewModel.scrollSpeed.value}")
-                    scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
+                if (scrollSpeed == viewModel.getScrollSpeedValue()) {
+                    Log.d(this.javaClass.name, "$scrollSpeed, ${viewModel.getScrollSpeedValue()}")
+                    onScrollSpeedChange()
                 } else {
                     Log.d(this.javaClass.name, "board not updated.")
                 }
@@ -90,7 +91,6 @@ class ScrollSpeedBoardFragment : Fragment() {
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // TODO 初回400が入る処理をFragmentに移したい。
             viewModel.setScrollSpeed(value)
-            scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
         }
         settingsDataStore.topRowIndexFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // この中は onViewCreated 全体よりあとで実行される
@@ -117,6 +117,15 @@ class ScrollSpeedBoardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _fragmentBinding = null
+    }
+
+    private fun onScrollSpeedChange() {
+        scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
+        val scrollSpeed = viewModel.getScrollSpeedValue()
+
+        if (scrollSpeed == null || scrollSpeed < 30 || 2000 < scrollSpeed) {
+            binding.textInputEditText.error = "30 ～ 2000までの数値を入力してください。"
+        }
     }
 
     private fun showOffKeyboard() {

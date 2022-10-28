@@ -65,6 +65,7 @@ class ScrollSpeedBoardViewModelTest {
     @Test
     fun scrollSpeedViewModel_input_何も入れない() {
         assertThat(viewModel.scrollSpeed.value).isEqualTo(null)
+        assertThat(viewModel.getScrollSpeedValue()).isEqualTo(null)
         assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list_out_of_range)
     }
 
@@ -76,6 +77,7 @@ class ScrollSpeedBoardViewModelTest {
         viewModel.countUp()
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("400")
+        assertThat(viewModel.getScrollSpeedValue()).isEqualTo(400)
         assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("400"))
     }
 
@@ -87,6 +89,7 @@ class ScrollSpeedBoardViewModelTest {
         viewModel.countUp()
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("30")
+        assertThat(viewModel.getScrollSpeedValue()).isEqualTo(30)
         assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("30"))
 
     }
@@ -99,6 +102,7 @@ class ScrollSpeedBoardViewModelTest {
         viewModel.countDown()
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("400")
+        assertThat(viewModel.getScrollSpeedValue()).isEqualTo(400)
         assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("400"))
 
     }
@@ -111,6 +115,7 @@ class ScrollSpeedBoardViewModelTest {
         viewModel.countDown()
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("30")
+        assertThat(viewModel.getScrollSpeedValue()).isEqualTo(30)
         assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("30"))
     }
 
@@ -118,6 +123,7 @@ class ScrollSpeedBoardViewModelTest {
         viewModel.setScrollSpeed(scrollSpeed)
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo(scrollSpeed)
+        assertThat(viewModel.getScrollSpeedValue()).isEqualTo(scrollSpeed.toIntOrNull())
         assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list(scrollSpeed))
 
         val value = viewModel.scrollSpeed.getOrAwaitValue()

@@ -6,13 +6,12 @@ import com.example.ddrscrollspeedboard.model.ResultRow
 import com.example.ddrscrollspeedboard.model.ResultRowSetFactory
 
 class ScrollSpeedBoardViewModel : ViewModel() {
-    // TODO 変数の扱いはこれでいいのか
-    // TODO getter は .value を取るよう検討
     var scrollSpeed = MutableLiveData<String>()
+    fun getScrollSpeedValue(): Int? = scrollSpeed.value?.toIntOrNull()
 
     // TODO resultRows が Listを返さないのわかりにくい
     val resultRows: () -> List<ResultRow> = {
-        val scrollSpeedValue = scrollSpeed.value?.toIntOrNull() ?: 0
+        val scrollSpeedValue = getScrollSpeedValue() ?: 0
         ResultRowSetFactory().create(scrollSpeedValue)
     }
 
@@ -25,7 +24,7 @@ class ScrollSpeedBoardViewModel : ViewModel() {
 
     // TODO 30未満2000以上の場合の動作(特に何もしない。範囲外はResultRowFactoryに任せる
     private fun countUpScrollSpeed() {
-        var input = scrollSpeed.value?.toIntOrNull() ?: 29
+        var input = getScrollSpeedValue() ?: 29
         input++
         setScrollSpeed(input.toString())
     }
@@ -33,7 +32,7 @@ class ScrollSpeedBoardViewModel : ViewModel() {
     val countDown: () -> Unit = { countDownScrollSpeed() }
 
     private fun countDownScrollSpeed() {
-        var input = scrollSpeed.value?.toIntOrNull() ?: 31
+        var input = getScrollSpeedValue() ?: 31
         input--
         setScrollSpeed(input.toString())
     }
