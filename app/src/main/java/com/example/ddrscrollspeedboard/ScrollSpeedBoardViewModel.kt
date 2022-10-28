@@ -7,24 +7,25 @@ import com.example.ddrscrollspeedboard.model.ResultRowSetFactory
 
 class ScrollSpeedBoardViewModel : ViewModel() {
     // TODO 変数の扱いはこれでいいのか
-    private var _scrollSpeed = MutableLiveData<String>()
-    val scrollSpeed = _scrollSpeed
+    // TODO getter は .value を取るよう検討
+    var scrollSpeed = MutableLiveData<String>()
 
     // TODO resultRows が Listを返さないのわかりにくい
     val resultRows: () -> List<ResultRow> = {
-        val resultRows = _scrollSpeed.value?.toIntOrNull()?.let { ResultRowSetFactory().create(it) }
-        if (!resultRows.isNullOrEmpty()) resultRows else listOf()
+        val scrollSpeedValue = scrollSpeed.value?.toIntOrNull() ?: 0
+        ResultRowSetFactory().create(scrollSpeedValue)
     }
 
     fun setScrollSpeed(s: String) {
         // TODO 数字以外が入った場合や30未満・2001以上の際にwarningを出したい
-        _scrollSpeed.value = s
+        scrollSpeed.value = s
     }
 
     val countUp: () -> Unit = { countUpScrollSpeed() }
 
+    // TODO 30未満2000以上の場合の動作(特に何もしない。範囲外はResultRowFactoryに任せる
     private fun countUpScrollSpeed() {
-        var input = _scrollSpeed.value?.toIntOrNull() ?: 1
+        var input = scrollSpeed.value?.toIntOrNull() ?: 29
         input++
         setScrollSpeed(input.toString())
     }
@@ -32,12 +33,8 @@ class ScrollSpeedBoardViewModel : ViewModel() {
     val countDown: () -> Unit = { countDownScrollSpeed() }
 
     private fun countDownScrollSpeed() {
-        var input = scrollSpeed.value?.toIntOrNull() ?: 30
-        input = if (input <= 30) 30 else --input
+        var input = scrollSpeed.value?.toIntOrNull() ?: 31
+        input--
         setScrollSpeed(input.toString())
-    }
-
-    init {
-        setScrollSpeed("400") // 初回起動時設定
     }
 }

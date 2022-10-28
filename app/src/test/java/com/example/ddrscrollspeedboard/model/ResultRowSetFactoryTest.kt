@@ -40,11 +40,11 @@ class ResultRowSetFactoryTest(
                 ),
                 arrayOf(
                     29,
-                    listOf<ResultRow>(),
+                    ResultRowsDataSource.list_out_of_range,
                 ),
                 arrayOf(
                     2001,
-                    listOf<ResultRow>(),
+                    ResultRowsDataSource.list_out_of_range,
                 ),
             )
         }

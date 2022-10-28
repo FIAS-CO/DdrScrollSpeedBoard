@@ -62,6 +62,58 @@ class ScrollSpeedBoardViewModelTest {
         scrollSpeedViewModel_input_正常系("test")
     }
 
+    @Test
+    fun scrollSpeedViewModel_input_何も入れない() {
+        assertThat(viewModel.scrollSpeed.value).isEqualTo(null)
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list_out_of_range)
+    }
+
+    @Test
+    fun scrollSpeedViewModel_countUpScrollSpeed_正常系() {
+        viewModel.setScrollSpeed("399")
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("399")
+        viewModel.countUp()
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("400")
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("400"))
+    }
+
+    @Test
+    fun scrollSpeedViewModel_countUpScrollSpeed_空文字() {
+        viewModel.setScrollSpeed("")
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("")
+        viewModel.countUp()
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("30")
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("30"))
+
+    }
+
+    @Test
+    fun scrollSpeedViewModel_countDownScrollSpeed_正常系() {
+        viewModel.setScrollSpeed("401")
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("401")
+        viewModel.countDown()
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("400")
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("400"))
+
+    }
+
+    @Test
+    fun scrollSpeedViewModel_countDownScrollSpeed_空文字() {
+        viewModel.setScrollSpeed("")
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("")
+        viewModel.countDown()
+
+        assertThat(viewModel.scrollSpeed.value).isEqualTo("30")
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("30"))
+    }
+
     private fun scrollSpeedViewModel_input_正常系(scrollSpeed: String) {
         viewModel.setScrollSpeed(scrollSpeed)
 

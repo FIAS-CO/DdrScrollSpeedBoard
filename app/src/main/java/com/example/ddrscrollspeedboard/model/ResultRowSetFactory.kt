@@ -14,11 +14,14 @@ class ResultRowSetFactory {
     )
 
     fun create(scrollSpeed: Int): List<ResultRow> {
-        if (scrollSpeed < 30 || 2000 < scrollSpeed) {
-            return listOf()
-        }
-
         val resultRowSet: MutableList<ResultRow> = mutableListOf()
+
+        if (scrollSpeed < 30 || 2000 < scrollSpeed) {
+            for (highSpeed in highSpeedSet) {
+                resultRowSet.add(ResultRow("-", highSpeed.toString(), "-"))
+            }
+            return resultRowSet
+        }
 
         for ((index, highSpeed) in highSpeedSet.withIndex()) {
             val maxBpm = (scrollSpeed.toDouble() / highSpeed).toInt()
@@ -32,7 +35,10 @@ class ResultRowSetFactory {
             }
             val minScrollSpeed = minBpm * highSpeed
 
-            resultRowSet.add(ResultRow(minBpm, maxBpm, highSpeed, minScrollSpeed, maxScrollSpeed))
+            val bpmRange = "$minBpm ～ $maxBpm"
+            val scrollSpeedRange = "$minScrollSpeed ～ $maxScrollSpeed"
+
+            resultRowSet.add(ResultRow(bpmRange, highSpeed.toString(), scrollSpeedRange))
         }
 
         return resultRowSet

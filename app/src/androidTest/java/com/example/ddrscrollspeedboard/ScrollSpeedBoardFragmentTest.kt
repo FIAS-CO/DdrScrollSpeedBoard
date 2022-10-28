@@ -57,6 +57,60 @@ class ScrollSpeedBoardFragmentTest {
             .check(matches(atPositionOnResultRow(23, "1 ～ 62", "8.0", "8.0 ～ 496.0")))
     }
 
+    /**
+     * 専用表示：bpm と ScrollSpeed が "-" になる(暫定)
+     */
+    @Test
+    fun scrollSpeed入力_2001以上でリストが専用表示() {
+        onView(withId(R.id.text_input_edit_text))
+            .perform(replaceText("2001"))
+            .check(matches(withText("2001")))
+
+        // recyclerView の表示が間に合わないことがあるため一時待機
+        Thread.sleep(300)
+
+        onView(withId(R.id.recycler_view))
+            .check(matches(isDisplayed()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+            .check(matches(atPositionOnResultRow(0, "-", "0.25", "-")))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
+            .check(matches(atPositionOnResultRow(23, "-", "8.0", "-")))
+    }
+
+    @Test
+    fun scrollSpeed入力_29以上でリストが専用表示() {
+        onView(withId(R.id.text_input_edit_text))
+            .perform(replaceText("29"))
+            .check(matches(withText("29")))
+
+        // recyclerView の表示が間に合わないことがあるため一時待機
+        Thread.sleep(300)
+
+        onView(withId(R.id.recycler_view))
+            .check(matches(isDisplayed()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+            .check(matches(atPositionOnResultRow(0, "-", "0.25", "-")))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
+            .check(matches(atPositionOnResultRow(23, "-", "8.0", "-")))
+    }
+
+    @Test
+    fun scrollSpeed入力_空文字でリストが専用表示() {
+        onView(withId(R.id.text_input_edit_text))
+            .perform(replaceText(""))
+            .check(matches(withText("")))
+
+        // recyclerView の表示が間に合わないことがあるため一時待機
+        Thread.sleep(300)
+
+        onView(withId(R.id.recycler_view))
+            .check(matches(isDisplayed()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+            .check(matches(atPositionOnResultRow(0, "-", "0.25", "-")))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
+            .check(matches(atPositionOnResultRow(23, "-", "8.0", "-")))
+    }
+
     @Test
     fun upSpinButton押下_scrollSpeedがインクリメントされrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))

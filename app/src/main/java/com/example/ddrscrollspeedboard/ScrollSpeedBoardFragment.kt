@@ -88,6 +88,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         // TODO ここになくていいかも。
         settingsDataStore = InputDataStore(requireContext())
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+            // TODO 初回400が入る処理をFragmentに移したい。
             viewModel.setScrollSpeed(value)
             scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
         }
