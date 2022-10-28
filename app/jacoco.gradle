@@ -21,8 +21,8 @@ android.applicationVariants.all { variant ->
         description = "Generate Jacoco coverage reports for ${realVariantName}"
 
         reports {
-            xml.enabled = false
-            html.enabled = true
+            xml.required = false
+            html.required = true
         }
 
         //無視するファイル(excludes)の設定を行います
@@ -49,9 +49,9 @@ android.applicationVariants.all { variant ->
         getClassDirectories().setFrom(files([javaDebugTree, kotlinDebugTree]))
         getExecutionData().from(fileTree(dir: "${buildDir}", includes: [
                 '**/*.exec',    //JUnit Test Result
-                '**/*.ec',
+                '**/*.ec',     //Espresso Test Result
                 "outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
-                "outputs/code_coverage/debugAndroidTest/connected/*/coverage.ec"])     //Espresso Test Result
+                "outputs/code_coverage/debugAndroidTest/connected/*/coverage.ec"])
         )
     }
 }
