@@ -1,7 +1,6 @@
 package com.example.ddrscrollspeedboard
 
 import android.content.Context
-import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -49,21 +48,8 @@ class ScrollSpeedBoardFragment : Fragment() {
 
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        val deco = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-//
-//        recyclerView.addItemDecoration(deco)
-
-        val ATTRS = intArrayOf(android.R.attr.listDivider)
-
-        val a = requireContext().obtainStyledAttributes(ATTRS)
-        val divider = a.getDrawable(0)
-        val inset = resources.getDimensionPixelSize(R.dimen.divider_margin_value2)
-        val insetDivider = InsetDrawable(divider, inset, 0, inset, 0)
-        a.recycle()
-
-        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        itemDecoration.setDrawable(insetDivider)
-        recyclerView.addItemDecoration(itemDecoration)
+        val deco = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        recyclerView.addItemDecoration(deco)
 
         scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
         recyclerView.adapter = scrollSpeedBoardAdapter

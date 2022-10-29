@@ -24,72 +24,83 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:text="@string/input_label"
-            app:layout_constraintBottom_toTopOf="@id/textField"
+            app:layout_constraintBottom_toTopOf="@id/input_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:id="@+id/textField"
+        <LinearLayout
+            android:id="@+id/input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/input_hint"
-            android:layout_marginHorizontal="10dp"
-            app:errorIconDrawable="@drawable/ic_error"
-            app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintBottom_toTopOf="@id/increment_up"
+            android:layout_height="80dp"
+            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
+            android:paddingBottom="@dimen/bus_stop_item_vertical_padding"
+            app:layout_constraintBottom_toTopOf="@id/table_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input_edit_text"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:inputType="number"
-                android:maxLines="1"
-                android:text="@={boardViewModel.scrollSpeed}" />
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:hint="@string/input_hint"
+                app:errorIconDrawable="@drawable/ic_error"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@id/increment_up"
+                app:layout_constraintEnd_toStartOf="@id/increment_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text="@={boardViewModel.scrollSpeed}" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.example.ddrscrollspeedboard.SpinButton
-            android:id="@+id/increment_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/spin_button_up_label"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@id/table_header"
-            app:layout_constraintEnd_toStartOf="@id/increment_down"
-            app:layout_constraintStart_toEndOf="@id/increment_up"
-            app:layout_constraintTop_toBottomOf="@id/textField" />
+            <com.example.ddrscrollspeedboard.SpinButton
+                android:id="@+id/increment_up"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/spin_button_up_label"
+                android:background="@drawable/btn_vertical_fullsize_material"
+                android:layout_marginStart="3dp"
+                app:layout_constraintBottom_toTopOf="@id/table_header"
+                app:layout_constraintEnd_toStartOf="@id/increment_down"
+                app:layout_constraintStart_toEndOf="@id/textField"
+                app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel" />
 
-        <com.example.ddrscrollspeedboard.SpinButton
-            android:id="@+id/increment_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/spin_button_down_label"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@id/table_header"
-            app:layout_constraintStart_toEndOf="@id/increment_up"
-            app:layout_constraintTop_toBottomOf="@id/textField" />
+            <com.example.ddrscrollspeedboard.SpinButton
+                android:id="@+id/increment_down"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/spin_button_down_label"
+                android:background="@drawable/btn_vertical_fullsize_material"
+                android:layout_marginStart="3dp"
+                app:layout_constraintBottom_toTopOf="@id/table_header"
+                app:layout_constraintStart_toEndOf="@id/increment_up"
+                app:layout_constraintTop_toBottomOf="@id/textField" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/table_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingLeft="@dimen/bus_stop_item_horizontal_padding"
             android:paddingTop="@dimen/bus_stop_item_vertical_padding"
-            android:paddingRight="@dimen/bus_stop_item_horizontal_padding"
             android:paddingBottom="@dimen/bus_stop_item_vertical_padding"
             app:layout_constraintBottom_toTopOf="@id/recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/increment_up">
+            app:layout_constraintTop_toBottomOf="@id/input_layout">
 
             <TextView
                 android:id="@+id/bpm_label"
@@ -111,6 +122,7 @@
                 android:layout_weight="4"
                 android:text="@string/table_header_hs"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/recycler_view"
                 app:layout_constraintEnd_toStartOf="@id/scroll_speed_label"
                 app:layout_constraintStart_toEndOf="@id/bpm_label"
@@ -124,6 +136,7 @@
                 android:gravity="end"
                 android:text="@string/table_header_scroll_speed"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/recycler_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/high_speed_label"
