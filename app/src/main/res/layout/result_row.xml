@@ -27,7 +27,8 @@
         android:paddingLeft="@dimen/bus_stop_item_horizontal_padding"
         android:paddingRight="@dimen/bus_stop_item_horizontal_padding"
         android:paddingTop="@dimen/bus_stop_item_vertical_padding"
-        android:paddingBottom="@dimen/bus_stop_item_vertical_padding">
+        android:paddingBottom="@dimen/bus_stop_item_vertical_padding"
+        android:textStyle="bold">
 
         <TextView
             android:id="@+id/bpm_view"
@@ -46,7 +47,6 @@
         <TextView
             android:id="@+id/scroll_speed_view"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="14"

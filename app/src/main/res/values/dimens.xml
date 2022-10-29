@@ -21,4 +21,6 @@
     <!-- todo 流用したので名前を直す -->
     <dimen name="bus_stop_item_horizontal_padding">16dp</dimen>
     <dimen name="bus_stop_item_vertical_padding">8dp</dimen>
+    <dimen name="divider_margin_value">2</dimen>
+    <dimen name="divider_margin_value2">15dp</dimen>
 </resources>
