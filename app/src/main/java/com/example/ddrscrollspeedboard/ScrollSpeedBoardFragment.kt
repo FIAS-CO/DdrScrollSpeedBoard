@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ddrscrollspeedboard.data.InputDataStore
 import com.example.ddrscrollspeedboard.databinding.FragmentScrollSpeedBoardBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch
 
 class ScrollSpeedBoardFragment : Fragment() {
@@ -88,6 +90,13 @@ class ScrollSpeedBoardFragment : Fragment() {
             }, 200)
         }
         viewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+
+        // AdMob 設定
+        MobileAds.initialize(requireContext()) {}
+
+        val mAdView = binding.adView
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         // TODO ここになくていいかも。
         settingsDataStore = InputDataStore(requireContext())
