@@ -103,10 +103,16 @@ class ScrollSpeedBoardFragment : Fragment() {
         settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // TODO 初回400が入る処理をFragmentに移したい。
             viewModel.setScrollSpeed(value)
+            onScrollSpeedChange()
         }
-        settingsDataStore.topRowIndexFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+        settingsDataStore.positionFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // この中は onViewCreated 全体よりあとで実行される
-            (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(value, 0)
+            val index = value.first
+            val offset = value.second
+            (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+                index,
+                offset
+            )
         }
     }
 
@@ -114,15 +120,16 @@ class ScrollSpeedBoardFragment : Fragment() {
         super.onPause()
 
         val inputSpeedStr = binding.textInputEditText.text.toString()
-        // Launch a coroutine and write the layout setting in the preference Datastore
-        lifecycleScope.launch {
-            settingsDataStore.saveInputScrollSpeedStore(inputSpeedStr, requireContext())
-        }
-
         val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
         val position = linearLayoutManager.findFirstVisibleItemPosition()
+
+        val startView: View = recyclerView.getChildAt(0)
+        val positionOffset = startView.top - recyclerView.paddingTop
+
+        // Launch a coroutine and write the layout setting in the preference Datastore
         lifecycleScope.launch {
-            settingsDataStore.saveDisplayTopRowIndexStore(position, requireContext())
+            settingsDataStore.saveInputScrollSpeedStore(inputSpeedStr)
+            settingsDataStore.saveDisplayPositionStore(position, positionOffset)
         }
     }
 
@@ -137,6 +144,8 @@ class ScrollSpeedBoardFragment : Fragment() {
 
         if (scrollSpeed == null || scrollSpeed < 30 || 2000 < scrollSpeed) {
             binding.textInputEditText.error = "30 ～ 2000までの数値を入力してください。"
+        } else {
+            binding.textInputEditText.error = null
         }
     }
 
