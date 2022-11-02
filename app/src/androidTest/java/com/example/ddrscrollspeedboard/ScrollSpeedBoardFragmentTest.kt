@@ -176,6 +176,7 @@ class ScrollSpeedBoardFragmentTest {
     fun downSpinButton押下_scrollSpeedがインクリメントされrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
             .perform(replaceText("600"))
+            .check(matches(withText("600")))
 
         onView(withId(R.id.increment_down)).perform(click())
 
