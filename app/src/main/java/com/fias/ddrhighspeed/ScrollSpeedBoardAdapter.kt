@@ -1,12 +1,12 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ddrscrollspeedboard.databinding.ResultRowBinding
-import com.example.ddrscrollspeedboard.model.ResultRow
+import com.fias.ddrhighspeed.databinding.ResultRowBinding
+import com.fias.ddrhighspeed.model.ResultRow
 
 /**
  * Adapter for the [RecyclerView] in [ScrollSpeedBoardFragment]. Displays [ResultRow] data object.

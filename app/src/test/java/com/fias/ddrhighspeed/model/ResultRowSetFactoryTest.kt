@@ -1,6 +1,6 @@
-package com.example.ddrscrollspeedboard.model
+package com.fias.ddrhighspeed.model
 
-import com.example.ddrscrollspeedboard.data.ResultRowsDataSource
+import com.fias.ddrhighspeed.data.ResultRowsDataSource
 import com.google.common.truth.Truth.assertThat
 import org.junit.BeforeClass
 import org.junit.Test

@@ -10,7 +10,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.ddrscrollspeedboard"
+        applicationId "com.fias.ddrhighspeed"
         minSdk 29
         targetSdk 33
         versionCode 1
@@ -47,7 +47,7 @@ android {
             jvmArgs '-noverify' //ここを追加
         }
     }
-    namespace 'com.example.ddrscrollspeedboard'
+    namespace 'com.fias.ddrhighspeed'
 }
 
 dependencies {

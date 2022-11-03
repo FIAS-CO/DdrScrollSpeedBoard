@@ -1,7 +1,7 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.ddrscrollspeedboard.data.ResultRowsDataSource
+import com.fias.ddrhighspeed.data.ResultRowsDataSource
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test

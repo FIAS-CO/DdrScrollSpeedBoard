@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import android.view.InputDevice
 import android.view.MotionEvent
@@ -19,7 +19,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.ddrscrollspeedboard.util.LongLongTapper
+import com.fias.ddrhighspeed.util.LongLongTapper
 import com.google.android.material.textfield.TextInputEditText
 import com.google.common.truth.Truth.assertThat
 import org.hamcrest.Description

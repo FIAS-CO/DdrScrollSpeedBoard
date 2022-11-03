@@ -1,6 +1,6 @@
-package com.example.ddrscrollspeedboard.data
+package com.fias.ddrhighspeed.data
 
-import com.example.ddrscrollspeedboard.model.ResultRow
+import com.fias.ddrhighspeed.model.ResultRow
 
 object ResultRowsDataSource {
     fun list(scrollSpeed: String): List<ResultRow> = when (scrollSpeed) {

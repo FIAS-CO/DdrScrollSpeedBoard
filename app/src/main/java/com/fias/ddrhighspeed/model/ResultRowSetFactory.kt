@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard.model
+package com.fias.ddrhighspeed.model
 
 class ResultRowSetFactory {
     private val highSpeedSet = doubleArrayOf(

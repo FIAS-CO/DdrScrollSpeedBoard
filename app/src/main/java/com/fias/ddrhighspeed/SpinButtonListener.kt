@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import android.annotation.SuppressLint
 import android.os.Handler

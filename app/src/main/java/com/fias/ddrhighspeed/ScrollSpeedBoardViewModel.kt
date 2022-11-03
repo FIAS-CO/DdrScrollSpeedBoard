@@ -1,9 +1,9 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.ddrscrollspeedboard.model.ResultRow
-import com.example.ddrscrollspeedboard.model.ResultRowSetFactory
+import com.fias.ddrhighspeed.model.ResultRow
+import com.fias.ddrhighspeed.model.ResultRowSetFactory
 
 class ScrollSpeedBoardViewModel : ViewModel() {
     var scrollSpeed = MutableLiveData<String>()

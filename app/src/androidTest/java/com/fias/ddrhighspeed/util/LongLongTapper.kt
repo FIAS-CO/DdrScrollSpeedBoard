@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard.util
+package com.fias.ddrhighspeed.util
 
 import android.view.ViewConfiguration
 import androidx.test.espresso.UiController

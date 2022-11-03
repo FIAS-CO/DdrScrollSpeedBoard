@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard.data
+package com.fias.ddrhighspeed.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore

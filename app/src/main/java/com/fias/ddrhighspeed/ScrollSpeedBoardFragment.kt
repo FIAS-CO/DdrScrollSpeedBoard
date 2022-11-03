@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import android.content.Context
 import android.os.Bundle
@@ -17,8 +17,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ddrscrollspeedboard.data.InputDataStore
-import com.example.ddrscrollspeedboard.databinding.FragmentScrollSpeedBoardBinding
+import com.fias.ddrhighspeed.data.InputDataStore
+import com.fias.ddrhighspeed.databinding.FragmentScrollSpeedBoardBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch

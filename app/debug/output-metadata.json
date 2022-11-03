@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.ddrscrollspeedboard",
+  "applicationId": "com.fias.ddrhighspeed",
   "variantName": "debug",
   "elements": [
     {

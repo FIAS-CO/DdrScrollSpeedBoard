@@ -1,4 +1,4 @@
-package com.example.ddrscrollspeedboard
+package com.fias.ddrhighspeed
 
 import android.content.Context
 import android.util.AttributeSet
