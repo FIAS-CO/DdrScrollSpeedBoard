@@ -211,7 +211,7 @@ class ScrollSpeedBoardFragmentTest {
     }
 
     @Test
-    fun upSpinButton長押し_scrollSpeedがプラス2されrecyclerViewが更新される() {
+    fun upSpinButton長押し_scrollSpeedがプラス30程度されrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
             .perform(replaceText("600"))
 
@@ -235,7 +235,7 @@ class ScrollSpeedBoardFragmentTest {
     }
 
     @Test
-    fun downSpinButton長押し_scrollSpeedがマイナス2されrecyclerViewが更新される() {
+    fun downSpinButton長押し_scrollSpeedがマイナス30程度されrecyclerViewが更新される() {
         onView(withId(R.id.text_input_edit_text))
             .perform(replaceText("600"))
 
