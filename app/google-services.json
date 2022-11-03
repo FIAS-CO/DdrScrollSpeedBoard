@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "173620422713",
+    "project_id": "highspeed-calculator",
+    "storage_bucket": "highspeed-calculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173620422713:android:94543283b92c79645e85e8",
+        "android_client_info": {
+          "package_name": "com.fias.ddrhighspeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173620422713-7mfsp9uafr8fiuvr741ceo924d966is2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACPJcxCIf5TXNKXK5RBmgzbuXIZxcXHE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173620422713-7mfsp9uafr8fiuvr741ceo924d966is2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
