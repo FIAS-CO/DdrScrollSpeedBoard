@@ -9,6 +9,7 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAction
+import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.GeneralClickAction
 import androidx.test.espresso.action.GeneralLocation
 import androidx.test.espresso.action.Press
@@ -20,9 +21,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.ddrscrollspeedboard.util.LongLongTapper
 import com.google.android.material.textfield.TextInputEditText
+import com.google.common.truth.Truth.assertThat
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.closeTo
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
@@ -46,15 +47,8 @@ class ScrollSpeedBoardFragmentTest {
      */
     @Test
     fun scrollSpeed入力_recyclerViewが表示される() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("500"))
-
-        // recyclerView の表示が間に合わないことがあるため一時待機
-        Thread.sleep(300)
-
-        onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("500")))
-            .check(matches(withNoError()))
+        editTextAndWait("500")
+            .checkText("500")
 
         onView(withId(R.id.recycler_view))
             .check(matches(isDisplayed()))
@@ -69,50 +63,24 @@ class ScrollSpeedBoardFragmentTest {
      */
     @Test
     fun scrollSpeed入力_2001以上でリストが専用表示() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("2001"))
-
-        // recyclerView の表示が間に合わないことがあるため一時待機
-        Thread.sleep(300)
-
-        onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("2001")))
-            .check(matches(withError(errorMessage)))
+        editTextAndWait("2001")
+            .checkTextWithError("2001", errorMessage)
 
         checkRecyclerViewOnError()
     }
 
     @Test
     fun scrollSpeed入力_29以上でリストが専用表示() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("29"))
-
-        // recyclerView の表示が間に合わないことがあるため一時待機
-        Thread.sleep(300)
-
-        onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("29")))
-            .check(matches(withError(errorMessage)))
+        editTextAndWait("29")
+            .checkTextWithError("29", errorMessage)
 
         checkRecyclerViewOnError()
     }
 
     @Test
     fun scrollSpeed入力_空文字でリストが専用表示() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("400"))
-
-        // recyclerView の表示が間に合わないことがあるため一時待機
-        Thread.sleep(300)
-
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText(""))
-
-        Thread.sleep(300)
-
-        onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("")))
-            .check(matches(withError(errorMessage)))
+        editTextAndWait("")
+            .checkTextWithError("", errorMessage)
 
         checkRecyclerViewOnError()
     }
@@ -123,31 +91,36 @@ class ScrollSpeedBoardFragmentTest {
      */
     @Test
     fun scrollSpeed入力_数字以外が入力できない() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(clearText())
-            .perform(replaceText("abc666"))
+        editTextAndWait("abc666")
+            .checkTextWithError("abc666", errorMessage)
 
-        // recyclerView の表示が間に合わないことがあるため一時待機
-        Thread.sleep(300)
+        checkRecyclerViewOnError()
+    }
 
-        onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("abc666")))
-            .check(matches(withError(errorMessage)))
+    @Test
+    fun scrollSpeed入力_エラー状態で範囲内の値を入力するとエラーが消える() {
+        editTextAndWait("2001")
+            .checkTextWithError("2001", errorMessage)
+
+        editTextAndWait("500")
+            .checkText("500")
+
+        onView(withId(R.id.recycler_view))
+            .check(matches(isDisplayed()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+            .check(matches(atPositionOnResultRow(0, "1001 ～ 2000", "0.25", "250.25 ～ 500.0")))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
+            .check(matches(atPositionOnResultRow(23, "1 ～ 62", "8.0", "8.0 ～ 496.0")))
     }
 
     @Test
     fun upSpinButton押下_scrollSpeedがインクリメントされrecyclerViewが更新される() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("600"))
+        editTextAndWait("600")
 
-        onView(withId(R.id.increment_up)).perform(click())
-
-        Thread.sleep(300)
+        clickUpSpinButtonAndWait()
 
         onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("601")))
-            .check(matches(withNoError()))
-
+            .checkText("601")
         onView(withId(R.id.recycler_view))
             .check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
@@ -158,34 +131,41 @@ class ScrollSpeedBoardFragmentTest {
 
     @Test
     fun upSpinButton押下_scrollSpeedが範囲外になりエラーが表示される() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("2000"))
+        editTextAndWait("2000")
 
-        onView(withId(R.id.increment_up)).perform(click())
-
-        Thread.sleep(300)
+        clickUpSpinButtonAndWait()
 
         onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("2001")))
-            .check(matches(withError(errorMessage)))
-
+            .checkTextWithError("2001", errorMessage)
         checkRecyclerViewOnError()
     }
 
     @Test
+    fun upSpinButton押下_scrollSpeedが範囲内になりエラーが消える() {
+        editTextAndWait("29")
+            .checkTextWithError("29", errorMessage)
+
+        clickUpSpinButtonAndWait()
+
+        onView(withId(R.id.text_input_edit_text))
+            .checkText("30")
+        onView(withId(R.id.recycler_view))
+            .check(matches(isDisplayed()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+            .check(matches(atPositionOnResultRow(0, "61 ～ 120", "0.25", "15.25 ～ 30.0")))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
+            .check(matches(atPositionOnResultRow(23, "1 ～ 3", "8.0", "8.0 ～ 24.0")))
+    }
+
+    @Test
     fun downSpinButton押下_scrollSpeedがインクリメントされrecyclerViewが更新される() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("600"))
-            .check(matches(withText("600")))
+        editTextAndWait("600")
+            .checkText("600")
 
-        onView(withId(R.id.increment_down)).perform(click())
-
-        Thread.sleep(300)
+        clickDownSpinButtonAndWait()
 
         onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("599")))
-            .check(matches(withNoError()))
-
+            .checkText("599")
         onView(withId(R.id.recycler_view))
             .check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
@@ -196,29 +176,39 @@ class ScrollSpeedBoardFragmentTest {
 
     @Test
     fun downSpinButton押下_scrollSpeedが範囲外になりエラーが表示される() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("30"))
+        editTextAndWait("30")
+            .checkText("30")
 
-        onView(withId(R.id.increment_down)).perform(click())
-
-        Thread.sleep(300)
+        clickDownSpinButtonAndWait()
 
         onView(withId(R.id.text_input_edit_text))
-            .check(matches(withText("29")))
-            .check(matches(withError(errorMessage)))
-
+            .checkTextWithError("29", errorMessage)
         checkRecyclerViewOnError()
     }
 
     @Test
-    fun upSpinButton長押し_scrollSpeedがプラス30程度されrecyclerViewが更新される() {
+    fun downSpinButton押下_scrollSpeedが範囲内になりエラーが消える() {
+        editTextAndWait("2001")
+            .checkTextWithError("2001", errorMessage)
+
+        clickDownSpinButtonAndWait()
+
         onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("600"))
+            .checkText("2000")
+        onView(withId(R.id.recycler_view))
+            .check(matches(isDisplayed()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+            .check(matches(atPositionOnResultRow(0, "4001 ～ 8000", "0.25", "1000.25 ～ 2000.0")))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
+            .check(matches(atPositionOnResultRow(23, "1 ～ 250", "8.0", "8.0 ～ 2000.0")))
+    }
 
-        onView(withId(R.id.increment_up)).perform(longLongClick())
+    @Test
+    fun upSpinButton長押し_scrollSpeedがプラス30程度されrecyclerViewが更新される() {
+        editTextAndWait("600")
+            .checkText("600")
 
-        // longClick が終わる前に input が更新されることがあるので一瞬待機
-        Thread.sleep(300)
+        longClickUpSpinButtonAndWait()
 
         var input: Double = -1.0
 
@@ -230,19 +220,15 @@ class ScrollSpeedBoardFragmentTest {
                 assertThat("", input, closeTo(631.0, 633.0))
             }
             .check(matches(withNoError()))
-
         checkRecyclerView(input)
     }
 
     @Test
     fun downSpinButton長押し_scrollSpeedがマイナス30程度されrecyclerViewが更新される() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("600"))
+        editTextAndWait("600")
+            .checkText("600")
 
-        onView(withId(R.id.increment_down)).perform(longLongClick())
-
-        // longClick が終わる前に input が更新されることがあるので一瞬待機
-        Thread.sleep(300)
+        longClickDownSpinButtonAndWait()
 
         var input: Double = -1.0
 
@@ -260,18 +246,17 @@ class ScrollSpeedBoardFragmentTest {
 
     @Test
     fun テキストエリアクリックでキーボード表示_エンター押下でキーボード非表示() {
-        onView(withId(R.id.text_input_edit_text))
-            .perform(replaceText("600"))
+        editTextAndWait("600")
             .check { view, _ ->
-                assertThat(view.hasFocus(), `is`(false))
+                assertThat(view.hasFocus()).isEqualTo(false)
             }
             .perform(click())
             .check { view, _ ->
-                assertThat(view.hasFocus(), `is`(true))
+                assertThat(view.hasFocus()).isEqualTo(true)
             }
             .perform(pressImeActionButton())
             .check { view, _ ->
-                assertThat(view.hasFocus(), `is`(false))
+                assertThat(view.hasFocus()).isEqualTo(false)
             }
     }
 
@@ -394,5 +379,49 @@ class ScrollSpeedBoardFragmentTest {
 
             override fun describeTo(description: Description?) {}
         }
+    }
+
+    private fun editTextAndWait(value: String): ViewInteraction {
+        val perform = onView(withId(R.id.text_input_edit_text))
+            .perform(replaceText(value))
+
+        Thread.sleep(300)
+
+        return perform
+    }
+
+    private fun clickUpSpinButtonAndWait() {
+        onView(withId(R.id.increment_up)).perform(click())
+
+        Thread.sleep(300)
+    }
+
+    private fun clickDownSpinButtonAndWait() {
+        onView(withId(R.id.increment_down)).perform(click())
+
+        Thread.sleep(300)
+    }
+
+    private fun longClickUpSpinButtonAndWait() {
+        onView(withId(R.id.increment_up)).perform(longLongClick())
+
+        Thread.sleep(300)
+    }
+
+    private fun longClickDownSpinButtonAndWait() {
+        onView(withId(R.id.increment_down)).perform(longLongClick())
+
+        Thread.sleep(300)
+    }
+
+    private fun ViewInteraction.checkText(value: String) = apply {
+        this.check(matches(withText(value)))
+            .check(matches(withNoError()))
+    }
+
+    private fun ViewInteraction.checkTextWithError(value: String, errorMessage: String) {
+        this
+            .check(matches(withText(value)))
+            .check(matches(withError(errorMessage)))
     }
 }
