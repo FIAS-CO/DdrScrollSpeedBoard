@@ -33,7 +33,7 @@
         <LinearLayout
             android:id="@+id/input_layout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:paddingTop="@dimen/bus_stop_item_vertical_padding"
             android:paddingBottom="24dp"
             app:layout_constraintBottom_toTopOf="@id/table_header"
