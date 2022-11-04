@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">DdrScrollSpeedBoard</string>
+    <string name="app_name">DDRハイスピ計算機</string>
     <string name="input_label">スクロールスピード</string>
     <string name="input_hint">BPM×ハイスピードの希望する最大値を入力</string>
     <string name="spin_button_up_label">▲</string>
     <string name="spin_button_down_label">▼</string>
     <string name="table_header_bpm">BPM</string>
-    <string name="table_header_hs">HS</string>
-    <string name="table_header_scroll_speed">ScrollSpeed</string>
+    <string name="table_header_hs">ﾊｲｽﾋﾟ</string>
+    <string name="table_header_scroll_speed">ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ</string>
 </resources>
