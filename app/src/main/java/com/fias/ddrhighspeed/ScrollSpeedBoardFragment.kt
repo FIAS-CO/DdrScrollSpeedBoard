@@ -99,13 +99,16 @@ class ScrollSpeedBoardFragment : Fragment() {
         mAdView.loadAd(adRequest)
 
         // TODO ここになくていいかも。
-        settingsDataStore = InputDataStore(requireContext())
-        settingsDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+        inputDataStore = InputDataStore(requireContext())
+        inputDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) {
+                value ->
             // TODO 初回400が入る処理をFragmentに移したい。
             viewModel.setScrollSpeed(value)
             onScrollSpeedChange()
         }
-        settingsDataStore.positionFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+        positionDataStore = ScrollPositionDataStore(requireContext())
+        positionDataStore.scrollPositionFlow.asLiveData().observe(viewLifecycleOwner) {
+                value ->
             // この中は onViewCreated 全体よりあとで実行される
             val index = value.first
             val offset = value.second
