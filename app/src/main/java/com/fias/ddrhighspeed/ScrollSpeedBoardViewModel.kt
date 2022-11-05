@@ -6,7 +6,8 @@ import com.fias.ddrhighspeed.model.ResultRow
 import com.fias.ddrhighspeed.model.ResultRowSetFactory
 
 class ScrollSpeedBoardViewModel : ViewModel() {
-    var scrollSpeed = MutableLiveData<String>()
+    val scrollSpeed = NewMutableLiveData<String>()
+
     fun getScrollSpeedValue(): Int? = scrollSpeed.value?.toIntOrNull()
 
     // TODO resultRows が Listを返さないのわかりにくい
@@ -15,18 +16,12 @@ class ScrollSpeedBoardViewModel : ViewModel() {
         ResultRowSetFactory().create(scrollSpeedValue)
     }
 
-    fun setScrollSpeed(s: String) {
-        // TODO 数字以外が入った場合や30未満・2001以上の際にwarningを出したい
-        scrollSpeed.value = s
-    }
-
     val countUp: () -> Unit = { countUpScrollSpeed() }
 
-    // TODO 30未満2000以上の場合の動作(特に何もしない。範囲外はResultRowFactoryに任せる
     private fun countUpScrollSpeed() {
         var input = getScrollSpeedValue() ?: 29
         input++
-        setScrollSpeed(input.toString())
+        scrollSpeed.setValue(input.toString())
     }
 
     val countDown: () -> Unit = { countDownScrollSpeed() }
@@ -34,6 +29,13 @@ class ScrollSpeedBoardViewModel : ViewModel() {
     private fun countDownScrollSpeed() {
         var input = getScrollSpeedValue() ?: 31
         input--
-        setScrollSpeed(input.toString())
+        scrollSpeed.setValue(input.toString())
+    }
+
+    class NewMutableLiveData<T> : MutableLiveData<T>() {
+        override fun setValue(value: T) {
+            if (this.value == value) return
+            super.setValue(value)
+        }
     }
 }

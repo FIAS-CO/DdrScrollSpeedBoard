@@ -129,4 +129,8 @@ class ScrollSpeedBoardViewModelTest {
         val value = viewModel.scrollSpeed.getOrAwaitValue()
         assertThat(value).isEqualTo(scrollSpeed)
     }
+
+    private fun ScrollSpeedBoardViewModel.setScrollSpeed(scrollSpeed :String) {
+        this.scrollSpeed.setValue(scrollSpeed)
+    }
 }

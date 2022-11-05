@@ -35,6 +35,7 @@ import org.junit.runner.RunWith
 class ScrollSpeedBoardFragmentTest {
 
     private val errorMessage = "30 ～ 2000までの数値を入力してください。"
+    private val waitMills: Long = 350
 
     @Before
     fun setup() {
@@ -385,7 +386,7 @@ class ScrollSpeedBoardFragmentTest {
         val perform = onView(withId(R.id.text_input_edit_text))
             .perform(replaceText(value))
 
-        Thread.sleep(300)
+        Thread.sleep(waitMills)
 
         return perform
     }
@@ -393,25 +394,25 @@ class ScrollSpeedBoardFragmentTest {
     private fun clickUpSpinButtonAndWait() {
         onView(withId(R.id.increment_up)).perform(click())
 
-        Thread.sleep(300)
+        Thread.sleep(waitMills)
     }
 
     private fun clickDownSpinButtonAndWait() {
         onView(withId(R.id.increment_down)).perform(click())
 
-        Thread.sleep(300)
+        Thread.sleep(waitMills)
     }
 
     private fun longClickUpSpinButtonAndWait() {
         onView(withId(R.id.increment_up)).perform(longLongClick())
 
-        Thread.sleep(300)
+        Thread.sleep(waitMills)
     }
 
     private fun longClickDownSpinButtonAndWait() {
         onView(withId(R.id.increment_down)).perform(longLongClick())
 
-        Thread.sleep(300)
+        Thread.sleep(waitMills)
     }
 
     private fun ViewInteraction.checkText(value: String) = apply {
