@@ -36,6 +36,11 @@ private val Context.inputDataStore: DataStore<Preferences> by preferencesDataSto
     name = INPUT_PREFERENCES_NAME
 )
 
+private const val POSITION_PREFERENCES_NAME = "position_preferences"
+private val Context.positionDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = POSITION_PREFERENCES_NAME
+)
+
 class ScrollSpeedBoardFragment : Fragment() {
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
     private val binding get() = _fragmentBinding!!
@@ -43,9 +48,9 @@ class ScrollSpeedBoardFragment : Fragment() {
     private val viewModel: ScrollSpeedBoardViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
     private lateinit var inputDataStore: InputDataStore
     private lateinit var positionDataStore: ScrollPositionDataStore
-    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +134,8 @@ class ScrollSpeedBoardFragment : Fragment() {
             // ここで RecyclerView を更新しないとスクロールの初期位置が設定できない
             onScrollSpeedChange(true)
         }
-        positionDataStore = ScrollPositionDataStore(requireContext())
+
+        positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
         positionDataStore.scrollPositionFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // この中は onViewCreated 全体よりあとで実行される
             val index = value.first
