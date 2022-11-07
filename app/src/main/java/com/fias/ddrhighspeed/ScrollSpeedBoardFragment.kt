@@ -10,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -25,6 +28,13 @@ import com.fias.ddrhighspeed.databinding.FragmentScrollSpeedBoardBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch
+
+// Create a DataStore instance using the preferencesDataStore delegate, with the Context as
+// receiver.
+private const val INPUT_PREFERENCES_NAME = "input_preferences"
+private val Context.inputDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = INPUT_PREFERENCES_NAME
+)
 
 class ScrollSpeedBoardFragment : Fragment() {
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
@@ -109,7 +119,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         mAdView.loadAd(adRequest)
 
         // TODO ここになくていいかも。
-        inputDataStore = InputDataStore(requireContext())
+        inputDataStore = InputDataStore(requireContext().inputDataStore)
         inputDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // TODO 初回400が入る処理をFragmentに移したい。
             viewModel.scrollSpeed.setValue(value)
