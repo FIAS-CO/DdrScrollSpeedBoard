@@ -90,6 +90,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         incrementDownView.setSpinButtonListener(viewModel.countDown)
 
         val textEditView = binding.textInputEditText
+        // TODO 専用 TextEdit クラスにする
         textEditView.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 hideSoftwareKeyboard()
@@ -114,11 +115,13 @@ class ScrollSpeedBoardFragment : Fragment() {
         // AdMob 設定
         MobileAds.initialize(requireContext()) {}
 
+        // TODO: 別クラスに移動
         val mAdView = binding.adView
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
         // TODO ここになくていいかも。
+        // TODO firstOrNull で値が取得できそうなので、 observe しないようにする
         inputDataStore = InputDataStore(requireContext().inputDataStore)
         inputDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             // TODO 初回400が入る処理をFragmentに移したい。
