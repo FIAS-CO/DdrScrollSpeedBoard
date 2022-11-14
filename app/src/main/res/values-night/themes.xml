@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <!-- Task:DarkActionBar → NoActionBarに変更。Actionを追加しないため -->
-    <style name="Theme.DdrScrollSpeedBoard" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.DdrScrollSpeedBoard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
