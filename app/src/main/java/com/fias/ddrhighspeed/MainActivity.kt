@@ -1,7 +1,8 @@
 package com.fias.ddrhighspeed
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -36,10 +36,6 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-        }
-//        setupActionBarWithNavController(navController)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -55,5 +51,29 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
+
+    // TODO Drawer 関連だけ別クラスにできる？
+    fun onDrawerItemSelected(item: MenuItem) {
+        when (item.itemId) {
+            R.id.security_policy -> openPrivacyPolicyPage()
+            R.id.close_drawer -> {
+                // TODO drawer 閉じる？必要？
+            }
+            else -> {}
+        }
+    }
+
+    private fun openPrivacyPolicyPage() {
+        val webpage: Uri = Uri.parse(URL)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
+    companion object {
+        const val URL = "https://fia1988.github.io/PrivacyPolicy"
+    }
+
 
 }

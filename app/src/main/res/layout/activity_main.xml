@@ -44,14 +44,14 @@
                     android:elevation="4dp"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="?attr/actionBarTheme"
+                    app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                     app:title="@string/app_name"
-                    app:titleTextColor="@color/black"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:titleTextColor="@color/black" />
 
                 <!--  Task:Fragmentのために必要  -->
                 <androidx.fragment.app.FragmentContainerView
@@ -62,20 +62,24 @@
                     android:fitsSystemWindows="true"
                     android:label="Page title"
                     app:defaultNavHost="true"
-                    app:navGraph="@navigation/nav_graph"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    app:navGraph="@navigation/nav_graph" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
+
         <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true" />
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/navigation_drawer_header"
+            app:itemMaxLines="2"
+            app:menu="@menu/navigation_drawer_menu" />
 
 
     </androidx.drawerlayout.widget.DrawerLayout>
