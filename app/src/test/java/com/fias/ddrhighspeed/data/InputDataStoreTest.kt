@@ -4,7 +4,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,7 +20,7 @@ class InputDataStoreTest : JunitDataStoreTest(INPUT_PREFERENCES_NAME) {
         scope.runTest {
             dataStore.edit { it.clear() }
             inputDataStore.saveInputScrollSpeedStore("500")
-            assertThat(inputDataStore.scrollSpeedFlow.firstOrNull()).isEqualTo("500")
+            assertThat(inputDataStore.getScrollSpeed()).isEqualTo("500")
         }
     }
 
@@ -29,7 +28,7 @@ class InputDataStoreTest : JunitDataStoreTest(INPUT_PREFERENCES_NAME) {
     fun `inputDataStore 未入力時に400を返す`() {
         scope.runTest {
             dataStore.edit { it.clear() }
-            assertThat(inputDataStore.scrollSpeedFlow.firstOrNull()).isEqualTo("400")
+            assertThat(inputDataStore.getScrollSpeed()).isEqualTo("400")
         }
     }
 }

@@ -16,7 +16,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +46,6 @@ class ScrollSpeedBoardFragment : Fragment() {
     private val handler: Handler = Handler(Looper.getMainLooper())
     private val viewModel: ScrollSpeedBoardViewModel by viewModels()
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
     private lateinit var inputDataStore: InputDataStore
     private lateinit var positionDataStore: ScrollPositionDataStore
@@ -72,14 +70,20 @@ class ScrollSpeedBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = binding.recyclerView
+        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
+
+        val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val deco = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(deco)
-
-        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
         recyclerView.adapter = scrollSpeedBoardAdapter
         recyclerView.addSaveScrollPositionListener()
+
+        inputDataStore = InputDataStore(requireContext().inputDataStore)
+        loadSavedScrollSpeed()
+
+        positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
+        loadSavedListPosition(recyclerView)
 
         val scrollSpeedLabelView = binding.scrollSpeedLabel
         scrollSpeedLabelView.post {
@@ -124,26 +128,29 @@ class ScrollSpeedBoardFragment : Fragment() {
         val mAdView = binding.adView
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+    }
 
-        // TODO ここになくていいかも。
-        // TODO firstOrNull で値が取得できそうなので、 observe しないようにする
-        inputDataStore = InputDataStore(requireContext().inputDataStore)
-        inputDataStore.scrollSpeedFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+    private fun loadSavedScrollSpeed() {
+        lifecycleScope.launch {
+            val savedScrollSpeed = inputDataStore.getScrollSpeed()
             // TODO 初回400が入る処理をFragmentに移したい。
-            viewModel.scrollSpeed.setValue(value)
-            // ここで RecyclerView を更新しないとスクロールの初期位置が設定できない
-            onScrollSpeedChange(true)
+            savedScrollSpeed?.let {
+                viewModel.scrollSpeed.setValue(it)
+                // ここで RecyclerView を更新しないとスクロールの初期位置が設定できない
+                onScrollSpeedChange(true)
+            }
         }
+    }
 
-        positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
-        positionDataStore.scrollPositionFlow.asLiveData().observe(viewLifecycleOwner) { value ->
-            // この中は onViewCreated 全体よりあとで実行される
-            val index = value.first
-            val offset = value.second
-            (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
-                index,
-                offset
-            )
+    private fun loadSavedListPosition(recyclerView: RecyclerView) {
+        lifecycleScope.launch {
+            val savedScrollPosition = positionDataStore.getScrollPosition()
+            savedScrollPosition?.let {
+                val index = it.first
+                val offset = it.second
+                (recyclerView.layoutManager as LinearLayoutManager)
+                    .scrollToPositionWithOffset(index, offset)
+            }
         }
     }
 
@@ -182,13 +189,13 @@ class ScrollSpeedBoardFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    saveRecyclerViewScrollPosition()
+                    saveScrollPosition(recyclerView)
                 }
             }
         })
     }
 
-    private fun saveRecyclerViewScrollPosition() {
+    private fun saveScrollPosition(recyclerView: RecyclerView) {
         val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
         val position = linearLayoutManager.findFirstVisibleItemPosition()
 

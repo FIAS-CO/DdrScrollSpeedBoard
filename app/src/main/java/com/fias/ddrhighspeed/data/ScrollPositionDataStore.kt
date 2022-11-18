@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 /**
@@ -21,7 +22,9 @@ class ScrollPositionDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    val scrollPositionFlow: Flow<Pair<Int, Int>> = dataStore.data
+    suspend fun getScrollPosition(): Pair<Int, Int>? = scrollPositionFlow.firstOrNull()
+
+    private val scrollPositionFlow: Flow<Pair<Int, Int>> = dataStore.data
         .map { preferences ->
             // On the first run of the app, we will use LinearLayoutManager by default
             val i = preferences[_displayedPositionOffsetKey]

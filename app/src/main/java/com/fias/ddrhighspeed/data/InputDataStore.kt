@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 /**
@@ -20,8 +21,10 @@ class InputDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    suspend fun getScrollSpeed(): String? = scrollSpeedFlow.firstOrNull()
+
     // TODO マジックナンバーを fragment あたりに移動したい
-    val scrollSpeedFlow: Flow<String> = dataStore.data
+    private val scrollSpeedFlow: Flow<String> = dataStore.data
         .map { preferences ->
             // On the first run of the app, we will use LinearLayoutManager by default
             preferences[_inputScrollSpeedKey] ?: "400"

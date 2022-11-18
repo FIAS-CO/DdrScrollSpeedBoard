@@ -4,7 +4,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,7 +20,7 @@ class ScrollPositionDataStoreTest : JunitDataStoreTest(POSITION_PREFERENCES_NAME
         scope.runTest {
             dataStore.edit { it.clear() }
             inputDataStore.saveScrollPositionStore(10, 15)
-            assertThat(inputDataStore.scrollPositionFlow.firstOrNull())
+            assertThat(inputDataStore.getScrollPosition())
                 .isEqualTo(Pair(10, 15))
         }
     }
@@ -30,7 +29,7 @@ class ScrollPositionDataStoreTest : JunitDataStoreTest(POSITION_PREFERENCES_NAME
     fun `ScrollPositionDataStore 未入力時に400を返す`() {
         scope.runTest {
             dataStore.edit { it.clear() }
-            assertThat(inputDataStore.scrollPositionFlow.firstOrNull())
+            assertThat(inputDataStore.getScrollPosition())
                 .isEqualTo(Pair(4, 0))
         }
     }
@@ -40,7 +39,7 @@ class ScrollPositionDataStoreTest : JunitDataStoreTest(POSITION_PREFERENCES_NAME
         scope.runTest {
             dataStore.edit { it.clear() }
             inputDataStore.saveScrollPositionStore(-1, -111)
-            assertThat(inputDataStore.scrollPositionFlow.firstOrNull())
+            assertThat(inputDataStore.getScrollPosition())
                 .isEqualTo(Pair(-1, -111))
         }
     }
