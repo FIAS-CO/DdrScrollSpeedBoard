@@ -24,6 +24,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.not
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
@@ -31,11 +32,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@Suppress("RemoveRedundantBackticks")
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class NavigationDrawerTest {
-
-    private val url: Uri = Uri.parse("https://fia1988.github.io/PrivacyPolicy")
 
     @Rule
     @JvmField
@@ -49,15 +49,14 @@ class NavigationDrawerTest {
         // By default Espresso Intents does not stub any Intents. Stubbing needs to be setup before
         // every test run. In this case all external Intents will be blocked.
         intending(not(isInternal())).respondWith(
-            Instrumentation.ActivityResult(
-                Activity.RESULT_OK,
-                null
-            )
+            Instrumentation.ActivityResult(Activity.RESULT_OK, null)
         )
     }
 
     @Test
-    fun mainActivityTest() {
+    fun `プライバシーポリシーをクリック`() {
+        val url = Uri.parse("https://fia1988.github.io/PrivacyPolicy")
+
         val toolBarLeftButton = onView(
             allOf(
                 withContentDescription("Open navigation drawer"),
@@ -98,6 +97,67 @@ class NavigationDrawerTest {
             allOf(
                 hasAction(Intent.ACTION_VIEW),
                 hasData(url)
+            )
+        )
+    }
+
+    /**
+     * メールアプリ選択ダイアログが開くとテストに不具合が出るので
+     * 常に特定のアプリを選択するように設定し、ダイアログが出ないようにしてください
+     */
+    @Test
+    fun `問い合わせメールをクリック`() {
+        val uri = Uri.parse("mailto:")
+        val address = "apps.fias@gmail.com"
+        val subject = "お問い合わせ"
+        val text = "ーーーーーーーーーーーーー\n" +
+                "ご要望・不具合・その他なんでもご連絡ください。\n" +
+                "ーーーーーーーーーーーーー\n"
+
+        //TODO 上のテストと共通になるところを切り出す
+        val appCompatImageButton = onView(
+            Matchers.allOf(
+                withContentDescription("Open navigation drawer"),
+                childAtPosition(
+                    Matchers.allOf(
+                        withId(R.id.toolbar),
+                        childAtPosition(
+                            withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton.perform(click())
+
+        val navigationMenuItemView = onView(
+            Matchers.allOf(
+                withId(R.id.mail),
+                childAtPosition(
+                    Matchers.allOf(
+                        withId(com.google.android.material.R.id.design_navigation_view),
+                        childAtPosition(
+                            withId(R.id.nav_view),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        navigationMenuItemView.perform(click())
+
+        intended(
+            allOf(
+                hasAction(Intent.ACTION_SENDTO),
+                hasData(uri),
+                hasExtra(Intent.EXTRA_EMAIL, arrayOf(address)),
+                hasExtra(Intent.EXTRA_SUBJECT, subject),
+                hasExtra(Intent.EXTRA_TEXT, text),
             )
         )
     }

@@ -1,7 +1,5 @@
 package com.fias.ddrhighspeed
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -56,6 +54,7 @@ class MainActivity : AppCompatActivity() {
     fun onDrawerItemSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.security_policy -> openPrivacyPolicyPage()
+            R.id.mail -> openInquiryMail()
             R.id.close_drawer -> {
                 // TODO drawer 閉じる？必要？
             }
@@ -64,16 +63,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openPrivacyPolicyPage() {
-        val webpage: Uri = Uri.parse(URL)
-        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        val intent = IntentBuilder().createPrivacyPolicyIntent()
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         }
     }
 
-    companion object {
-        const val URL = "https://fia1988.github.io/PrivacyPolicy"
+    private fun openInquiryMail() {
+        val intent = IntentBuilder().createInquiryMailIntent()
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
     }
-
-
 }
