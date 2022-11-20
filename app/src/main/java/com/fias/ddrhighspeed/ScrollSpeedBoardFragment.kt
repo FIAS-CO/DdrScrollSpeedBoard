@@ -24,8 +24,7 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.fias.ddrhighspeed.data.InputDataStore
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentScrollSpeedBoardBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
+import com.fias.ddrhighspeed.view.AdViewUtil
 import kotlinx.coroutines.launch
 
 // Create a DataStore instance using the preferencesDataStore delegate, with the Context as
@@ -121,13 +120,7 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
         viewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
 
-        // AdMob 設定
-        MobileAds.initialize(requireContext()) {}
-
-        // TODO: 別クラスに移動
-        val mAdView = binding.adView
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
     private fun loadSavedScrollSpeed() {

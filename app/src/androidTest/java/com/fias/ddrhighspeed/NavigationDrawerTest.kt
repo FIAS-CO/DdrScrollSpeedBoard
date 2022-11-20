@@ -57,23 +57,7 @@ class NavigationDrawerTest {
     fun `プライバシーポリシーをクリック`() {
         val url = Uri.parse("https://fia1988.github.io/PrivacyPolicy")
 
-        val toolBarLeftButton = onView(
-            allOf(
-                withContentDescription("Open navigation drawer"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        toolBarLeftButton.perform(click())
+        openNavigationDrawer()
 
         val privacyPolicyLink = onView(
             allOf(
@@ -114,24 +98,7 @@ class NavigationDrawerTest {
                 "ご要望・不具合・その他なんでもご連絡ください。\n" +
                 "ーーーーーーーーーーーーー\n"
 
-        //TODO 上のテストと共通になるところを切り出す
-        val appCompatImageButton = onView(
-            Matchers.allOf(
-                withContentDescription("Open navigation drawer"),
-                childAtPosition(
-                    Matchers.allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton.perform(click())
+        openNavigationDrawer()
 
         val navigationMenuItemView = onView(
             Matchers.allOf(
@@ -160,6 +127,26 @@ class NavigationDrawerTest {
                 hasExtra(Intent.EXTRA_TEXT, text),
             )
         )
+    }
+
+    private fun openNavigationDrawer() {
+        val toolBarLeftButton = onView(
+            allOf(
+                withContentDescription("Open navigation drawer"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.toolbar),
+                        childAtPosition(
+                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        toolBarLeftButton.perform(click())
     }
 
     private fun childAtPosition(
