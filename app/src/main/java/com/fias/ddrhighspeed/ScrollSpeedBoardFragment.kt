@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -71,12 +70,13 @@ class ScrollSpeedBoardFragment : Fragment() {
 
         scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
 
-        val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val deco = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        recyclerView.addItemDecoration(deco)
-        recyclerView.adapter = scrollSpeedBoardAdapter
-        recyclerView.addSaveScrollPositionListener()
+        val recyclerView = binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            val deco = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+            addItemDecoration(deco)
+            adapter = scrollSpeedBoardAdapter
+            addSaveScrollPositionListener()
+        }
 
         inputDataStore = InputDataStore(requireContext().inputDataStore)
         loadSavedScrollSpeed()
@@ -91,8 +91,8 @@ class ScrollSpeedBoardFragment : Fragment() {
             recyclerView.setFadingEdgeLength(scrollSpeedLabelView.height * 3)
         }
 
-        val incrementUpView = binding.incrementUp
-        incrementUpView.setSpinButtonListener(viewModel.countUp)
+        binding.incrementUp.setSpinButtonListener(viewModel.countUp)
+        binding.incrementDown.setSpinButtonListener(viewModel.countDown)
 
 
         val scrollSpeedObserver = Observer<String> {
