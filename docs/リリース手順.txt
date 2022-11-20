@@ -1,0 +1,20 @@
+★masterブランチで作業
+・バージョン情報を修正(app側のbuild.gradle)
+    versionCode 5 ← リリース済みのコードより1大きくする
+    versionName "1.3" ← マイナーバージョン(.の後ろ)を1増やす。大きな機能を足す場合はメジャーバージョンを増やす
+★リリースブランチで作業
+・広告IDをテスト版から製品版に切り替える
+・自動テストで対応しきれていない機能の手動テスト
+    ・スクロールスピードが再起動時に入力欄に残っているか
+    ・リストの表示場所が再起動前と後で同じになっているか
+・リリースビルド
+    ・AndroidStudio のBuild → Generate Single Bundle / APK...
+    ・Android App Bundle
+        ・Release Key : releasekey.jks(持ってなかったら聞いてください)
+        ・key aliases : releasekey
+        ・パスワード2箇所：fiasYYYY(YYYYのところは聞いてください)
+・Log出力を削除
+    ・フラグによってLog出力を切り替えれるように検討
+
+・ブランチ、タグをどうするか
+    ・現状、Vx.xというブランチを作成し、そこで上記作業を行う想定(x.xはバージョン名)
