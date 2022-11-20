@@ -94,16 +94,6 @@ class ScrollSpeedBoardFragment : Fragment() {
         val incrementUpView = binding.incrementUp
         incrementUpView.setSpinButtonListener(viewModel.countUp)
 
-        val incrementDownView = binding.incrementDown
-        incrementDownView.setSpinButtonListener(viewModel.countDown)
-
-        val textEditView = binding.textInputEditText
-        // TODO 専用 TextEdit クラスにする
-        textEditView.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                hideSoftwareKeyboard()
-            }
-        }
 
         val scrollSpeedObserver = Observer<String> {
             val scrollSpeed = viewModel.getScrollSpeedValue()
@@ -198,11 +188,5 @@ class ScrollSpeedBoardFragment : Fragment() {
         lifecycleScope.launch {
             positionDataStore.saveScrollPositionStore(position, positionOffset)
         }
-    }
-
-    private fun hideSoftwareKeyboard() {
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }
