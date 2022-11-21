@@ -55,7 +55,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
 
-                <com.fias.ddrhighspeed.TextEditWithHideKeyBoard
+                <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
                     android:id="@+id/text_input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -66,7 +66,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.fias.ddrhighspeed.SpinButton
+            <com.fias.ddrhighspeed.view.SpinButton
                 android:id="@+id/increment_up"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -79,7 +79,7 @@
                 app:layout_constraintStart_toEndOf="@id/textField"
                 app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel" />
 
-            <com.fias.ddrhighspeed.SpinButton
+            <com.fias.ddrhighspeed.view.SpinButton
                 android:id="@+id/increment_down"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -145,7 +145,7 @@
                 app:layout_constraintTop_toBottomOf="@id/increment_up" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.fias.ddrhighspeed.view.HighSpeedListView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0pt"
@@ -156,7 +156,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/table_header" />
-
 
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
         <!-- product app ID: ca-app-pub-8151928728657048/6961473178 -->

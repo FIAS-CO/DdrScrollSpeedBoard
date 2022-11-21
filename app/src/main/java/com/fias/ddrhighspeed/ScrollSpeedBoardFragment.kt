@@ -16,14 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.fias.ddrhighspeed.data.InputDataStore
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentScrollSpeedBoardBinding
 import com.fias.ddrhighspeed.view.AdViewUtil
+import com.fias.ddrhighspeed.view.HighSpeedListView
 import kotlinx.coroutines.launch
 
 // Create a DataStore instance using the preferencesDataStore delegate, with the Context as
@@ -71,11 +68,8 @@ class ScrollSpeedBoardFragment : Fragment() {
         scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
 
         val recyclerView = binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            val deco = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-            addItemDecoration(deco)
             adapter = scrollSpeedBoardAdapter
-            addSaveScrollPositionListener()
+            addSaveScrollPositionListener { saveScrollPosition(this) }
         }
 
         inputDataStore = InputDataStore(requireContext().inputDataStore)
@@ -93,7 +87,6 @@ class ScrollSpeedBoardFragment : Fragment() {
 
         binding.incrementUp.setSpinButtonListener(viewModel.countUp)
         binding.incrementDown.setSpinButtonListener(viewModel.countDown)
-
 
         val scrollSpeedObserver = Observer<String> {
             val scrollSpeed = viewModel.getScrollSpeedValue()
@@ -113,6 +106,11 @@ class ScrollSpeedBoardFragment : Fragment() {
         AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragmentBinding = null
+    }
+
     private fun loadSavedScrollSpeed() {
         lifecycleScope.launch {
             val savedScrollSpeed = inputDataStore.getScrollSpeed()
@@ -125,21 +123,16 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
     }
 
-    private fun loadSavedListPosition(recyclerView: RecyclerView) {
+    private fun loadSavedListPosition(recyclerView: HighSpeedListView) {
         lifecycleScope.launch {
             val savedScrollPosition = positionDataStore.getScrollPosition()
             savedScrollPosition?.let {
                 val index = it.first
                 val offset = it.second
-                (recyclerView.layoutManager as LinearLayoutManager)
+                recyclerView.getLinearLayoutManager()
                     .scrollToPositionWithOffset(index, offset)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _fragmentBinding = null
     }
 
     private fun onScrollSpeedChange(suppressSave: Boolean = false) {
@@ -166,23 +159,11 @@ class ScrollSpeedBoardFragment : Fragment() {
         }
     }
 
-    private fun RecyclerView.addSaveScrollPositionListener() {
-        this.addOnScrollListener(object : OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    saveScrollPosition(recyclerView)
-                }
-            }
-        })
-    }
-
-    private fun saveScrollPosition(recyclerView: RecyclerView) {
-        val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+    private fun saveScrollPosition(recyclerView: HighSpeedListView) {
+        val linearLayoutManager = recyclerView.getLinearLayoutManager()
         val position = linearLayoutManager.findFirstVisibleItemPosition()
 
-        val startView: View = recyclerView.getChildAt(0)
+        val startView = recyclerView.getChildAt(0)
         val positionOffset = startView.top - recyclerView.paddingTop
 
         lifecycleScope.launch {

@@ -278,8 +278,8 @@ class ScrollSpeedBoardFragmentTest {
                 failureCount += 1
                 Thread.sleep(300)
 
-                if (failureCount >= 6) {
-                    fail("1.8秒待ちましたが、広告が isDisplayed になりませんでした。")
+                if (failureCount >= 10) {
+                    fail("3秒待ちましたが、広告が isDisplayed になりませんでした。")
                 }
             }
         }

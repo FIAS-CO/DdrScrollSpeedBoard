@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.view
 
 import android.annotation.SuppressLint
 import android.os.Handler
