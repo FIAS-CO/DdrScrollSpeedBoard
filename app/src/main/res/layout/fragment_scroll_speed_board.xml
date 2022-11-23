@@ -36,7 +36,7 @@
             android:layout_height="100dp"
             android:paddingTop="@dimen/bus_stop_item_vertical_padding"
             android:paddingBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@id/table_header"
+            app:layout_constraintBottom_toTopOf="@id/tab_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_vertical_fullsize_material"
                 android:text="@string/spin_button_up_label"
-                app:layout_constraintBottom_toTopOf="@id/table_header"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"
                 app:layout_constraintEnd_toStartOf="@id/increment_down"
                 app:layout_constraintStart_toEndOf="@id/textField"
                 app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel" />
@@ -87,89 +87,29 @@
                 android:layout_weight="1"
                 android:background="@drawable/btn_vertical_fullsize_material"
                 android:text="@string/spin_button_down_label"
-                app:layout_constraintBottom_toTopOf="@id/table_header"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"
                 app:layout_constraintStart_toEndOf="@id/increment_up"
                 app:layout_constraintTop_toBottomOf="@id/textField" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/table_header"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
-            android:paddingBottom="@dimen/bus_stop_item_vertical_padding"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view"
+            app:layout_constraintBottom_toTopOf="@id/pager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout">
+            app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
-            <TextView
-                android:id="@+id/bpm_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:text="@string/table_header_bpm"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/recycler_view"
-                app:layout_constraintEnd_toStartOf="@id/high_speed_header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/increment_up" />
-
-            <TextView
-                android:id="@+id/high_speed_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="@string/table_header_hs"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/recycler_view"
-                app:layout_constraintEnd_toStartOf="@id/scroll_speed_header"
-                app:layout_constraintStart_toEndOf="@id/bpm_header"
-                app:layout_constraintTop_toBottomOf="@id/increment_up" />
-
-            <TextView
-                android:id="@+id/scroll_speed_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="14"
-                android:gravity="end"
-                android:text="@string/table_header_scroll_speed"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/recycler_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/high_speed_header"
-                app:layout_constraintTop_toBottomOf="@id/increment_up" />
-        </LinearLayout>
-
-        <com.fias.ddrhighspeed.view.HighSpeedListView
-            android:id="@+id/recycler_view"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0pt"
-            android:requiresFadingEdge="vertical"
-            android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/adView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/table_header" />
-
-        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
-        <!-- product app ID: ca-app-pub-8151928728657048/6961473178 -->
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
