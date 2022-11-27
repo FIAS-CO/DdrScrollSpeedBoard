@@ -30,20 +30,13 @@ private val Context.inputDataStore: DataStore<Preferences> by preferencesDataSto
     name = INPUT_PREFERENCES_NAME
 )
 
-//private const val POSITION_PREFERENCES_NAME = "position_preferences"
-//private val Context.positionDataStore: DataStore<Preferences> by preferencesDataStore(
-//    name = POSITION_PREFERENCES_NAME
-//)
-
 class ScrollSpeedBoardFragment : Fragment() {
     private var _fragmentBinding: FragmentScrollSpeedBoardBinding? = null
     private val binding get() = _fragmentBinding!!
     private val handler: Handler = Handler(Looper.getMainLooper())
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
 
-    //    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
     private lateinit var inputDataStore: InputDataStore
-//    private lateinit var positionDataStore: ScrollPositionDataStore
 
     private lateinit var demoCollectionAdapter: DemoCollectionAdapter
     private lateinit var viewPager: ViewPager2
@@ -72,8 +65,6 @@ class ScrollSpeedBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
-
         demoCollectionAdapter = DemoCollectionAdapter(this)
         viewPager = binding.pager
         viewPager.adapter = demoCollectionAdapter
@@ -83,34 +74,16 @@ class ScrollSpeedBoardFragment : Fragment() {
             tab.text = tabTitleArray[position]
         }.attach()
 
-
-//        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
-//
-//        val recyclerView = binding.recyclerView.apply {
-//            adapter = scrollSpeedBoardAdapter
-//            addSaveScrollPositionListener { saveScrollPosition(this) }
-//        }
-//
         inputDataStore = InputDataStore(requireContext().inputDataStore)
         loadSavedScrollSpeed()
-//
-//        positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
-//        loadSavedListPosition(recyclerView)
-//
-//        val scrollSpeedLabelView = binding.scrollSpeedLabel
-//        scrollSpeedLabelView.post {
-//            // RecyclerView がスクロール可能な場合のぼかし幅を設定
-//            // できれば行の高さ基準にしたいが、 recyclerView から高さを取得しようとすると0になるので暫定
-//            recyclerView.setFadingEdgeLength(scrollSpeedLabelView.height * 3)
-//        }
-//
+
         binding.incrementUp.setSpinButtonListener(sharedViewModel.countUp)
         binding.incrementDown.setSpinButtonListener(sharedViewModel.countDown)
 
         val scrollSpeedObserver = Observer<String> {
             val scrollSpeed = sharedViewModel.getScrollSpeedValue()
 
-            // スピンボタン長押し時にテーブルが更新されないように
+            // スピンボタン長押し時に処理が連続実行されないように
             handler.postDelayed({
                 if (scrollSpeed == sharedViewModel.getScrollSpeedValue()) {
                     Log.d(
@@ -124,8 +97,6 @@ class ScrollSpeedBoardFragment : Fragment() {
             }, 200)
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
-//
-//        AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
     override fun onDestroyView() {
@@ -134,7 +105,6 @@ class ScrollSpeedBoardFragment : Fragment() {
     }
 
     private fun onScrollSpeedChange(suppressSave: Boolean = false) {
-//        scrollSpeedBoardAdapter.submitList(viewModel.resultRows())
         val scrollSpeed = sharedViewModel.getScrollSpeedValue()
 
         if ((scrollSpeed == null) || (scrollSpeed < 30) || (2000 < scrollSpeed)) {
@@ -163,7 +133,6 @@ class ScrollSpeedBoardFragment : Fragment() {
             // TODO 初回400が入る処理をFragmentに移したい。
             savedScrollSpeed?.let {
                 sharedViewModel.scrollSpeed.setValue(it)
-                // ここで RecyclerView を更新しないとスクロールの初期位置が設定できない
                 onScrollSpeedChange(true)
             }
         }
@@ -175,17 +144,10 @@ class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        // Return a NEW fragment instance in createFragment(int)
         return when (position) {
             0 -> RoughEstimateFragment()
             1 -> EstimateByNameFragment()
             else -> throw IndexOutOfBoundsException()
         }
-//        val fragment = DemoObjectFragment()
-//        fragment.arguments = Bundle().apply {
-//            // Our object is just an integer :-P
-//            putInt(ARG_OBJECT, position + 1)
-//        }
-//        return fragment
     }
 }

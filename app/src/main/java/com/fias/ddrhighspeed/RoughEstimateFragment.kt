@@ -36,14 +36,10 @@ class RoughEstimateFragment : Fragment() {
     private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
     private lateinit var positionDataStore: ScrollPositionDataStore
 
-    private var isLoadedScrollPosition = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-
         _fragmentBinding = DataBindingUtil.inflate<FragmentRoughEstimateBinding?>(
             inflater,
             R.layout.fragment_rough_estimate,
@@ -54,7 +50,6 @@ class RoughEstimateFragment : Fragment() {
         }
 
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,18 +65,11 @@ class RoughEstimateFragment : Fragment() {
 
         positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
         loadSavedListPosition(recyclerView)
-//        val scrollSpeedLabelView = binding.bpmHeader
-//        scrollSpeedLabelView.post {
-//            // RecyclerView がスクロール可能な場合のぼかし幅を設定
-//            // できれば行の高さ基準にしたいが、 recyclerView から高さを取得しようとすると0になるので暫定
-//            recyclerView.setFadingEdgeLength(scrollSpeedLabelView.height * 3)
-//        }
-
 
         val scrollSpeedObserver = Observer<String> {
             val scrollSpeed = sharedViewModel.getScrollSpeedValue()
 
-            // スピンボタン長押し時にテーブルが更新されないように
+            // スピンボタン長押し時に処理が連続実行されないように
             handler.postDelayed({
                 if (scrollSpeed == sharedViewModel.getScrollSpeedValue()) {
                     Log.d(javaClass.name, "$scrollSpeed, ${sharedViewModel.getScrollSpeedValue()}")
@@ -105,8 +93,6 @@ class RoughEstimateFragment : Fragment() {
                 val offset = it.second
                 recyclerView.getLinearLayoutManager()
                     .scrollToPositionWithOffset(index, offset)
-
-                isLoadedScrollPosition = true
             }
         }
     }
