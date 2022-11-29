@@ -41,8 +41,8 @@ class ScrollSpeedBoardFragment : Fragment() {
     private lateinit var demoCollectionAdapter: DemoCollectionAdapter
     private lateinit var viewPager: ViewPager2
     private val tabTitleArray = arrayOf(
-        "Tab1",
-        "Tab2",
+        "簡易計算",
+        "曲名検索",
     )
 
     override fun onCreateView(

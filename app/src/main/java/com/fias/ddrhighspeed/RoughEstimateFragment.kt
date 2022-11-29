@@ -30,6 +30,7 @@ private val Context.positionDataStore: DataStore<Preferences> by preferencesData
 class RoughEstimateFragment : Fragment() {
     private var _fragmentBinding: FragmentRoughEstimateBinding? = null
     private val binding get() = _fragmentBinding!!
+    // TODO 1箇所しか使っていない
     private val handler: Handler = Handler(Looper.getMainLooper())
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
 

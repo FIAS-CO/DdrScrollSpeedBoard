@@ -8,13 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fias.ddrhighspeed.databinding.ResultRowBinding
 import com.fias.ddrhighspeed.model.ResultRow
 
-/**
- * Adapter for the [RecyclerView] in [ScrollSpeedBoardFragment]. Displays [ResultRow] data object.
- */
-class ScrollSpeedBoardAdapter :
-    ListAdapter<ResultRow, ScrollSpeedBoardAdapter.ScrollSpeedBoardViewHolder>(DiffCallback) {
+class SearchedSongsAdapter :
+    ListAdapter<ResultRow, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
 
-    class ScrollSpeedBoardViewHolder(private var binding: ResultRowBinding) :
+    class SearchedSongsViewHolder(private var binding: ResultRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(row: ResultRow) {
             binding.bpmView.text = row.bpmRange
@@ -23,20 +20,17 @@ class ScrollSpeedBoardAdapter :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollSpeedBoardViewHolder {
-        // TODO Suppress いらないかも
-        @Suppress("UnnecessaryVariable")
-        val viewHolder = ScrollSpeedBoardViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedSongsViewHolder {
+        return SearchedSongsViewHolder(
             ResultRowBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
-        return viewHolder
     }
 
-    override fun onBindViewHolder(holder: ScrollSpeedBoardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchedSongsViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
@@ -51,4 +45,5 @@ class ScrollSpeedBoardAdapter :
             }
         }
     }
+
 }

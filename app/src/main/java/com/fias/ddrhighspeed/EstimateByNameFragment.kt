@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
+import com.fias.ddrhighspeed.model.ResultRow
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +26,12 @@ class EstimateByNameFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _fragmentBinding: FragmentEstimateByNameBinding? = null
+    private val binding get() = _fragmentBinding!!
+    private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
+
+    private lateinit var searchedSongsAdapter: SearchedSongsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,9 +43,39 @@ class EstimateByNameFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_estimate_by_name, container, false)
+    ): View {
+        _fragmentBinding = DataBindingUtil.inflate<FragmentEstimateByNameBinding?>(
+            inflater,
+            R.layout.fragment_estimate_by_name,
+            container,
+            false
+        ).also {
+            it.boardViewModel = this.sharedViewModel
+            it.lifecycleOwner = viewLifecycleOwner
+        }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        searchedSongsAdapter = SearchedSongsAdapter()
+
+        binding.searchedSongs.apply {
+            adapter = searchedSongsAdapter
+        }
+
+        val searchWordObserver = Observer<String> {
+            searchedSongsAdapter.submitList(
+                listOf(
+                    ResultRow("曲1", "", ""),
+                    ResultRow("曲2", "", ""),
+                    ResultRow("曲3", "", ""),
+                )
+            )
+        }
+        sharedViewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
     }
 
     companion object {

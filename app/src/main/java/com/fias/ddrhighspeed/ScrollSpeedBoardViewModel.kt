@@ -32,6 +32,9 @@ class ScrollSpeedBoardViewModel : ViewModel() {
         scrollSpeed.setValue(input.toString())
     }
 
+    // TODO 別のViewModelに。使う範囲が違うので
+    val searchWord = NewMutableLiveData<String>()
+
     class NewMutableLiveData<T> : MutableLiveData<T>() {
         override fun setValue(value: T) {
             if (this.value == value) return
