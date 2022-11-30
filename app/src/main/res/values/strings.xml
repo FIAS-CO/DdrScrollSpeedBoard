@@ -7,4 +7,6 @@
     <string name="table_header_bpm">BPM</string>
     <string name="table_header_hs">ﾊｲｽﾋﾟ</string>
     <string name="table_header_scroll_speed">ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ</string>
+    <string name="search_song_name_label">検索条件</string>
+    <string name="search_song_name_hint">曲名を入力してください</string>
 </resources>
