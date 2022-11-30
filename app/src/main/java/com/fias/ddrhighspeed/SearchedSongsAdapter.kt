@@ -5,24 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fias.ddrhighspeed.databinding.ResultRowBinding
-import com.fias.ddrhighspeed.model.ResultRow
+import com.fias.ddrhighspeed.databinding.SearchResultBinding
+import com.fias.ddrhighspeed.model.Song
 
 class SearchedSongsAdapter :
-    ListAdapter<ResultRow, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
+    ListAdapter<Song, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
 
-    class SearchedSongsViewHolder(private var binding: ResultRowBinding) :
+    class SearchedSongsViewHolder(private var binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(row: ResultRow) {
-            binding.bpmView.text = row.bpmRange
-            binding.highSpeedView.text = row.highSpeed
-            binding.scrollSpeedView.text = row.scrollSpeedRange
+        fun bind(song: Song) {
+            binding.searchResultName.text = song.name
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedSongsViewHolder {
         return SearchedSongsViewHolder(
-            ResultRowBinding.inflate(
+            SearchResultBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -35,12 +33,12 @@ class SearchedSongsAdapter :
     }
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<ResultRow>() {
-            override fun areItemsTheSame(oldItem: ResultRow, newItem: ResultRow): Boolean {
-                return oldItem.highSpeed == newItem.highSpeed
+        private val DiffCallback = object : DiffUtil.ItemCallback<Song>() {
+            override fun areItemsTheSame(oldItem: Song, newItem: Song): Boolean {
+                return oldItem.name == newItem.name
             }
 
-            override fun areContentsTheSame(oldItem: ResultRow, newItem: ResultRow): Boolean {
+            override fun areContentsTheSame(oldItem: Song, newItem: Song): Boolean {
                 return oldItem == newItem
             }
         }

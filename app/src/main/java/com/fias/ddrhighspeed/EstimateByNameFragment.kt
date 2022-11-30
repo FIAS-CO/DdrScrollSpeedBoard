@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
-import com.fias.ddrhighspeed.model.ResultRow
+import com.fias.ddrhighspeed.model.Song
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,9 +69,9 @@ class EstimateByNameFragment : Fragment() {
         val searchWordObserver = Observer<String> {
             searchedSongsAdapter.submitList(
                 listOf(
-                    ResultRow("曲1", "", ""),
-                    ResultRow("曲2", "", ""),
-                    ResultRow("曲3", "", ""),
+                    Song("曲1", "作曲者", "SuperNova", 100.0, 150.0, 200.0),
+                    Song("曲2", "作曲者", "SuperNova", 120.0, 153.0, 230.0),
+                    Song("曲3", "作曲者", "SuperNova", 150.0, 155.0, 250.0),
                 )
             )
         }
