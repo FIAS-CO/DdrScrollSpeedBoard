@@ -7,6 +7,4 @@
     <string name="table_header_bpm">BPM</string>
     <string name="table_header_hs">ﾊｲｽﾋﾟ</string>
     <string name="table_header_scroll_speed">ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

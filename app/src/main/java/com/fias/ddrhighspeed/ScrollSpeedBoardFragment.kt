@@ -91,8 +91,6 @@ class ScrollSpeedBoardFragment : Fragment() {
                         "$scrollSpeed, ${sharedViewModel.getScrollSpeedValue()}"
                     )
                     onScrollSpeedChange()
-                } else {
-                    Log.d(this.javaClass.name, "board not updated.")
                 }
             }, 200)
         }
