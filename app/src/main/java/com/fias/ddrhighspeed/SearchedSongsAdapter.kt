@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fias.ddrhighspeed.databinding.SearchResultBinding
 import com.fias.ddrhighspeed.model.Song
 
-class SearchedSongsAdapter :
+class SearchedSongsAdapter(private val clickListener: ClickSongListener) :
     ListAdapter<Song, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
 
     class SearchedSongsViewHolder(private var binding: SearchResultBinding) :
@@ -19,13 +19,18 @@ class SearchedSongsAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchedSongsViewHolder {
-        return SearchedSongsViewHolder(
+        val viewHolder = SearchedSongsViewHolder(
             SearchResultBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
-        )
+        ).apply {
+            itemView.setOnClickListener {
+                clickListener.onClick(getItem(absoluteAdapterPosition))
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: SearchedSongsViewHolder, position: Int) {
@@ -43,5 +48,8 @@ class SearchedSongsAdapter :
             }
         }
     }
+}
 
+class ClickSongListener(val clickListener: (song: Song) -> Unit) {
+    fun onClick(song: Song) = clickListener(song)
 }

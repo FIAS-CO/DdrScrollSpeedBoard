@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -60,18 +61,20 @@ class EstimateByNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchedSongsAdapter = SearchedSongsAdapter()
-
-        binding.searchedSongs.apply {
-            adapter = searchedSongsAdapter
+        val clickListener = ClickSongListener { song: Song ->
+            Toast.makeText(context, "${song.name}, freqBpm = ${song.freqBpm}", Toast.LENGTH_LONG)
+                .show()
         }
+        searchedSongsAdapter = SearchedSongsAdapter(clickListener)
+
+        binding.searchedSongs.adapter = searchedSongsAdapter
 
         val searchWordObserver = Observer<String> {
             searchedSongsAdapter.submitList(
                 listOf(
-                    Song("曲1", "作曲者", "SuperNova", 100.0, 150.0, 200.0),
-                    Song("曲2", "作曲者", "SuperNova", 120.0, 153.0, 230.0),
-                    Song("曲3", "作曲者", "SuperNova", 150.0, 155.0, 250.0),
+                    Song("曲1", "作曲者1", "SuperNova", 100.0, 150.0, 200.0),
+                    Song("曲2", "作曲者2", "A", 120.0, 153.0, 230.0),
+                    Song("曲3", "作曲者3", "2020", 150.0, 155.0, 250.0),
                 )
             )
         }
