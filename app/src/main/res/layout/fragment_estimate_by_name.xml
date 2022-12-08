@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -18,7 +19,7 @@
         tools:context=".EstimateByNameFragment">
 
         <TextView
-            android:id="@+id/scrollSpeedLabel"
+            android:id="@+id/search_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -26,12 +27,12 @@
             android:text="@string/search_song_name_label"
             android:textSize="23sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textField"
+            app:layout_constraintBottom_toTopOf="@id/search_text_field"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField"
+            android:id="@+id/search_text_field"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,10 +41,10 @@
             app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
+            app:layout_constraintTop_toBottomOf="@id/search_label">
 
             <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
-                android:id="@+id/text_input_edit_text"
+                android:id="@+id/search_word_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
@@ -63,21 +64,110 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textField" />
+            app:layout_constraintTop_toBottomOf="@id/search_text_field" />
 
-        <!--         Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111-->
-        <!--         product app ID: ca-app-pub-8151928728657048/6961473178-->
-        <!--        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-        <!--            android:id="@+id/adView"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentBottom="true"-->
-        <!--            android:layout_centerHorizontal="true"-->
-        <!--            ads:adSize="BANNER"-->
-        <!--            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/recycler_view" />-->
+        <ImageView
+            android:id="@+id/back_to_search_image"
+            android:layout_width="50dp"
+            android:layout_height="51dp"
+            android:contentDescription="@string/back_to_search_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?attr/actionModeCloseDrawable"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="515dp" />
+
+        <TextView
+            android:id="@+id/song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/song_name_sample_text"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/search_text_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/back_to_search_image" />
+
+
+        <LinearLayout
+            android:id="@+id/song_detail_table_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
+            android:paddingBottom="@dimen/bus_stop_item_vertical_padding"
+            app:layout_constraintBottom_toTopOf="@id/song_detail_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/song_name">
+
+            <TextView
+                android:id="@+id/bpm_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:text="@string/table_header_bpm"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/song_detail_list"
+                app:layout_constraintEnd_toStartOf="@id/high_speed_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/high_speed_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/table_header_hs"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/song_detail_list"
+                app:layout_constraintEnd_toStartOf="@id/scroll_speed_header"
+                app:layout_constraintStart_toEndOf="@id/bpm_header"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/scroll_speed_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="14"
+                android:gravity="end"
+                android:text="@string/table_header_scroll_speed"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/song_detail_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/high_speed_header"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <com.fias.ddrhighspeed.view.HighSpeedListView
+            android:id="@+id/song_detail_list"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/song_detail_table_header" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--         Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111-->
+    <!--         product app ID: ca-app-pub-8151928728657048/6961473178-->
+    <!--        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+    <!--            android:id="@+id/adView"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_alignParentBottom="true"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            ads:adSize="BANNER"-->
+    <!--            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@id/recycler_view" />-->
 </layout>

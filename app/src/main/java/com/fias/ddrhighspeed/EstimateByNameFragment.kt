@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
+import com.fias.ddrhighspeed.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.model.Song
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +30,7 @@ class EstimateByNameFragment : Fragment() {
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
+    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
 
     private lateinit var searchedSongsAdapter: SearchedSongsAdapter
 
@@ -61,13 +62,47 @@ class EstimateByNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val resultRowSetFactory = ResultRowSetFactory()
+
+        binding.backToSearchImage.visibility = View.GONE
+        binding.songName.visibility = View.GONE
+        binding.songDetailTableHeader.visibility = View.GONE
+        binding.songDetailList.visibility = View.GONE
+
         val clickListener = ClickSongListener { song: Song ->
-            Toast.makeText(context, "${song.name}, freqBpm = ${song.freqBpm}", Toast.LENGTH_LONG)
-                .show()
+            binding.searchLabel.visibility = View.GONE
+            binding.searchWordInput.visibility = View.GONE
+            binding.searchedSongs.visibility = View.GONE
+
+            binding.backToSearchImage.visibility = View.VISIBLE
+            binding.songName.visibility = View.VISIBLE
+            binding.songName.text = song.name
+            binding.songDetailTableHeader.visibility = View.VISIBLE
+            binding.songDetailList.visibility = View.VISIBLE
+
+            val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
+            val list = resultRowSetFactory.createForSongDetail(
+                scrollSpeedValue,
+                song.minBpm,
+                song.freqBpm,
+                song.maxBpm
+            )
+            scrollSpeedBoardAdapter.submitList(list)
         }
         searchedSongsAdapter = SearchedSongsAdapter(clickListener)
 
         binding.searchedSongs.adapter = searchedSongsAdapter
+
+        binding.backToSearchImage.setOnClickListener {
+            binding.searchLabel.visibility = View.VISIBLE
+            binding.searchWordInput.visibility = View.VISIBLE
+            binding.searchedSongs.visibility = View.VISIBLE
+
+            binding.backToSearchImage.visibility = View.GONE
+            binding.songName.visibility = View.GONE
+            binding.songDetailTableHeader.visibility = View.GONE
+            binding.songDetailList.visibility = View.GONE
+        }
 
         val searchWordObserver = Observer<String> {
             searchedSongsAdapter.submitList(
@@ -79,6 +114,11 @@ class EstimateByNameFragment : Fragment() {
             )
         }
         sharedViewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
+
+        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
+        binding.songDetailList.apply {
+            adapter = scrollSpeedBoardAdapter
+        }
     }
 
     companion object {
