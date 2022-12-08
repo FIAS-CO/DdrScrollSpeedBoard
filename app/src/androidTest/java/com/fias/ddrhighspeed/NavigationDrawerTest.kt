@@ -133,7 +133,7 @@ class NavigationDrawerTest {
         val toolBarLeftButton = onView(
             allOf(
                 // TODO 端末の言語設定によって"Open navigation drawer"である必要があるっぽい
-                withContentDescription("ナビゲーション ドロワーを開く"),
+                withContentDescription("Open navigation drawer"),
                 childAtPosition(
                     allOf(
                         withId(R.id.toolbar),

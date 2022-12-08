@@ -12,35 +12,13 @@ import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
 import com.fias.ddrhighspeed.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.model.Song
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EstimateByNameFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EstimateByNameFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
     private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
-
     private lateinit var searchedSongsAdapter: SearchedSongsAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,21 +42,10 @@ class EstimateByNameFragment : Fragment() {
 
         val resultRowSetFactory = ResultRowSetFactory()
 
-        binding.backToSearchImage.visibility = View.GONE
-        binding.songName.visibility = View.GONE
-        binding.songDetailTableHeader.visibility = View.GONE
-        binding.songDetailList.visibility = View.GONE
+        switchDetailViews(View.GONE)
 
         val clickListener = ClickSongListener { song: Song ->
-            binding.searchLabel.visibility = View.GONE
-            binding.searchWordInput.visibility = View.GONE
-            binding.searchedSongs.visibility = View.GONE
-
-            binding.backToSearchImage.visibility = View.VISIBLE
-            binding.songName.visibility = View.VISIBLE
-            binding.songName.text = song.name
-            binding.songDetailTableHeader.visibility = View.VISIBLE
-            binding.songDetailList.visibility = View.VISIBLE
+            goToDetail(song.name)
 
             val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
             val list = resultRowSetFactory.createForSongDetail(
@@ -94,14 +61,7 @@ class EstimateByNameFragment : Fragment() {
         binding.searchedSongs.adapter = searchedSongsAdapter
 
         binding.backToSearchImage.setOnClickListener {
-            binding.searchLabel.visibility = View.VISIBLE
-            binding.searchWordInput.visibility = View.VISIBLE
-            binding.searchedSongs.visibility = View.VISIBLE
-
-            binding.backToSearchImage.visibility = View.GONE
-            binding.songName.visibility = View.GONE
-            binding.songDetailTableHeader.visibility = View.GONE
-            binding.songDetailList.visibility = View.GONE
+            backToSearch()
         }
 
         val searchWordObserver = Observer<String> {
@@ -119,25 +79,35 @@ class EstimateByNameFragment : Fragment() {
         binding.songDetailList.apply {
             adapter = scrollSpeedBoardAdapter
         }
+
+        // TODO ScrollSpeed 変更時に ScrollSpeedBoard が更新されるようコード追加
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EstimateByNameFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EstimateByNameFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun backToSearch() {
+        switchDetailViews(View.GONE)
+        switchSearchViews(View.VISIBLE)
+    }
+
+    private fun goToDetail(songName: String) {
+        switchSearchViews(View.GONE)
+        displayDetailViews(songName)
+    }
+
+    private fun displayDetailViews(songName: String) {
+        switchDetailViews(View.VISIBLE)
+        binding.songName.text = songName
+    }
+
+    private fun switchSearchViews(viewStatus: Int) {
+        binding.searchLabel.visibility = viewStatus
+        binding.searchWordInput.visibility = viewStatus
+        binding.searchedSongs.visibility = viewStatus
+    }
+
+    private fun switchDetailViews(viewStatus: Int) {
+        binding.backToSearchImage.visibility = viewStatus
+        binding.songName.visibility = viewStatus
+        binding.songDetailTableHeader.visibility = viewStatus
+        binding.songDetailList.visibility = viewStatus
     }
 }
