@@ -1,6 +1,8 @@
 package com.fias.ddrhighspeed
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +10,27 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.fias.ddrhighspeed.database.Song
+import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
 import com.fias.ddrhighspeed.model.ResultRowSetFactory
-import com.fias.ddrhighspeed.model.Song
+import com.fias.ddrhighspeed.viewmodels.SongViewModel
+import com.fias.ddrhighspeed.viewmodels.SongViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EstimateByNameFragment : Fragment() {
-
+    private val handler: Handler = Handler(Looper.getMainLooper())
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
+    private val songViewModel: SongViewModel by activityViewModels {
+        SongViewModelFactory(
+            (activity?.application as SongApplication).database.scheduleDao()
+        )
+    }
+
     private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
     private lateinit var searchedSongsAdapter: SearchedSongsAdapter
 
@@ -48,11 +62,12 @@ class EstimateByNameFragment : Fragment() {
             goToDetail(song.name)
 
             val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
+            // TODO 0.0 を置き換え
             val list = resultRowSetFactory.createForSongDetail(
                 scrollSpeedValue,
-                song.minBpm,
-                song.freqBpm,
-                song.maxBpm
+                song.minBpm ?: 0.0,
+                song.baseBpm ?: 0.0,
+                song.maxBpm ?: 0.0,
             )
             scrollSpeedBoardAdapter.submitList(list)
         }
@@ -65,13 +80,13 @@ class EstimateByNameFragment : Fragment() {
         }
 
         val searchWordObserver = Observer<String> {
-            searchedSongsAdapter.submitList(
-                listOf(
-                    Song("曲1", "作曲者1", "SuperNova", 100.0, 150.0, 200.0),
-                    Song("曲2", "作曲者2", "A", 120.0, 153.0, 230.0),
-                    Song("曲3", "作曲者3", "2020", 150.0, 155.0, 250.0),
-                )
-            )
+            CoroutineScope(Dispatchers.IO).launch {
+                val searchList: List<Song> =
+                    songViewModel.songForSearch(sharedViewModel.searchWord.value.toString())
+                handler.post {
+                    searchedSongsAdapter.submitList(searchList)
+                }
+            }
         }
         sharedViewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
 
