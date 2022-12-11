@@ -30,8 +30,6 @@ private val Context.positionDataStore: DataStore<Preferences> by preferencesData
 class RoughEstimateFragment : Fragment() {
     private var _fragmentBinding: FragmentRoughEstimateBinding? = null
     private val binding get() = _fragmentBinding!!
-    // TODO 1箇所しか使っていない
-    private val handler: Handler = Handler(Looper.getMainLooper())
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
 
     private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
@@ -67,6 +65,7 @@ class RoughEstimateFragment : Fragment() {
         positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
         loadSavedListPosition(recyclerView)
 
+        val handler = Handler(Looper.getMainLooper())
         val scrollSpeedObserver = Observer<String> {
             val scrollSpeed = sharedViewModel.getScrollSpeedValue()
 
