@@ -113,19 +113,21 @@ class EstimateByNameFragment : Fragment() {
 
     private fun createRows(scrollSpeedValue: Int, song: Song?): MutableList<ResultRowForDetail> {
         val list = mutableListOf<ResultRowForDetail>()
-        song?.maxBpm?.let {
-            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最大", it))
+        song?.apply {
+            maxBpm?.let {
+                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最大", it))
+            }
+            minBpm?.let {
+                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最小", it))
+            }
+            baseBpm?.let {
+                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本①", it))
+            }
+            subBpm?.let {
+                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本②", it))
+            }
+            list.sortDescending() // BPM でソート
         }
-        song?.minBpm?.let {
-            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最小", it))
-        }
-        song?.baseBpm?.let {
-            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本①", it))
-        }
-        song?.subBpm?.let {
-            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本②", it))
-        }
-        list.sortDescending()
         return list
     }
 
