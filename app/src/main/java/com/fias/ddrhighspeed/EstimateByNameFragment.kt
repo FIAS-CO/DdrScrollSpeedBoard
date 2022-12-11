@@ -16,6 +16,7 @@ import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
 import com.fias.ddrhighspeed.model.ResultRowForDetail
 import com.fias.ddrhighspeed.model.ResultRowSetFactory
+import com.fias.ddrhighspeed.view.AdViewUtil
 import com.fias.ddrhighspeed.viewmodels.SongViewModel
 import com.fias.ddrhighspeed.viewmodels.SongViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -109,6 +110,8 @@ class EstimateByNameFragment : Fragment() {
             }, 200)
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+
+        AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
     private fun createRows(scrollSpeedValue: Int, song: Song?): MutableList<ResultRowForDetail> {

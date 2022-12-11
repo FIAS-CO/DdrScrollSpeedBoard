@@ -6,8 +6,12 @@ import com.google.android.gms.ads.*
 
 class AdViewUtil {
     fun loadAdView(adView: AdView, context: Context) {
-        // AdMob 設定
-        MobileAds.initialize(context) {}
+        if (!isInitialized) {
+            // AdMob 設定(一回のみ実施でOK)
+            // TODO 並列処理にしたい
+            MobileAds.initialize(context) {}
+            isInitialized = true
+        }
 
         adView.adListener = object : AdListener() {
             override fun onAdLoaded() {
@@ -24,5 +28,9 @@ class AdViewUtil {
 
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+    }
+
+    companion object {
+        var isInitialized = false
     }
 }
