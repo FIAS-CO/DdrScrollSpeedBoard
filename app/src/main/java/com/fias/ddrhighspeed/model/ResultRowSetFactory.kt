@@ -46,68 +46,23 @@ class ResultRowSetFactory {
         return resultRowSet
     }
 
-    fun createForSongDetail(
-        scrollSpeed: Int,
-        minBpm: Double,
-        freqBpm: Double,
-        maxBpm: Double
-    ): List<ResultRow> {
-
-        val resultRowSet: MutableList<ResultRow> = mutableListOf()
+    fun createForDetail(scrollSpeed: Int, category: String, bpm: Double): ResultRowForDetail {
         if (scrollSpeed < 30 || 2000 < scrollSpeed) {
-            resultRowSet.apply {
-                add(ResultRow(minBpm.toString(), "-", "-"))
-                add(ResultRow(freqBpm.toString(), "-", "-"))
-                add(ResultRow(maxBpm.toString(), "-", "-"))
-
-            }
-            return resultRowSet
+            return ResultRowForDetail(category, bpm.toString(), "-", "-")
         }
 
-        // TODO -1になる場合があるのでハイフンに置き換え
-        var hsForMinBpm: Double = -1.0
+        var matchedHs: Double = -1.0
         for (hs in highSpeedSet) {
-            if ((hs * minBpm) <= scrollSpeed) {
-                hsForMinBpm = hs
+            if ((hs * bpm) <= scrollSpeed) {
+                matchedHs = hs
                 break
             }
         }
-        var hsForFreqBpm: Double = -1.0
-        for (hs in highSpeedSet) {
-            if ((hs * freqBpm) <= scrollSpeed) {
-                hsForFreqBpm = hs
-                break
-            }
-        }
-        var hsForMaxBpm: Double = -1.0
-        for (hs in highSpeedSet) {
-            if ((hs * maxBpm) <= scrollSpeed) {
-                hsForMaxBpm = hs
-                break
-            }
-        }
-
-        resultRowSet.apply {
-            add(
-                ResultRow(
-                    minBpm.toString(), hsForMinBpm.toString(),
-                    (minBpm * hsForMinBpm).toString()
-                )
-            )
-            add(
-                ResultRow(
-                    freqBpm.toString(), hsForFreqBpm.toString(),
-                    (freqBpm * hsForFreqBpm).toString()
-                )
-            )
-            add(
-                ResultRow(
-                    maxBpm.toString(), hsForMaxBpm.toString(),
-                    (maxBpm * hsForMaxBpm).toString()
-                )
-            )
-        }
-
-        return resultRowSet
+        return ResultRowForDetail(
+            category,
+            bpm.toString(),
+            matchedHs.toString(),
+            (bpm * matchedHs).toString()
+        )
     }
 }

@@ -3,6 +3,7 @@ package com.fias.ddrhighspeed
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.database.Song
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
+import com.fias.ddrhighspeed.model.ResultRowForDetail
 import com.fias.ddrhighspeed.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.viewmodels.SongViewModel
 import com.fias.ddrhighspeed.viewmodels.SongViewModelFactory
@@ -30,8 +32,10 @@ class EstimateByNameFragment : Fragment() {
             (activity?.application as SongApplication).database.scheduleDao()
         )
     }
+    private val resultRowSetFactory = ResultRowSetFactory()
+    private var selectedSong: Song? = null
 
-    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
+    private lateinit var detailBoardAdapter: DetailBoardAdapter
     private lateinit var searchedSongsAdapter: SearchedSongsAdapter
 
     override fun onCreateView(
@@ -54,22 +58,18 @@ class EstimateByNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val resultRowSetFactory = ResultRowSetFactory()
-
+        detailBoardAdapter = DetailBoardAdapter()
+        binding.songDetailList.apply {
+            adapter = detailBoardAdapter
+        }
         switchDetailViews(View.GONE)
 
         val clickListener = ClickSongListener { song: Song ->
-            goToDetail(song.name)
+            goToDetail(song)
 
             val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
-            // TODO 0.0 を置き換え
-            val list = resultRowSetFactory.createForSongDetail(
-                scrollSpeedValue,
-                song.minBpm ?: 0.0,
-                song.baseBpm ?: 0.0,
-                song.maxBpm ?: 0.0,
-            )
-            scrollSpeedBoardAdapter.submitList(list)
+            val list = createRows(scrollSpeedValue, selectedSong)
+            detailBoardAdapter.submitList(list)
         }
         searchedSongsAdapter = SearchedSongsAdapter(clickListener)
 
@@ -90,22 +90,55 @@ class EstimateByNameFragment : Fragment() {
         }
         sharedViewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
 
-        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
-        binding.songDetailList.apply {
-            adapter = scrollSpeedBoardAdapter
-        }
+        val scrollSpeedObserver = Observer<String> {
+            val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
 
-        // TODO ScrollSpeed 変更時に ScrollSpeedBoard が更新されるようコード追加
+            // スピンボタン長押し時に処理が連続実行されないように
+            handler.postDelayed({
+                if (scrollSpeedValue == sharedViewModel.getScrollSpeedValue()) {
+                    Log.d(
+                        javaClass.name,
+                        "$scrollSpeedValue, ${sharedViewModel.getScrollSpeedValue()}"
+                    )
+
+                    val list = createRows(scrollSpeedValue, selectedSong)
+                    detailBoardAdapter.submitList(list)
+                } else {
+                    Log.d(javaClass.name, "board not updated.")
+                }
+            }, 200)
+        }
+        sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+    }
+
+    private fun createRows(scrollSpeedValue: Int, song: Song?): MutableList<ResultRowForDetail> {
+        val list = mutableListOf<ResultRowForDetail>()
+        song?.maxBpm?.let {
+            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最大", it))
+        }
+        song?.minBpm?.let {
+            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最小", it))
+        }
+        song?.baseBpm?.let {
+            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本①", it))
+        }
+        song?.subBpm?.let {
+            list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本②", it))
+        }
+        list.sortDescending()
+        return list
     }
 
     private fun backToSearch() {
         switchDetailViews(View.GONE)
         switchSearchViews(View.VISIBLE)
+        selectedSong = null
     }
 
-    private fun goToDetail(songName: String) {
+    private fun goToDetail(song: Song) {
         switchSearchViews(View.GONE)
-        displayDetailViews(songName)
+        displayDetailViews(song.name)
+        selectedSong = song
     }
 
     private fun displayDetailViews(songName: String) {
