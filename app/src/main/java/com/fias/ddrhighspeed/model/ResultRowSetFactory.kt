@@ -51,7 +51,7 @@ class ResultRowSetFactory {
             return ResultRowForDetail(category, bpm.toString(), "-", "-")
         }
 
-        var matchedHs: Double = -1.0
+        var matchedHs = 0.25
         for (hs in highSpeedSet) {
             if ((hs * bpm) <= scrollSpeed) {
                 matchedHs = hs

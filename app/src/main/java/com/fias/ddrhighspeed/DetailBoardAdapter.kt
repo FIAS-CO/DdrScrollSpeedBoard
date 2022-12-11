@@ -20,7 +20,7 @@ class DetailBoardAdapter :
             binding.category.text = row.category
             binding.bpmView.text = row.bpm
             binding.highSpeedView.text = row.highSpeed
-            binding.scrollSpeedView.text = row.scrollSpeedRange
+            binding.scrollSpeedView.text = row.scrollSpeed
         }
     }
 
@@ -40,11 +40,17 @@ class DetailBoardAdapter :
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<ResultRowForDetail>() {
-            override fun areItemsTheSame(oldItem: ResultRowForDetail, newItem: ResultRowForDetail): Boolean {
+            override fun areItemsTheSame(
+                oldItem: ResultRowForDetail,
+                newItem: ResultRowForDetail
+            ): Boolean {
                 return oldItem.highSpeed == newItem.highSpeed
             }
 
-            override fun areContentsTheSame(oldItem: ResultRowForDetail, newItem: ResultRowForDetail): Boolean {
+            override fun areContentsTheSame(
+                oldItem: ResultRowForDetail,
+                newItem: ResultRowForDetail
+            ): Boolean {
                 return oldItem == newItem
             }
         }
