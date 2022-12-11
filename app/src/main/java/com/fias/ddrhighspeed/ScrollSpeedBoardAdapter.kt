@@ -24,16 +24,13 @@ class ScrollSpeedBoardAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScrollSpeedBoardViewHolder {
-        // TODO Suppress いらないかも
-        @Suppress("UnnecessaryVariable")
-        val viewHolder = ScrollSpeedBoardViewHolder(
+        return ScrollSpeedBoardViewHolder(
             ResultRowBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
-        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ScrollSpeedBoardViewHolder, position: Int) {

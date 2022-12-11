@@ -10,23 +10,19 @@ class ScrollSpeedBoardViewModel : ViewModel() {
 
     fun getScrollSpeedValue(): Int? = scrollSpeed.value?.toIntOrNull()
 
-    // TODO resultRows が Listを返さないのわかりにくい
+    // TODO resultRows が Listを返さないのわかりにくい。別画面で類似処理ができたのでここにいないほうがいいかも。
     val resultRows: () -> List<ResultRow> = {
         val scrollSpeedValue = getScrollSpeedValue() ?: 0
         ResultRowSetFactory().create(scrollSpeedValue)
     }
 
-    val countUp: () -> Unit = { countUpScrollSpeed() }
-
-    private fun countUpScrollSpeed() {
+    val countUp: () -> Unit = {
         var input = getScrollSpeedValue() ?: 29
         input++
         scrollSpeed.setValue(input.toString())
     }
 
-    val countDown: () -> Unit = { countDownScrollSpeed() }
-
-    private fun countDownScrollSpeed() {
+    val countDown: () -> Unit = {
         var input = getScrollSpeedValue() ?: 31
         input--
         scrollSpeed.setValue(input.toString())

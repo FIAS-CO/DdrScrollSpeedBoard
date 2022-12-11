@@ -137,13 +137,9 @@ class EstimateByNameFragment : Fragment() {
 
     private fun goToDetail(song: Song) {
         switchSearchViews(View.GONE)
-        displayDetailViews(song.name)
-        selectedSong = song
-    }
-
-    private fun displayDetailViews(songName: String) {
         switchDetailViews(View.VISIBLE)
-        binding.songName.text = songName
+        selectedSong = song
+        binding.songName.text = song.name
     }
 
     private fun switchSearchViews(viewStatus: Int) {
