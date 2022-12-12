@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Song::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun scheduleDao(): SongDao
+    abstract fun songDao(): SongDao
 
     companion object {
         @Volatile

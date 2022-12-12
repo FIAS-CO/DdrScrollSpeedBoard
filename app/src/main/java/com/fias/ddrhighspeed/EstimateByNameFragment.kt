@@ -30,7 +30,7 @@ class EstimateByNameFragment : Fragment() {
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
     private val songViewModel: SongViewModel by activityViewModels {
         SongViewModelFactory(
-            (activity?.application as SongApplication).database.scheduleDao()
+            (activity?.application as SongApplication).database.songDao()
         )
     }
     private val resultRowSetFactory = ResultRowSetFactory()

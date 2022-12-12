@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Songs")
 data class Song(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "composer") val composer: String?,
     @ColumnInfo(name = "version") val version: String,
@@ -24,6 +24,6 @@ data class Song(
     @ColumnInfo(name = "ddp") val ddp: Int?,
     @ColumnInfo(name = "edp") val edp: Int?,
     @ColumnInfo(name = "cdp") val cdp: Int?,
-    @ColumnInfo(name = "shock_arrow") val ShockArrow: String?,
-    @ColumnInfo(name = "deleted") val Deleted: Int?, // 削除は1, それ以外は null
+    @ColumnInfo(name = "shock_arrow") val shockArrow: String?,
+    @ColumnInfo(name = "deleted") val deleted: Int?, // 削除は1, それ以外は null
 )
