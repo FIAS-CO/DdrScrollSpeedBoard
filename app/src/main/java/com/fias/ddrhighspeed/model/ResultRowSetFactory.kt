@@ -1,17 +1,19 @@
 package com.fias.ddrhighspeed.model
 
 class ResultRowSetFactory {
-    private val highSpeedSet = doubleArrayOf(
-        8.0,
-        7.5, 7.0,
-        6.5, 6.0,
-        5.5, 5.0,
-        4.5, 4.0,
-        3.75, 3.5, 3.25, 3.0,
-        2.75, 2.5, 2.25, 2.0,
-        1.75, 1.5, 1.25, 1.0,
-        0.75, 0.5, 0.25,
-    )
+    companion object {
+        private val highSpeedSet = doubleArrayOf(
+            8.0,
+            7.5, 7.0,
+            6.5, 6.0,
+            5.5, 5.0,
+            4.5, 4.0,
+            3.75, 3.5, 3.25, 3.0,
+            2.75, 2.5, 2.25, 2.0,
+            1.75, 1.5, 1.25, 1.0,
+            0.75, 0.5, 0.25,
+        )
+    }
 
     fun create(scrollSpeed: Int): List<ResultRow> {
         val resultRowSet: MutableList<ResultRow> = mutableListOf()
@@ -42,5 +44,25 @@ class ResultRowSetFactory {
         }
 
         return resultRowSet
+    }
+
+    fun createForDetail(scrollSpeed: Int, category: String, bpm: Double): ResultRowForDetail {
+        if (scrollSpeed < 30 || 2000 < scrollSpeed) {
+            return ResultRowForDetail(category, bpm.toString(), "-", "-")
+        }
+
+        var matchedHs = 0.25
+        for (hs in highSpeedSet) {
+            if ((hs * bpm) <= scrollSpeed) {
+                matchedHs = hs
+                break
+            }
+        }
+        return ResultRowForDetail(
+            category,
+            bpm.toString(),
+            matchedHs.toString(),
+            (bpm * matchedHs).toString()
+        )
     }
 }

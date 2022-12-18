@@ -20,11 +20,11 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
+import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.not
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
@@ -132,6 +132,7 @@ class NavigationDrawerTest {
     private fun openNavigationDrawer() {
         val toolBarLeftButton = onView(
             allOf(
+                // TODO 端末の言語設定によって"Open navigation drawer"である必要があるっぽい
                 withContentDescription("Open navigation drawer"),
                 childAtPosition(
                     allOf(

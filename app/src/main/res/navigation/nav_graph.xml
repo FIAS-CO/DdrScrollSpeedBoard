@@ -10,4 +10,14 @@
         android:name="com.fias.ddrhighspeed.ScrollSpeedBoardFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_scroll_speed_board" />
+    <fragment
+        android:id="@+id/estimateByNameFragment"
+        android:name="com.fias.ddrhighspeed.EstimateByNameFragment"
+        android:label="fragment_estimate_by_name"
+        tools:layout="@layout/fragment_estimate_by_name" />
+    <fragment
+        android:id="@+id/roughEstimateFragment"
+        android:name="com.fias.ddrhighspeed.RoughEstimateFragment"
+        android:label="fragment_rough_estimate"
+        tools:layout="@layout/fragment_rough_estimate" />
 </navigation>
