@@ -158,5 +158,7 @@ class EstimateByNameFragment : Fragment() {
         binding.songName.visibility = viewStatus
         binding.songDetailTableHeader.visibility = viewStatus
         binding.songDetailList.visibility = viewStatus
+        binding.asterisk.visibility = viewStatus
+        binding.explainBasicText.visibility = viewStatus
     }
 }

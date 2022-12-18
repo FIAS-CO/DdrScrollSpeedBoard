@@ -165,7 +165,25 @@
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/song_detail_table_header" />
+            app:layout_constraintTop_toBottomOf="@id/song_detail_table_header"/>
+
+        <TextView
+            android:id="@+id/asterisk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="※"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/explain_basic_text"
+            app:layout_constraintTop_toBottomOf="@id/song_detail_list" />
+
+        <TextView
+            android:id="@+id/explain_basic_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="基本①： 曲中で一番使用されているBPMです。\n基本②： 使用されている箇所があり考慮が必要なBPMです。"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/song_detail_list" />
 
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111-->
         <!-- product app ID: ca-app-pub-8151928728657048/6961473178-->

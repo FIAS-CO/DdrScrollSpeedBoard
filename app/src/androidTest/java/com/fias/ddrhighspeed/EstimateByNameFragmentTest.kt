@@ -262,10 +262,12 @@ class EstimateByNameFragmentTest {
         assertSearchWordIsDisplayed()
         assertSearchedSongListIsDisplayed()
 
- assertHeaderIs_Not_Displayed()
+        assertHeaderIs_Not_Displayed()
         assertSongNameInDetailIs_Not_Displayed()
         assertBackButtonIs_Not_Displayed()
         assertDetailBpmListIs_Not_Displayed()
+        assertAsteriskIs_Not_Displayed()
+        assertExplainBasicTextIs_Not_Displayed()
     }
 
     private fun assertIsInDetailMode(songName: String) {
@@ -276,6 +278,8 @@ class EstimateByNameFragmentTest {
         assertSongNameInDetail(songName)
         assertBackButtonIsDisplayed()
         assertDetailBpmListIsDisplayed()
+        assertAsteriskIsDisplayed()
+        assertExplainBasicTextIsDisplayed()
     }
 
     private fun goToSearchFragment() {
@@ -358,24 +362,17 @@ class EstimateByNameFragmentTest {
     )
 
     private fun assertSearchedSongListIsDisplayed() {
-        val searchedSongs = getSearchedSongListView()
-        searchedSongs.check(matches(isDisplayed()))
+        getSearchedSongListView().check(matches(isDisplayed()))
     }
 
     private fun assertSearchedSongListIs_Not_Displayed() {
-        val searchedSongs = getSearchedSongListView()
-        searchedSongs.check(matches(not(isDisplayed())))
+        getSearchedSongListView().check(matches(not(isDisplayed())))
     }
 
-    private fun getSearchedSongListView() = onView(
-        allOf(
-            withId(R.id.searched_songs)
-        )
-    )
+    private fun getSearchedSongListView() = onView(withId(R.id.searched_songs))
 
     private fun clickSearchedSongInPosition(position: Int) {
-        val recyclerView = getSearchedSongs()
-        recyclerView.perform(actionOnItemAtPosition<ViewHolder>(position, click()))
+        getSearchedSongs().perform(actionOnItemAtPosition<ViewHolder>(position, click()))
     }
 
     private fun getSearchedSongs() = onView(
@@ -389,13 +386,11 @@ class EstimateByNameFragmentTest {
     )
 
     private fun assertSongNameInDetail(songName: String) {
-        val textView = getDetailSongName()
-        textView.check(matches(withText(songName)))
+        getDetailSongName().check(matches(withText(songName)))
     }
 
     private fun assertSongNameInDetailIs_Not_Displayed() {
-        val textView = getDetailSongName()
-        textView.check(matches(withEffectiveVisibility(Visibility.GONE)))
+        getDetailSongName().check(matches(withEffectiveVisibility(Visibility.GONE)))
 
     }
 
@@ -412,31 +407,17 @@ class EstimateByNameFragmentTest {
     )
 
     private fun assertHeaderIsDisplayed() {
-        val blankHeader = getBlankHeader()
-        blankHeader.check(matches(withText("")))
-
-        val bpmHeader = getBpmHeader()
-        bpmHeader.check(matches(withText("BPM")))
-
-        val highSpeedHeader = getHighSpeedHeader()
-        highSpeedHeader.check(matches(withText("ﾊｲｽﾋﾟ")))
-
-        val scrollSpeedHeader = getScrollSpeedHeader()
-        scrollSpeedHeader.check(matches(withText("ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ")))
+        getBlankHeader().check(matches(withText("")))
+        getBpmHeader().check(matches(withText("BPM")))
+        getHighSpeedHeader().check(matches(withText("ﾊｲｽﾋﾟ")))
+        getScrollSpeedHeader().check(matches(withText("ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ")))
     }
 
     private fun assertHeaderIs_Not_Displayed() {
-        val blankHeader = getBlankHeader()
-        blankHeader.check(matches(withEffectiveVisibility(Visibility.GONE)))
-
-        val bpmHeader = getBpmHeader()
-        bpmHeader.check(matches(withEffectiveVisibility(Visibility.GONE)))
-
-        val highSpeedHeader = getHighSpeedHeader()
-        highSpeedHeader.check(matches(withEffectiveVisibility(Visibility.GONE)))
-
-        val scrollSpeedHeader = getScrollSpeedHeader()
-        scrollSpeedHeader.check(matches(withEffectiveVisibility(Visibility.GONE)))
+        getBlankHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
+        getBpmHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
+        getHighSpeedHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
+        getScrollSpeedHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
     }
 
     private fun getScrollSpeedHeader() = onView(
@@ -488,18 +469,15 @@ class EstimateByNameFragmentTest {
     )
 
     private fun clickBackButton() {
-        val backButton = getBackButton()
-        backButton.perform(click())
+        getBackButton().perform(click())
     }
 
     private fun assertBackButtonIsDisplayed() {
-        val backButton = getBackButton()
-        backButton.check(matches(isDisplayed()))
+        getBackButton().check(matches(isDisplayed()))
     }
 
     private fun assertBackButtonIs_Not_Displayed() {
-        val backButton = getBackButton()
-        backButton.check(matches(not(isDisplayed())))
+        getBackButton().check(matches(not(isDisplayed())))
     }
 
     private fun getBackButton(): ViewInteraction = onView(
@@ -515,13 +493,11 @@ class EstimateByNameFragmentTest {
     )
 
     private fun assertDetailBpmListIsDisplayed() {
-        val linearLayout = getDetailSongList()
-        linearLayout.check(matches(isDisplayed()))
+        getDetailSongList().check(matches(isDisplayed()))
     }
 
     private fun assertDetailBpmListIs_Not_Displayed() {
-        val linearLayout = getDetailSongList()
-        linearLayout.check(matches(not(isDisplayed())))
+        getDetailSongList().check(matches(not(isDisplayed())))
     }
 
     private fun getDetailSongList() = onView(
@@ -535,6 +511,26 @@ class EstimateByNameFragmentTest {
             )
         )
     )
+
+    private fun assertAsteriskIsDisplayed() {
+        getAsterisk().check(matches(isDisplayed()))
+    }
+
+    private fun assertAsteriskIs_Not_Displayed() {
+        getAsterisk().check(matches(not(isDisplayed())))
+    }
+
+    private fun getAsterisk() = onView(withId(R.id.asterisk))
+
+    private fun assertExplainBasicTextIsDisplayed() {
+        getExplainBasicText().check(matches(isDisplayed()))
+    }
+
+    private fun assertExplainBasicTextIs_Not_Displayed() {
+        getExplainBasicText().check(matches(not(isDisplayed())))
+    }
+
+    private fun getExplainBasicText() = onView(withId(R.id.explain_basic_text))
 
     private fun atPositionOnResultRow(
         position: Int,
@@ -633,5 +629,4 @@ class EstimateByNameFragmentTest {
             )
         )
     }
-
 }
