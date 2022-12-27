@@ -92,7 +92,6 @@ class EstimateByNameFragmentTest {
             .check(matches(atPositionOnResultRow(0, "基本①", "200.0", "3.0", "600.0")))
     }
 
-
     @Test
     fun goToDetail_4行表示_スクロールスピード2000から2001へ_UpSpinButton使用() {
         assertIsInSearchMode()
@@ -231,6 +230,44 @@ class EstimateByNameFragmentTest {
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.5", "555.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.0", "555.0")))
     }
+
+    @Test
+    fun goToDetail_データベースバージョン2で追加された曲が表示される() {
+        assertIsInSearchMode()
+
+        editTextAndWait("700")
+        writeSearchWord("STAY G")
+        clickSearchedSongInPosition(0)
+
+        assertIsInDetailMode("STAY GOLD")
+
+        getDetailSongList()
+            .check(matches(atPositionOnResultRow(0, "最大", "330.0", "2.0", "660.0")))
+            .check(matches(atPositionOnResultRow(1, "基本①", "165.0", "4.0", "660.0")))
+            .check(matches(atPositionOnResultRow(2, "最小", "41.0", "8.0", "328.0")))
+    }
+
+    @Test
+    fun 広告が表示されている() {
+        var failureCount = 0
+        Thread.sleep(300)
+
+        while (true) {
+            try {
+                onView(withId(R.id.adView)).check(matches(isDisplayed()))
+                return
+            } catch (_: AssertionFailedError) {
+                failureCount += 1
+                Thread.sleep(300)
+
+                if (failureCount >= 10) {
+                    Assert.fail("3秒待ちましたが、広告が isDisplayed になりませんでした。")
+                }
+            }
+        }
+    }
+
+    //region private methods
 
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
@@ -596,27 +633,6 @@ class EstimateByNameFragmentTest {
         Thread.sleep(waitMills)
     }
 
-
-    @Test
-    fun 広告が表示されている() {
-        var failureCount = 0
-        Thread.sleep(300)
-
-        while (true) {
-            try {
-                onView(withId(R.id.adView)).check(matches(isDisplayed()))
-                return
-            } catch (_: AssertionFailedError) {
-                failureCount += 1
-                Thread.sleep(300)
-
-                if (failureCount >= 10) {
-                    Assert.fail("3秒待ちましたが、広告が isDisplayed になりませんでした。")
-                }
-            }
-        }
-    }
-
     // 既存の longClick() の長さが足りないので使用
     private fun longLongClick(): ViewAction {
         return actionWithAssertions(
@@ -629,4 +645,5 @@ class EstimateByNameFragmentTest {
             )
         )
     }
+    //endregion
 }
