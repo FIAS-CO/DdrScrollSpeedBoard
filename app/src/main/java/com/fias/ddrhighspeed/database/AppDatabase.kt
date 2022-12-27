@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Song::class], version = 1)
+@Database(entities = [Song::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun songDao(): SongDao
 
@@ -21,6 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
                     "app_database"
                 )
                     .createFromAsset("database/song_data.sqlite")
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
 
