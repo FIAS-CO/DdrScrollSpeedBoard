@@ -1,8 +1,11 @@
 package com.fias.ddrhighspeed
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -14,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -34,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
             .setupWithNavController(navController, appBarConfiguration)
+
+        val navHeader = findViewById<NavigationView>(R.id.nav_view)
+            .getHeaderView(0)
+        navHeader.findViewById<ImageView>(R.id.close_drawer).setOnClickListener {
+            onCloseDrawerIconClicked()
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -55,11 +65,12 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.security_policy -> openPrivacyPolicyPage()
             R.id.mail -> openInquiryMail()
-            R.id.close_drawer -> {
-                // TODO drawer 閉じる？必要？
-            }
             else -> {}
         }
+    }
+
+    private fun onCloseDrawerIconClicked() {
+        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
     }
 
     private fun openPrivacyPolicyPage() {

@@ -129,6 +129,29 @@ class NavigationDrawerTest {
         )
     }
 
+    @Test
+    fun `閉じるボタンをクリック`() {
+        openNavigationDrawer()
+
+        val privacyPolicyLink = onView(
+            allOf(
+                withId(R.id.close_drawer),
+                childAtPosition(
+                    allOf(
+                        withId(com.google.android.material.R.id.design_navigation_view),
+                        childAtPosition(
+                            withId(R.id.nav_view),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        privacyPolicyLink.perform(click())
+    }
+
     private fun openNavigationDrawer() {
         val toolBarLeftButton = onView(
             allOf(
