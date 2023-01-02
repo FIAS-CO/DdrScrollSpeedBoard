@@ -152,11 +152,33 @@ class NavigationDrawerTest {
         privacyPolicyLink.perform(click())
     }
 
+    @Test
+    fun `バージョン番号が表示されている`() {
+        openNavigationDrawer()
+
+        onView(
+            allOf(
+                withId(R.id.version),
+                childAtPosition(
+                    allOf(
+                        withId(com.google.android.material.R.id.design_navigation_view),
+                        childAtPosition(
+                            withId(R.id.nav_view),
+                            0
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+    }
+
     private fun openNavigationDrawer() {
         val toolBarLeftButton = onView(
             allOf(
                 // TODO 端末の言語設定が日本語の場合、"ナビゲーション ドロワーを開く"である必要があるっぽい
-                withContentDescription("Open navigation drawer"),
+                //withContentDescription("Open navigation drawer"),
                 childAtPosition(
                     allOf(
                         withId(R.id.toolbar),

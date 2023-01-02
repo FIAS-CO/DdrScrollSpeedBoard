@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        @Suppress("DEPRECATION") val packageInfo =
+            packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA)
+        findViewById<TextView>(R.id.version).text =
+            getString(R.string.display_version, packageInfo.versionName)
+
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         findViewById<Toolbar>(R.id.toolbar)
