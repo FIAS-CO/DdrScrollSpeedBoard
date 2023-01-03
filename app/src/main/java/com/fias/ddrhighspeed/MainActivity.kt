@@ -4,8 +4,10 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -30,8 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         @Suppress("DEPRECATION") val packageInfo =
@@ -40,15 +42,26 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.display_version, packageInfo.versionName)
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        findViewById<Toolbar>(R.id.toolbar)
-            .setupWithNavController(navController, appBarConfiguration)
 
-        val navHeader = findViewById<NavigationView>(R.id.nav_view)
-            .getHeaderView(0)
+        val navHeader = findViewById<NavigationView>(R.id.nav_view).getHeaderView(0)
         navHeader.findViewById<ImageView>(R.id.close_drawer).setOnClickListener {
             onCloseDrawerIconClicked()
         }
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+
+        drawerLayout.addDrawerListener(
+            object : ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.open, R.string.close
+            ) {
+                override fun onDrawerOpened(drawerView: View) {
+                    super.onDrawerOpened(drawerView)
+                    navHeader.layoutParams.height = toolbar.height
+                }
+            }
+        )
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

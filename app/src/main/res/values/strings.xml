@@ -12,4 +12,6 @@
     <string name="back_to_search_description">back</string>
     <string name="song_name_sample_text">曲名</string>
     <string name="display_version">version: %1$s</string>
+    <string name="open">開く</string>
+    <string name="close">閉じる</string>
 </resources>
