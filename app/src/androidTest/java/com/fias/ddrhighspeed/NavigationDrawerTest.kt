@@ -133,14 +133,31 @@ class NavigationDrawerTest {
     fun `閉じるボタンをクリック`() {
         openNavigationDrawer()
 
-        val privacyPolicyLink = onView(
-            allOf(
+        val closeDrawerView = onView(
+            Matchers.allOf(
                 withId(R.id.close_drawer),
                 childAtPosition(
+                    childAtPosition(
+                        withId(com.google.android.material.R.id.navigation_header_container),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        closeDrawerView.perform(click())
+
+        // TODO 共通化する
+        val imageButton = onView(
+            allOf(
+                // TODO 端末の言語設定が日本語の場合、"ナビゲーション ドロワーを開く"である必要があるっぽい
+                //withContentDescription("Open navigation drawer"),
+                childAtPosition(
                     allOf(
-                        withId(com.google.android.material.R.id.design_navigation_view),
+                        withId(R.id.toolbar),
                         childAtPosition(
-                            withId(R.id.nav_view),
+                            withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
                             0
                         )
                     ),
@@ -149,7 +166,7 @@ class NavigationDrawerTest {
                 isDisplayed()
             )
         )
-        privacyPolicyLink.perform(click())
+        imageButton.check(matches(isDisplayed()))
     }
 
     @Test

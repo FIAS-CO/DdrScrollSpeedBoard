@@ -4,10 +4,8 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -51,17 +49,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         toolbar.setupWithNavController(navController, appBarConfiguration)
-
-        drawerLayout.addDrawerListener(
-            object : ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.open, R.string.close
-            ) {
-                override fun onDrawerOpened(drawerView: View) {
-                    super.onDrawerOpened(drawerView)
-                    navHeader.layoutParams.height = toolbar.height
-                }
-            }
-        )
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
