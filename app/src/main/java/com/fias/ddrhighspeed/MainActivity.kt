@@ -39,16 +39,18 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.version).text =
             getString(R.string.display_version, packageInfo.versionName)
 
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-
-        val navHeader = findViewById<NavigationView>(R.id.nav_view).getHeaderView(0)
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navHeader = navigationView.getHeaderView(0)
         navHeader.findViewById<ImageView>(R.id.close_drawer).setOnClickListener {
             onCloseDrawerIconClicked()
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        findViewById<Toolbar>(R.id.toolbar).setupWithNavController(
+            navController,
+            appBarConfiguration
+        )
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

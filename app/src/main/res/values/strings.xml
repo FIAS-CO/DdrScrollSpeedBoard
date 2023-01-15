@@ -11,7 +11,7 @@
     <string name="search_song_name_hint">曲名を入力してください</string>
     <string name="back_to_search_description">back</string>
     <string name="song_name_sample_text">曲名</string>
-    <string name="display_version">version: %1$s</string>
+    <string name="display_version">Version: %1$s</string>
     <string name="open">開く</string>
     <string name="close">閉じる</string>
 </resources>
