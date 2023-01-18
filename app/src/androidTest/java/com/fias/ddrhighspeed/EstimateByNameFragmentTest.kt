@@ -1,20 +1,13 @@
 package com.fias.ddrhighspeed
 
-import android.view.InputDevice
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.action.GeneralClickAction
-import androidx.test.espresso.action.GeneralLocation
-import androidx.test.espresso.action.Press
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
@@ -23,16 +16,13 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.fias.ddrhighspeed.util.LongLongTapper
 import com.google.android.material.textfield.TextInputEditText
 import junit.framework.AssertionFailedError
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
 import org.junit.Assert
 import org.junit.Before
@@ -43,9 +33,8 @@ import org.junit.runner.RunWith
 @Suppress("NonAsciiCharacters", "TestFunctionName")
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class EstimateByNameFragmentTest {
+class EstimateByNameFragmentTest : FragmentTestBase() {
 
-    private val waitMills: Long = 350
 
     @Rule
     @JvmField
@@ -269,31 +258,6 @@ class EstimateByNameFragmentTest {
 
     //region private methods
 
-    private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
-    ): Matcher<View> {
-
-        return object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("Child at position $position in parent ")
-                parentMatcher.describeTo(description)
-            }
-
-            public override fun matchesSafely(view: View): Boolean {
-                val parent = view.parent
-                return parent is ViewGroup && parentMatcher.matches(parent)
-                        && view == parent.getChildAt(position)
-            }
-        }
-    }
-
-    private fun editTextAndWait(value: String): ViewInteraction {
-        val perform = onView(withId(R.id.text_input_edit_text)).perform(replaceText(value))
-
-        Thread.sleep(waitMills)
-
-        return perform
-    }
 
     private fun assertIsInSearchMode() {
         assertSearchWordIsDisplayed()
@@ -364,40 +328,6 @@ class EstimateByNameFragmentTest {
         )
     )
 
-    private fun getUpSpinButton(): ViewInteraction = onView(
-        allOf(
-            withId(R.id.increment_up), withText("▲"),
-            childAtPosition(
-                allOf(
-                    withId(R.id.input_layout),
-                    childAtPosition(
-                        withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                        1
-                    )
-                ),
-                1
-            ),
-            isDisplayed()
-        )
-    )
-
-    private fun getDownSpinButton(): ViewInteraction = onView(
-        allOf(
-            withId(R.id.increment_down), withText("▼"),
-            childAtPosition(
-                allOf(
-                    withId(R.id.input_layout),
-                    childAtPosition(
-                        withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                        1
-                    )
-                ),
-                2
-            ),
-            isDisplayed()
-        )
-    )
-
     private fun assertSearchedSongListIsDisplayed() {
         getSearchedSongListView().check(matches(isDisplayed()))
     }
@@ -409,6 +339,7 @@ class EstimateByNameFragmentTest {
     private fun getSearchedSongListView() = onView(withId(R.id.searched_songs))
 
     private fun clickSearchedSongInPosition(position: Int) {
+        Thread.sleep(waitMills)
         getSearchedSongs().perform(actionOnItemAtPosition<ViewHolder>(position, click()))
     }
 
@@ -617,33 +548,5 @@ class EstimateByNameFragmentTest {
         }
     }
 
-    private fun ViewInteraction.checkText(value: String) = apply {
-        this.check(matches(withText(value)))
-    }
-
-    private fun longClickUpSpinButtonAndWait() {
-        onView(withId(R.id.increment_up)).perform(longLongClick())
-
-        Thread.sleep(waitMills)
-    }
-
-    private fun longClickDownSpinButtonAndWait() {
-        onView(withId(R.id.increment_down)).perform(longLongClick())
-
-        Thread.sleep(waitMills)
-    }
-
-    // 既存の longClick() の長さが足りないので使用
-    private fun longLongClick(): ViewAction {
-        return actionWithAssertions(
-            GeneralClickAction(
-                LongLongTapper(),
-                GeneralLocation.CENTER,
-                Press.FINGER,
-                InputDevice.SOURCE_UNKNOWN,
-                MotionEvent.BUTTON_PRIMARY
-            )
-        )
-    }
     //endregion
 }

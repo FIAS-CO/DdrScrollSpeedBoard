@@ -1,32 +1,22 @@
 package com.fias.ddrhighspeed
 
-import android.view.InputDevice
-import android.view.MotionEvent
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAction
-import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.action.GeneralClickAction
-import androidx.test.espresso.action.GeneralLocation
-import androidx.test.espresso.action.Press
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.fias.ddrhighspeed.util.LongLongTapper
 import com.google.android.material.textfield.TextInputEditText
 import com.google.common.truth.Truth.assertThat
 import junit.framework.AssertionFailedError
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.closeTo
-import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
@@ -34,10 +24,9 @@ import org.junit.runner.RunWith
 
 @Suppress("NonAsciiCharacters", "TestFunctionName")
 @RunWith(AndroidJUnit4::class)
-class ScrollSpeedBoardFragmentTest {
+class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
     private val errorMessage = "30 ～ 2000までの数値を入力してください。"
-    private val waitMills: Long = 350
 
     @Before
     fun setup() {
@@ -251,19 +240,6 @@ class ScrollSpeedBoardFragmentTest {
         }
     }
 
-    // 既存の longClick() の長さが足りないので使用
-    private fun longLongClick(): ViewAction {
-        return actionWithAssertions(
-            GeneralClickAction(
-                LongLongTapper(),
-                GeneralLocation.CENTER,
-                Press.FINGER,
-                InputDevice.SOURCE_UNKNOWN,
-                MotionEvent.BUTTON_PRIMARY
-            )
-        )
-    }
-
     private fun checkRecyclerView(input: Double) {
         val maxHighSpeed = (input / 8).toInt()
         val minHighSpeed = 1
@@ -347,31 +323,6 @@ class ScrollSpeedBoardFragmentTest {
         }
     }
 
-    private fun withNoError(): Matcher<View?> {
-        return withError(null)
-    }
-
-    private fun withError(expected: String?): Matcher<View?> {
-        return object : TypeSafeMatcher<View?>() {
-            override fun matchesSafely(view: View?): Boolean {
-                if (view !is EditText) {
-                    return false
-                }
-                return view.error?.toString() == expected
-            }
-
-            override fun describeTo(description: Description?) {}
-        }
-    }
-
-    private fun editTextAndWait(value: String): ViewInteraction {
-        val perform = onView(withId(R.id.text_input_edit_text)).perform(replaceText(value))
-
-        Thread.sleep(waitMills)
-
-        return perform
-    }
-
     private fun clickUpSpinButtonAndWait() {
         onView(withId(R.id.increment_up)).perform(click())
 
@@ -382,25 +333,5 @@ class ScrollSpeedBoardFragmentTest {
         onView(withId(R.id.increment_down)).perform(click())
 
         Thread.sleep(waitMills)
-    }
-
-    private fun longClickUpSpinButtonAndWait() {
-        onView(withId(R.id.increment_up)).perform(longLongClick())
-
-        Thread.sleep(waitMills)
-    }
-
-    private fun longClickDownSpinButtonAndWait() {
-        onView(withId(R.id.increment_down)).perform(longLongClick())
-
-        Thread.sleep(waitMills)
-    }
-
-    private fun ViewInteraction.checkText(value: String) = apply {
-        this.check(matches(withText(value))).check(matches(withNoError()))
-    }
-
-    private fun ViewInteraction.checkTextWithError(value: String, errorMessage: String) {
-        this.check(matches(withText(value))).check(matches(withError(errorMessage)))
     }
 }
