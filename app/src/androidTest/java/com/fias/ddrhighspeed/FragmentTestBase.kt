@@ -34,6 +34,14 @@ open class FragmentTestBase {
         return perform
     }
 
+    fun getScrollSpeedTextEdit(): ViewInteraction = onView(
+        Matchers.allOf(
+            ViewMatchers.withId(R.id.text_input_edit_text),
+            ViewMatchers.withParent(ViewMatchers.withParent(ViewMatchers.withId(R.id.textField))),
+            ViewMatchers.isDisplayed()
+        )
+    )
+
     fun getUpSpinButton(): ViewInteraction = onView(
         Matchers.allOf(
             ViewMatchers.withId(R.id.increment_up), ViewMatchers.withText("▲"),

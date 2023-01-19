@@ -103,7 +103,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         clickUpSpinButtonAndWait()
 
-        onView(withId(R.id.text_input_edit_text)).checkText("601")
+        getScrollSpeedTextEdit().checkText("601")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
             .check(matches(atPositionOnResultRow(0, "1 ～ 75", "8.0", "8.0 ～ 600.0")))
@@ -118,7 +118,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         clickUpSpinButtonAndWait()
 
-        onView(withId(R.id.text_input_edit_text)).checkTextWithError("2001", errorMessage)
+        getScrollSpeedTextEdit().checkTextWithError("2001", errorMessage)
         checkRecyclerViewOnError()
     }
 
@@ -128,7 +128,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         clickUpSpinButtonAndWait()
 
-        onView(withId(R.id.text_input_edit_text)).checkText("30")
+        getScrollSpeedTextEdit().checkText("30")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
             .check(matches(atPositionOnResultRow(0, "1 ～ 3", "8.0", "8.0 ～ 24.0")))
@@ -142,7 +142,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         clickDownSpinButtonAndWait()
 
-        onView(withId(R.id.text_input_edit_text)).checkText("599")
+        getScrollSpeedTextEdit().checkText("599")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
             .check(matches(atPositionOnResultRow(0, "1 ～ 74", "8.0", "8.0 ～ 592.0")))
@@ -156,7 +156,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         clickDownSpinButtonAndWait()
 
-        onView(withId(R.id.text_input_edit_text)).checkTextWithError("29", errorMessage)
+        getScrollSpeedTextEdit().checkTextWithError("29", errorMessage)
         checkRecyclerViewOnError()
     }
 
@@ -166,7 +166,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         clickDownSpinButtonAndWait()
 
-        onView(withId(R.id.text_input_edit_text)).checkText("2000")
+        getScrollSpeedTextEdit().checkText("2000")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
             .check(matches(atPositionOnResultRow(0, "1 ～ 250", "8.0", "8.0 ～ 2000.0")))
@@ -182,7 +182,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         var input: Double = -1.0
 
-        onView(withId(R.id.text_input_edit_text)).check { view, noViewFoundException ->
+        getScrollSpeedTextEdit().check { view, noViewFoundException ->
             if (noViewFoundException != null) throw noViewFoundException
 
             input = (view as TextInputEditText).text.toString().toDouble()
@@ -199,7 +199,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         var input: Double = -1.0
 
-        onView(withId(R.id.text_input_edit_text)).check { view, noViewFoundException ->
+        getScrollSpeedTextEdit().check { view, noViewFoundException ->
             if (noViewFoundException != null) throw noViewFoundException
 
             input = (view as TextInputEditText).text.toString().toDouble()
@@ -324,13 +324,13 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
     }
 
     private fun clickUpSpinButtonAndWait() {
-        onView(withId(R.id.increment_up)).perform(click())
+        getUpSpinButton().perform(click())
 
         Thread.sleep(waitMills)
     }
 
     private fun clickDownSpinButtonAndWait() {
-        onView(withId(R.id.increment_down)).perform(click())
+        getDownSpinButton().perform(click())
 
         Thread.sleep(waitMills)
     }
