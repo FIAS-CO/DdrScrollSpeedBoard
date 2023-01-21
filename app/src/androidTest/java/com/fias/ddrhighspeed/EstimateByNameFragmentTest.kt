@@ -237,6 +237,20 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     }
 
     @Test
+    fun goToDetail_データベースバージョン3で追加された曲が表示される() {
+        assertIsInSearchMode()
+
+        editTextAndWait("700")
+        writeSearchWord("crysta")
+        clickSearchedSongInPosition(0)
+
+        assertIsInDetailMode("Crystarium")
+
+        getDetailSongList()
+            .check(matches(atPositionOnResultRow(0, "基本①", "130.0", "× 5.0", "= 650.0")))
+    }
+
+    @Test
     fun 広告が表示されている() {
         var failureCount = 0
         Thread.sleep(300)
