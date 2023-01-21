@@ -25,9 +25,9 @@ class ResultRowSetFactory {
             return resultRowSet
         }
 
-        for ((index, highSpeed) in highSpeedSet.withIndex()) {
-            val maxBpm = (scrollSpeed.toDouble() / highSpeed).toInt()
-            val maxScrollSpeed = maxBpm * highSpeed
+        for ((index, highSpeedValue) in highSpeedSet.withIndex()) {
+            val maxBpm = (scrollSpeed.toDouble() / highSpeedValue).toInt()
+            val maxScrollSpeed = maxBpm * highSpeedValue
 
             // minBpm = 次の行の maxBpm + 1
             val minBpm = if (index == 0) {
@@ -35,12 +35,13 @@ class ResultRowSetFactory {
             } else {
                 (scrollSpeed.toDouble() / highSpeedSet[index - 1]).toInt() + 1
             }
-            val minScrollSpeed = minBpm * highSpeed
+            val minScrollSpeed = minBpm * highSpeedValue
 
             val bpmRange = "$minBpm ～ $maxBpm"
-            val scrollSpeedRange = "$minScrollSpeed ～ $maxScrollSpeed"
+            val highSpeed = "× $highSpeedValue"
+            val scrollSpeedRange = "= $minScrollSpeed ～ $maxScrollSpeed"
 
-            resultRowSet.add(ResultRow(bpmRange, highSpeed.toString(), scrollSpeedRange))
+            resultRowSet.add(ResultRow(bpmRange, highSpeed, scrollSpeedRange))
         }
 
         return resultRowSet
@@ -58,11 +59,12 @@ class ResultRowSetFactory {
                 break
             }
         }
+
         return ResultRowForDetail(
             category,
             bpm.toString(),
-            matchedHs.toString(),
-            (bpm * matchedHs).toString()
+            "× $matchedHs",
+            "= " + (bpm * matchedHs)
         )
     }
 }

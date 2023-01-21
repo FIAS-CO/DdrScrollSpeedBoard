@@ -59,9 +59,9 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         editTextAndWait("500")
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "800.0", "0.5", "400.0")))
-            .check(matches(atPositionOnResultRow(1, "基本①", "400.0", "1.25", "500.0")))
-            .check(matches(atPositionOnResultRow(2, "最小", "50.0", "8.0", "400.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "800.0", "× 0.5", "= 400.0")))
+            .check(matches(atPositionOnResultRow(1, "基本①", "400.0", "× 1.25", "= 500.0")))
+            .check(matches(atPositionOnResultRow(2, "最小", "50.0", "× 8.0", "= 400.0")))
 
         clickBackButton()
         assertIsInSearchMode()
@@ -78,7 +78,7 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         assertIsInDetailMode("ACE FOR ACES(Basic)")
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "基本①", "200.0", "3.0", "600.0")))
+            .check(matches(atPositionOnResultRow(0, "基本①", "200.0", "× 3.0", "= 600.0")))
     }
 
     @Test
@@ -90,10 +90,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         clickSearchedSongInPosition(0)
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "4.5", "1998.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "4.5", "1998.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "8.0", "1776.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "8.0", "888.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 4.5", "= 1998.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 4.5", "= 1998.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 8.0", "= 1776.0")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 8.0", "= 888.0")))
 
         getUpSpinButton().perform(click())
 
@@ -114,10 +114,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         clickSearchedSongInPosition(0)
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "0.25", "111.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "0.25", "111.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "0.25", "55.5")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "0.25", "27.75")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 0.25", "= 111.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 0.25", "= 111.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 0.25", "= 55.5")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 0.25", "= 27.75")))
 
         getDownSpinButton().perform(click())
 
@@ -139,10 +139,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         clickSearchedSongInPosition(0)
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.5", "555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.0", "555.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
 
         longClickUpSpinButtonAndWait()
 
@@ -154,10 +154,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         }
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.75", "610.5")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.5", "610.5")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.75", "= 610.5")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.5", "= 610.5")))
     }
 
     @Test
@@ -169,10 +169,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         clickSearchedSongInPosition(0)
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.5", "555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.0", "555.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
 
         longClickDownSpinButtonAndWait()
 
@@ -184,10 +184,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         }
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.5", "555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.0", "555.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
     }
 
     @Test
@@ -199,10 +199,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         clickSearchedSongInPosition(0)
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.5", "555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.0", "555.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
 
         longClickDownSpinButtonAndWait()
 
@@ -214,10 +214,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         }
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "1.25", "555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "2.5", "555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "5.0", "555.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
+            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
     }
 
     @Test
@@ -231,9 +231,9 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         assertIsInDetailMode("STAY GOLD")
 
         getDetailSongList()
-            .check(matches(atPositionOnResultRow(0, "最大", "330.0", "2.0", "660.0")))
-            .check(matches(atPositionOnResultRow(1, "基本①", "165.0", "4.0", "660.0")))
-            .check(matches(atPositionOnResultRow(2, "最小", "41.0", "8.0", "328.0")))
+            .check(matches(atPositionOnResultRow(0, "最大", "330.0", "× 2.0", "= 660.0")))
+            .check(matches(atPositionOnResultRow(1, "基本①", "165.0", "× 4.0", "= 660.0")))
+            .check(matches(atPositionOnResultRow(2, "最小", "41.0", "× 8.0", "= 328.0")))
     }
 
     @Test

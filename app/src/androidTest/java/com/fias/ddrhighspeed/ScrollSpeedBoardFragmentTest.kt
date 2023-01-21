@@ -43,7 +43,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-            .check(matches(atPositionOnResultRow(0, "1 ～ 62", "8.0", "8.0 ～ 496.0")))
+            .check(matches(atPositionOnResultRow(0, "1 ～ 62", "× 8.0", "= 8.0 ～ 496.0")))
 //            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
 //            .check(matches(atPositionOnResultRow(23, "1001 ～ 2000", "0.25", "250.25 ～ 500.0")))
     }
@@ -91,7 +91,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(1))
-            .check(matches(atPositionOnResultRow(0, "1 ～ 62", "8.0", "8.0 ～ 496.0")))
+            .check(matches(atPositionOnResultRow(0, "1 ～ 62", "× 8.0", "= 8.0 ～ 496.0")))
 //            .perform(ScrollToBottomAction())
 //            .check(matches(atPositionOnResultRow(23, "1001 ～ 2000", "0.25", "250.25 ～ 500.0")))
 
@@ -106,7 +106,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
         getScrollSpeedTextEdit().checkText("601")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-            .check(matches(atPositionOnResultRow(0, "1 ～ 75", "8.0", "8.0 ～ 600.0")))
+            .check(matches(atPositionOnResultRow(0, "1 ～ 75", "× 8.0", "= 8.0 ～ 600.0")))
 //            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
 //            .check(matches(atPositionOnResultRow(23, "1203 ～ 2404", "0.25", "300.75 ～ 601.0")))
 
@@ -131,7 +131,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
         getScrollSpeedTextEdit().checkText("30")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-            .check(matches(atPositionOnResultRow(0, "1 ～ 3", "8.0", "8.0 ～ 24.0")))
+            .check(matches(atPositionOnResultRow(0, "1 ～ 3", "× 8.0", "= 8.0 ～ 24.0")))
 //            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
 //            .check(matches(atPositionOnResultRow(23, "61 ～ 120", "0.25", "15.25 ～ 30.0")))
     }
@@ -145,7 +145,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
         getScrollSpeedTextEdit().checkText("599")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-            .check(matches(atPositionOnResultRow(0, "1 ～ 74", "8.0", "8.0 ～ 592.0")))
+            .check(matches(atPositionOnResultRow(0, "1 ～ 74", "× 8.0", "= 8.0 ～ 592.0")))
 //            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
 //            .check(matches(atPositionOnResultRow(23, "1199 ～ 2396", "0.25", "299.75 ～ 599.0")))
     }
@@ -169,7 +169,7 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
         getScrollSpeedTextEdit().checkText("2000")
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-            .check(matches(atPositionOnResultRow(0, "1 ～ 250", "8.0", "8.0 ～ 2000.0")))
+            .check(matches(atPositionOnResultRow(0, "1 ～ 250", "× 8.0", "= 8.0 ～ 2000.0")))
 //            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(23))
 //            .check(matches(atPositionOnResultRow(23, "4001 ～ 8000", "0.25", "1000.25 ～ 2000.0")))
     }
@@ -257,8 +257,8 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
                     atPositionOnResultRow(
                         0,
                         "$minHighSpeed ～ $maxHighSpeed",
-                        "8.0",
-                        "$minScrollSpeed ～ $maxScrollSpeed"
+                        "× 8.0",
+                        "= $minScrollSpeed ～ $maxScrollSpeed"
                     )
                 )
             )

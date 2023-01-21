@@ -25,8 +25,8 @@ class ResultRowSetFactoryTestForDetail {
         factory.createForDetail(400, "test", 150.0).apply {
             assertThat(category).isEqualTo("test")
             assertThat(bpm).isEqualTo("150.0")
-            assertThat(highSpeed).isEqualTo("2.5")
-            assertThat(scrollSpeed).isEqualTo("375.0")
+            assertThat(highSpeed).isEqualTo("× 2.5")
+            assertThat(scrollSpeed).isEqualTo("= 375.0")
         }
     }
 
@@ -35,8 +35,8 @@ class ResultRowSetFactoryTestForDetail {
         factory.createForDetail(2000, "", 300.0).apply {
             assertThat(category).isEqualTo("")
             assertThat(bpm).isEqualTo("300.0")
-            assertThat(highSpeed).isEqualTo("6.5")
-            assertThat(scrollSpeed).isEqualTo("1950.0")
+            assertThat(highSpeed).isEqualTo("× 6.5")
+            assertThat(scrollSpeed).isEqualTo("= 1950.0")
         }
     }
 
@@ -45,8 +45,8 @@ class ResultRowSetFactoryTestForDetail {
         factory.createForDetail(30, "", 27.5).apply {
             assertThat(category).isEqualTo("")
             assertThat(bpm).isEqualTo("27.5")
-            assertThat(highSpeed).isEqualTo("1.0")
-            assertThat(scrollSpeed).isEqualTo("27.5")
+            assertThat(highSpeed).isEqualTo("× 1.0")
+            assertThat(scrollSpeed).isEqualTo("= 27.5")
         }
     }
 
@@ -55,8 +55,8 @@ class ResultRowSetFactoryTestForDetail {
         factory.createForDetail(30, "", 300.0).apply {
             assertThat(category).isEqualTo("")
             assertThat(bpm).isEqualTo("300.0")
-            assertThat(highSpeed).isEqualTo("0.25")
-            assertThat(scrollSpeed).isEqualTo("75.0")
+            assertThat(highSpeed).isEqualTo("× 0.25")
+            assertThat(scrollSpeed).isEqualTo("= 75.0")
         }
     }
 
