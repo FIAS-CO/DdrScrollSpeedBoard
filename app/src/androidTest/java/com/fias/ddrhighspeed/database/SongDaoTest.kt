@@ -172,4 +172,54 @@ class SongDaoTest {
         val byName = songDao.getByNameContainWord("")
         assertThat(byName.size).isEqualTo(2)
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun getNew() {
+        val newSongs = songDao.getNew()
+        assertThat(newSongs.size).isEqualTo(2)
+        newSongs[0].apply {
+            assertThat((id)).isEqualTo(2)
+            assertThat(name).isEqualTo("name2")
+            assertThat(composer).isEqualTo("comp2")
+            assertThat(version).isEqualTo("version2")
+            assertThat(displayBpm).isEqualTo("200")
+            assertThat(minBpm).isEqualTo(-1.0)
+            assertThat(maxBpm).isEqualTo(1555.0)
+            assertThat(baseBpm).isEqualTo(100.0)
+            assertThat(subBpm).isEqualTo(200.5)
+            assertThat(besp).isEqualTo(12)
+            assertThat(bsp).isEqualTo(13)
+            assertThat(dsp).isEqualTo(14)
+            assertThat(esp).isEqualTo(15)
+            assertThat(csp).isEqualTo(16)
+            assertThat(bdp).isEqualTo(17)
+            assertThat(ddp).isEqualTo(18)
+            assertThat(edp).isEqualTo(19)
+            assertThat(cdp).isEqualTo(20)
+            assertThat(shockArrow).isEqualTo("Test")
+            assertThat(deleted).isEqualTo(1)
+        }
+        newSongs[1].apply {
+            assertThat((id)).isEqualTo(1)
+            assertThat(name).isEqualTo("name1")
+            assertThat(composer).isEqualTo(null)
+            assertThat(version).isEqualTo("version1")
+            assertThat(displayBpm).isEqualTo("100")
+            assertThat(minBpm).isNull()
+            assertThat(maxBpm).isNull()
+            assertThat(baseBpm).isNull()
+            assertThat(subBpm).isNull()
+            assertThat(besp).isNull()
+            assertThat(bsp).isNull()
+            assertThat(dsp).isNull()
+            assertThat(esp).isNull()
+            assertThat(csp).isNull()
+            assertThat(bdp).isNull()
+            assertThat(edp).isNull()
+            assertThat(cdp).isNull()
+            assertThat(shockArrow).isNull()
+            assertThat(deleted).isNull()
+        }
+    }
 }

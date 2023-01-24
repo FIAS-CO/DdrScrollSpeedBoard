@@ -75,6 +75,13 @@ class EstimateByNameFragment : Fragment() {
         searchedSongsAdapter = SearchedSongsAdapter(clickListener)
 
         binding.searchedSongs.adapter = searchedSongsAdapter
+        CoroutineScope(Dispatchers.IO).launch {
+            val searchList: List<Song> =
+                songViewModel.getNewSongs()
+            handler.post {
+                searchedSongsAdapter.submitList(searchList)
+            }
+        }
 
         binding.backToSearchImage.setOnClickListener {
             backToSearch()
@@ -83,7 +90,7 @@ class EstimateByNameFragment : Fragment() {
         val searchWordObserver = Observer<String> {
             CoroutineScope(Dispatchers.IO).launch {
                 val searchList: List<Song> =
-                    songViewModel.songForSearch(sharedViewModel.searchWord.value.toString())
+                    songViewModel.searchSongsByName(sharedViewModel.searchWord.value.toString())
                 handler.post {
                     searchedSongsAdapter.submitList(searchList)
                 }

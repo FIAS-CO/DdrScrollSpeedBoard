@@ -6,7 +6,8 @@ import com.fias.ddrhighspeed.database.Song
 import com.fias.ddrhighspeed.database.SongDao
 
 class SongViewModel(private val songDao: SongDao) : ViewModel() {
-    fun songForSearch(searchWord: String): List<Song> = songDao.getByNameContainWord(searchWord)
+    fun searchSongsByName(searchWord: String): List<Song> = songDao.getByNameContainWord(searchWord)
+    fun getNewSongs(): List<Song> = songDao.getNew()
 }
 
 class SongViewModelFactory(
