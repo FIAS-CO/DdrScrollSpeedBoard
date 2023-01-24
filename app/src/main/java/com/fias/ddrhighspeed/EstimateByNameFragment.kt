@@ -89,8 +89,10 @@ class EstimateByNameFragment : Fragment() {
 
         val searchWordObserver = Observer<String> {
             CoroutineScope(Dispatchers.IO).launch {
+                val searchWord = sharedViewModel.searchWord.value.toString()
                 val searchList: List<Song> =
-                    songViewModel.searchSongsByName(sharedViewModel.searchWord.value.toString())
+                    if (searchWord == "") songViewModel.getNewSongs()
+                    else songViewModel.searchSongsByName(searchWord)
                 handler.post {
                     searchedSongsAdapter.submitList(searchList)
                 }

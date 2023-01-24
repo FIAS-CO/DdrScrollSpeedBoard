@@ -5,6 +5,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
@@ -13,6 +14,7 @@ import androidx.test.espresso.action.GeneralLocation
 import androidx.test.espresso.action.Press
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
 import com.fias.ddrhighspeed.util.LongLongTapper
 import org.hamcrest.Description
@@ -20,7 +22,8 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import org.hamcrest.TypeSafeMatcher
 
-// TODO もっとこのクラス2メソッドを移す。主にget系
+// TODO もっとこのクラスにメソッドを移す。主にget系
+// TODO メソッド順の整理をする
 open class FragmentTestBase {
 
     val waitMills: Long = 350
@@ -152,4 +155,24 @@ open class FragmentTestBase {
         }
     }
 
+    fun checkRecyclerViewHasSomeItem(size: Int): Matcher<View?> {
+        return object : BoundedMatcher<View?, RecyclerView>(RecyclerView::class.java) {
+            lateinit var recyclerView: RecyclerView
+
+            override fun matchesSafely(recyclerView: RecyclerView): Boolean {
+                this.recyclerView = recyclerView
+                return recyclerView.adapter!!.itemCount >= size
+            }
+
+            override fun describeTo(description: Description) {
+                description.appendText("Expected $size items")
+            }
+
+            override fun describeMismatch(item: Any?, description: Description) {
+                super.describeMismatch(item, description)
+                val actualSize = recyclerView.adapter!!.itemCount
+                description.appendText("Actually $actualSize items")
+            }
+        }
+    }
 }

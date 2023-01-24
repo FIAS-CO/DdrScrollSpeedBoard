@@ -47,6 +47,26 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     }
 
     @Test
+    fun beforeSearch_初期状態で検索結果がいくつか表示されていること() {
+        assertIsInSearchMode()
+
+        // 初期画面は新曲が表示(DB内ID降順)で表示されるため、具体的な曲名でアサートできない
+        getSearchedSongs().check(matches(checkRecyclerViewHasSomeItem(10)))
+    }
+
+    @Test
+    fun beforeSearch_一度検索したあとに検索ワードをカラニすると検索結果がいくつか表示されること() {
+        assertIsInSearchMode()
+
+        writeSearchWord("ace for")
+        // TODO このタイミングで検索結果の最初が"ace for aces"で、
+        //  このあとそうじゃなくなることをテストする必要がある
+        writeSearchWord("")
+
+        getSearchedSongs().check(matches(checkRecyclerViewHasSomeItem(10)))
+    }
+
+    @Test
     fun goToDetail_3行表示_詳細表示後にスクロールスピード変更_backToSearch() {
         assertIsInSearchMode()
 
