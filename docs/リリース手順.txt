@@ -6,17 +6,17 @@
 ・広告IDをテスト版から製品版に切り替える
     ・AndroidManifest.xml
     ・fragment_scroll_speed_board.xml
+    ・fragment_estimate_by_name.xml
 ・自動テストで対応しきれていない機能の手動テスト
     ・スクロールスピードが再起動時に入力欄に残っているか
     ・リストの表示場所が再起動前と後で同じになっているか
+・Log出力を削除
+    ・フラグによってLog出力を切り替えれるように検討
 ・リリースビルド
-    ・AndroidStudio のBuild → Generate Single Bundle / APK...
-    ・Android App Bundle
+    ・AndroidStudio のBuild → Generate Single Bundle / APK... → Android App Bundle
         ・Release Key : releasekey.jks(持ってなかったら聞いてください)
         ・key aliases : releasekey
         ・パスワード2箇所：fiasYYYY(YYYYのところは聞いてください)
-・Log出力を削除
-    ・フラグによってLog出力を切り替えれるように検討
 
 ・ブランチ、タグをどうするか
     ・現状、Vx.xというブランチを作成し、そこで上記作業を行う想定(x.xはバージョン名)
