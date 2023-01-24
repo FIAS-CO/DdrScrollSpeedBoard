@@ -165,7 +165,7 @@
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/song_detail_table_header"/>
+            app:layout_constraintTop_toBottomOf="@id/song_detail_table_header" />
 
         <TextView
             android:id="@+id/asterisk"
@@ -185,8 +185,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/song_detail_list" />
 
-        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111-->
-        <!-- product app ID: ca-app-pub-8151928728657048/6961473178-->
+        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
+        <!-- product app ID: ca-app-pub-8151928728657048/3051648094 -->
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="wrap_content"
