@@ -62,11 +62,26 @@
                     android:fitsSystemWindows="true"
                     android:label="Page title"
                     app:defaultNavHost="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/adView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/toolbar"
                     app:navGraph="@navigation/nav_graph" />
+
+                <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
+                <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    app:adSize="BANNER"
+                    app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 

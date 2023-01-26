@@ -13,11 +13,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.textfield.TextInputEditText
 import com.google.common.truth.Truth.assertThat
-import junit.framework.AssertionFailedError
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.closeTo
-import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -217,26 +215,6 @@ class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
             assertThat(view.hasFocus()).isEqualTo(true)
         }.perform(pressImeActionButton()).check { view, _ ->
             assertThat(view.hasFocus()).isEqualTo(false)
-        }
-    }
-
-    @Test
-    fun 広告が表示されている() {
-        var failureCount = 0
-        Thread.sleep(300)
-
-        while (true) {
-            try {
-                onView(withId(R.id.adView)).check(matches(isDisplayed()))
-                return
-            } catch (_: AssertionFailedError) {
-                failureCount += 1
-                Thread.sleep(300)
-
-                if (failureCount >= 10) {
-                    fail("3秒待ちましたが、広告が isDisplayed になりませんでした。")
-                }
-            }
         }
     }
 

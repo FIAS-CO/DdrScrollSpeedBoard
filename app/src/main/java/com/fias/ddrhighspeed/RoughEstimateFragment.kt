@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentRoughEstimateBinding
-import com.fias.ddrhighspeed.view.AdViewUtil
 import com.fias.ddrhighspeed.view.HighSpeedListView
 import kotlinx.coroutines.launch
 
@@ -81,8 +80,6 @@ class RoughEstimateFragment : Fragment() {
             }, 200)
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
-
-        AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
     private fun loadSavedListPosition(recyclerView: HighSpeedListView) {
