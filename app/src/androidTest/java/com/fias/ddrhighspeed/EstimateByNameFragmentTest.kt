@@ -363,6 +363,29 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
             )
     }
 
+    @Test
+    fun goToDetail_データベースバージョン4で追加された曲が表示される() {
+        assertIsInSearchMode()
+
+        editTextAndWait("600")
+        writeSearchWord("Müll")
+        clickSearchedSongInPosition(0)
+
+        assertIsInDetailMode("みゅ、みゅ、Müllる")
+
+        getDetailSongList().check(
+                matches(
+                    atPositionOnResultRow(
+                        0,
+                        "基本①",
+                        "150.0",
+                        "× 4.0",
+                        "= 600.0"
+                    )
+                )
+            )
+    }
+
     //region private methods
 
 
