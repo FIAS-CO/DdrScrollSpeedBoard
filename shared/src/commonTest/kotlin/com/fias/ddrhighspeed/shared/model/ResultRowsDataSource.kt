@@ -1,6 +1,4 @@
-package com.fias.ddrhighspeed.data
-
-import com.fias.ddrhighspeed.shared.model.ResultRow
+package com.fias.ddrhighspeed.shared.model
 
 object ResultRowsDataSource {
     fun list(scrollSpeed: String): List<ResultRow> = when (scrollSpeed) {
