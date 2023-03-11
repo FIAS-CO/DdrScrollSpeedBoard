@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed.model
+package com.fias.ddrhighspeed.shared.model
 
 data class ResultRowForDetail(
     val category: String,

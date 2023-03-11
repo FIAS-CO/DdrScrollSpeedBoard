@@ -14,8 +14,8 @@ import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.database.Song
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
-import com.fias.ddrhighspeed.model.ResultRowForDetail
-import com.fias.ddrhighspeed.model.ResultRowSetFactory
+import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
+import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.viewmodels.SongViewModel
 import com.fias.ddrhighspeed.viewmodels.SongViewModelFactory
 import kotlinx.coroutines.CoroutineScope
