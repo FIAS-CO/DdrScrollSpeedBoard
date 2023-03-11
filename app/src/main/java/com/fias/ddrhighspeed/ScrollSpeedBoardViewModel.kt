@@ -2,8 +2,6 @@ package com.fias.ddrhighspeed
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fias.ddrhighspeed.shared.model.ResultRow
-import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 
 class ScrollSpeedBoardViewModel : ViewModel() {
     val scrollSpeed = NewMutableLiveData<String>()
