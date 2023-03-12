@@ -12,6 +12,8 @@ buildscript {
         rulesVersion = '1.0.1'
         testRunnerVersion = "1.4.0"
         testRulesVersion = "1.4.0"
+
+        sqlDelightVersion = "1.5.5"
     }
 
     repositories {
@@ -28,6 +30,8 @@ buildscript {
 
         // firebase
         classpath 'com.google.gms:google-services:4.3.13'
+
+        classpath("com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion")
     }
 }
 
