@@ -89,5 +89,7 @@ android {
 sqldelight {
     database("AppDatabase") {
         packageName = "com.fias.ddrhighspeed.shared.cache"
+        migrationOutputFileFormat = ".sqm"
+        deriveSchemaFromMigrations = true
     }
 }

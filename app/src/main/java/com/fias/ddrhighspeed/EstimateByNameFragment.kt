@@ -55,6 +55,7 @@ class EstimateByNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         db = Database(DatabaseDriverFactory(requireContext()))
+        db.migrate()
 
         detailBoardAdapter = DetailBoardAdapter()
         binding.songDetailList.apply {
