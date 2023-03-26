@@ -14,9 +14,13 @@
 		182152BD29C20F5D00F933F3 /* ddrhighspeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152BC29C20F5D00F933F3 /* ddrhighspeedTests.swift */; };
 		182152C729C20F5D00F933F3 /* ddrhighspeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152C629C20F5D00F933F3 /* ddrhighspeedUITests.swift */; };
 		182152C929C20F5D00F933F3 /* ddrhighspeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152C829C20F5D00F933F3 /* ddrhighspeedUITestsLaunchTests.swift */; };
-		182152D729C4C0E700F933F3 /* SongDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D629C4C0E700F933F3 /* SongDetail.swift */; };
+		182152D729C4C0E700F933F3 /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D629C4C0E700F933F3 /* SongDetailView.swift */; };
 		182152D929C4C10A00F933F3 /* SongRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D829C4C10A00F933F3 /* SongRow.swift */; };
 		182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152DA29C4EAAA00F933F3 /* ModelData.swift */; };
+		18B83D5D29CEC8BB001F61D4 /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */; };
+		18B83D6029CEDA0C001F61D4 /* SimpleTable in Frameworks */ = {isa = PBXBuildFile; productRef = 18B83D5F29CEDA0C001F61D4 /* SimpleTable */; };
+		18B83D6229CEE4B8001F61D4 /* SongDetailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */; };
+		18B83D6629D03B41001F61D4 /* InputScrollSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,9 +51,12 @@
 		182152C229C20F5D00F933F3 /* ddrhighspeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ddrhighspeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		182152C629C20F5D00F933F3 /* ddrhighspeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ddrhighspeedUITests.swift; sourceTree = "<group>"; };
 		182152C829C20F5D00F933F3 /* ddrhighspeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ddrhighspeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		182152D629C4C0E700F933F3 /* SongDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetail.swift; sourceTree = "<group>"; };
+		182152D629C4C0E700F933F3 /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
 		182152D829C4C10A00F933F3 /* SongRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRow.swift; sourceTree = "<group>"; };
 		182152DA29C4EAAA00F933F3 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
+		18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailUtil.swift; sourceTree = "<group>"; };
+		18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputScrollSpeedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B83D6029CEDA0C001F61D4 /* SimpleTable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,11 +108,11 @@
 		182152AA29C20F5C00F933F3 /* ddrhighspeed */ = {
 			isa = PBXGroup;
 			children = (
+				18B83D5829CC7627001F61D4 /* views */,
 				182152AB29C20F5C00F933F3 /* ddrhighspeedApp.swift */,
 				182152AD29C20F5C00F933F3 /* ContentView.swift */,
 				182152AF29C20F5C00F933F3 /* Assets.xcassets */,
 				182152B129C20F5C00F933F3 /* Preview Content */,
-				182152D629C4C0E700F933F3 /* SongDetail.swift */,
 				182152D829C4C10A00F933F3 /* SongRow.swift */,
 				182152DA29C4EAAA00F933F3 /* ModelData.swift */,
 			);
@@ -136,6 +144,25 @@
 			path = ddrhighspeedUITests;
 			sourceTree = "<group>";
 		};
+		18B83D5829CC7627001F61D4 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				18B83D5929CC766F001F61D4 /* detail */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		18B83D5929CC766F001F61D4 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				182152D629C4C0E700F933F3 /* SongDetailView.swift */,
+				18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */,
+				18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */,
+				18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */,
+			);
+			path = detail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,6 +180,9 @@
 			dependencies = (
 			);
 			name = ddrhighspeed;
+			packageProductDependencies = (
+				18B83D5F29CEDA0C001F61D4 /* SimpleTable */,
+			);
 			productName = ddrhighspeed;
 			productReference = 182152A829C20F5C00F933F3 /* ddrhighspeed.app */;
 			productType = "com.apple.product-type.application";
@@ -225,6 +255,9 @@
 				Base,
 			);
 			mainGroup = 1821529F29C20F5C00F933F3;
+			packageReferences = (
+				18B83D5E29CEDA0C001F61D4 /* XCRemoteSwiftPackageReference "swiftui-simple-table" */,
+			);
 			productRefGroup = 182152A929C20F5C00F933F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -288,11 +321,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B83D5D29CEC8BB001F61D4 /* DetailTableView.swift in Sources */,
 				182152AE29C20F5C00F933F3 /* ContentView.swift in Sources */,
-				182152D729C4C0E700F933F3 /* SongDetail.swift in Sources */,
+				182152D729C4C0E700F933F3 /* SongDetailView.swift in Sources */,
+				18B83D6629D03B41001F61D4 /* InputScrollSpeedView.swift in Sources */,
 				182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */,
 				182152AC29C20F5C00F933F3 /* ddrhighspeedApp.swift in Sources */,
 				182152D929C4C10A00F933F3 /* SongRow.swift in Sources */,
+				18B83D6229CEE4B8001F61D4 /* SongDetailUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +659,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18B83D5E29CEDA0C001F61D4 /* XCRemoteSwiftPackageReference "swiftui-simple-table" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/darrarski/swiftui-simple-table.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		18B83D5F29CEDA0C001F61D4 /* SimpleTable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18B83D5E29CEDA0C001F61D4 /* XCRemoteSwiftPackageReference "swiftui-simple-table" */;
+			productName = SimpleTable;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 182152A029C20F5C00F933F3 /* Project object */;
 }
