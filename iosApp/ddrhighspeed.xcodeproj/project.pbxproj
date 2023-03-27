@@ -21,6 +21,7 @@
 		18B83D6029CEDA0C001F61D4 /* SimpleTable in Frameworks */ = {isa = PBXBuildFile; productRef = 18B83D5F29CEDA0C001F61D4 /* SimpleTable */; };
 		18B83D6229CEE4B8001F61D4 /* SongDetailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */; };
 		18B83D6629D03B41001F61D4 /* InputScrollSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */; };
+		18B83D7029D1D419001F61D4 /* LongPushableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6F29D1D419001F61D4 /* LongPushableButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
 		18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailUtil.swift; sourceTree = "<group>"; };
 		18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputScrollSpeedView.swift; sourceTree = "<group>"; };
+		18B83D6F29D1D419001F61D4 /* LongPushableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPushableButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 				18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */,
 				18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */,
 				18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */,
+				18B83D6F29D1D419001F61D4 /* LongPushableButton.swift */,
 			);
 			path = detail;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */,
 				182152AC29C20F5C00F933F3 /* ddrhighspeedApp.swift in Sources */,
 				182152D929C4C10A00F933F3 /* SongRow.swift in Sources */,
+				18B83D7029D1D419001F61D4 /* LongPushableButton.swift in Sources */,
 				18B83D6229CEE4B8001F61D4 /* SongDetailUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

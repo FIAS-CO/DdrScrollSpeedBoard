@@ -19,31 +19,10 @@ struct InputScrollSpeedView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .frame(height: 50)
-                Button(action: {
-                    print("tap")
-                    if(self.isLongPressing){
-                        //this tap was caused by the end of a longpress gesture, so stop our fastforwarding
-                        self.isLongPressing.toggle()
-                        self.timer?.invalidate()
-                    } else {
-                        //just a regular tap
-                        modelData.scrollSpeed += 1
-                    }
-                }, label: {
-                    // TODO: アイコンを変える
-                    Image(systemName: self.isLongPressing ? "chevron.right.2": "chevron.right")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                })
-                .simultaneousGesture(LongPressGesture(minimumDuration: 0.2).onEnded { _ in
-                    print("long press")
-                    self.isLongPressing = true
-                    //or fastforward has started to start the timer
-                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
-                        modelData.scrollSpeed += 1
-                    })
-                })
+
+                // TODO: 0未満にならないようにする
+                LongPushableButton(imageName: "plus.square", action: { modelData.scrollSpeed += 1})
+                LongPushableButton(imageName: "minus.square", action: { modelData.scrollSpeed -= 1})
             }
             .padding(.bottom)
         }
