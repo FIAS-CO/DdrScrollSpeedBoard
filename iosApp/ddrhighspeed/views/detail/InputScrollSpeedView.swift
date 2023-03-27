@@ -46,7 +46,11 @@ struct InputScrollSpeedView: View {
                 })
             }
             .padding(.bottom)
-        }.background(Color(UIColor.systemGray6))
+        }
+        .background(Color(UIColor.systemGray6))
+        .onDisappear {
+            UserDefaults.standard.set(modelData.scrollSpeed, forKey: "scrollSpeed")
+        }
     }
 }
 

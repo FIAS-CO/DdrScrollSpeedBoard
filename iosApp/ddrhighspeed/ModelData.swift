@@ -1,11 +1,18 @@
 import Foundation
 import Combine
 import shared
+import SwiftUI
 
 final class ModelData: ObservableObject {
     var db: Database = connectDb()
     @Published var songs: [Song] = load()
-    @Published var scrollSpeed: Int32 = 500
+    @Published var scrollSpeed: Int
+    
+    init() {
+        let savedSpeed = UserDefaults.standard.integer(forKey: "scrollSpeed")
+        _scrollSpeed = Published(initialValue: savedSpeed)
+        
+    }
     
     func searchSong(searchWord: String) {
         if (searchWord=="") {
@@ -14,7 +21,6 @@ final class ModelData: ObservableObject {
         }
         songs = db.searchSongsByName(searchWord: searchWord)
     }
-
 }
 
 func connectDb() -> Database {
