@@ -16,12 +16,22 @@ struct InputScrollSpeedView: View {
                 .frame(maxWidth: .infinity, maxHeight: 50, alignment: .leading)
             
             HStack {
-                TextField("Enter high speed value", value: $modelData.scrollSpeed, formatter: NumberFormatter())
+                TextField("希望するBPM×ハイスピの値を入力", value: $modelData.scrollSpeed, formatter: NumberFormatter())
                     .keyboardType(.numberPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .frame(height: 50)
                     .focused($isKeyboardVisible)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button(action: {
+                                isKeyboardVisible = false
+                            }, label: {
+                                Text("Close")
+                            })
+                        }
+                    }
                 
                 // TODO: 0未満にならないようにする
                 LongPushableButton(imageName: "plus.square", action: {
