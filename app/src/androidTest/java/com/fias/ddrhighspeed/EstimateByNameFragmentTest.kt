@@ -52,7 +52,7 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     }
 
     @Test
-    fun beforeSearch_一度検索したあとに検索ワードをカラニすると検索結果がいくつか表示されること() {
+    fun beforeSearch_一度検索したあとに検索ワードを空すると検索結果がいくつか表示されること() {
         assertIsInSearchMode()
 
         writeSearchWord("ace for")
