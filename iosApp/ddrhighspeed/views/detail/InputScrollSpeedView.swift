@@ -16,7 +16,7 @@ struct InputScrollSpeedView: View {
                 .frame(maxWidth: .infinity, maxHeight: 50, alignment: .leading)
             
             HStack {
-                TextField("希望するBPM×ハイスピの値を入力", value: $modelData.scrollSpeed, formatter: NumberFormatter())
+                TextField("希望するBPM×ハイスピの値を入力", text: $modelData.scrollSpeed)
                     .keyboardType(.numberPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
@@ -38,12 +38,12 @@ struct InputScrollSpeedView: View {
                     // テキストボックスにフォーカスがあっていると＋ーボタンが効かない
                     // フォーカスフラグを変更した直後も効かないので、キーボードが開いているときは少し待機してから値を変更する
                     executeWithCloseKeyboard(action: {
-                        modelData.scrollSpeed += 1
+                        modelData.scrollSpeed = addOne(str: modelData.scrollSpeed)
                     })
                 })
                 LongPushableButton(imageName: "minus.square", action: {
                     executeWithCloseKeyboard(action: {
-                        modelData.scrollSpeed -= 1
+                        modelData.scrollSpeed = minusOne(str: modelData.scrollSpeed)
                     })
                 })
             }
@@ -65,6 +65,28 @@ struct InputScrollSpeedView: View {
             }
         }
         action()
+    }
+    
+    func addOne(str: String) -> String {
+        // 文字列を数値に変換
+        if let intValue = Int(str) {
+            // 1を加えて文字列に変換して返す
+            return String(intValue + 1)
+        } else {
+            // 数値に変換できない場合は1を文字列として返す
+            return "1"
+        }
+    }
+    
+    func minusOne(str: String) -> String {
+        // 文字列を数値に変換
+        if let intValue = Int(str) {
+            // 1を加えて文字列に変換して返す
+            return String(intValue - 1)
+        } else {
+            // 数値に変換できない場合は1を文字列として返す
+            return "1"
+        }
     }
 }
 

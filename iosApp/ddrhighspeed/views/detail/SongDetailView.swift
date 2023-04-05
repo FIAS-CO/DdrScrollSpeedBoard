@@ -18,7 +18,7 @@ struct SongDetailView: View {
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            DetailTableView(rows: SongDetailUtil().toDetailRows(song: song, highSpeedValue: modelData.scrollSpeed))
+            DetailTableView(rows: SongDetailUtil().toDetailRows(song: song, highSpeedValue: modelData.getScrollSpeedInt()))
             Spacer()
         }
     }

@@ -6,12 +6,11 @@ import SwiftUI
 final class ModelData: ObservableObject {
     var db: Database = connectDb()
     @Published var songs: [Song] = load()
-    @Published var scrollSpeed: Int
+    @Published var scrollSpeed: String
     
     init() {
-        let savedSpeed = UserDefaults.standard.integer(forKey: "scrollSpeed")
-        _scrollSpeed = Published(initialValue: savedSpeed)
-        
+        let savedSpeed = UserDefaults.standard.string(forKey: "scrollSpeed")
+        _scrollSpeed = Published(initialValue: savedSpeed ?? "")
     }
     
     func searchSong(searchWord: String) {
@@ -20,6 +19,14 @@ final class ModelData: ObservableObject {
             return
         }
         songs = db.searchSongsByName(searchWord: searchWord)
+    }
+    
+    func getScrollSpeedInt() -> Int {
+        if let result = Int(scrollSpeed) {
+            return result
+        } else {
+            return 0
+        }
     }
 }
 
