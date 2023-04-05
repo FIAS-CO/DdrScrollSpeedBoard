@@ -2,29 +2,37 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    @EnvironmentObject var modelData: ModelData
-    @State private var searchWord: String = ""
+    @State private var selection: Tab = .featured
     
+    enum Tab {
+        case featured
+        case list
+    }
+    
+    init() {
+        // Workaround iOS15でTabViewの背景が透明になった。Tabアイコンが見辛いので背景色を設定する
+        // https://shtnkgm.com/blog/2021-08-18-ios15.html#%E3%82%BF%E3%83%95%E3%82%99%E3%83%8F%E3%82%99%E3%83%BC%E3%81%8B%E3%82%99%E9%80%8F%E6%98%8E%E3%81%AB%E3%81%AA%E3%82%8B%E3%80%81%E8%83%8C%E6%99%AF%E8%89%B2%E3%81%8B%E3%82%99%E9%81%A9%E7%94%A8%E3%81%95%E3%82%8C%E3%81%AA%E3%81%84
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.backgroundColor = .white
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }
+    
+    // TODO アイコンとタブ名を検討
     var body: some View {
-        NavigationView {
-            VStack {
-                TextField("曲名を入力してください", text: $searchWord)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                    .onChange(of: searchWord) { newValue in
-                        modelData.searchSong(searchWord: newValue)
-                    }
-                List{
-                    ForEach(modelData.songs, id: \.self) { song in
-                        NavigationLink {
-                            SongDetailView(song: song)
-                        } label: {
-                            Text(song.name)
-                        }
-                    }
+        TabView(selection: $selection) {
+            SearchSongView()
+                .tabItem {
+                    Label("曲名検索", systemImage: "star")
                 }
-                .navigationTitle("曲名検索")
-            }
+                .tag(Tab.featured)
+            
+            RoughEstimateView()
+                .tabItem {
+                    Label("BPM簡易計算", systemImage: "list.bullet")
+                }
+                .tag(Tab.list)
         }
     }
 }
