@@ -35,8 +35,8 @@ func connectDb() -> Database {
 }
 
 func load() -> [Song] {
-    var db = connectDb()
-    var newSongs = db.getNewSongs()
+    let db = connectDb()
+    let newSongs = db.getNewSongs()
     if(newSongs.isEmpty) {
         fatalError("Couldn't find new songs.")
     }
