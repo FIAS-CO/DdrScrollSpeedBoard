@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id("com.google.devtools.ksp") version "1.8.0-1.0.8"
+    id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
 }
 
@@ -50,8 +50,6 @@ android {
 }
 
 dependencies {
-    implementation project(':shared')
-
     implementation 'com.google.android.material:material:1.7.0'
     // AdMob
     implementation 'com.google.android.gms:play-services-ads:21.5.0'

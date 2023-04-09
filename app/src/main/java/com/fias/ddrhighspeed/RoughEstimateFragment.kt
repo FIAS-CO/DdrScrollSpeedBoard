@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentRoughEstimateBinding
-import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.view.HighSpeedListView
 import kotlinx.coroutines.launch
 
@@ -60,6 +59,8 @@ class RoughEstimateFragment : Fragment() {
             addSaveScrollPositionListener { saveScrollPosition(this) }
         }
 
+        scrollSpeedBoardAdapter.submitList(sharedViewModel.resultRows())
+
         positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
         loadSavedListPosition(recyclerView)
 
@@ -72,8 +73,7 @@ class RoughEstimateFragment : Fragment() {
                 if (scrollSpeed == sharedViewModel.getScrollSpeedValue()) {
                     Log.d(javaClass.name, "$scrollSpeed, ${sharedViewModel.getScrollSpeedValue()}")
 
-                    val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
-                    scrollSpeedBoardAdapter.submitList(ResultRowSetFactory().create(scrollSpeedValue))
+                    scrollSpeedBoardAdapter.submitList(sharedViewModel.resultRows())
                 } else {
                     Log.d(javaClass.name, "board not updated.")
                 }

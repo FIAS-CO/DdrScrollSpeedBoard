@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fias.ddrhighspeed.databinding.ResultRowBinding
-import com.fias.ddrhighspeed.shared.model.ResultRow
+import com.fias.ddrhighspeed.model.ResultRow
 
 /**
  * Adapter for the [RecyclerView] in [ScrollSpeedBoardFragment]. Displays [ResultRow] data object.
