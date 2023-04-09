@@ -5,7 +5,6 @@ struct SongDetailView: View {
     @EnvironmentObject var modelData: ModelData
     
     var song: Song
-    var rows: [ResultRowForDetail] = []
     
     var body: some View {
         VStack {

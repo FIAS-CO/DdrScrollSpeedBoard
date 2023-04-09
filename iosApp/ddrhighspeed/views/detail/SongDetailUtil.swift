@@ -4,6 +4,11 @@ import shared
 class SongDetailUtil {
     var factory: ResultRowSetFactory = ResultRowSetFactory()
     
+    func toRoughEstimateRows(highSpeedValue: Int) -> [ResultRow] {
+        return factory.create(scrollSpeed: Int32(highSpeedValue))
+    }
+    
+    // TODO このメソッドをKotlin側で実装する
     func toDetailRows(song: Song, highSpeedValue: Int) -> [ResultRowForDetail] {
         var result: [ResultRowForDetail] = []
         let highSpeed: Int32 = Int32(highSpeedValue)
