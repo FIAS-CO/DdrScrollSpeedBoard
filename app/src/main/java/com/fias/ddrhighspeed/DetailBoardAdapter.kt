@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fias.ddrhighspeed.databinding.ResultRowForDetailBinding
-import com.fias.ddrhighspeed.model.ResultRowForDetail
+import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
 
 /**
  * Adapter for the [RecyclerView] in [EstimateByNameFragment]. Displays [ResultRowForDetail] data object.

@@ -11,13 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.fias.ddrhighspeed.database.Song
-import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
-import com.fias.ddrhighspeed.model.ResultRowForDetail
-import com.fias.ddrhighspeed.model.ResultRowSetFactory
-import com.fias.ddrhighspeed.viewmodels.SongViewModel
-import com.fias.ddrhighspeed.viewmodels.SongViewModelFactory
+import com.fias.ddrhighspeed.shared.cache.Database
+import com.fias.ddrhighspeed.shared.cache.DatabaseDriverFactory
+import com.fias.ddrhighspeed.shared.cache.Song
+import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
+import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,16 +26,13 @@ class EstimateByNameFragment : Fragment() {
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
-    private val songViewModel: SongViewModel by activityViewModels {
-        SongViewModelFactory(
-            (activity?.application as SongApplication).database.songDao()
-        )
-    }
     private val resultRowSetFactory = ResultRowSetFactory()
     private var selectedSong: Song? = null
 
     private lateinit var detailBoardAdapter: DetailBoardAdapter
     private lateinit var searchedSongsAdapter: SearchedSongsAdapter
+
+    private lateinit var db: Database
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +54,8 @@ class EstimateByNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        db = Database(DatabaseDriverFactory(requireContext()))
+
         detailBoardAdapter = DetailBoardAdapter()
         binding.songDetailList.apply {
             adapter = detailBoardAdapter
@@ -75,8 +73,7 @@ class EstimateByNameFragment : Fragment() {
 
         binding.searchedSongs.adapter = searchedSongsAdapter
         CoroutineScope(Dispatchers.IO).launch {
-            val searchList: List<Song> =
-                songViewModel.getNewSongs()
+            val searchList: List<Song> = db.getNewSongs()
             handler.post {
                 searchedSongsAdapter.submitList(searchList)
             }
@@ -90,8 +87,8 @@ class EstimateByNameFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 val searchWord = sharedViewModel.searchWord.value.toString()
                 val searchList: List<Song> =
-                    if (searchWord == "") songViewModel.getNewSongs()
-                    else songViewModel.searchSongsByName(searchWord)
+                    if (searchWord == "") db.getNewSongs()
+                    else db.searchSongsByName(searchWord)
                 handler.post {
                     searchedSongsAdapter.submitList(searchList)
                 }
@@ -123,16 +120,16 @@ class EstimateByNameFragment : Fragment() {
     private fun createRows(scrollSpeedValue: Int, song: Song?): MutableList<ResultRowForDetail> {
         val list = mutableListOf<ResultRowForDetail>()
         song?.apply {
-            maxBpm?.let {
+            max_bpm?.let {
                 list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最大", it))
             }
-            minBpm?.let {
+            min_bpm?.let {
                 list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最小", it))
             }
-            baseBpm?.let {
+            base_bpm?.let {
                 list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本①", it))
             }
-            subBpm?.let {
+            sub_bpm?.let {
                 list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本②", it))
             }
             list.sortDescending() // BPM でソート
