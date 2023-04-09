@@ -1,6 +1,7 @@
 package com.fias.ddrhighspeed
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.fias.ddrhighspeed.data.ResultRowsDataSource
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -65,6 +66,7 @@ class ScrollSpeedBoardViewModelTest {
     fun scrollSpeedViewModel_input_何も入れない() {
         assertThat(viewModel.scrollSpeed.value).isEqualTo(null)
         assertThat(viewModel.getScrollSpeedValue()).isEqualTo(null)
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list_out_of_range)
     }
 
     @Test
@@ -76,6 +78,7 @@ class ScrollSpeedBoardViewModelTest {
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("400")
         assertThat(viewModel.getScrollSpeedValue()).isEqualTo(400)
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("400"))
     }
 
     @Test
@@ -87,6 +90,8 @@ class ScrollSpeedBoardViewModelTest {
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("30")
         assertThat(viewModel.getScrollSpeedValue()).isEqualTo(30)
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("30"))
+
     }
 
     @Test
@@ -98,6 +103,8 @@ class ScrollSpeedBoardViewModelTest {
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("400")
         assertThat(viewModel.getScrollSpeedValue()).isEqualTo(400)
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("400"))
+
     }
 
     @Test
@@ -109,6 +116,7 @@ class ScrollSpeedBoardViewModelTest {
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo("30")
         assertThat(viewModel.getScrollSpeedValue()).isEqualTo(30)
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list("30"))
     }
 
     private fun scrollSpeedViewModel_input_正常系(scrollSpeed: String) {
@@ -116,6 +124,7 @@ class ScrollSpeedBoardViewModelTest {
 
         assertThat(viewModel.scrollSpeed.value).isEqualTo(scrollSpeed)
         assertThat(viewModel.getScrollSpeedValue()).isEqualTo(scrollSpeed.toIntOrNull())
+        assertThat(viewModel.resultRows()).isEqualTo(ResultRowsDataSource.list(scrollSpeed))
 
         val value = viewModel.scrollSpeed.getOrAwaitValue()
         assertThat(value).isEqualTo(scrollSpeed)
