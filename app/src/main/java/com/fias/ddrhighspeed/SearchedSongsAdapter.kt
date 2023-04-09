@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fias.ddrhighspeed.database.Song
 import com.fias.ddrhighspeed.databinding.SearchResultBinding
+import com.fias.ddrhighspeed.shared.cache.Song
 
 class SearchedSongsAdapter(private val clickListener: ClickSongListener) :
     ListAdapter<Song, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
