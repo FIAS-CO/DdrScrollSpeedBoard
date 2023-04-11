@@ -18,6 +18,7 @@
 		182152D929C4C10A00F933F3 /* SongRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D829C4C10A00F933F3 /* SongRow.swift */; };
 		182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152DA29C4EAAA00F933F3 /* ModelData.swift */; };
 		1887A25B29E002550070EE1D /* RoughEstimateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887A25A29E002550070EE1D /* RoughEstimateTableView.swift */; };
+		1887A26129E5AA060070EE1D /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1887A26029E5AA060070EE1D /* YouTubePlayerKit */; };
 		18B83D5D29CEC8BB001F61D4 /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */; };
 		18B83D6029CEDA0C001F61D4 /* SimpleTable in Frameworks */ = {isa = PBXBuildFile; productRef = 18B83D5F29CEDA0C001F61D4 /* SimpleTable */; };
 		18B83D6229CEE4B8001F61D4 /* SongDetailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */; };
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1887A26129E5AA060070EE1D /* YouTubePlayerKit in Frameworks */,
 				18B83D6029CEDA0C001F61D4 /* SimpleTable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +204,7 @@
 			name = ddrhighspeed;
 			packageProductDependencies = (
 				18B83D5F29CEDA0C001F61D4 /* SimpleTable */,
+				1887A26029E5AA060070EE1D /* YouTubePlayerKit */,
 			);
 			productName = ddrhighspeed;
 			productReference = 182152A829C20F5C00F933F3 /* ddrhighspeed.app */;
@@ -277,6 +280,7 @@
 			mainGroup = 1821529F29C20F5C00F933F3;
 			packageReferences = (
 				18B83D5E29CEDA0C001F61D4 /* XCRemoteSwiftPackageReference "swiftui-simple-table" */,
+				1887A25F29E5AA060070EE1D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
 			);
 			productRefGroup = 182152A929C20F5C00F933F3 /* Products */;
 			projectDirPath = "";
@@ -695,6 +699,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1887A25F29E5AA060070EE1D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SvenTiigi/YouTubePlayerKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		18B83D5E29CEDA0C001F61D4 /* XCRemoteSwiftPackageReference "swiftui-simple-table" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/darrarski/swiftui-simple-table.git";
@@ -706,6 +718,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1887A26029E5AA060070EE1D /* YouTubePlayerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1887A25F29E5AA060070EE1D /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
+			productName = YouTubePlayerKit;
+		};
 		18B83D5F29CEDA0C001F61D4 /* SimpleTable */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 18B83D5E29CEDA0C001F61D4 /* XCRemoteSwiftPackageReference "swiftui-simple-table" */;
