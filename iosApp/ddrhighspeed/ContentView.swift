@@ -24,7 +24,7 @@ struct ContentView: View {
         TabView(selection: $selection) {
             SearchSongView()
                 .tabItem {
-                    Label("曲名検索", systemImage: "star")
+                    Label("曲名検索", systemImage: "magnifyingglass")
                 }
                 .tag(Tab.featured)
             
