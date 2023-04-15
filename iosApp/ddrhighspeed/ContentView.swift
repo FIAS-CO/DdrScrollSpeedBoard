@@ -3,6 +3,7 @@ import shared
 
 struct ContentView: View {
     @State private var selection: Tab = .featured
+    @State private var isShowSubView = false
     
     enum Tab {
         case featured
@@ -21,8 +22,17 @@ struct ContentView: View {
     
     // TODO アイコンとタブ名を検討
     var body: some View {
-        TabView(selection: $selection) {
-            SearchSongView()
+        let selectedTab = Binding<Tab>(get: {
+            selection
+        }, set: {
+            if $0 == selection {
+                isShowSubView = false
+            }
+            self.selection = $0
+        })
+        
+        TabView(selection: selectedTab) {
+            SearchSongView(isShowSubView: $isShowSubView)
                 .tabItem {
                     Label("曲名検索", systemImage: "magnifyingglass")
                 }
