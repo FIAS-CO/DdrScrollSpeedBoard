@@ -15,7 +15,7 @@ struct DetailTableView: View {
                     row(r)
                 }
             }
-        }.padding(.horizontal)
+        }
     }
     
     @ViewBuilder
