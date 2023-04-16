@@ -25,6 +25,7 @@
 		18B83D7029D1D419001F61D4 /* LongPushableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D6F29D1D419001F61D4 /* LongPushableButton.swift */; };
 		18B83D7229DD4D1B001F61D4 /* SearchSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D7129DD4D1B001F61D4 /* SearchSongView.swift */; };
 		18B83D7529DD4E15001F61D4 /* RoughEstimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D7429DD4E15001F61D4 /* RoughEstimateView.swift */; };
+		18CB086E29EC44BF00E8B579 /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB086D29EC44BF00E8B579 /* TextFieldClearButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		18B83D6F29D1D419001F61D4 /* LongPushableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPushableButton.swift; sourceTree = "<group>"; };
 		18B83D7129DD4D1B001F61D4 /* SearchSongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongView.swift; sourceTree = "<group>"; };
 		18B83D7429DD4E15001F61D4 /* RoughEstimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoughEstimateView.swift; sourceTree = "<group>"; };
+		18CB086D29EC44BF00E8B579 /* TextFieldClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClearButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */,
 				18B83D7329DD4DEC001F61D4 /* rough_estimate */,
 				18B83D5929CC766F001F61D4 /* detail */,
+				18CB086D29EC44BF00E8B579 /* TextFieldClearButton.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */,
 				18B83D7229DD4D1B001F61D4 /* SearchSongView.swift in Sources */,
 				182152AC29C20F5C00F933F3 /* ddrhighspeedApp.swift in Sources */,
+				18CB086E29EC44BF00E8B579 /* TextFieldClearButton.swift in Sources */,
 				182152D929C4C10A00F933F3 /* SongRow.swift in Sources */,
 				18B83D7029D1D419001F61D4 /* LongPushableButton.swift in Sources */,
 				18B83D6229CEE4B8001F61D4 /* SongDetailUtil.swift in Sources */,

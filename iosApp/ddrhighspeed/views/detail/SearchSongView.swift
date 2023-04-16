@@ -11,6 +11,7 @@ struct SearchSongView: View {
         NavigationView {
             VStack {
                 TextField("曲名を入力してください", text: $searchWord)
+                    .modifier(TextFieldClearButton(text: $searchWord))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .onChange(of: searchWord) { newValue in
