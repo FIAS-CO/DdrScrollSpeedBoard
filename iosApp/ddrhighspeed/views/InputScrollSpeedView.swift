@@ -19,7 +19,6 @@ struct InputScrollSpeedView: View {
                 TextField("希望するBPM×ハイスピの値を入力", text: $modelData.scrollSpeed)
                     .keyboardType(.numberPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
                     .frame(height: 50)
                     .focused($isKeyboardVisible)
                     .toolbar {
@@ -48,7 +47,9 @@ struct InputScrollSpeedView: View {
                 })
             }
             .padding(.bottom)
+            .padding(.leading)
         }
+        .padding(.horizontal)
         .background(Color(UIColor.systemGray6))
         .onDisappear {
             UserDefaults.standard.set(modelData.scrollSpeed, forKey: "scrollSpeed")

@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS Song (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+	"name"	TEXT NOT NULL UNIQUE,
+	"composer"	TEXT,
+	"version"	TEXT NOT NULL,
+	"display_bpm"	TEXT NOT NULL,
+	"min_bpm"	REAL,
+	"max_bpm"	REAL,
+	"base_bpm"	REAL,
+	"sub_bpm"	REAL,
+	"besp"	INTEGER,
+	"bsp"	INTEGER,
+	"dsp"	INTEGER,
+	"esp"	INTEGER,
+	"csp"	INTEGER,
+	"bdp"	INTEGER,
+	"ddp"	INTEGER,
+	"edp"	INTEGER,
+	"cdp"	INTEGER,
+	"shock_arrow"	TEXT,
+	"deleted"	INTEGER
+);
+INSERT INTO Song VALUES
+ (1109,'アドレナリン','U1 overground','A3','70-140',70.0,NULL,140.0,NULL,2,5,10,15,NULL,5,10,15,NULL,NULL,NULL);
