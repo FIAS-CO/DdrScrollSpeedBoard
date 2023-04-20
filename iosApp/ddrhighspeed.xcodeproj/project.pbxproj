@@ -17,6 +17,7 @@
 		182152D729C4C0E700F933F3 /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D629C4C0E700F933F3 /* SongDetailView.swift */; };
 		182152D929C4C10A00F933F3 /* SongRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D829C4C10A00F933F3 /* SongRow.swift */; };
 		182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152DA29C4EAAA00F933F3 /* ModelData.swift */; };
+		185BE27429F0FCEC00BB5275 /* MovieModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185BE27329F0FCEC00BB5275 /* MovieModalView.swift */; };
 		1887A25B29E002550070EE1D /* RoughEstimateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887A25A29E002550070EE1D /* RoughEstimateTableView.swift */; };
 		1887A26129E5AA060070EE1D /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1887A26029E5AA060070EE1D /* YouTubePlayerKit */; };
 		18B83D5D29CEC8BB001F61D4 /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */; };
@@ -60,6 +61,7 @@
 		182152D629C4C0E700F933F3 /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
 		182152D829C4C10A00F933F3 /* SongRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRow.swift; sourceTree = "<group>"; };
 		182152DA29C4EAAA00F933F3 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		185BE27329F0FCEC00BB5275 /* MovieModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModalView.swift; sourceTree = "<group>"; };
 		1887A25A29E002550070EE1D /* RoughEstimateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoughEstimateTableView.swift; sourceTree = "<group>"; };
 		18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
 		18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailUtil.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */,
 				18B83D6F29D1D419001F61D4 /* LongPushableButton.swift */,
 				18B83D7129DD4D1B001F61D4 /* SearchSongView.swift */,
+				185BE27329F0FCEC00BB5275 /* MovieModalView.swift */,
 			);
 			path = detail;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */,
 				18B83D7229DD4D1B001F61D4 /* SearchSongView.swift in Sources */,
 				182152AC29C20F5C00F933F3 /* ddrhighspeedApp.swift in Sources */,
+				185BE27429F0FCEC00BB5275 /* MovieModalView.swift in Sources */,
 				18CB086E29EC44BF00E8B579 /* TextFieldClearButton.swift in Sources */,
 				182152D929C4C10A00F933F3 /* SongRow.swift in Sources */,
 				18B83D7029D1D419001F61D4 /* LongPushableButton.swift in Sources */,
