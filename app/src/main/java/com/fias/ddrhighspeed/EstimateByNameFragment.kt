@@ -163,5 +163,6 @@ class EstimateByNameFragment : Fragment() {
         binding.songDetailList.visibility = viewStatus
         binding.asterisk.visibility = viewStatus
         binding.explainBasicText.visibility = viewStatus
+        binding.youtubePlayerView.visibility = viewStatus
     }
 }

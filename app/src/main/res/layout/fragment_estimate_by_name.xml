@@ -183,7 +183,18 @@
             android:text="基本①： 曲中で一番使用されているBPMです。\n基本②： 使用されている箇所があり考慮が必要なBPMです。"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/youtube_player_view"
             app:layout_constraintTop_toBottomOf="@id/song_detail_list" />
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:videoId="R4DSAZOB5Pk"
+            app:autoPlay="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/explain_basic_text"  />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
