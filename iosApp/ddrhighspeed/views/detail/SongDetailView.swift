@@ -5,6 +5,7 @@ import YouTubePlayerKit
 struct SongDetailView: View {
     @EnvironmentObject var modelData: ModelData
     @State var showModal = false
+    @State var showModal2 = false
     
     let bounds = UIScreen.main.bounds
     var song: Song
@@ -47,7 +48,7 @@ struct SongDetailView: View {
                 .padding()
             }
             
-            Button("動画を開く") {
+            Button("動画を開くType1") {
                 self.showModal.toggle()
             }
             .padding()
@@ -55,6 +56,14 @@ struct SongDetailView: View {
                 MovieModalView(isPresented: self.$showModal)
             }
             
+            Button("動画を開くType2") {
+                self.showModal2.toggle()
+            }
+            .padding()
+            .sheet(isPresented: $showModal2) {
+                MoviesModalView(isPresented: self.$showModal2)
+            }
+
             Spacer()
         }
     }
