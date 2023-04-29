@@ -21,7 +21,7 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    fun getSpMovies(songId: Long) : List<SpMovie> {
+    fun getMovies(songId: Long) : List<Movie> {
         return dbQuery.getMovies(songId).executeAsList()
     }
 
