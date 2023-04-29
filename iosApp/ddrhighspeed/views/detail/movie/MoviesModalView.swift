@@ -1,15 +1,12 @@
 import SwiftUI
 import YouTubePlayerKit
+import shared
 
 struct MoviesModalView: View {
     @Binding var isPresented: Bool
-    let urls: [String] = ["https://www.youtube.com/watch?v=djtlC4Ykzpw", "https://www.youtube.com/watch?v=ue80QwXMRHg", "https://www.youtube.com/watch?v=7C2z4GqqS5E", "https://www.youtube.com/watch?v=5oW7rNAIiLs", "https://www.youtube.com/watch?v=JX9YmI6tVvM"]
     
-    let labels: [String] = ["Single Difficult",
-    "Single Expert",
-    "Single Challenge",
-    "Double Expert",
-    "Double Challenge"]
+    var movies:[Movie]
+    var songName:String
     
     let topViewId = "top"
     
@@ -27,16 +24,19 @@ struct MoviesModalView: View {
                 .padding()
             }
             Spacer()
-            ScrollViewReader { reader in
-                ScrollView(.vertical) {
-                    VStack() {
-                        ForEach(0..<urls.count) { index in
-                            MovieAccordionView(url: urls[index], label: labels[index])
-                                .id(index)
-                        }
+            ScrollView(.vertical) {
+                VStack() {
+                    ForEach(movies, id: \.self) { movie in
+                        MovieAccordionView(movie: movie, songName: songName)
                     }
-                    .padding()
+                    SearchMovieButtonView(searchWord: songName, label: "Youtubeで検索")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
+                .padding()
             }
         }
         .edgesIgnoringSafeArea(.bottom)
@@ -45,7 +45,10 @@ struct MoviesModalView: View {
 
 struct MoviesModalView_Previews: PreviewProvider {
     static var previews: some View {
-        MoviesModalView(isPresented: .constant(true))
+        let movies =
+        [Movie(song_id:559, difficulty: "CSP", site:"Youtube", movie_id: "lJWmSeEbAkM"),
+         Movie(song_id:559, difficulty: "CDP", site:"Youtube", movie_id:"RfoZA2mNPRM"),]
+        MoviesModalView(isPresented: .constant(true), movies: movies, songName:"Paranoia Revolution")
     }
 }
 

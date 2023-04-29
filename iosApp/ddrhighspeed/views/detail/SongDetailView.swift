@@ -55,15 +55,29 @@ struct SongDetailView: View {
             .sheet(isPresented: $showModal) {
                 MovieModalView(isPresented: self.$showModal)
             }
-            
-            Button("動画を開くType2") {
-                self.showModal2.toggle()
-            }
-            .padding()
-            .sheet(isPresented: $showModal2) {
-                MoviesModalView(isPresented: self.$showModal2)
-            }
 
+            let movies:[Movie] = modelData.getMovies(id: song.id)
+            if movies.count != 0 {
+                Button("動画を開くType2") {
+                    self.showModal2.toggle()
+                }
+                .padding()
+                .sheet(isPresented: $showModal2) {
+                    MoviesModalView(
+                        isPresented: self.$showModal2,
+                        movies: movies,
+                        songName: song.name
+                    )
+                }
+            } else {
+                SearchMovieButtonView(searchWord: song.name, label: "Youtubeで検索")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.red)
+                    .cornerRadius(10)
+            }
+            
             Spacer()
         }
     }

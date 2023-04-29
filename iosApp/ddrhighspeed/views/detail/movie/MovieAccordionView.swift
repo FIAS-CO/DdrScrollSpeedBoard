@@ -1,52 +1,22 @@
 import SwiftUI
-import YouTubePlayerKit
+import shared
 
 struct MovieAccordionView: View {
-    var url: String
-    var label: String
+    var movie: Movie
+    var songName: String
     
     @State private var showDetail = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: -10) {
-            HStack {
-                Text(label)
-                    .font(.title)
-                    .bold()
-                Spacer()
-                Button {
-                    withAnimation{
-                        showDetail.toggle()
-                    }
-                } label: {
-                    Label("Graph", systemImage: "chevron.right.circle")
-                        .labelStyle(.iconOnly)
-                        .imageScale(.large)
-                        .rotationEffect(.degrees(showDetail ? 90 : 0))
-                        .scaleEffect(showDetail ? 1.5 : 1)
-                        .padding()
-                }
-            }
+        let (label, color) = MovieUtil().getLabel(difficulty: movie.difficulty)
+        
+        VStack(alignment: .leading, spacing: 2) {
+            AccordionHeaderView(showDetail: $showDetail, label: label, color: color)
+            
             if showDetail {
-                let youTubePlayer = YouTubePlayer(
-                    source: .url(url))
-                HStack {
-                    YouTubePlayerView(youTubePlayer) { state in
-                        // Overlay ViewBuilder closure to place an overlay View
-                        // for the current `YouTubePlayer.State`
-                        switch state {
-                        case .idle:
-                            ProgressView()
-                        case .ready:
-                            EmptyView()
-                        case .error(_):
-                            Text(verbatim: "YouTube player couldn't be loaded")
-                        }
-                    }
-                    .frame(height:225)
+                YoutubePlayerView(movieId: movie.movie_id)
                     .background(Color(.systemBackground))
                     .transition(.move(edge: .trailing).combined(with: .opacity))
-                }
             }
         }
     }
@@ -55,8 +25,15 @@ struct MovieAccordionView: View {
 struct MovieAccordion_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            MovieAccordionView(url: "https://www.youtube.com/watch?v=djtlC4Ykzpw", label: "Signle Expert")
-            MovieAccordionView(url: "https://www.youtube.com/watch?v=djtlC4Ykzpw", label: "Signle Challenge")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "BESP", site:"Youtube", movie_id: "lJWmSeEbAkM"), songName: "over the \"period\"")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "BSP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "DSP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "ESP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "CSP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "BDP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "DDP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "EDP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
+            MovieAccordionView(movie: Movie(song_id:559, difficulty: "CDP", site:"Youtube", movie_id:"RfoZA2mNPRM"), songName: "灼熱Beach side bunny")
         }
     }
 }
