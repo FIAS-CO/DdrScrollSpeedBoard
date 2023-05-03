@@ -4,82 +4,28 @@ import YouTubePlayerKit
 
 struct SongDetailView: View {
     @EnvironmentObject var modelData: ModelData
-    @State var showModal = false
-    @State var showModal2 = false
+    @State var selectedTab = 0
     
-    let bounds = UIScreen.main.bounds
     var song: Song
-    var str: String = "https://www.youtube.com/watch?v=djtlC4Ykzpw"
     
     var body: some View {
         VStack {
-            InputScrollSpeedView()
-            
-            Divider()
-            
-            Group {
-                Text(song.name)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                DetailTableView(rows: SongDetailUtil().toDetailRows(song: song, highSpeedValue: modelData.getScrollSpeedInt()))
-                    .fixedSize(horizontal: true, vertical: true)
-                    .padding(.leading)
-            }
-            .padding(.horizontal)
-            
-            let youTubePlayer = YouTubePlayer(
-                source: .url(str))
-            GeometryReader { geom in
-                YouTubePlayerView(youTubePlayer) { state in
-                    // Overlay ViewBuilder closure to place an overlay View
-                    // for the current `YouTubePlayer.State`
-                    switch state {
-                    case .idle:
-                        ProgressView()
-                    case .ready:
-                        EmptyView()
-                    case .error(_):
-                        Text(verbatim: "YouTube player couldn't be loaded")
-                    }
-                }
-                .frame(height:180)
+            Text(song.name)
+                .font(.title)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
-            }
-            
-            Button("動画を開くType1") {
-                self.showModal.toggle()
-            }
-            .padding()
-            .sheet(isPresented: $showModal) {
-                MovieModalView(isPresented: self.$showModal)
-            }
-
-            let movies:[Movie] = modelData.getMovies(id: song.id)
-            if movies.count != 0 {
-                Button("動画を開くType2") {
-                    self.showModal2.toggle()
-                }
-                .padding()
-                .sheet(isPresented: $showModal2) {
-                    MoviesModalView(
-                        isPresented: self.$showModal2,
-                        movies: movies,
-                        songName: song.name
-                    )
-                }
-            } else {
-                SearchMovieButtonView(searchWord: song.name, label: "Youtubeで検索")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.red)
-                    .cornerRadius(10)
-            }
-            
-            Spacer()
+                .background(Color(UIColor.systemGray6))
+            DetailTabView(list: ["ハイスピ", "動画"], selectedTab: $selectedTab)
+            TabView(selection: $selectedTab, content: {
+                DetailHighSpeedView(song: song)
+                    .tag(0)
+                MoviesModalView(movies: modelData.getMovies(id: song.id), songName: song.name)
+                .tag(1)
+            })
         }
+        // Revisit:検索画面からNavigationView経由で開くと画面上部に空白ができる対策
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

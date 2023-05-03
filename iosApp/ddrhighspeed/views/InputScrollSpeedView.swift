@@ -50,7 +50,6 @@ struct InputScrollSpeedView: View {
             .padding(.leading)
         }
         .padding(.horizontal)
-        .background(Color(UIColor.systemGray6))
         .onDisappear {
             UserDefaults.standard.set(modelData.scrollSpeed, forKey: "scrollSpeed")
         }
