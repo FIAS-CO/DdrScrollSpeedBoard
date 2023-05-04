@@ -16,7 +16,10 @@ struct SearchMovieButtonView: View {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }) {
-            Text(label)
+            HStack{
+                Image(systemName: "magnifyingglass")
+                Text(label)
+            }
         }
     }
 }
