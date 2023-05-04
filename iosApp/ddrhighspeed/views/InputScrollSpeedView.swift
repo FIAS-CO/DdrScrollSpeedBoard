@@ -11,7 +11,7 @@ struct InputScrollSpeedView: View {
     var body: some View {
         VStack {
             Text("スクロールスピード")
-                .font(.title)
+                .font(.title2)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, maxHeight: 50, alignment: .leading)
             

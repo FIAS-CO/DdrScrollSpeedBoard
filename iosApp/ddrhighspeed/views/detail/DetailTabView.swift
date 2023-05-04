@@ -31,9 +31,7 @@ struct DetailTabView: View {
             }
         }
         .frame(height: 48)
-        .background(Color.white)
         .compositingGroup()
-        .shadow(color: .primary.opacity(0.2), radius: 3, x: 4, y: 4)
     }
 }
 
