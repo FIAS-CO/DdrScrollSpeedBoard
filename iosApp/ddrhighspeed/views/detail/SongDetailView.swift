@@ -23,6 +23,7 @@ struct SongDetailView: View {
                 MoviesModalView(movies: modelData.getMovies(id: song.id), songName: song.name)
                 .tag(1)
             })
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
         // Revisit:検索画面からNavigationView経由で開くと画面上部に空白ができる対策
         .navigationBarTitleDisplayMode(.inline)
