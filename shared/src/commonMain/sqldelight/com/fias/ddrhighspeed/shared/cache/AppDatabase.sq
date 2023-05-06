@@ -1353,7 +1353,7 @@ INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
  (1147, 'ESP', 'Youtube', 'wSVbvMXxxVA'),
  (1148, 'ESP', 'Youtube', 'jM3XRG30Tfg'),
  (1149, 'ESP', 'Youtube', 'NhgiXQL2q0Y'),
- (1150, 'ESP', 'Youtube', 'UgGErBLdFQ'),
+ (1150, 'ESP', 'Youtube', 'OGE4CeD8vJ0'),
  (1019, 'CSP', 'Youtube', 'WI9Q6HS-hTY'),
  (908, 'CSP', 'Youtube', 'nFCLkfGP7ic'),
  (1084, 'ESP', 'Youtube', '5w7v9h90BHw'),
@@ -1363,7 +1363,7 @@ INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
  (1094, 'ESP', 'Youtube', 'L8JBCL7vZHI'),
  (1093, 'ESP', 'Youtube', 'Z_u3YoY08VI'),
  (839, 'CSP', 'Youtube', 'ZqY95-614x4'),
- (839, 'CDP', 'Youtube', 'OGE4CeD8vJ0');
+ (839, 'CDP', 'Youtube', '-UgGErBLdFQ');
 
 getNew:
 SELECT * FROM Song ORDER BY id DESC;
