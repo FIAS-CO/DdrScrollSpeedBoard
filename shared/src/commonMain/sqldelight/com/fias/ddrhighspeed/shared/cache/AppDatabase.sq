@@ -1373,3 +1373,6 @@ SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' ORDER BY name ASC;
 
 insert:
 INSERT INTO Song VALUES ?;
+
+getMovies:
+SELECT * FROM Movie WHERE song_id = ?;
