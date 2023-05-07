@@ -20,24 +20,18 @@ struct DetailTableView: View {
     
     @ViewBuilder
     func columnHeaders() -> some View {
-        Text("")
-            .padding(.trailing)
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .leading
-            )
-            .font(.caption)
-            .padding(8)
-            .background(.thinMaterial)
-            .overlay(alignment: .top) { VStack { Divider() } }
-            .overlay(alignment: .bottom) { VStack { Divider() } }
-            .overlay(alignment: .leading) { HStack { Divider() } }
-            .overlay(alignment: .trailing) { HStack { Divider() } }
-            .simpleTableHeader()
-            .zIndex(3)
-        
         Group {
+            Text("")
+                .padding(.trailing)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .leading
+                )
+                .padding(8)
+                .simpleTableHeader()
+                .zIndex(3)
+            
             Text("BPM")
                 .padding(.trailing)
                 .frame(
@@ -74,24 +68,21 @@ struct DetailTableView: View {
     
     @ViewBuilder
     func row(_ row: ResultRowForDetail) -> some View {
-        Text(row.category)
-            .padding(.trailing)
-            .frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .leading
-            )
-            .padding(8)
-            .background(.thinMaterial)
-            .overlay(alignment: .bottom) { VStack { Divider() } }
-            .overlay(alignment: .leading) { HStack { Divider() } }
-            .overlay(alignment: .trailing) { HStack { Divider() } }
-            .simpleTableHeaderColumn()
-            .zIndex(1)
-        
         Group {
-            Text(row.bpm)
+            Text(row.category)
                 .padding(.trailing)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .leading
+                )
+                .padding(8)
+                .background(.thinMaterial)
+                .overlay(alignment: .leading) { HStack { Divider() } }
+                .zIndex(1)
+            
+            Text(row.bpm)
+                .padding(.horizontal)
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: .infinity,
@@ -99,7 +90,7 @@ struct DetailTableView: View {
                 )
             
             Text(row.highSpeed)
-                .padding(.trailing)
+                .padding(.horizontal)
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: .infinity,
@@ -107,14 +98,13 @@ struct DetailTableView: View {
                 )
             
             Text(row.scrollSpeed)
-                .padding(.trailing)
+                .padding(.horizontal)
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: .infinity,
                     alignment: .leading
                 )
         }
-        .padding(.horizontal)
         .overlay(alignment: .bottom) { VStack { Divider() } }
         .overlay(alignment: .trailing) { HStack { Divider() } }
     }
