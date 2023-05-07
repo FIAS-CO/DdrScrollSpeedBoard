@@ -21,10 +21,6 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    fun getMovies(songId: Long) : List<Movie> {
-        return dbQuery.getMovies(songId).executeAsList()
-    }
-
     fun migrate() {
         AppDatabase.Schema.migrate(
             driver,
