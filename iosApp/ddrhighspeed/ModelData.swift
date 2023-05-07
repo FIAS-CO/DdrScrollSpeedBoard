@@ -28,6 +28,10 @@ final class ModelData: ObservableObject {
             return 0
         }
     }
+    
+    func getMovies(id: Int64) -> [Movie] {
+        return db.getMovies(songId: id)
+    }
 }
 
 func connectDb() -> Database {
