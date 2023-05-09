@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="boardViewModel"
-            type="com.fias.ddrhighspeed.ScrollSpeedBoardViewModel" />
+            name="fragmentViewModel"
+            type="com.fias.ddrhighspeed.EstimateByNameViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +50,7 @@
                 android:layout_weight="10"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="@={boardViewModel.searchWord}" />
+                android:text="@={fragmentViewModel.searchWord}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

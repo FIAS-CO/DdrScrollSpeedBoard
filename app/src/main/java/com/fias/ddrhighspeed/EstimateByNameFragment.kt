@@ -10,13 +10,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
-import com.fias.ddrhighspeed.shared.cache.Database
-import com.fias.ddrhighspeed.shared.cache.DatabaseDriverFactory
 import com.fias.ddrhighspeed.shared.cache.Song
-import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
-import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,13 +24,24 @@ class EstimateByNameFragment : Fragment() {
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
-    private val resultRowSetFactory = ResultRowSetFactory()
     private var selectedSong: Song? = null
 
-    private lateinit var detailBoardAdapter: DetailBoardAdapter
-    private lateinit var searchedSongsAdapter: SearchedSongsAdapter
+    private val viewModel: EstimateByNameViewModel by viewModels {
+        EstimateByNameViewModelFactory(
+            (activity?.application as SongApplication).db
+        )
+    }
 
-    private lateinit var db: Database
+    private val detailBoardAdapter: DetailBoardAdapter by lazy { DetailBoardAdapter() }
+    private val searchedSongsAdapter: SearchedSongsAdapter by lazy {
+        val clickListener = ClickSongListener { song: Song ->
+            goToDetail(song)
+
+            val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue(), selectedSong)
+            detailBoardAdapter.submitList(list)
+        }
+        SearchedSongsAdapter(clickListener)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +53,8 @@ class EstimateByNameFragment : Fragment() {
             container,
             false
         ).also {
-            it.boardViewModel = this.sharedViewModel
+//            it.boardViewModel = this.sharedViewModel
+            it.fragmentViewModel = this.viewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
 
@@ -54,26 +64,14 @@ class EstimateByNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db = Database(DatabaseDriverFactory(requireContext()))
-
-        detailBoardAdapter = DetailBoardAdapter()
         binding.songDetailList.apply {
             adapter = detailBoardAdapter
         }
         switchDetailViews(View.GONE)
 
-        val clickListener = ClickSongListener { song: Song ->
-            goToDetail(song)
-
-            val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
-            val list = createRows(scrollSpeedValue, selectedSong)
-            detailBoardAdapter.submitList(list)
-        }
-        searchedSongsAdapter = SearchedSongsAdapter(clickListener)
-
         binding.searchedSongs.adapter = searchedSongsAdapter
         CoroutineScope(Dispatchers.IO).launch {
-            val searchList: List<Song> = db.getNewSongs()
+            val searchList: List<Song> = viewModel.getNewSongs()
             handler.post {
                 searchedSongsAdapter.submitList(searchList)
             }
@@ -85,16 +83,14 @@ class EstimateByNameFragment : Fragment() {
 
         val searchWordObserver = Observer<String> {
             CoroutineScope(Dispatchers.IO).launch {
-                val searchWord = sharedViewModel.searchWord.value.toString()
-                val searchList: List<Song> =
-                    if (searchWord == "") db.getNewSongs()
-                    else db.searchSongsByName(searchWord)
+                val searchWord = viewModel.searchWord.value.toString()
+                val searchList = viewModel.searchSongsByName(searchWord)
                 handler.post {
                     searchedSongsAdapter.submitList(searchList)
                 }
             }
         }
-        sharedViewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
+        viewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
 
         val scrollSpeedObserver = Observer<String> {
             val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
@@ -107,7 +103,7 @@ class EstimateByNameFragment : Fragment() {
                         "$scrollSpeedValue, ${sharedViewModel.getScrollSpeedValue()}"
                     )
 
-                    val list = createRows(scrollSpeedValue, selectedSong)
+                    val list = viewModel.createRows(scrollSpeedValue, selectedSong)
                     detailBoardAdapter.submitList(list)
                 } else {
                     Log.d(javaClass.name, "board not updated.")
@@ -115,26 +111,6 @@ class EstimateByNameFragment : Fragment() {
             }, 200)
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
-    }
-
-    private fun createRows(scrollSpeedValue: Int, song: Song?): MutableList<ResultRowForDetail> {
-        val list = mutableListOf<ResultRowForDetail>()
-        song?.apply {
-            max_bpm?.let {
-                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最大", it))
-            }
-            min_bpm?.let {
-                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "最小", it))
-            }
-            base_bpm?.let {
-                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本①", it))
-            }
-            sub_bpm?.let {
-                list.add(resultRowSetFactory.createForDetail(scrollSpeedValue, "基本②", it))
-            }
-            list.sortDescending() // BPM でソート
-        }
-        return list
     }
 
     private fun backToSearch() {
