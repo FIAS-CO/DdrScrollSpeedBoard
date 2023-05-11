@@ -2,9 +2,6 @@ package com.fias.ddrhighspeed
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +11,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentRoughEstimateBinding
-import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.view.HighSpeedListView
 import kotlinx.coroutines.launch
 
@@ -31,9 +28,14 @@ class RoughEstimateFragment : Fragment() {
     private var _fragmentBinding: FragmentRoughEstimateBinding? = null
     private val binding get() = _fragmentBinding!!
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
+    private val viewModel: RoughEstimateViewModel by viewModels()
 
-    private lateinit var scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter
-    private lateinit var positionDataStore: ScrollPositionDataStore
+    private val scrollSpeedBoardAdapter: ScrollSpeedBoardAdapter by lazy { ScrollSpeedBoardAdapter() }
+    private val positionDataStore: ScrollPositionDataStore by lazy {
+        ScrollPositionDataStore(
+            requireContext().positionDataStore
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,31 +55,19 @@ class RoughEstimateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        scrollSpeedBoardAdapter = ScrollSpeedBoardAdapter()
 
         val recyclerView = binding.recyclerView.apply {
             adapter = scrollSpeedBoardAdapter
             addSaveScrollPositionListener { saveScrollPosition(this) }
         }
 
-        positionDataStore = ScrollPositionDataStore(requireContext().positionDataStore)
         loadSavedListPosition(recyclerView)
 
-        val handler = Handler(Looper.getMainLooper())
         val scrollSpeedObserver = Observer<String> {
-            val scrollSpeed = sharedViewModel.getScrollSpeedValue()
-
-            // スピンボタン長押し時に処理が連続実行されないように
-            handler.postDelayed({
-                if (scrollSpeed == sharedViewModel.getScrollSpeedValue()) {
-                    Log.d(javaClass.name, "$scrollSpeed, ${sharedViewModel.getScrollSpeedValue()}")
-
-                    val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
-                    scrollSpeedBoardAdapter.submitList(ResultRowSetFactory().create(scrollSpeedValue))
-                } else {
-                    Log.d(javaClass.name, "board not updated.")
-                }
-            }, 200)
+            sharedViewModel.longPushButtonCommand {
+                val rows = viewModel.createResultRows(sharedViewModel.getScrollSpeedValue())
+                scrollSpeedBoardAdapter.submitList(rows)
+            }
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
     }

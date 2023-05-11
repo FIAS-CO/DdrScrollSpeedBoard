@@ -3,7 +3,6 @@ package com.fias.ddrhighspeed
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,7 +52,6 @@ class EstimateByNameFragment : Fragment() {
             container,
             false
         ).also {
-//            it.boardViewModel = this.sharedViewModel
             it.fragmentViewModel = this.viewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
@@ -71,9 +69,8 @@ class EstimateByNameFragment : Fragment() {
 
         binding.searchedSongs.adapter = searchedSongsAdapter
         CoroutineScope(Dispatchers.IO).launch {
-            val searchList: List<Song> = viewModel.getNewSongs()
             handler.post {
-                searchedSongsAdapter.submitList(searchList)
+                searchedSongsAdapter.submitList(viewModel.getNewSongs())
             }
         }
 
@@ -84,31 +81,19 @@ class EstimateByNameFragment : Fragment() {
         val searchWordObserver = Observer<String> {
             CoroutineScope(Dispatchers.IO).launch {
                 val searchWord = viewModel.searchWord.value.toString()
-                val searchList = viewModel.searchSongsByName(searchWord)
                 handler.post {
-                    searchedSongsAdapter.submitList(searchList)
+                    searchedSongsAdapter.submitList(viewModel.searchSongsByName(searchWord))
                 }
             }
         }
         viewModel.searchWord.observe(viewLifecycleOwner, searchWordObserver)
 
         val scrollSpeedObserver = Observer<String> {
-            val scrollSpeedValue = sharedViewModel.getScrollSpeedValue() ?: 0
-
-            // スピンボタン長押し時に処理が連続実行されないように
-            handler.postDelayed({
-                if (scrollSpeedValue == sharedViewModel.getScrollSpeedValue()) {
-                    Log.d(
-                        javaClass.name,
-                        "$scrollSpeedValue, ${sharedViewModel.getScrollSpeedValue()}"
-                    )
-
-                    val list = viewModel.createRows(scrollSpeedValue, selectedSong)
-                    detailBoardAdapter.submitList(list)
-                } else {
-                    Log.d(javaClass.name, "board not updated.")
-                }
-            }, 200)
+            sharedViewModel.longPushButtonCommand {
+                val scrollSpeedValue = sharedViewModel.getScrollSpeedValue()
+                val list = viewModel.createRows(scrollSpeedValue, selectedSong)
+                detailBoardAdapter.submitList(list)
+            }
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
     }

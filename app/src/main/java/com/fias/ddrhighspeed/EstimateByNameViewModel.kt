@@ -20,7 +20,7 @@ class EstimateByNameViewModel(private val db: Database) : ViewModel() {
         return createRows(value, song)
     }
 
-    fun createRows(scrollSpeed: Int, song: Song?): List<ResultRowForDetail> {
+    private fun createRows(scrollSpeed: Int, song: Song?): List<ResultRowForDetail> {
         val list = mutableListOf<ResultRowForDetail>()
         song?.apply {
             max_bpm?.let {
