@@ -10,11 +10,11 @@ class SongDetailViewModel: ViewModel() {
     lateinit var song: Song
     private val rsFactory = ResultRowSetFactory()
 
-    fun createRows(scrollSpeedValue: Int?, song: Song?): List<ResultRowForDetail> {
+    fun createRows(scrollSpeedValue: Int?): List<ResultRowForDetail> {
         val value = scrollSpeedValue ?: 0
 
         val list = mutableListOf<ResultRowForDetail>()
-        song?.apply {
+        song.apply {
             max_bpm?.let {
                 list.add(rsFactory.createForDetail(value, "最大", it))
             }

@@ -38,20 +38,23 @@ class SongDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.songName.text = viewModel.song.name
 
         binding.songDetailList.apply {
             adapter = detailBoardAdapter
         }
-        val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue(), viewModel.song)
-        detailBoardAdapter.submitList(list)
+        updateTable()
 
         val scrollSpeedObserver = Observer<String> {
             sharedViewModel.longPushButtonCommand {
-                val scrollSpeedValue = sharedViewModel.getScrollSpeedValue()
-                val list2 = viewModel.createRows(scrollSpeedValue, viewModel.song)
-                detailBoardAdapter.submitList(list2)
+                updateTable()
             }
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+    }
+
+    private fun updateTable() {
+        val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue())
+        detailBoardAdapter.submitList(list)
     }
 }
