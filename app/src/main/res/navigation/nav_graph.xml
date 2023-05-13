@@ -9,7 +9,11 @@
         android:id="@+id/scrollSpeedBoardFragment"
         android:name="com.fias.ddrhighspeed.ScrollSpeedBoardFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_scroll_speed_board" />
+        tools:layout="@layout/fragment_scroll_speed_board" >
+        <action
+            android:id="@+id/action_scrollSpeedBoard_to_songDetail"
+            app:destination="@id/songDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
         android:name="com.fias.ddrhighspeed.EstimateByNameFragment"
@@ -20,4 +24,8 @@
         android:name="com.fias.ddrhighspeed.RoughEstimateFragment"
         android:label="fragment_rough_estimate"
         tools:layout="@layout/fragment_rough_estimate" />
+    <fragment
+        android:id="@+id/songDetailFragment"
+        android:name="SongDetailFragment"
+        android:label="SongDetailFragment" />
 </navigation>
