@@ -1,13 +1,11 @@
 package com.fias.ddrhighspeed
 
 import androidx.lifecycle.ViewModel
-import com.fias.ddrhighspeed.shared.cache.Song
 import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 
 class SongDetailViewModel: ViewModel() {
-    // TODO かならずsongに値が入っている状態にする
-    lateinit var song: Song
+    lateinit var song: SongData
     private val rsFactory = ResultRowSetFactory()
 
     fun createRows(scrollSpeedValue: Int?): List<ResultRowForDetail> {

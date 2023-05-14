@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
-import com.fias.ddrhighspeed.shared.cache.Song
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,17 +27,12 @@ class EstimateByNameFragment : Fragment() {
             (activity?.application as SongApplication).db
         )
     }
-    private val songDetailViewModel: SongDetailViewModel by activityViewModels()
 
     private val searchedSongsAdapter: SearchedSongsAdapter by lazy {
-        val clickListener = ClickSongListener { song: Song ->
-            songDetailViewModel.song = song
-
-            val navHostFragment =
-                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-            val navController = navHostFragment.findNavController()
+        val clickListener = ClickSongListener { song: SongData ->
+            val navController = findNavController()
             val action =
-                ScrollSpeedBoardFragmentDirections.actionScrollSpeedBoardToSongDetail()
+                ScrollSpeedBoardFragmentDirections.actionScrollSpeedBoardToSongDetail(song)
             navController.navigate(action)
         }
         SearchedSongsAdapter(clickListener)

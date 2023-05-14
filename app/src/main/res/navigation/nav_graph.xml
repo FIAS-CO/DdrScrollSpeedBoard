@@ -27,5 +27,9 @@
     <fragment
         android:id="@+id/songDetailFragment"
         android:name="SongDetailFragment"
-        android:label="SongDetailFragment" />
+        android:label="SongDetailFragment" >
+        <argument
+            android:name="song"
+            app:argType="com.fias.ddrhighspeed.SongData" />
+    </fragment>
 </navigation>

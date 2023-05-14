@@ -3,7 +3,6 @@ package com.fias.ddrhighspeed
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
@@ -17,7 +16,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.android.material.textfield.TextInputEditText
-import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
@@ -39,7 +37,6 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
 
     @Before
     fun setup() {
-        launchFragmentInContainer<ScrollSpeedBoardFragment>()
         goToSearchFragment()
     }
 
@@ -67,25 +64,25 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     fun goToDetail_3行表示_詳細表示後にスクロールスピード変更_backToSearch() {
         assertIsInSearchMode()
 
-        editTextAndWait("200")
         writeSearchWord("ace for")
         clickSearchedSongInPosition(2)
 
         assertIsInDetailMode("ACE FOR ACES(Challenge)")
 
+        editTextAndWait("200")
         editTextAndWait("500")
 
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "800.0",
-                        "× 0.5",
-                        "= 400.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "800.0",
+                    "× 0.5",
+                    "= 400.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本①", "400.0", "× 1.25", "= 500.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本①", "400.0", "× 1.25", "= 500.0")))
             .check(matches(atPositionOnResultRow(2, "最小", "50.0", "× 8.0", "= 400.0")))
 
         clickBackButton()
@@ -96,44 +93,44 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     fun goToDetail_1行表示_詳細表示前にスクロールスピード変更() {
         assertIsInSearchMode()
 
-        editTextAndWait("600")
         writeSearchWord("ace for")
         clickSearchedSongInPosition(0)
 
+        editTextAndWait("600")
         assertIsInDetailMode("ACE FOR ACES(Basic)")
 
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "基本①",
-                        "200.0",
-                        "× 3.0",
-                        "= 600.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "基本①",
+                    "200.0",
+                    "× 3.0",
+                    "= 600.0"
                 )
             )
+        )
     }
 
     @Test
     fun goToDetail_4行表示_スクロールスピード2000から2001へ_UpSpinButton使用() {
         assertIsInSearchMode()
-        editTextAndWait("2000")
 
         writeSearchWord("888")
         clickSearchedSongInPosition(0)
 
+        editTextAndWait("2000")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 4.5",
-                        "= 1998.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 4.5",
+                    "= 1998.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 4.5", "= 1998.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 4.5", "= 1998.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 8.0", "= 1776.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 8.0", "= 888.0")))
 
@@ -149,22 +146,22 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     @Test
     fun goToDetail_1行表示_スクロールスピード30から29へ_DownSpinButton使用() {
         assertIsInSearchMode()
-        editTextAndWait("30")
 
         writeSearchWord("888")
         clickSearchedSongInPosition(0)
 
+        editTextAndWait("30")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 0.25",
-                        "= 111.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 0.25",
+                    "= 111.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 0.25", "= 111.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 0.25", "= 111.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 0.25", "= 55.5")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 0.25", "= 27.75")))
 
@@ -181,22 +178,23 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     @Test
     fun upSpinButton長押し_scrollSpeedがプラス30程度されrecyclerViewが更新される() {
         assertIsInSearchMode()
-        editTextAndWait("600").checkText("600")
 
         writeSearchWord("888")
         clickSearchedSongInPosition(0)
 
+        editTextAndWait("600").checkText("600")
+
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 1.25",
-                        "= 555.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 1.25",
+                    "= 555.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
 
@@ -210,16 +208,16 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         }
 
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 1.25",
-                        "= 555.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 1.25",
+                    "= 555.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.75", "= 610.5")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.5", "= 610.5")))
     }
@@ -227,22 +225,22 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     @Test
     fun upSpinButton長押し_scrollSpeedがマイナス30程度されrecyclerViewが更新される() {
         assertIsInSearchMode()
-        editTextAndWait("600").checkText("600")
 
         writeSearchWord("888")
         clickSearchedSongInPosition(0)
 
+        editTextAndWait("600").checkText("600")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 1.25",
-                        "= 555.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 1.25",
+                    "= 555.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
 
@@ -256,16 +254,16 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         }
 
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 1.25",
-                        "= 555.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 1.25",
+                    "= 555.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
     }
@@ -273,22 +271,22 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     @Test
     fun downSpinButton長押し_scrollSpeedがマイナス30程度されrecyclerViewが更新される() {
         assertIsInSearchMode()
-        editTextAndWait("600").checkText("600")
 
         writeSearchWord("888")
         clickSearchedSongInPosition(0)
 
+        editTextAndWait("600").checkText("600")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 1.25",
-                        "= 555.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 1.25",
+                    "= 555.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
 
@@ -302,16 +300,16 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         }
 
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "444.0",
-                        "× 1.25",
-                        "= 555.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "444.0",
+                    "× 1.25",
+                    "= 555.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
     }
@@ -320,23 +318,23 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     fun goToDetail_データベースバージョン2で追加された曲が表示される() {
         assertIsInSearchMode()
 
-        editTextAndWait("700")
         writeSearchWord("STAY G")
         clickSearchedSongInPosition(0)
 
         assertIsInDetailMode("STAY GOLD")
 
+        editTextAndWait("700")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "最大",
-                        "330.0",
-                        "× 2.0",
-                        "= 660.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "最大",
+                    "330.0",
+                    "× 2.0",
+                    "= 660.0"
                 )
-            ).check(matches(atPositionOnResultRow(1, "基本①", "165.0", "× 4.0", "= 660.0")))
+            )
+        ).check(matches(atPositionOnResultRow(1, "基本①", "165.0", "× 4.0", "= 660.0")))
             .check(matches(atPositionOnResultRow(2, "最小", "41.0", "× 8.0", "= 328.0")))
     }
 
@@ -344,67 +342,59 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
     fun goToDetail_データベースバージョン3で追加された曲が表示される() {
         assertIsInSearchMode()
 
-        editTextAndWait("700")
         writeSearchWord("crysta")
         clickSearchedSongInPosition(0)
 
         assertIsInDetailMode("Crystarium")
 
+        editTextAndWait("700")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "基本①",
-                        "130.0",
-                        "× 5.0",
-                        "= 650.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "基本①",
+                    "130.0",
+                    "× 5.0",
+                    "= 650.0"
                 )
             )
+        )
     }
 
     @Test
     fun goToDetail_データベースバージョン4で追加された曲が表示される() {
         assertIsInSearchMode()
 
-        editTextAndWait("600")
         writeSearchWord("Müll")
         clickSearchedSongInPosition(0)
 
         assertIsInDetailMode("みゅ、みゅ、Müllる")
 
+        editTextAndWait("600")
         getDetailSongList().check(
-                matches(
-                    atPositionOnResultRow(
-                        0,
-                        "基本①",
-                        "150.0",
-                        "× 4.0",
-                        "= 600.0"
-                    )
+            matches(
+                atPositionOnResultRow(
+                    0,
+                    "基本①",
+                    "150.0",
+                    "× 4.0",
+                    "= 600.0"
                 )
             )
+        )
     }
 
     //region private methods
 
 
     private fun assertIsInSearchMode() {
+        Thread.sleep(waitMills)
+        Thread.sleep(waitMills)
         assertSearchWordIsDisplayed()
         assertSearchedSongListIsDisplayed()
-
-        assertHeaderIs_Not_Displayed()
-        assertSongNameInDetailIs_Not_Displayed()
-        assertBackButtonIs_Not_Displayed()
-        assertDetailBpmListIs_Not_Displayed()
-        assertAsteriskIs_Not_Displayed()
-        assertExplainBasicTextIs_Not_Displayed()
     }
 
     private fun assertIsInDetailMode(songName: String) {
-        assertSearchWordIs_Not_Displayed()
-        assertSearchedSongListIs_Not_Displayed()
-
         assertHeaderIsDisplayed()
         assertSongNameInDetail(songName)
         assertBackButtonIsDisplayed()
@@ -436,11 +426,6 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         searchWordView.check(matches(isDisplayed()))
     }
 
-    private fun assertSearchWordIs_Not_Displayed() {
-        val searchWordView = getSearchWordView()
-        searchWordView.check(matches(not(isDisplayed())))
-    }
-
     private fun getSearchWordView() = onView(
         allOf(
             withId(R.id.search_word_input), childAtPosition(
@@ -453,10 +438,6 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
 
     private fun assertSearchedSongListIsDisplayed() {
         getSearchedSongListView().check(matches(isDisplayed()))
-    }
-
-    private fun assertSearchedSongListIs_Not_Displayed() {
-        getSearchedSongListView().check(matches(not(isDisplayed())))
     }
 
     private fun getSearchedSongListView() = onView(withId(R.id.searched_songs))
@@ -479,11 +460,6 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         getDetailSongName().check(matches(withText(songName)))
     }
 
-    private fun assertSongNameInDetailIs_Not_Displayed() {
-        getDetailSongName().check(matches(withEffectiveVisibility(Visibility.GONE)))
-
-    }
-
     private fun getDetailSongName() = onView(
         allOf(
             withId(R.id.song_name), withParent(
@@ -500,13 +476,6 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         getBpmHeader().check(matches(withText("BPM")))
         getHighSpeedHeader().check(matches(withText("ﾊｲｽﾋﾟ")))
         getScrollSpeedHeader().check(matches(withText("ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ")))
-    }
-
-    private fun assertHeaderIs_Not_Displayed() {
-        getBlankHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
-        getBpmHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
-        getHighSpeedHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
-        getScrollSpeedHeader().check(matches(withEffectiveVisibility(Visibility.GONE)))
     }
 
     private fun getScrollSpeedHeader() = onView(
@@ -558,27 +527,25 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         getBackButton().check(matches(isDisplayed()))
     }
 
-    private fun assertBackButtonIs_Not_Displayed() {
-        getBackButton().check(matches(not(isDisplayed())))
-    }
-
     private fun getBackButton(): ViewInteraction = onView(
         allOf(
-            withId(R.id.back_to_search_image), withContentDescription("back"), withParent(
+            withContentDescription("Navigate up"),
+            childAtPosition(
                 allOf(
-                    withId(R.id.search_layout),
-                    withParent(IsInstanceOf.instanceOf(android.widget.FrameLayout::class.java))
-                )
-            )
+                    withId(R.id.toolbar),
+                    childAtPosition(
+                        withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                        0
+                    )
+                ),
+                1
+            ),
+            isDisplayed()
         )
     )
 
     private fun assertDetailBpmListIsDisplayed() {
         getDetailSongList().check(matches(isDisplayed()))
-    }
-
-    private fun assertDetailBpmListIs_Not_Displayed() {
-        getDetailSongList().check(matches(not(isDisplayed())))
     }
 
     private fun getDetailSongList() = onView(
@@ -596,18 +563,10 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         getAsterisk().check(matches(isDisplayed()))
     }
 
-    private fun assertAsteriskIs_Not_Displayed() {
-        getAsterisk().check(matches(not(isDisplayed())))
-    }
-
     private fun getAsterisk() = onView(withId(R.id.asterisk))
 
     private fun assertExplainBasicTextIsDisplayed() {
         getExplainBasicText().check(matches(isDisplayed()))
-    }
-
-    private fun assertExplainBasicTextIs_Not_Displayed() {
-        getExplainBasicText().check(matches(not(isDisplayed())))
     }
 
     private fun getExplainBasicText() = onView(withId(R.id.explain_basic_text))

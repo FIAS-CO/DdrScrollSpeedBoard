@@ -8,6 +8,10 @@
         <variable
             name="fragmentViewModel"
             type="com.fias.ddrhighspeed.SongDetailViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.fias.ddrhighspeed.ScrollSpeedBoardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,10 +31,86 @@
             android:text="@string/song_name_sample_text"
             android:textSize="35sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/song_detail_table_header"
+            app:layout_constraintBottom_toTopOf="@id/scrollSpeedLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--  TextEdit 以外をタッチしたときのために focus 関連プロパティを設定している  -->
+        <TextView
+            android:id="@+id/scrollSpeedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/input_label"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/song_name" />
+
+        <LinearLayout
+            android:id="@+id/input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
+            android:paddingBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@id/song_detail_table_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:hint="@string/input_hint"
+                app:errorIconDrawable="@drawable/ic_error"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@id/increment_up"
+                app:layout_constraintEnd_toStartOf="@id/increment_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
+
+                <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
+                    android:id="@+id/text_input_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text="@={viewModel.scrollSpeed}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.fias.ddrhighspeed.view.SpinButton
+                android:id="@+id/increment_up"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_vertical_fullsize_material"
+                android:text="@string/spin_button_up_label"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"
+                app:layout_constraintEnd_toStartOf="@id/increment_down"
+                app:layout_constraintStart_toEndOf="@id/textField"
+                app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel" />
+
+            <com.fias.ddrhighspeed.view.SpinButton
+                android:id="@+id/increment_down"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_vertical_fullsize_material"
+                android:text="@string/spin_button_down_label"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"
+                app:layout_constraintStart_toEndOf="@id/increment_up"
+                app:layout_constraintTop_toBottomOf="@id/textField" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/song_detail_table_header"
@@ -41,7 +121,7 @@
             app:layout_constraintBottom_toTopOf="@id/song_detail_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/song_name">
+            app:layout_constraintTop_toBottomOf="@id/input_layout">
 
             <TextView
                 android:id="@+id/blank"

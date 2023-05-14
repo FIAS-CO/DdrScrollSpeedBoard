@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.fias.ddrhighspeed.DetailBoardAdapter
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedBoardViewModel
@@ -15,9 +16,11 @@ import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
 class SongDetailFragment : Fragment() {
     private var _fragmentBinding: FragmentSongDetailBinding? = null
     private val binding get() = _fragmentBinding!!
-    private val viewModel: SongDetailViewModel by activityViewModels()
     private val detailBoardAdapter: DetailBoardAdapter by lazy { DetailBoardAdapter() }
     private val sharedViewModel: ScrollSpeedBoardViewModel by activityViewModels()
+    private val args: SongDetailFragmentArgs by navArgs()
+
+    private val viewModel: SongDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +33,10 @@ class SongDetailFragment : Fragment() {
             false
         ).also {
             it.fragmentViewModel = this.viewModel
+            it.viewModel = this.sharedViewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
+        viewModel.song = args.song
 
         return binding.root
     }
@@ -39,6 +44,9 @@ class SongDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.songName.text = viewModel.song.name
+
+        binding.incrementUp.setSpinButtonListener(sharedViewModel.countUp)
+        binding.incrementDown.setSpinButtonListener(sharedViewModel.countDown)
 
         binding.songDetailList.apply {
             adapter = detailBoardAdapter
