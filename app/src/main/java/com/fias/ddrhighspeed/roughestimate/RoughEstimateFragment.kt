@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.roughestimate
 
 import android.content.Context
 import android.os.Bundle
@@ -12,6 +12,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.fias.ddrhighspeed.R
+import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentRoughEstimateBinding
 import com.fias.ddrhighspeed.view.HighSpeedListView

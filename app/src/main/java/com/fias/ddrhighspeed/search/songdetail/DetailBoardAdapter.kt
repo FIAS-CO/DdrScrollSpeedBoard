@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.search.songdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.fias.ddrhighspeed.databinding.ResultRowForDetailBinding
 import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
 
 /**
- * Adapter for the [RecyclerView] in [EstimateByNameFragment]. Displays [ResultRowForDetail] data object.
+ * Adapter for the [RecyclerView] in [SongDetailFragment]. Displays [ResultRowForDetail] data object.
  */
 class DetailBoardAdapter :
     ListAdapter<ResultRowForDetail, DetailBoardAdapter.DetailBoardViewHolder>(DiffCallback) {

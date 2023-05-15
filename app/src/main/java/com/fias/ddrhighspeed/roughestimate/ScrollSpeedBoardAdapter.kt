@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.roughestimate
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.fias.ddrhighspeed.databinding.ResultRowBinding
 import com.fias.ddrhighspeed.shared.model.ResultRow
 
 /**
- * Adapter for the [RecyclerView] in [ScrollSpeedBoardFragment]. Displays [ResultRow] data object.
+ * Adapter for the [RecyclerView] in [RoughEstimateFragment]. Displays [ResultRow] data object.
  */
 class ScrollSpeedBoardAdapter :
     ListAdapter<ResultRow, ScrollSpeedBoardAdapter.ScrollSpeedBoardViewHolder>(DiffCallback) {

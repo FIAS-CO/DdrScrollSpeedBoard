@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.fias.ddrhighspeed.databinding.FragmentScrollSpeedBoardBinding
+import com.fias.ddrhighspeed.roughestimate.RoughEstimateFragment
+import com.fias.ddrhighspeed.search.songsearch.EstimateByNameFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ScrollSpeedBoardFragment : Fragment() {

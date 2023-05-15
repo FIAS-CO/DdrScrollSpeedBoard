@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
-        android:name="com.fias.ddrhighspeed.EstimateByNameFragment"
+        android:name="com.fias.ddrhighspeed.search.songsearch.EstimateByNameFragment"
         android:label="fragment_estimate_by_name"
         tools:layout="@layout/fragment_estimate_by_name" />
     <fragment
         android:id="@+id/roughEstimateFragment"
-        android:name="com.fias.ddrhighspeed.RoughEstimateFragment"
+        android:name="com.fias.ddrhighspeed.roughestimate.RoughEstimateFragment"
         android:label="fragment_rough_estimate"
         tools:layout="@layout/fragment_rough_estimate" />
     <fragment
         android:id="@+id/songDetailFragment"
-        android:name="SongDetailFragment"
+        android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment"
         android:label="SongDetailFragment" >
         <argument
             android:name="song"

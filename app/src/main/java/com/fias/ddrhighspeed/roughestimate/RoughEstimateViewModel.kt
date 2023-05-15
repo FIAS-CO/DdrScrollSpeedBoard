@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.roughestimate
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

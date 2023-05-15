@@ -1,10 +1,11 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.search.songsearch
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.databinding.SearchResultBinding
 
 class SearchedSongsAdapter(private val clickListener: ClickSongListener) :

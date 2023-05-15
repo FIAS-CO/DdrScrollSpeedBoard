@@ -1,3 +1,5 @@
+package com.fias.ddrhighspeed.search.songdetail
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.fias.ddrhighspeed.DetailBoardAdapter
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
-import com.fias.ddrhighspeed.SongDetailViewModel
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
 import com.google.android.material.textfield.TextInputEditText
 

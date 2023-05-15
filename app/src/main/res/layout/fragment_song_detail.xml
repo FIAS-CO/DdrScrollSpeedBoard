@@ -7,7 +7,7 @@
 
         <variable
             name="fragmentViewModel"
-            type="com.fias.ddrhighspeed.SongDetailViewModel" />
+            type="com.fias.ddrhighspeed.search.songdetail.SongDetailViewModel" />
 
         <variable
             name="viewModel"
@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:theme="@style/Theme.DdrScrollSpeedBoard"
-        tools:context=".EstimateByNameFragment">
+        tools:context=".search.songsearch.EstimateByNameFragment">
 
         <TextView
             android:id="@+id/song_name"

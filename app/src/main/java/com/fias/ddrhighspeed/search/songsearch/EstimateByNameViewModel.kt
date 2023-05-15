@@ -1,12 +1,11 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.search.songsearch
 
-import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.Database
 import com.fias.ddrhighspeed.shared.cache.Song
-import kotlinx.parcelize.Parcelize
 
 class EstimateByNameViewModel(private val db: Database) : ViewModel() {
     val searchWord = MutableLiveData<String>()
@@ -47,30 +46,6 @@ class EstimateByNameViewModel(private val db: Database) : ViewModel() {
         }
     }
 }
-
-@Parcelize
-data class SongData(
-    val id: Long,
-    val name: String,
-    val composer: String?,
-    val version: String,
-    val display_bpm: String,
-    val min_bpm: Double?,
-    val max_bpm: Double?,
-    val base_bpm: Double?,
-    val sub_bpm: Double?,
-    val besp: Long?,
-    val bsp: Long?,
-    val dsp: Long?,
-    val esp: Long?,
-    val csp: Long?,
-    val bdp: Long?,
-    val ddp: Long?,
-    val edp: Long?,
-    val cdp: Long?,
-    val shock_arrow: String?,
-    val deleted: Long?
-) :Parcelable
 
 /**
  * Factory class to instantiate the [ViewModel] instance.

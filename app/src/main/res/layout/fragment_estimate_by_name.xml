@@ -7,7 +7,7 @@
 
         <variable
             name="fragmentViewModel"
-            type="com.fias.ddrhighspeed.EstimateByNameViewModel" />
+            type="com.fias.ddrhighspeed.search.songsearch.EstimateByNameViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:theme="@style/Theme.DdrScrollSpeedBoard"
-        tools:context=".EstimateByNameFragment">
+        tools:context=".search.songsearch.EstimateByNameFragment">
 
         <TextView
             android:id="@+id/search_label"

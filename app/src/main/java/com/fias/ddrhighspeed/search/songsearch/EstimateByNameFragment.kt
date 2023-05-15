@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.search.songsearch
 
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.fias.ddrhighspeed.R
+import com.fias.ddrhighspeed.ScrollSpeedBoardFragmentDirections
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
 import kotlinx.coroutines.CoroutineScope
