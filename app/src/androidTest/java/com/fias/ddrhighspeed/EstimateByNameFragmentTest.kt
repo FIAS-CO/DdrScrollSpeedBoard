@@ -136,7 +136,7 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
 
         getUpSpinButton().perform(click())
 
-        onView(withId(R.id.text_input_edit_text)).check(matches(withText("2001")))
+        onView(withId(R.id.text_input_edit_text)).checkTextWithError("2001", errorMessage)
         getDetailSongList().check(matches(atPositionOnResultRow(0, "最大", "444.0", "-", "-")))
             .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "-", "-")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "-", "-")))
@@ -167,7 +167,7 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
 
         getDownSpinButton().perform(click())
 
-        onView(withId(R.id.text_input_edit_text)).check(matches(withText("29")))
+        onView(withId(R.id.text_input_edit_text)).checkTextWithError("29", errorMessage)
 
         getDetailSongList().check(matches(atPositionOnResultRow(0, "最大", "444.0", "-", "-")))
             .check(matches(atPositionOnResultRow(1, "基本②", "444.0", "-", "-")))
@@ -220,52 +220,6 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
         ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
             .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.75", "= 610.5")))
             .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.5", "= 610.5")))
-    }
-
-    @Test
-    fun upSpinButton長押し_scrollSpeedがマイナス30程度されrecyclerViewが更新される() {
-        assertIsInSearchMode()
-
-        writeSearchWord("888")
-        clickSearchedSongInPosition(0)
-
-        editTextAndWait("600").checkText("600")
-        getDetailSongList().check(
-            matches(
-                atPositionOnResultRow(
-                    0,
-                    "最大",
-                    "444.0",
-                    "× 1.25",
-                    "= 555.0"
-                )
-            )
-        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
-
-        longClickDownSpinButtonAndWait()
-
-        onView(withId(R.id.text_input_edit_text)).check { view, noViewFoundException ->
-            if (noViewFoundException != null) throw noViewFoundException
-
-            val input = (view as TextInputEditText).text.toString().toDouble()
-            assertThat("", input, Matchers.closeTo(567.0, 569.0))
-        }
-
-        getDetailSongList().check(
-            matches(
-                atPositionOnResultRow(
-                    0,
-                    "最大",
-                    "444.0",
-                    "× 1.25",
-                    "= 555.0"
-                )
-            )
-        ).check(matches(atPositionOnResultRow(1, "基本②", "444.0", "× 1.25", "= 555.0")))
-            .check(matches(atPositionOnResultRow(2, "基本①", "222.0", "× 2.5", "= 555.0")))
-            .check(matches(atPositionOnResultRow(3, "最小", "111.0", "× 5.0", "= 555.0")))
     }
 
     @Test

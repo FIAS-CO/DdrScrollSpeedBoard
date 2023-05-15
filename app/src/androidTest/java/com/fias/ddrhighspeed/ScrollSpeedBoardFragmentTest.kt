@@ -24,7 +24,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ScrollSpeedBoardFragmentTest : FragmentTestBase() {
 
-    private val errorMessage = "30 ～ 2000までの数値を入力してください。"
 
     @Before
     fun setup() {

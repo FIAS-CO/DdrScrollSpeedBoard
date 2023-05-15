@@ -27,6 +27,7 @@ import org.hamcrest.TypeSafeMatcher
 open class FragmentTestBase {
 
     val waitMills: Long = 350
+    val errorMessage = "30 ～ 2000までの数値を入力してください。"
 
     fun editTextAndWait(value: String): ViewInteraction {
         val perform = onView(ViewMatchers.withId(R.id.text_input_edit_text))
