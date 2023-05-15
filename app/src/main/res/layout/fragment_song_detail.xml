@@ -192,7 +192,7 @@
             android:id="@+id/asterisk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="※"
+            android:text="@string/asterisk"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@id/explain_basic_text"
             app:layout_constraintTop_toBottomOf="@id/song_detail_list" />
@@ -201,7 +201,7 @@
             android:id="@+id/explain_basic_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="基本①： 曲中で一番使用されているBPMです。\n基本②： 使用されている箇所があり考慮が必要なBPMです。"
+            android:text="@string/explanation_basic"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/song_detail_list" />
