@@ -14,8 +14,8 @@ android {
         applicationId "com.fias.ddrhighspeed"
         minSdk 24
         targetSdk 33
-        versionCode 21
-        versionName "2.0.9"
+        versionCode 23
+        versionName "2.0.10-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

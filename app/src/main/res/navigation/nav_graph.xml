@@ -26,8 +26,7 @@
         tools:layout="@layout/fragment_rough_estimate" />
     <fragment
         android:id="@+id/songDetailFragment"
-        android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment"
-        android:label="SongDetailFragment" >
+        android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment" >
         <argument
             android:name="song"
             app:argType="com.fias.ddrhighspeed.SongData" />

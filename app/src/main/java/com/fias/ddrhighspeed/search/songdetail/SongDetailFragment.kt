@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
+import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
 class SongDetailFragment : ScrollSpeedFragmentBase() {
@@ -39,12 +40,15 @@ class SongDetailFragment : ScrollSpeedFragmentBase() {
         }
         viewModel.song = args.song
 
+        val toolbar = requireActivity().findViewById<MarqueeToolbar>(R.id.toolbar)
+        toolbar.title = viewModel.songName
+        toolbar.startMarqueeScroll()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.songName.text = viewModel.song.name
 
         binding.incrementUp.setSpinButtonListener(sharedViewModel.countUp)
         binding.incrementDown.setSpinButtonListener(sharedViewModel.countDown)

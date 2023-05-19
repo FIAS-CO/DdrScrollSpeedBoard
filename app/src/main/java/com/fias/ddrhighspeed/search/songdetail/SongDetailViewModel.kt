@@ -5,9 +5,12 @@ import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 
-class SongDetailViewModel: ViewModel() {
+class SongDetailViewModel : ViewModel() {
     lateinit var song: SongData
     private val rsFactory = ResultRowSetFactory()
+
+    val songName: String
+        get() = song.name
 
     fun createRows(scrollSpeedValue: Int?): List<ResultRowForDetail> {
         val value = scrollSpeedValue ?: 0

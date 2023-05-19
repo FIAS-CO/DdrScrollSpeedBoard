@@ -36,11 +36,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.Toolbar
+                <com.fias.ddrhighspeed.view.MarqueeToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="enterAlways|scroll"
                     android:elevation="4dp"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="?attr/actionBarTheme"
@@ -51,7 +52,7 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                     app:title="@string/app_name"
-                    app:titleTextColor="@color/black" />
+                    app:titleTextColor="?attr/colorOnPrimary" />
 
                 <!--  Task:Fragmentのために必要  -->
                 <androidx.fragment.app.FragmentContainerView
