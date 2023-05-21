@@ -1,7 +1,6 @@
 package com.fias.ddrhighspeed
 
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -416,12 +415,14 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
 
     private fun getDetailSongName() = onView(
         allOf(
-            withId(R.id.song_name), withParent(
+            withParent(
                 allOf(
-                    withId(R.id.search_layout),
-                    withParent(IsInstanceOf.instanceOf(FrameLayout::class.java))
+                    withId(R.id.toolbar),
+                    withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
                 )
-            )
+            ),
+            isAssignableFrom(TextView::class.java),
+            isDisplayed()
         )
     )
 
