@@ -1,19 +1,19 @@
-package com.fias.ddrhighspeed
+package com.fias.ddrhighspeed.search.songsearch
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.databinding.SearchResultBinding
-import com.fias.ddrhighspeed.shared.cache.Song
 
 class SearchedSongsAdapter(private val clickListener: ClickSongListener) :
-    ListAdapter<Song, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
+    ListAdapter<SongData, SearchedSongsAdapter.SearchedSongsViewHolder>(DiffCallback) {
 
     class SearchedSongsViewHolder(private var binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(song: Song) {
+        fun bind(song: SongData) {
             binding.searchResultName.text = song.name
         }
     }
@@ -38,18 +38,18 @@ class SearchedSongsAdapter(private val clickListener: ClickSongListener) :
     }
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Song>() {
-            override fun areItemsTheSame(oldItem: Song, newItem: Song): Boolean {
+        private val DiffCallback = object : DiffUtil.ItemCallback<SongData>() {
+            override fun areItemsTheSame(oldItem: SongData, newItem: SongData): Boolean {
                 return oldItem.name == newItem.name
             }
 
-            override fun areContentsTheSame(oldItem: Song, newItem: Song): Boolean {
+            override fun areContentsTheSame(oldItem: SongData, newItem: SongData): Boolean {
                 return oldItem == newItem
             }
         }
     }
 }
 
-class ClickSongListener(val clickListener: (song: Song) -> Unit) {
-    fun onClick(song: Song) = clickListener(song)
+class ClickSongListener(val clickListener: (song: SongData) -> Unit) {
+    fun onClick(song: SongData) = clickListener(song)
 }

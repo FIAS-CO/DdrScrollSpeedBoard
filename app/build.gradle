@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id("com.google.devtools.ksp") version "1.8.0-1.0.8"
     id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -12,8 +14,8 @@ android {
         applicationId "com.fias.ddrhighspeed"
         minSdk 24
         targetSdk 33
-        versionCode 21
-        versionName "2.0.9"
+        versionCode 23
+        versionName "2.0.10-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,6 +89,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:2.4.0"
     implementation "androidx.room:room-ktx:2.4.0"
+    implementation 'androidx.navigation:navigation-testing:2.5.3'
     ksp "androidx.room:room-compiler:2.4.0"
 
     debugImplementation "androidx.fragment:fragment-testing:1.5.4"

@@ -27,6 +27,7 @@ import org.hamcrest.TypeSafeMatcher
 open class FragmentTestBase {
 
     val waitMills: Long = 350
+    val errorMessage = "30 ～ 2000までの数値を入力してください。"
 
     fun editTextAndWait(value: String): ViewInteraction {
         val perform = onView(ViewMatchers.withId(R.id.text_input_edit_text))
@@ -48,16 +49,6 @@ open class FragmentTestBase {
     fun getUpSpinButton(): ViewInteraction = onView(
         Matchers.allOf(
             ViewMatchers.withId(R.id.increment_up), ViewMatchers.withText("▲"),
-            childAtPosition(
-                Matchers.allOf(
-                    ViewMatchers.withId(R.id.input_layout),
-                    childAtPosition(
-                        ViewMatchers.withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                        1
-                    )
-                ),
-                1
-            ),
             ViewMatchers.isDisplayed()
         )
     )
@@ -65,16 +56,6 @@ open class FragmentTestBase {
     fun getDownSpinButton(): ViewInteraction = onView(
         Matchers.allOf(
             ViewMatchers.withId(R.id.increment_down), ViewMatchers.withText("▼"),
-            childAtPosition(
-                Matchers.allOf(
-                    ViewMatchers.withId(R.id.input_layout),
-                    childAtPosition(
-                        ViewMatchers.withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-                        1
-                    )
-                ),
-                2
-            ),
             ViewMatchers.isDisplayed()
         )
     )

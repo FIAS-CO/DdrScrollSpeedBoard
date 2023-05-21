@@ -3,113 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="boardViewModel"
-            type="com.fias.ddrhighspeed.ScrollSpeedBoardViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/Theme.DdrScrollSpeedBoard"
         tools:context="com.fias.ddrhighspeed.ScrollSpeedBoardFragment">
 
-        <!--  TextEdit 以外をタッチしたときのために focus 関連プロパティを設定している  -->
-        <TextView
-            android:id="@+id/scrollSpeedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:text="@string/input_label"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/input_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/input_layout"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
-            android:paddingBottom="24dp"
+            android:layout_height="0pt"
             app:layout_constraintBottom_toTopOf="@id/tab_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:hint="@string/input_hint"
-                app:errorIconDrawable="@drawable/ic_error"
-                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintBottom_toTopOf="@id/increment_up"
-                app:layout_constraintEnd_toStartOf="@id/increment_up"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
-
-                <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
-                    android:id="@+id/text_input_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text="@={boardViewModel.scrollSpeed}" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.fias.ddrhighspeed.view.SpinButton
-                android:id="@+id/increment_up"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_vertical_fullsize_material"
-                android:text="@string/spin_button_up_label"
-                app:layout_constraintBottom_toTopOf="@id/tab_layout"
-                app:layout_constraintEnd_toStartOf="@id/increment_down"
-                app:layout_constraintStart_toEndOf="@id/textField"
-                app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel" />
-
-            <com.fias.ddrhighspeed.view.SpinButton
-                android:id="@+id/increment_down"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_vertical_fullsize_material"
-                android:text="@string/spin_button_down_label"
-                app:layout_constraintBottom_toTopOf="@id/tab_layout"
-                app:layout_constraintStart_toEndOf="@id/increment_up"
-                app:layout_constraintTop_toBottomOf="@id/textField" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+            app:layout_constraintTop_toBottomOf="@id/pager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

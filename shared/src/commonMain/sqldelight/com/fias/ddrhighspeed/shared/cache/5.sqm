@@ -1,0 +1,2 @@
+INSERT INTO Song VALUES
+ (1152,'羊皮紙の上の銀河','OSTER project feat. そらこ','A3','196',NULL,NULL,196,NULL,3,6,10,14,NULL,6,10,14,NULL,NULL,NULL);
