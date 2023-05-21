@@ -44,13 +44,11 @@
                     app:layout_scrollFlags="enterAlways|scroll"
                     android:elevation="4dp"
                     android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
                     app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                     app:title="@string/app_name"
                     app:titleTextColor="?attr/colorOnPrimary" />
 
