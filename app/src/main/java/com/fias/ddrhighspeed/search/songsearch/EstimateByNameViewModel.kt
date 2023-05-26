@@ -4,10 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fias.ddrhighspeed.SongData
-import com.fias.ddrhighspeed.shared.cache.Database
+import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
 
-class EstimateByNameViewModel(private val db: Database) : ViewModel() {
+class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
     val searchWord = MutableLiveData<String>()
 
     fun getNewSongs(): List<SongData> {
@@ -56,7 +56,7 @@ class EstimateByNameViewModel(private val db: Database) : ViewModel() {
 /**
  * Factory class to instantiate the [ViewModel] instance.
  */
-class EstimateByNameViewModelFactory(private val db: Database) : ViewModelProvider.Factory {
+class EstimateByNameViewModelFactory(private val db: IDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EstimateByNameViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

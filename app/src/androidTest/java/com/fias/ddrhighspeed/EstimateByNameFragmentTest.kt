@@ -403,9 +403,7 @@ class EstimateByNameFragmentTest : FragmentTestBase() {
 
     private fun getSearchedSongs() = onView(
         allOf(
-            withId(R.id.searched_songs), childAtPosition(
-                withId(R.id.search_layout), 2
-            )
+            withId(R.id.searched_songs)
         )
     )
 
