@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".search.songsearch.EstimateByNameFragment">
 
     <data>
 
@@ -11,12 +12,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:theme="@style/Theme.DdrScrollSpeedBoard"
-        tools:context=".search.songsearch.EstimateByNameFragment">
+        android:theme="@style/Theme.DdrScrollSpeedBoard">
 
         <TextView
             android:id="@+id/search_label"
@@ -27,32 +26,62 @@
             android:text="@string/search_song_name_label"
             android:textSize="23sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/search_text_field"
+            app:layout_constraintBottom_toTopOf="@id/search_word_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/search_text_field"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        <LinearLayout
+            android:id="@+id/search_word_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search_song_name_hint"
-            app:errorIconDrawable="@drawable/ic_error"
-            app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
+            android:paddingBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/searched_songs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_label">
 
-            <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
-                android:id="@+id/search_word_input"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_text_field"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:inputType="text"
-                android:maxLines="1"
-                android:text="@={fragmentViewModel.searchWord}" />
+                android:layout_height="wrap_content"
+                android:layout_weight="11"
+                android:hint="@string/search_song_name_hint"
+                app:errorIconDrawable="@drawable/ic_error"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@id/searched_songs"
+                app:layout_constraintEnd_toStartOf="@id/reset_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_label">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
+                    android:id="@+id/search_word_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={fragmentViewModel.searchWord}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/reset_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_vertical_fullsize_material"
+                android:text="@string/reset_button_label"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toTopOf="@id/searched_songs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/search_text_field"
+                app:layout_constraintTop_toBottomOf="@id/search_label" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searched_songs"
@@ -64,7 +93,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_text_field" />
+            app:layout_constraintTop_toBottomOf="@id/search_word_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

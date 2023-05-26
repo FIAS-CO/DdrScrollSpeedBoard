@@ -61,6 +61,10 @@ class EstimateByNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.resetButton.setOnClickListener {
+            viewModel.resetSearchWord()
+        }
+
         binding.searchedSongs.adapter = searchedSongsAdapter
         CoroutineScope(Dispatchers.IO).launch {
             handler.post {
@@ -70,9 +74,10 @@ class EstimateByNameFragment : Fragment() {
 
         val searchWordObserver = Observer<String> {
             CoroutineScope(Dispatchers.IO).launch {
-                val searchWord = viewModel.searchWord.value.toString()
                 handler.post {
-                    searchedSongsAdapter.submitList(viewModel.searchSongsByName(searchWord))
+                    searchedSongsAdapter.submitList(viewModel.searchSongsByName()) {
+                        binding.searchedSongs.scrollToPosition(0)
+                    }
                 }
             }
         }

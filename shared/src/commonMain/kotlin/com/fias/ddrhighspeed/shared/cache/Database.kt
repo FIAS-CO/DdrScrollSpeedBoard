@@ -1,19 +1,19 @@
 package com.fias.ddrhighspeed.shared.cache
 
-class Database(databaseDriverFactory: DatabaseDriverFactory) {
+class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
     private var driver = databaseDriverFactory.createDriver()
     private val database = AppDatabase(driver)
     private val dbQuery = database.appDatabaseQueries
 
-    fun searchSongsByName(searchWord: String): List<Song> {
+    override fun searchSongsByName(searchWord: String): List<Song> {
         return dbQuery.getByNameContainWord(searchWord).executeAsList()
     }
 
-    fun getNewSongs(): List<Song> {
+    override fun getNewSongs(): List<Song> {
         return dbQuery.getNew().executeAsList()
     }
 
-    fun insert(songs: List<Song>) {
+    override fun insert(songs: List<Song>) {
         dbQuery.transaction {
             songs.forEach {
                 dbQuery.insert(it)
@@ -21,11 +21,11 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    fun getMovies(songId: Long) : List<Movie> {
+    override fun getMovies(songId: Long): List<Movie> {
         return dbQuery.getMovies(songId).executeAsList()
     }
 
-    fun migrate() {
+    override fun migrate() {
         AppDatabase.Schema.migrate(
             driver,
             0,

@@ -16,4 +16,5 @@
     <string name="close">閉じる</string>
     <string name="asterisk">※</string>
     <string name="explanation_basic">基本①： 曲中で一番使用されているBPMです。\n基本②： 使用されている箇所があり考慮が必要なBPMです。</string>
+    <string name="reset_button_label">RESET</string>
 </resources>

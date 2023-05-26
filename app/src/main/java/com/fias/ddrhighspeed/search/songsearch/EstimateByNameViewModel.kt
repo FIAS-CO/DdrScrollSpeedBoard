@@ -14,9 +14,15 @@ class EstimateByNameViewModel(private val db: Database) : ViewModel() {
         return db.getNewSongs().map { convertToSongData(it) }
     }
 
-    fun searchSongsByName(searchWord: String): List<SongData> {
-        return if (searchWord == "") getNewSongs()
-        else db.searchSongsByName(searchWord).map { convertToSongData(it) }
+    fun searchSongsByName(): List<SongData> {
+        val word = searchWord.value ?: ""
+
+        return if (word == "") getNewSongs()
+        else db.searchSongsByName(word).map { convertToSongData(it) }
+    }
+
+    fun resetSearchWord() {
+        searchWord.value = ""
     }
 
     private fun convertToSongData(song: Song): SongData {
