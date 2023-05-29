@@ -35,7 +35,7 @@ class EstimateByNameFragment : Fragment() {
         val clickListener = ClickSongListener { song: SongData ->
             val navController = findNavController()
             val action =
-                ScrollSpeedBoardFragmentDirections.actionScrollSpeedBoardToSongDetail(song)
+                ScrollSpeedBoardFragmentDirections.actionSongSearchToSongDetailPager(song)
             navController.navigate(action)
         }
         SearchedSongsAdapter(clickListener)

@@ -39,7 +39,13 @@ android {
     // task:ViewBinding のために必須
     buildFeatures {
         dataBinding = true
+        compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = '1.4.1'
+    }
+
     testOptions {
         unitTests.includeAndroidResources = true
 
@@ -91,6 +97,12 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.0"
     implementation 'androidx.navigation:navigation-testing:2.5.3'
     ksp "androidx.room:room-compiler:2.4.0"
+
+    // Jetpack compose 関連
+    implementation 'androidx.compose.ui:ui:1.4.1' // UI関連の基本的な要素
+    implementation 'androidx.compose.material:material:1.4.1' // Material DesignスタイルのUI要素
+    implementation 'androidx.compose.ui:ui-tooling:1.4.1' // ツール関連、主にプレビュー表示に使用
+    implementation 'androidx.activity:activity-compose:1.7.2' // ComposeとActivityとの連携に必要
 
     debugImplementation "androidx.fragment:fragment-testing:1.5.4"
     debugImplementation 'androidx.fragment:fragment-ktx:1.5.4'

@@ -5,24 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
-class SongDetailFragment : ScrollSpeedFragmentBase() {
+class SongDetailFragment(private val songData: SongData) : ScrollSpeedFragmentBase() {
     override val scrollSpeedTextBox: TextInputEditText
         get() = binding.textInputEditText
 
     private var _fragmentBinding: FragmentSongDetailBinding? = null
     private val binding get() = _fragmentBinding!!
     private val detailBoardAdapter: DetailBoardAdapter by lazy { DetailBoardAdapter() }
-    private val viewModel: SongDetailViewModel by activityViewModels()
-    private val args: SongDetailFragmentArgs by navArgs()
+    private val viewModel: SongDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +37,7 @@ class SongDetailFragment : ScrollSpeedFragmentBase() {
             it.viewModel = this.sharedViewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
-        viewModel.song = args.song
+        viewModel.song = songData
 
         val toolbar = requireActivity().findViewById<MarqueeToolbar>(R.id.toolbar)
         toolbar.title = viewModel.songName
