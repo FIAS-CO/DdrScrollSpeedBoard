@@ -1367,6 +1367,27 @@ INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
  (839, 'CSP', 'Youtube', 'ZqY95-614x4'),
  (839, 'CDP', 'Youtube', '-UgGErBLdFQ');
 
+-- 6.sqm
+INSERT INTO Song VALUES
+ (1153,'BREAKING THE FUTURE','ARM (IOSYS) x BEMANI Sound Team "U1" ft. Kradness x TRIΔNGLE','A3','45-360',45,NULL,360,NULL,5,10,14,17,NULL,10,14,17,NULL,NULL,NULL),
+ (1154,'Open Your Eyes','NM feat.JaY_bEe (JB Ah-Fua)','A3','82',NULL,NULL,82,NULL,2,5,7,9,NULL,5,7,9,NULL,NULL,NULL),
+ (1155,"Racing with Time (NAOKI's 999 remix)",'jun feat.Godis (Heather Twede)','A3','157',NULL,NULL,157,NULL,2,7,11,15,NULL,7,11,15,NULL,NULL,NULL),
+ (1156,'SAY A PRAYER','Des-ROW Ft. Maxi Priest','A3','97',NULL,NULL,97,NULL,2,4,6,8,NULL,4,6,8,NULL,NULL,NULL),
+ (1157,'Surrender (PureFocus remix)','U1 ft. Becca Hossany','A3','130',NULL,NULL,130,NULL,2,7,10,15,NULL,6,10,14,NULL,NULL,NULL);
+ INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
+  (451, 'CSP', 'Youtube', 'DBDFBMfNKwQ'),
+ (476, 'CSP', 'Youtube', 't0oE4n88BVo'),
+ (641, 'CSP', 'Youtube', 'Xthy-R-_1fg'),
+ (662, 'CSP', 'Youtube', 'aDp7PXhF88o'),
+ (828, 'CSP', 'Youtube', 'X1MJc4MKnD8'),
+ (1151, 'ESP', 'Youtube', 'Tp3Wg2MLQbA'),
+ (1152, 'ESP', 'Youtube', '8LWTEmXT5fA'),
+ (1153, 'ESP', 'Youtube', 'Zh0lzavgHDU'),
+ (1154, 'ESP', 'Youtube', 'CE9CT5uzxYo'),
+ (1155, 'ESP', 'Youtube', '14EnIP78TX8'),
+ (1156, 'ESP', 'Youtube', 'o8nOB4E_dts'),
+ (1157, 'ESP', 'Youtube', 'z_x7IEu2DN4');
+
 getNew:
 SELECT * FROM Song ORDER BY id DESC;
 
