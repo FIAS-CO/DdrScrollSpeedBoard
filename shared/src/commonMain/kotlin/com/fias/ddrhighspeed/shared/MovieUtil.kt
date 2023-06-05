@@ -36,7 +36,10 @@ class MovieUtil {
     }
 
     private fun sortByDifficulty(movieList: List<Movie>): List<Movie> {
-        return movieList.sortedBy { sortOrder.indexOf(it.difficulty) }
+        return movieList.sortedBy {
+            val index = sortOrder.indexOf(it.difficulty)
+            if (index == -1) Int.MAX_VALUE else index
+        }
     }
 }
 
