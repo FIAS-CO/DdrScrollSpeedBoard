@@ -23,7 +23,7 @@ class SongMovieViewModel(private val db: IDatabase, private val songId: Long) : 
     }
 }
 
-data class MovieModel(val label: String, val color: Color, val url: String)
+data class MovieModel(val label: String, val color: Color, val movieId: String)
 
 /**
  * Factory class to instantiate the [ViewModel] instance.

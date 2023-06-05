@@ -4,31 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.ListItem
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.fias.ddrhighspeed.database.SongApplication
 import com.google.accompanist.themeadapter.material.MdcTheme
-import androidx.compose.ui.graphics.Color as ComposeColor
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 class SongMovieFragment(songId: Long) : Fragment() {
 
@@ -39,7 +33,6 @@ class SongMovieFragment(songId: Long) : Fragment() {
         )
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,25 +42,17 @@ class SongMovieFragment(songId: Long) : Fragment() {
             setContent {
                 MdcTheme {
                     Surface {
-                        val list = viewModel.movieList
-
-                        Column {
-                            list.forEach { movie ->
-                                val composeColor = ComposeColor(movie.color.toArgb())
-                                ListItem(
-                                    text = { Text(movie.label) },
-                                    trailing = { YoutubeVideo(url = movie.url) },
-                                    icon = {
-                                        var expanded by remember { mutableStateOf(false) }
-                                        IconButton(onClick = { expanded = !expanded }) {
-                                            Icon(
-                                                imageVector = if (expanded) Icons.Filled.ArrowForward else Icons.Filled.ArrowDropDown,
-                                                contentDescription = null,
-                                                tint = composeColor
-                                            )
-                                        }
-                                    }
-                                )
+                        LazyColumn {
+                            itemsIndexed(viewModel.movieList) { _, movie ->
+                                Column(modifier = Modifier.padding(16.dp)) {
+                                    Text(
+                                        text = "■ ${movie.label}",
+                                        color = movie.color,
+                                        fontSize = 20.sp,
+                                        modifier = Modifier.padding(bottom = 8.dp)
+                                    )
+                                    YoutubeScreen(movie.movieId)
+                                }
                             }
                         }
                     }
@@ -77,16 +62,20 @@ class SongMovieFragment(songId: Long) : Fragment() {
     }
 
     @Composable
-    fun YoutubeVideo(url: String) {
-        AndroidView(
-            factory = { context ->
-                WebView(context).apply {
-                    settings.javaScriptEnabled = true
-                    webViewClient = WebViewClient()
-                    loadUrl(url)
-                }
-            },
-            update = { view -> view.loadUrl(url) }
-        )
+    fun YoutubeScreen(
+        videoId: String
+    ) {
+        AndroidView(factory = {
+            YouTubePlayerView(it).apply {
+                this.addYouTubePlayerListener(
+                    object : AbstractYouTubePlayerListener() {
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            super.onReady(youTubePlayer)
+                            youTubePlayer.cueVideo(videoId, 0f)
+                        }
+                    }
+                )
+            }
+        })
     }
 }

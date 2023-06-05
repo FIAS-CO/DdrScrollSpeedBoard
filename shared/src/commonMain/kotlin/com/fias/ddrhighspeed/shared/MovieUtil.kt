@@ -15,12 +15,8 @@ class MovieUtil {
     fun createMovieData(movieList: List<Movie>): List<Triple<String, ColorRgba, String>> {
         return sortByDifficulty(movieList)
             .map {
-                val labelData = getLabel(it.difficulty)
-                Triple(
-                    labelData.first,
-                    labelData.second,
-                    getYoutubeUrl(it.movie_id)
-                )
+                val (label, colorRgba) = getLabel(it.difficulty)
+                Triple(label, colorRgba, it.movie_id)
             }
     }
 
@@ -37,10 +33,6 @@ class MovieUtil {
             "CDP" -> Pair("Double Challenge", purple)
             else -> Pair("Undefined Difficulty", gray)
         }
-    }
-
-    private fun getYoutubeUrl(movieId: String): String {
-        return "https://www.youtube.com/watch?v=${movieId}"
     }
 
     private fun sortByDifficulty(movieList: List<Movie>): List<Movie> {

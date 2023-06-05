@@ -105,6 +105,8 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.7.2' // ComposeとActivityとの連携に必要
     implementation "com.google.accompanist:accompanist-themeadapter-material:0.31.3-beta"
 
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0'
+
     debugImplementation "androidx.fragment:fragment-testing:1.5.4"
     debugImplementation 'androidx.fragment:fragment-ktx:1.5.4'
 
