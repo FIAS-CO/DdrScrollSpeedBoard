@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_scrollSpeedBoard_to_songDetail"
             app:destination="@id/songDetailFragment" />
+        <action
+            android:id="@+id/action_songSearch_to_songDetailPager"
+            app:destination="@id/songDetailPagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
@@ -27,6 +30,14 @@
     <fragment
         android:id="@+id/songDetailFragment"
         android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment" >
+        <argument
+            android:name="song"
+            app:argType="com.fias.ddrhighspeed.SongData" />
+    </fragment>
+    <fragment
+        android:id="@+id/songDetailPagerFragment"
+        android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailPagerFragment"
+        android:label="SongDetailPagerFragment">
         <argument
             android:name="song"
             app:argType="com.fias.ddrhighspeed.SongData" />
