@@ -27,7 +27,6 @@ class SongDetailPagerFragment : Fragment() {
     )
     private val args: SongDetailPagerFragmentArgs by navArgs()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
