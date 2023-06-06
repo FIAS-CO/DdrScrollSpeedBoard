@@ -5,8 +5,7 @@
 ★リリースブランチで作業
 ・広告IDをテスト版から製品版に切り替える
     ・AndroidManifest.xml
-    ・fragment_scroll_speed_board.xml
-    ・fragment_estimate_by_name.xml
+    ・activity_main.xml
 ・自動テストで対応しきれていない機能の手動テスト
     ・スクロールスピードが再起動時に入力欄に残っているか
     ・リストの表示場所が再起動前と後で同じになっているか
