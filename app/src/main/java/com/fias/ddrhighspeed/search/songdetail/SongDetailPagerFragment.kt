@@ -70,7 +70,7 @@ class SongDetailTabAdapter(fragment: Fragment, private val songData: SongData) :
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> SongDetailFragment(songData)
-            1 -> SongMovieFragment(songData.id)
+            1 -> SongMovieFragment(songData.name, songData.id)
             else -> throw IndexOutOfBoundsException()
         }
     }

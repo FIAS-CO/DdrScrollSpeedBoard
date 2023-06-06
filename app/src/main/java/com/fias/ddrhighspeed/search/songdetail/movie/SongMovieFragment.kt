@@ -1,5 +1,7 @@
 package com.fias.ddrhighspeed.search.songdetail.movie
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +10,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -24,7 +28,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class SongMovieFragment(songId: Long) : Fragment() {
+class SongMovieFragment(private val songName: String, songId: Long) : Fragment() {
 
     private val viewModel: SongMovieViewModel by viewModels {
         SongMovieViewModelFactory(
@@ -44,15 +48,10 @@ class SongMovieFragment(songId: Long) : Fragment() {
                     Surface {
                         LazyColumn {
                             itemsIndexed(viewModel.movieList) { _, movie ->
-                                Column(modifier = Modifier.padding(16.dp)) {
-                                    Text(
-                                        text = "■ ${movie.label}",
-                                        color = movie.color,
-                                        fontSize = 20.sp,
-                                        modifier = Modifier.padding(bottom = 8.dp)
-                                    )
-                                    YoutubeScreen(movie.movieId)
-                                }
+                                YoutubeItem(movie)
+                            }
+                            item {
+                                OpenYoutubeButton(songName)
                             }
                         }
                     }
@@ -62,9 +61,20 @@ class SongMovieFragment(songId: Long) : Fragment() {
     }
 
     @Composable
-    fun YoutubeScreen(
-        videoId: String
-    ) {
+    private fun YoutubeItem(movie: MovieModel) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "■ ${movie.label}",
+                color = movie.color,
+                fontSize = 20.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            YoutubeScreen(movie.movieId)
+        }
+    }
+
+    @Composable
+    fun YoutubeScreen(videoId: String) {
         AndroidView(factory = {
             YouTubePlayerView(it).apply {
                 this.addYouTubePlayerListener(
@@ -77,5 +87,29 @@ class SongMovieFragment(songId: Long) : Fragment() {
                 )
             }
         })
+    }
+
+    @Composable
+    fun OpenYoutubeButton(songName: String) {
+        val context = LocalContext.current
+        val uri = Uri.parse("https://www.youtube.com/results?search_query=DDR+${songName}")
+        Button(
+            onClick = {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = uri
+                    setPackage("com.google.android.youtube")
+                }
+
+                if (intent.resolveActivity(context.packageManager) != null) {
+                    context.startActivity(intent)
+                } else {
+                    val fallbackIntent = Intent(Intent.ACTION_VIEW, uri)
+                    context.startActivity(fallbackIntent)
+                }
+            },
+            modifier = Modifier.padding(horizontal = 16.dp)
+        ) {
+            Text("Search \"${songName}\" on YouTube")
+        }
     }
 }
