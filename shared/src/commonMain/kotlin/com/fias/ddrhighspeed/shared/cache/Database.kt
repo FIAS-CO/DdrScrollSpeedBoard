@@ -13,10 +13,26 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         return dbQuery.getNew().executeAsList()
     }
 
-    override fun insert(songs: List<Song>) {
+    override fun insertSongName(songNames: List<SongName>) {
         dbQuery.transaction {
-            songs.forEach {
-                dbQuery.insert(it)
+            songNames.forEach {
+                dbQuery.insertSongName(it)
+            }
+        }
+    }
+
+    override fun insertShockArrowExists(shockArrowExists: List<ShockArrowExists>) {
+        dbQuery.transaction {
+            shockArrowExists.forEach {
+                dbQuery.insertShockArrowExists(it)
+            }
+        }
+    }
+
+    override fun insertWebMusicId(webMusicIds: List<WebMusicId>) {
+        dbQuery.transaction {
+            webMusicIds.forEach {
+                dbQuery.insertWebMusicId(it)
             }
         }
     }
