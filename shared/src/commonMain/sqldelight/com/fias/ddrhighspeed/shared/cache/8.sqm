@@ -1,7 +1,0 @@
-INSERT INTO Song VALUES
- (1158,'Jungle Dance','NATSUMI','A3','155',NULL,NULL,155,NULL,3,7,12,16,NULL,7,12,16,NULL,NULL,NULL),
- (1159,'メンタンピンドラドラ','enzo + O2i3','A3','93-185',93,740,185,NULL,2,7,11,16,NULL,7,11,16,NULL,NULL,NULL);
-
-INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
- (1158, 'ESP', 'Youtube', 'q3duTCwWPq8'),
- (1159, 'ESP', 'Youtube', 'dB52aTAt31o');

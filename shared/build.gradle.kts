@@ -26,7 +26,7 @@ kotlin {
     }
 
     val coroutinesVersion = "1.6.4"
-    val ktorVersion = "2.2.1"
+    val ktorVersion = "2.3.2"
     val sqlDelightVersion = "1.5.5"
 
     sourceSets {
@@ -34,6 +34,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
