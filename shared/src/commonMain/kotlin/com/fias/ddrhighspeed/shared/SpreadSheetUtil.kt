@@ -10,6 +10,7 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 
+// TODO : baseとTestSpreadSheetUtilをつくる。または外部からURLを入れ込めるようにする
 class SpreadSheetUtil {
     private val client = HttpClient(CIO) {
         expectSuccess = true
