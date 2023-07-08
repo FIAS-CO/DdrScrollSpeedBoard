@@ -387,11 +387,26 @@ SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' ORDER BY name ASC;
 insertSongName:
 INSERT INTO SongName VALUES ?;
 
+deleteSongNames:
+DELETE FROM SongName;
+
 insertShockArrowExists:
 INSERT INTO ShockArrowExists VALUES ?;
 
+deleteShockArrowExists:
+DELETE FROM ShockArrowExists;
+
 insertWebMusicId:
 INSERT INTO WebMusicId VALUES ?;
+
+deleteWebMusicIds:
+DELETE FROM WebMusicId;
+
+insertSongProperty:
+INSERT INTO SongProperty VALUES ?;
+
+deleteSongProperties:
+DELETE FROM SongProperty;
 
 getMovies:
 SELECT * FROM Movie WHERE song_id = ?;
