@@ -19,11 +19,24 @@ class SpreadSheetUtil {
     private val urlBase =
         "https://docs.google.com/spreadsheets/d/1W1FDy3a0Ty1US3RPohSR_rlraBq2xON9q2yUbOfHZIQ/export?format=tsv&&gid="
 
-    suspend fun fetchFileVersion() = fetchData(urlBase + "334969595")
-    suspend fun fetchSongNames() = fetchData(urlBase + "0")
-    suspend fun fetchShockArrowExists() = fetchData(urlBase + "1975740187")
-    suspend fun fetchWebMusicIds() = fetchData(urlBase + "1376903169")
-    suspend fun fetchSongProperties() = fetchData(urlBase + "554759448")
+    suspend fun fetchFileVersion(): String = fetchData(urlBase + "334969595")
+    suspend fun fetchSongNames(): String = fetchData(urlBase + "0")
+    suspend fun fetchShockArrowExists(): String = fetchData(urlBase + "1975740187")
+    suspend fun fetchWebMusicIds(): String = fetchData(urlBase + "1376903169")
+    suspend fun fetchSongProperties(): String = fetchData(urlBase + "554759448")
+
+    suspend fun getNewDataVersion(): Int {
+        var sourceVersion = 0
+
+        val result = runCatching {
+            val version = SpreadSheetUtil().fetchFileVersion()
+            sourceVersion = version.toInt()
+        }
+
+        if (result.isFailure) sourceVersion = -1
+
+        return sourceVersion
+    }
 
     suspend fun createSongNames(): List<SongName> {
         return fetchSongNames().split("\r\n").map {

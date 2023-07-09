@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fias.ddrhighspeed.SongData
-import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.shared.SpreadSheetUtil
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
@@ -15,18 +14,20 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.nio.channels.UnresolvedAddressException
+
 // TODO:テストを足す
 class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
     val searchWord = MutableLiveData<String>()
     private val _result = MutableStateFlow<Boolean?>(null)
+    private val spreadSheetUtil = SpreadSheetUtil()
+
     val result: StateFlow<Boolean?> get() = _result
 
     var sourceDataVersion = 0
 
     init {
         viewModelScope.launch {
-            sourceDataVersion = getNewDataVersion()
+            sourceDataVersion = spreadSheetUtil.getNewDataVersion()
         }
     }
 
@@ -75,7 +76,7 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
     fun checkNewDataVersionAvailable(localVersion: Int) {
         // データ更新後に内部バージョンを書き換えるために値を残しておく
         viewModelScope.launch {
-            val dataVersionResult = safeAsync { getNewDataVersion() }.await()
+            val dataVersionResult = safeAsync { spreadSheetUtil.getNewDataVersion() }.await()
             if (dataVersionResult.isFailure) {
                 return@launch
             }
@@ -84,28 +85,13 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
         }
     }
 
-    // TODO：resultつかう
-    private suspend fun getNewDataVersion(): Int {
-        var sourceVersion = -1
-        try {
-            val version = SpreadSheetUtil().fetchFileVersion()
-            sourceVersion = version.toInt()
-        } catch (_: NumberFormatException) {
-            // なにもしない
-        } catch (_: UnresolvedAddressException) {
-            // なにもしない
-        }
-
-        return sourceVersion
-    }
-
     val errorMessage = MutableLiveData<String>()
-    suspend fun downloadSongData(versionDataStore: DataVersionDataStore) {
+    suspend fun downloadSongData() {
         coroutineScope {
-            val songNameDeferred = safeAsync { SpreadSheetUtil().createSongNames() }
-            val musicPropertyDeferred = safeAsync { SpreadSheetUtil().createMusicProperties() }
-            val shockArrowDeferred = safeAsync { SpreadSheetUtil().createShockArrowExists() }
-            val webMusicIdDeferred = safeAsync { SpreadSheetUtil().createWebMusicIds() }
+            val songNameDeferred = safeAsync { spreadSheetUtil.createSongNames() }
+            val musicPropertyDeferred = safeAsync { spreadSheetUtil.createMusicProperties() }
+            val shockArrowDeferred = safeAsync { spreadSheetUtil.createShockArrowExists() }
+            val webMusicIdDeferred = safeAsync { spreadSheetUtil.createWebMusicIds() }
             val songNamesResult = songNameDeferred.await()
             val musicPropertiesResult = musicPropertyDeferred.await()
             val shockArrowExistsResult = shockArrowDeferred.await()
@@ -113,7 +99,8 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
 
             // いずれかのリストの取得が失敗したら中断
             if (songNamesResult.isFailure || musicPropertiesResult.isFailure || shockArrowExistsResult.isFailure || webMusicIdsResult.isFailure) {
-                // TODO エラーメッセージ
+                errorMessage.value =
+                    "データの取得に失敗しました。\n しばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 return@coroutineScope
             }
 
@@ -123,8 +110,9 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
             val webMusicIds = webMusicIdsResult.getOrNull() ?: emptyList()
 
             // 各リストのサイズが違うのはおかしいので中断
-            if (songNames.size != musicProperties.size || musicProperties.size != shockArrowExists.size || shockArrowExists.size != webMusicIds.size) {
-                // TODO エラーメッセージ
+            if (songNames.size != musicProperties.size || songNames.size != shockArrowExists.size || songNames.size != webMusicIds.size) {
+                errorMessage.value =
+                    "データに不整合があります。\n 左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 return@coroutineScope
             }
 
@@ -132,8 +120,6 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
             db.reinitializeSongProperties(musicProperties)
             db.reinitializeShockArrowExists(shockArrowExists)
             db.reinitializeWebMusicIds(webMusicIds)
-
-            versionDataStore.saveDataVersionStore(sourceDataVersion)
         }
     }
 }
@@ -148,8 +134,7 @@ private suspend fun <T> safeAsync(block: suspend () -> T): Deferred<Result<T>> {
 class EstimateByNameViewModelFactory(private val db: IDatabase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EstimateByNameViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return EstimateByNameViewModel(db) as T
+            @Suppress("UNCHECKED_CAST") return EstimateByNameViewModel(db) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
