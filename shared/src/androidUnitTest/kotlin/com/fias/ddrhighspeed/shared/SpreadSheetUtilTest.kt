@@ -32,7 +32,7 @@ class SpreadSheetUtilTest {
         runBlocking {
             launch {
                 assertTrue(
-                    spreadSheetUtil.fetchFileVersion().startsWith("2023061103")
+                    spreadSheetUtil.fetchFileVersion().startsWith("2023061112")
                 )
             }
         }
