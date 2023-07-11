@@ -22,6 +22,7 @@ import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
+import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,10 +37,10 @@ class EstimateByNameFragment : Fragment() {
     private val handler: Handler = Handler(Looper.getMainLooper())
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
-
+    private val spreadSheetService = SpreadSheetService()
     private val viewModel: EstimateByNameViewModel by viewModels {
         EstimateByNameViewModelFactory(
-            (activity?.application as SongApplication).db
+            (activity?.application as SongApplication).db, spreadSheetService
         )
     }
 

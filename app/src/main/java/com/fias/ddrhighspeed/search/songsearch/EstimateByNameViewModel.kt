@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fias.ddrhighspeed.SongData
-import com.fias.ddrhighspeed.shared.SpreadSheetUtil
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
+import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -16,10 +16,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 // TODO:テストを足す
-class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
+class EstimateByNameViewModel(
+    private val db: IDatabase,
+    private val spreadSheetService: ISpreadSheetService
+) : ViewModel() {
     val searchWord = MutableLiveData<String>()
     private val _result = MutableStateFlow<Boolean?>(null)
-    private val spreadSheetUtil = SpreadSheetUtil()
 
     val result: StateFlow<Boolean?> get() = _result
 
@@ -27,7 +29,7 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            sourceDataVersion = spreadSheetUtil.getNewDataVersion()
+            sourceDataVersion = spreadSheetService.getNewDataVersion()
         }
     }
 
@@ -76,7 +78,8 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
     fun checkNewDataVersionAvailable(localVersion: Int) {
         // データ更新後に内部バージョンを書き換えるために値を残しておく
         viewModelScope.launch {
-            val dataVersionResult = safeAsync { spreadSheetUtil.getNewDataVersion() }.await()
+            val dataVersionResult =
+                safeAsync { spreadSheetService.getNewDataVersion() }.await()
             if (dataVersionResult.isFailure) {
                 return@launch
             }
@@ -88,10 +91,10 @@ class EstimateByNameViewModel(private val db: IDatabase) : ViewModel() {
     val errorMessage = MutableLiveData<String>()
     suspend fun downloadSongData() {
         coroutineScope {
-            val songNameDeferred = safeAsync { spreadSheetUtil.createSongNames() }
-            val musicPropertyDeferred = safeAsync { spreadSheetUtil.createMusicProperties() }
-            val shockArrowDeferred = safeAsync { spreadSheetUtil.createShockArrowExists() }
-            val webMusicIdDeferred = safeAsync { spreadSheetUtil.createWebMusicIds() }
+            val songNameDeferred = safeAsync { spreadSheetService.createSongNames() }
+            val musicPropertyDeferred = safeAsync { spreadSheetService.createMusicProperties() }
+            val shockArrowDeferred = safeAsync { spreadSheetService.createShockArrowExists() }
+            val webMusicIdDeferred = safeAsync { spreadSheetService.createWebMusicIds() }
             val songNamesResult = songNameDeferred.await()
             val musicPropertiesResult = musicPropertyDeferred.await()
             val shockArrowExistsResult = shockArrowDeferred.await()
@@ -131,10 +134,13 @@ private suspend fun <T> safeAsync(block: suspend () -> T): Deferred<Result<T>> {
 /**
  * Factory class to instantiate the [ViewModel] instance.
  */
-class EstimateByNameViewModelFactory(private val db: IDatabase) : ViewModelProvider.Factory {
+class EstimateByNameViewModelFactory(
+    private val db: IDatabase,
+    private val spreadSheetService: ISpreadSheetService
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EstimateByNameViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST") return EstimateByNameViewModel(db) as T
+            @Suppress("UNCHECKED_CAST") return EstimateByNameViewModel(db, spreadSheetService) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

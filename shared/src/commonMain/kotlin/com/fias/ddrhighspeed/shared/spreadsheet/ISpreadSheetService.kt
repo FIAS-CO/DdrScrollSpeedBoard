@@ -1,35 +1,32 @@
-package com.fias.ddrhighspeed.shared
+package com.fias.ddrhighspeed.shared.spreadsheet
 
 import com.fias.ddrhighspeed.shared.cache.ShockArrowExists
 import com.fias.ddrhighspeed.shared.cache.SongName
 import com.fias.ddrhighspeed.shared.cache.SongProperty
 import com.fias.ddrhighspeed.shared.cache.WebMusicId
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 
-// TODO : baseとTestSpreadSheetUtilをつくる。または外部からURLを入れ込めるようにする
-class SpreadSheetUtil {
-    private val client = HttpClient(CIO) {
-        expectSuccess = true
-    }
+interface ISpreadSheetService {
+    // 以下2つだけ実装クラスで継承する
+    fun getHttpClient(): HttpClient
+    fun getUrlBase(): String
 
-    private val urlBase =
-        "https://docs.google.com/spreadsheets/d/1W1FDy3a0Ty1US3RPohSR_rlraBq2xON9q2yUbOfHZIQ/export?format=tsv&&gid="
-
-    suspend fun fetchFileVersion(): String = fetchData(urlBase + "334969595")
-    suspend fun fetchSongNames(): String = fetchData(urlBase + "0")
-    suspend fun fetchShockArrowExists(): String = fetchData(urlBase + "1975740187")
-    suspend fun fetchWebMusicIds(): String = fetchData(urlBase + "1376903169")
-    suspend fun fetchSongProperties(): String = fetchData(urlBase + "554759448")
+    // 以下、プロダクトコードでは継承不要。テスト用SupreadSheetのシートIDが変わる場合は要検討
+    // IDだけ別途定義する？
+    suspend fun fetchFileVersion(): String = fetchData(getUrlBase() + "334969595")
+    suspend fun fetchSongNames(): String = fetchData(getUrlBase() + "0")
+    suspend fun fetchShockArrowExists(): String = fetchData(getUrlBase() + "1975740187")
+    suspend fun fetchWebMusicIds(): String = fetchData(getUrlBase() + "1376903169")
+    suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "554759448")
 
     suspend fun getNewDataVersion(): Int {
         var sourceVersion = 0
 
         val result = runCatching {
-            val version = SpreadSheetUtil().fetchFileVersion()
+            val version = SpreadSheetService().fetchFileVersion()
             sourceVersion = version.toInt()
         }
 
@@ -98,12 +95,12 @@ class SpreadSheetUtil {
     }
 
     suspend fun fetchData(urlString: String): String {
-        val response: HttpResponse = client.get(urlString)
+        val response: HttpResponse = getHttpClient().get(urlString)
 
         return response.bodyAsText()
     }
 
     fun closeClient() {
-        client.close()
+        getHttpClient().close()
     }
 }
