@@ -4,6 +4,7 @@ import com.fias.ddrhighspeed.shared.cache.ShockArrowExists
 import com.fias.ddrhighspeed.shared.cache.SongName
 import com.fias.ddrhighspeed.shared.cache.SongProperty
 import com.fias.ddrhighspeed.shared.cache.WebMusicId
+import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -13,18 +14,18 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class SpreadSheetUtilTest {
-    lateinit var spreadSheetUtil: SpreadSheetUtil
+class SpreadSheetServiceTest {
+    lateinit var spreadSheetService: SpreadSheetService
 
     @Before
     fun setup() {
-        spreadSheetUtil = SpreadSheetUtil()
+        spreadSheetService = SpreadSheetService()
 
     }
 
     @After
     fun teardown() {
-        spreadSheetUtil.closeClient()
+        spreadSheetService.closeClient()
     }
 
     @Test
@@ -32,7 +33,7 @@ class SpreadSheetUtilTest {
         runBlocking {
             launch {
                 assertTrue(
-                    spreadSheetUtil.fetchFileVersion().startsWith("2023061112")
+                    spreadSheetService.fetchFileVersion().startsWith("2023061112")
                 )
             }
         }
@@ -51,7 +52,7 @@ class SpreadSheetUtilTest {
         )
         runBlocking {
             launch {
-                val songNames = spreadSheetUtil.createSongNames()
+                val songNames = spreadSheetService.createSongNames()
                 assertEquals(1195, songNames.size)
                 assertEquals(firstSongName, songNames[0])
                 assertEquals(lastSongName, songNames[1194])
@@ -63,7 +64,7 @@ class SpreadSheetUtilTest {
     fun testFetchSongNames() {
         runBlocking {
             launch {
-                val fetchSongNames = spreadSheetUtil.fetchSongNames()
+                val fetchSongNames = spreadSheetService.fetchSongNames()
                 assertTrue(
                     fetchSongNames.startsWith(
                         "0\tMAKE IT BETTER\tMAKE IT BETTER\t1st\t119\t119\t3\t7\t9\t11\t0\t7\t9\t11\t0"
@@ -85,7 +86,7 @@ class SpreadSheetUtilTest {
         val lastShock = ShockArrowExists(1242, "xx")
         runBlocking {
             launch {
-                val shocks = spreadSheetUtil.createShockArrowExists()
+                val shocks = spreadSheetService.createShockArrowExists()
                 assertEquals(1195, shocks.size)
                 assertEquals(firstShock, shocks[0])
                 assertEquals(no966Shock, shocks[918])
@@ -98,7 +99,7 @@ class SpreadSheetUtilTest {
     fun testFetchShockArrowExists() {
         runBlocking {
             launch {
-                val shockArrows = spreadSheetUtil.fetchShockArrowExists()
+                val shockArrows = spreadSheetService.fetchShockArrowExists()
                 assertTrue(
                     shockArrows.startsWith("0\txx") &&
                             shockArrows.endsWith("1242\txx")
@@ -113,7 +114,7 @@ class SpreadSheetUtilTest {
         val lastId = WebMusicId(1242, "8q96ObOdqPq8blPob9QdDq9b1iQoIQOI", "メンタンピンドラドラ", 0)
         runBlocking {
             launch {
-                val ids = spreadSheetUtil.createWebMusicIds()
+                val ids = spreadSheetService.createWebMusicIds()
                 assertEquals(1195, ids.size)
                 assertEquals(firstId, ids[0])
                 assertEquals(lastId, ids[1194])
@@ -125,7 +126,7 @@ class SpreadSheetUtilTest {
     fun testFetchWebMusicIds() {
         runBlocking {
             launch {
-                val fetchWebMusicIds = spreadSheetUtil.fetchWebMusicIds()
+                val fetchWebMusicIds = spreadSheetService.fetchWebMusicIds()
                 assertTrue(
                     fetchWebMusicIds.startsWith(
                         "0\t8Il6980di8P89lil1PDIqqIbiq1QO8lQ\tMAKE IT BETTER\t0"
@@ -146,7 +147,7 @@ class SpreadSheetUtilTest {
         val lastProp = SongProperty(1242, "composer1194", 123.0,234.0,345.0,456.0)
         runBlocking {
             launch {
-                val props = spreadSheetUtil.createMusicProperties()
+                val props = spreadSheetService.createMusicProperties()
                 assertEquals(1195, props.size)
                 assertEquals(firstProp, props[0])
                 assertEquals(lastProp, props[1194])
@@ -158,7 +159,7 @@ class SpreadSheetUtilTest {
     fun testFetchMusicProperties() {
         runBlocking {
             launch {
-                val fetchWebMusicIds = spreadSheetUtil.fetchSongProperties()
+                val fetchWebMusicIds = spreadSheetService.fetchSongProperties()
                 assertTrue(
                     fetchWebMusicIds.startsWith(
                         "0\tcomposer0\t123\t234\t345\t456"
@@ -178,7 +179,7 @@ class SpreadSheetUtilTest {
         assertThrows(RuntimeException::class.java) {
             runBlocking {
                 launch {
-                    spreadSheetUtil.fetchData("https://dummy.google.com/spreadsheets/d/1US3RPohSR_rlraBqq")
+                    spreadSheetService.fetchData("https://dummy.google.com/spreadsheets/d/1US3RPohSR_rlraBqq")
                 }
             }
         }
