@@ -23,7 +23,6 @@ import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -88,16 +87,12 @@ class EstimateByNameFragment : Fragment() {
                 searchedSongsAdapter.submitList(newSongs)
             }
 
-            var localVersion = versionDataStore.getDataVersion()
-            if (localVersion == 0) {
-                downloadData(this)
-                localVersion = versionDataStore.getDataVersion()
+            val dataVersion = versionDataStore.getDataVersion()
+            if (dataVersion == 0) {
+                downloadData()
+            } else {
+                viewModel.checkNewDataVersionAvailable(dataVersion)
             }
-
-            binding.dataVersion.text =
-                getString(R.string.display_version, localVersion.toString())
-
-            displayVersionOrUpdateButton(localVersion)
         }
 
         binding.searchedSongs.adapter = searchedSongsAdapter
@@ -108,9 +103,22 @@ class EstimateByNameFragment : Fragment() {
             }
         }
 
+        viewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
+            binding.dataVersion.text = getString(R.string.display_version, version.toString())
+            lifecycleScope.launch {
+            }
+        }
+
+        viewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
+            switchUpdateAvailable(updateAvailable)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            switchLoading(isLoading)
+        }
+
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
-                // Show error message
                 AlertDialog.Builder(requireContext())
                     .setMessage(errorMessage)
                     .setPositiveButton("OK", null)
@@ -118,65 +126,45 @@ class EstimateByNameFragment : Fragment() {
             }
         }
 
-        // TODO :バージョンタップでバージョン確認できるようにする。または右上にメニュー
-
         binding.resetButton.setOnClickListener {
             viewModel.resetSearchWord()
         }
 
         binding.updateButton.setOnClickListener {
             lifecycleScope.launch {
-                downloadData(this)
+                downloadData()
             }
         }
 
         binding.dataVersion.setOnClickListener {
             lifecycleScope.launch {
-
-                displayVersionOrUpdateButton(versionDataStore.getDataVersion())
+                viewModel.checkNewDataVersionAvailable(versionDataStore.getDataVersion())
             }
         }
     }
 
-    private suspend fun downloadData(coroutineScope: CoroutineScope) {
-        displayLoading()
+    private suspend fun downloadData() {
         viewModel.downloadSongData()
-        versionDataStore.saveDataVersionStore(viewModel.sourceDataVersion)
-
-        val dataVersion = versionDataStore.getDataVersion()
-        binding.dataVersion.text =
-            getString(R.string.display_version, dataVersion.toString())
-
-        coroutineScope.launch {
-            displayVersionOrUpdateButton(dataVersion)
+        viewModel.localDataVersion.value?.let {
+            versionDataStore.saveDataVersionStore(it)
         }
+
         updateTableBySearchWord()
-
-        displaySearchResultTable()
     }
 
-    private suspend fun displayVersionOrUpdateButton(localVersion: Int) {
-        viewModel.checkNewDataVersionAvailable(localVersion)
-        // checkして、データソースのバージョンのほうが新しければ更新ボタンを押せるようにする
-        viewModel.result.collect { result ->
-            binding.dataVersion.visibility = if (result == true) View.GONE else View.VISIBLE
-            binding.updateButton.visibility = if (result == true) View.VISIBLE else View.GONE
-        }
+    private fun switchLoading(isLoading: Boolean) {
+        // レイアウトを崩さないためにローディング時も Gone にしない
+        binding.searchedSongs.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+        binding.loadingText.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun displaySearchResultTable() {
-        binding.searchedSongs.visibility = View.VISIBLE
-        binding.loadingText.visibility = View.GONE
-    }
-
-    private fun displayLoading() {
-        binding.searchedSongs.visibility = View.INVISIBLE
-        binding.loadingText.visibility = View.VISIBLE
+    private fun switchUpdateAvailable(updateAvailable: Boolean) {
+        binding.dataVersion.visibility = if (updateAvailable) View.GONE else View.VISIBLE
+        binding.updateButton.visibility = if (updateAvailable) View.VISIBLE else View.GONE
     }
 
     private suspend fun updateTableBySearchWord() {
         val songs = withContext(Dispatchers.IO) {
-            // Fetch data on IO thread
             viewModel.searchSongsByName()
         }
         handler.post {
