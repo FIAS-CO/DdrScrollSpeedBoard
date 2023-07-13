@@ -1,5 +1,6 @@
 package com.fias.ddrhighspeed.search.songsearch
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +12,6 @@ import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 // TODO:テストを足す
@@ -21,11 +20,25 @@ class EstimateByNameViewModel(
     private val spreadSheetService: ISpreadSheetService
 ) : ViewModel() {
     val searchWord = MutableLiveData<String>()
-    private val _result = MutableStateFlow<Boolean?>(null)
 
-    val result: StateFlow<Boolean?> get() = _result
+    val updateAvailable: LiveData<Boolean> get() = _updateAvailable
+    private val _updateAvailable = MutableLiveData(false)
 
-    var sourceDataVersion = 0
+    val isLoading: LiveData<Boolean> get() = _isLoading
+    private val _isLoading = MutableLiveData(false)
+
+    val localDataVersion: LiveData<Int> get() = _localDataVersion
+    private val _localDataVersion = MutableLiveData<Int>()
+    private fun setLocalDataVersion(version: Int) {
+        _localDataVersion.value = version
+        setUpdateAvailable()
+    }
+
+    private var sourceDataVersion = 0
+        set(value) {
+            field = value
+            setUpdateAvailable()
+        }
 
     init {
         viewModelScope.launch {
@@ -84,24 +97,29 @@ class EstimateByNameViewModel(
                 return@launch
             }
             sourceDataVersion = dataVersionResult.getOrNull() ?: 0
-            _result.value = sourceDataVersion > localVersion
+            setLocalDataVersion(localVersion)
         }
     }
 
     val errorMessage = MutableLiveData<String>()
     suspend fun downloadSongData() {
         coroutineScope {
+            _isLoading.value = true
+
+            val versionDeferred = safeAsync { spreadSheetService.getNewDataVersion() }
             val songNameDeferred = safeAsync { spreadSheetService.createSongNames() }
             val musicPropertyDeferred = safeAsync { spreadSheetService.createMusicProperties() }
             val shockArrowDeferred = safeAsync { spreadSheetService.createShockArrowExists() }
             val webMusicIdDeferred = safeAsync { spreadSheetService.createWebMusicIds() }
+
+            val versionResult = versionDeferred.await()
             val songNamesResult = songNameDeferred.await()
             val musicPropertiesResult = musicPropertyDeferred.await()
             val shockArrowExistsResult = shockArrowDeferred.await()
             val webMusicIdsResult = webMusicIdDeferred.await()
 
             // いずれかのリストの取得が失敗したら中断
-            if (songNamesResult.isFailure || musicPropertiesResult.isFailure || shockArrowExistsResult.isFailure || webMusicIdsResult.isFailure) {
+            if (versionResult.isFailure || songNamesResult.isFailure || musicPropertiesResult.isFailure || shockArrowExistsResult.isFailure || webMusicIdsResult.isFailure) {
                 errorMessage.value =
                     "データの取得に失敗しました。\n しばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 return@coroutineScope
@@ -123,7 +141,16 @@ class EstimateByNameViewModel(
             db.reinitializeSongProperties(musicProperties)
             db.reinitializeShockArrowExists(shockArrowExists)
             db.reinitializeWebMusicIds(webMusicIds)
+
+            sourceDataVersion = versionResult.getOrNull() ?: 0
+            setLocalDataVersion(versionResult.getOrNull() ?: 0)
+
+            _isLoading.value = false
         }
+    }
+
+    private fun setUpdateAvailable() {
+        _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MAX_VALUE)
     }
 }
 
