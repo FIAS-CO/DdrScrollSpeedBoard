@@ -26,7 +26,7 @@ interface ISpreadSheetService {
         var sourceVersion = 0
 
         val result = runCatching {
-            val version = SpreadSheetService().fetchFileVersion()
+            val version = fetchFileVersion()
             sourceVersion = version.toInt()
         }
 
