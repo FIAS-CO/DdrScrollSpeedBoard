@@ -89,7 +89,7 @@ class EstimateByNameFragment : Fragment() {
 
             val dataVersion = versionDataStore.getDataVersion()
             if (dataVersion == 0) {
-                downloadData()
+                refreshDataAndView()
             } else {
                 viewModel.checkNewDataVersionAvailable(dataVersion)
             }
@@ -132,7 +132,7 @@ class EstimateByNameFragment : Fragment() {
 
         binding.updateButton.setOnClickListener {
             lifecycleScope.launch {
-                downloadData()
+                refreshDataAndView()
             }
         }
 
@@ -143,7 +143,7 @@ class EstimateByNameFragment : Fragment() {
         }
     }
 
-    private suspend fun downloadData() {
+    private suspend fun refreshDataAndView() {
         viewModel.downloadSongData()
         viewModel.localDataVersion.value?.let {
             versionDataStore.saveDataVersionStore(it)
