@@ -4,7 +4,7 @@ import com.fias.ddrhighspeed.shared.cache.ShockArrowExists
 import com.fias.ddrhighspeed.shared.cache.SongName
 import com.fias.ddrhighspeed.shared.cache.SongProperty
 import com.fias.ddrhighspeed.shared.cache.WebMusicId
-import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
+import com.fias.ddrhighspeed.shared.spreadsheet.TestSpreadSheetService
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -15,12 +15,15 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class SpreadSheetServiceTest {
-    lateinit var spreadSheetService: SpreadSheetService
+    lateinit var spreadSheetService: TestSpreadSheetService
+
+    // TODO テスト関連の文字列をどこかに集約したい
+    private val correctUrlBase =
+        "https://docs.google.com/spreadsheets/d/1BPqdsURvQYveHLNhREJIUC440TFPj5JzwizKkhdIKQY/export?format=tsv&gid="
 
     @Before
     fun setup() {
-        spreadSheetService = SpreadSheetService()
-
+        spreadSheetService = TestSpreadSheetService(correctUrlBase)
     }
 
     @After
@@ -33,7 +36,7 @@ class SpreadSheetServiceTest {
         runBlocking {
             launch {
                 assertTrue(
-                    spreadSheetService.fetchFileVersion().startsWith("2023061112")
+                    spreadSheetService.fetchFileVersion().startsWith("2023061121")
                 )
             }
         }
@@ -143,8 +146,8 @@ class SpreadSheetServiceTest {
 
     @Test
     fun testCreateMusicProperties() {
-        val firstProp = SongProperty(0, "composer0", 123.0,234.0,345.0,456.0)
-        val lastProp = SongProperty(1242, "composer1194", 123.0,234.0,345.0,456.0)
+        val firstProp = SongProperty(0, "composer0", 123.0, 234.0, 345.0, 456.0)
+        val lastProp = SongProperty(1242, "composer1194", 123.0, 234.0, 345.0, 456.0)
         runBlocking {
             launch {
                 val props = spreadSheetService.createMusicProperties()
