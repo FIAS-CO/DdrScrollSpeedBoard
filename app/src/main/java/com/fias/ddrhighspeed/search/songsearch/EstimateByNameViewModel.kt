@@ -88,17 +88,17 @@ class EstimateByNameViewModel(
         }
     }
 
-    fun checkNewDataVersionAvailable(localVersion: Int) {
-        // データ更新後に内部バージョンを書き換えるために値を残しておく
-        viewModelScope.launch {
-            val dataVersionResult =
-                safeAsync { spreadSheetService.getNewDataVersion() }.await()
-            if (dataVersionResult.isFailure) {
-                return@launch
-            }
-            sourceDataVersion = dataVersionResult.getOrNull() ?: 0
-            setLocalDataVersion(localVersion)
+    suspend fun checkNewDataVersionAvailable(localVersion: Int) {
+        val dataVersionResult =
+            safeAsync { spreadSheetService.getNewDataVersion() }.await()
+        if (dataVersionResult.isFailure) {
+            return
         }
+
+        // データ更新後に内部バージョンを書き換えるために値を残しておく
+        sourceDataVersion = dataVersionResult.getOrNull() ?: 0
+
+        setLocalDataVersion(localVersion)
     }
 
     val errorMessage = MutableLiveData<String>()
