@@ -1,0 +1,74 @@
+CREATE TABLE IF NOT EXISTS Song (
+	"id"	INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE
+);
+DROP TABLE Song;
+
+CREATE TABLE IF NOT EXISTS SongName (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    "name" TEXT NOT NULL,
+    "ruby" TEXT NOT NULL,
+    "version" TEXT NOT NULL,
+    "max_bpm" INTEGER NOT NULL,
+    "min_bpm" INTEGER NOT NULL,
+    "besp" INTEGER NOT NULL,
+    "bsp" INTEGER NOT NULL,
+    "dsp" INTEGER NOT NULL,
+    "esp" INTEGER NOT NULL,
+    "csp" INTEGER NOT NULL,
+    "bdp" INTEGER NOT NULL,
+    "ddp" INTEGER NOT NULL,
+    "edp" INTEGER NOT NULL,
+    "cdp" INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ShockArrowExists (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    "shock" TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS WebMusicId (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    "web_id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "isDeleted" INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS SongProperty (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    "composer" TEXT NOT NULL,
+    "base_bpm" REAL NOT NULL,
+    "sub_bpm" REAL,
+    "min_bpm" REAL,
+    "max_bpm" REAL
+);
+
+CREATE VIEW IF NOT EXISTS Song AS
+SELECT
+    SongName.id AS id,
+    SongName.name AS name,
+    SongProperty.composer AS composer,
+    SongName.version AS version,
+    CAST(SongName.max_bpm AS TEXT) || '-' || CAST(SongName.min_bpm AS TEXT) AS display_bpm,
+    SongProperty.min_bpm AS min_bpm,
+    SongProperty.max_bpm AS max_bpm,
+    SongProperty.base_bpm AS base_bpm,
+    SongProperty.sub_bpm AS sub_bpm,
+    SongName.besp AS besp,
+    SongName.bsp AS bsp,
+    SongName.dsp AS dsp,
+    SongName.esp AS esp,
+    SongName.csp AS csp,
+    SongName.bdp AS bdp,
+    SongName.ddp AS ddp,
+    SongName.edp AS edp,
+    SongName.cdp AS cdp,
+    ShockArrowExists.shock AS shock_arrow,
+    WebMusicId.isDeleted AS deleted
+FROM
+    SongName
+JOIN
+    SongProperty ON SongName.id = SongProperty.id
+JOIN
+    ShockArrowExists ON SongName.id = ShockArrowExists.id
+JOIN
+    WebMusicId ON SongName.id = WebMusicId.id;

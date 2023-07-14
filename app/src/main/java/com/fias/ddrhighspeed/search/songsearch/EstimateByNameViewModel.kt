@@ -34,8 +34,8 @@ class EstimateByNameViewModel(
         setUpdateAvailable()
     }
 
-    private var sourceDataVersion = 0
-        set(value) {
+    var sourceDataVersion = 0
+        private set(value) {
             field = value
             setUpdateAvailable()
         }
@@ -121,7 +121,7 @@ class EstimateByNameViewModel(
             // いずれかのリストの取得が失敗したら中断
             if (versionResult.isFailure || songNamesResult.isFailure || musicPropertiesResult.isFailure || shockArrowExistsResult.isFailure || webMusicIdsResult.isFailure) {
                 errorMessage.value =
-                    "データの取得に失敗しました。\n しばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
+                    "データの取得に失敗しました。\nしばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 return@coroutineScope
             }
 
@@ -133,7 +133,7 @@ class EstimateByNameViewModel(
             // 各リストのサイズが違うのはおかしいので中断
             if (songNames.size != musicProperties.size || songNames.size != shockArrowExists.size || songNames.size != webMusicIds.size) {
                 errorMessage.value =
-                    "データに不整合があります。\n 左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
+                    "データに不整合があります。\n左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 return@coroutineScope
             }
 
@@ -144,13 +144,12 @@ class EstimateByNameViewModel(
 
             sourceDataVersion = versionResult.getOrNull() ?: 0
             setLocalDataVersion(versionResult.getOrNull() ?: 0)
-
-            _isLoading.value = false
         }
+        _isLoading.value = false
     }
 
     private fun setUpdateAvailable() {
-        _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MAX_VALUE)
+        _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
     }
 }
 
