@@ -8,13 +8,16 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 interface ISpreadSheetService {
     // 以下2つだけ実装クラスで継承する
     fun getHttpClient(): HttpClient
     fun getUrlBase(): String
 
-    // 以下、プロダクトコードでは継承不要。テスト用SupreadSheetのシートIDが変わる場合は要検討
+    // 以下、プロダクトコードでは継承不要。テスト用SpreadSheetのシートIDが変わる場合は要検討
     // IDだけ別途定義する？
     suspend fun fetchFileVersion(): String = fetchData(getUrlBase() + "334969595")
     suspend fun fetchSongNames(): String = fetchData(getUrlBase() + "0")
@@ -33,6 +36,49 @@ interface ISpreadSheetService {
         if (result.isFailure) sourceVersion = -1
 
         return sourceVersion
+    }
+
+    suspend fun createAllData(): SSDataResult {
+        val versionDeferred = safeAsync { getNewDataVersion() }
+        val songNameDeferred = safeAsync { createSongNames() }
+        val musicPropertyDeferred = safeAsync { createMusicProperties() }
+        val shockArrowDeferred = safeAsync { createShockArrowExists() }
+        val webMusicIdDeferred = safeAsync { createWebMusicIds() }
+
+        val versionResult = versionDeferred.await()
+        val songNamesResult = songNameDeferred.await()
+        val musicPropertiesResult = musicPropertyDeferred.await()
+        val shockArrowExistsResult = shockArrowDeferred.await()
+        val webMusicIdsResult = webMusicIdDeferred.await()
+
+        // Check for errors and collect them.
+        val exceptions = listOf(
+            versionResult,
+            songNamesResult,
+            musicPropertiesResult,
+            shockArrowExistsResult,
+            webMusicIdsResult
+        )
+            .mapNotNull { it.exceptionOrNull() }
+
+        // If there were any errors, return FailureResult with the list of exceptions.
+        if (exceptions.isNotEmpty()) {
+            return FailureResult(exceptions)
+        }
+
+        val version = versionResult.getOrNull() ?: 0
+        val songNames = songNamesResult.getOrNull() ?: emptyList()
+        val musicProperties = musicPropertiesResult.getOrNull() ?: emptyList()
+        val shockArrowExists = shockArrowExistsResult.getOrNull() ?: emptyList()
+        val webMusicIds = webMusicIdsResult.getOrNull() ?: emptyList()
+
+        return SuccessResult(
+            version,
+            songNames,
+            musicProperties,
+            shockArrowExists,
+            webMusicIds
+        )
     }
 
     suspend fun createSongNames(): List<SongName> {
@@ -103,4 +149,20 @@ interface ISpreadSheetService {
     fun closeClient() {
         getHttpClient().close()
     }
+
+    private suspend fun <T> safeAsync(block: suspend () -> T): Deferred<Result<T>> {
+        return coroutineScope { async { runCatching { block() } } }
+    }
 }
+
+sealed class SSDataResult
+
+data class SuccessResult(
+    val version: Int,
+    val songNames: List<SongName>,
+    val musicProperties: List<SongProperty>,
+    val shockArrowExists: List<ShockArrowExists>,
+    val webMusicIds: List<WebMusicId>
+) : SSDataResult()
+
+data class FailureResult(val exceptions: List<Throwable>) : SSDataResult()
