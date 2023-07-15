@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
+import com.fias.ddrhighspeed.shared.spreadsheet.FailureResult
 import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
+import com.fias.ddrhighspeed.shared.spreadsheet.SuccessResult
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -89,16 +89,12 @@ class EstimateByNameViewModel(
     }
 
     suspend fun checkNewDataVersionAvailable(localVersion: Int) {
-        val dataVersionResult =
-            safeAsync { spreadSheetService.getNewDataVersion() }.await()
-        if (dataVersionResult.isFailure) {
-            return
-        }
+        setLocalDataVersion(localVersion)
+
+        val dataVersionResult = spreadSheetService.getNewDataVersion()
 
         // データ更新後に内部バージョンを書き換えるために値を残しておく
-        sourceDataVersion = dataVersionResult.getOrNull() ?: 0
-
-        setLocalDataVersion(localVersion)
+        sourceDataVersion = sourceDataVersion.coerceAtLeast(dataVersionResult)
     }
 
     val errorMessage = MutableLiveData<String>()
@@ -106,44 +102,31 @@ class EstimateByNameViewModel(
         coroutineScope {
             _isLoading.value = true
 
-            val versionDeferred = safeAsync { spreadSheetService.getNewDataVersion() }
-            val songNameDeferred = safeAsync { spreadSheetService.createSongNames() }
-            val musicPropertyDeferred = safeAsync { spreadSheetService.createMusicProperties() }
-            val shockArrowDeferred = safeAsync { spreadSheetService.createShockArrowExists() }
-            val webMusicIdDeferred = safeAsync { spreadSheetService.createWebMusicIds() }
-
-            val versionResult = versionDeferred.await()
-            val songNamesResult = songNameDeferred.await()
-            val musicPropertiesResult = musicPropertyDeferred.await()
-            val shockArrowExistsResult = shockArrowDeferred.await()
-            val webMusicIdsResult = webMusicIdDeferred.await()
+            val allDataResult = spreadSheetService.createAllData()
 
             // いずれかのリストの取得が失敗したら中断
-            if (versionResult.isFailure || songNamesResult.isFailure || musicPropertiesResult.isFailure || shockArrowExistsResult.isFailure || webMusicIdsResult.isFailure) {
+            if (allDataResult is FailureResult) {
                 errorMessage.value =
                     "データの取得に失敗しました。\nしばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 return@coroutineScope
             }
 
-            val songNames = songNamesResult.getOrNull() ?: emptyList()
-            val musicProperties = musicPropertiesResult.getOrNull() ?: emptyList()
-            val shockArrowExists = shockArrowExistsResult.getOrNull() ?: emptyList()
-            val webMusicIds = webMusicIdsResult.getOrNull() ?: emptyList()
+            (allDataResult as SuccessResult).apply {
+                // 各リストのサイズが違うのはおかしいので中断
+                if (songNames.size != musicProperties.size || songNames.size != shockArrowExists.size || songNames.size != webMusicIds.size) {
+                    errorMessage.value =
+                        "データに不整合があります。\n左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
+                    return@coroutineScope
+                }
 
-            // 各リストのサイズが違うのはおかしいので中断
-            if (songNames.size != musicProperties.size || songNames.size != shockArrowExists.size || songNames.size != webMusicIds.size) {
-                errorMessage.value =
-                    "データに不整合があります。\n左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
-                return@coroutineScope
+                db.reinitializeSongNames(songNames)
+                db.reinitializeSongProperties(musicProperties)
+                db.reinitializeShockArrowExists(shockArrowExists)
+                db.reinitializeWebMusicIds(webMusicIds)
+
+                sourceDataVersion = version
+                setLocalDataVersion(version)
             }
-
-            db.reinitializeSongNames(songNames)
-            db.reinitializeSongProperties(musicProperties)
-            db.reinitializeShockArrowExists(shockArrowExists)
-            db.reinitializeWebMusicIds(webMusicIds)
-
-            sourceDataVersion = versionResult.getOrNull() ?: 0
-            setLocalDataVersion(versionResult.getOrNull() ?: 0)
         }
         _isLoading.value = false
     }
@@ -151,10 +134,6 @@ class EstimateByNameViewModel(
     private fun setUpdateAvailable() {
         _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
     }
-}
-
-private suspend fun <T> safeAsync(block: suspend () -> T): Deferred<Result<T>> {
-    return coroutineScope { async { runCatching { block() } } }
 }
 
 /**
