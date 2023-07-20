@@ -165,4 +165,6 @@ data class SuccessResult(
     val webMusicIds: List<WebMusicId>
 ) : SSDataResult()
 
-data class FailureResult(val exceptions: List<Throwable>) : SSDataResult()
+data class FailureResult(val exceptions: List<Throwable>) : SSDataResult() {
+    override fun toString(): String = exceptions[0].message!!
+}

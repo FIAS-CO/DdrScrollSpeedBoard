@@ -5,18 +5,20 @@ struct SearchSongView: View {
     @EnvironmentObject var modelData: ModelData
     @Binding var isShowSubView: Bool
     @State private var searchWord: String = ""
-    @State private var selectedSong: Song = ModelData().songs[0]
-
+    @State private var selectedSong: Song?
+    
     var body: some View {
         NavigationView {
             VStack {
-                TextField("曲名を入力してください", text: $searchWord)
-                    .modifier(TextFieldClearButton(text: $searchWord))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                    .onChange(of: searchWord) { newValue in
-                        modelData.searchSong(searchWord: newValue)
-                    }
+                HStack {
+                    TextField("曲名を入力してください", text: $searchWord)
+                        .modifier(TextFieldClearButton(text: $searchWord))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+                        .onChange(of: searchWord) { newValue in
+                            modelData.searchSong(searchWord: newValue)
+                        }
+                }
                 List{
                     ForEach(modelData.songs, id: \.self) { song in
                         Button(action: {
@@ -27,20 +29,41 @@ struct SearchSongView: View {
                                 Text(song.name)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray) 
+                                    .foregroundColor(.gray)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         })
                     }
                 }
                 .navigationTitle("曲名検索")
+                
+                HStack {
+                    Spacer()
+                    if (modelData.updateAvailable) {
+                        Button(action: {
+                            modelData.downloadSongData()
+                        }){ Text("Push to update song data.") }
+                    } else {
+                        Text(modelData.versionText)
+                    }
+                }
             }
             .background(
                 NavigationLink(
-                    destination: SongDetailView(song: selectedSong),
+                    destination: selectedSong != nil ? SongDetailView(song: selectedSong!) : nil,
                     isActive: $isShowSubView,
                     label: {}
                 )
+            )
+        }
+        .alert(isPresented: $modelData.showingAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text("An error occurred."),
+                dismissButton: .default(Text("OK")) {
+                    // ここでは単にアラートを非表示にする
+                    modelData.showingAlert = false
+                }
             )
         }
     }
@@ -54,6 +77,6 @@ struct SearchSongView_Previews: PreviewProvider {
             .environmentObject(ModelData())
         
         SearchSongView(isShowSubView: .constant(true))
-                .environmentObject(ModelData())
+            .environmentObject(ModelData())
     }
 }
