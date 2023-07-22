@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
@@ -13,7 +12,6 @@ import com.fias.ddrhighspeed.shared.spreadsheet.FailureResult
 import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
 import com.fias.ddrhighspeed.shared.spreadsheet.SuccessResult
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 // TODO:テストを足す
 class EstimateByNameViewModel(
@@ -40,12 +38,12 @@ class EstimateByNameViewModel(
             field = value
             setUpdateAvailable()
         }
-
-    init {
-        viewModelScope.launch {
-            sourceDataVersion = spreadSheetService.getNewDataVersion()
-        }
-    }
+//
+//    init {
+//        viewModelScope.launch {
+//            sourceDataVersion = spreadSheetService.getNewDataVersion()
+//        }
+//    }
 
     fun getNewSongs(): List<SongData> {
         return db.getNewSongs().map { convertToSongData(it) }
