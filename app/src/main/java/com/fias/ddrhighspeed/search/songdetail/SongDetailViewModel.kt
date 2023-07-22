@@ -29,6 +29,7 @@ class SongDetailViewModel : ViewModel() {
             sub_bpm?.let {
                 list.add(rsFactory.createForDetail(value, "基本②", it))
             }
+            list.removeIf { it.bpm == "0.0" }
             list.sortDescending() // BPM でソート
         }
         return list

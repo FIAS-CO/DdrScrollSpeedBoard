@@ -1,5 +1,6 @@
 package com.fias.ddrhighspeed.search.songsearch
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -108,12 +109,18 @@ class EstimateByNameViewModel(
             if (allDataResult is FailureResult) {
                 errorMessage.value =
                     "データの取得に失敗しました。\nしばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
+                Log.e(
+                    "EstimateByNameViewModel",
+                    "データの取得に失敗しました",
+                    allDataResult.exceptions.first()
+                )
                 return@coroutineScope
             }
 
             (allDataResult as SuccessResult).apply {
                 // 各リストのサイズが違うのはおかしいので中断
-                if (songNames.size != musicProperties.size || songNames.size != shockArrowExists.size || songNames.size != webMusicIds.size) {
+                // musicPropertiesだけはsongNamesよりレコードが多いのでそこだけ判定
+                if (songNames.size > musicProperties.size || songNames.size != shockArrowExists.size || songNames.size != webMusicIds.size) {
                     errorMessage.value =
                         "データに不整合があります。\n左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                     return@coroutineScope

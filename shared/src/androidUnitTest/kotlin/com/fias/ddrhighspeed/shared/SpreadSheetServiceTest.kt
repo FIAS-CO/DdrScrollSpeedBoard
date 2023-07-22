@@ -146,8 +146,8 @@ class SpreadSheetServiceTest {
 
     @Test
     fun testCreateMusicProperties() {
-        val firstProp = SongProperty(0, "composer0", 123.0, 234.0, 345.0, 456.0)
-        val lastProp = SongProperty(1242, "composer1194", 123.0, 234.0, 345.0, 456.0)
+        val firstProp = SongProperty(1, 0, "composer0", 123.0, 234.0, 345.0, 456.0)
+        val lastProp = SongProperty(1195, 1242, "composer1194", 123.0, 234.0, 345.0, 456.0)
         runBlocking {
             launch {
                 val props = spreadSheetService.createMusicProperties()
@@ -165,12 +165,12 @@ class SpreadSheetServiceTest {
                 val fetchWebMusicIds = spreadSheetService.fetchSongProperties()
                 assertTrue(
                     fetchWebMusicIds.startsWith(
-                        "0\tcomposer0\t123\t234\t345\t456"
+                        "1\t0\tcomposer0\t123\t234\t345\t456"
                     )
                 )
                 assertTrue(
                     fetchWebMusicIds.endsWith(
-                        "1242\tcomposer1194\t123\t234\t345\t456"
+                        "1195\t1242\tcomposer1194\t123\t234\t345\t456"
                     )
                 )
             }
