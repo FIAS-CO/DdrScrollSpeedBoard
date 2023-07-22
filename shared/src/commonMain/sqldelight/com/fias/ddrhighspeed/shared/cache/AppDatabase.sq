@@ -340,6 +340,7 @@ CREATE TABLE IF NOT EXISTS WebMusicId (
 
 CREATE TABLE IF NOT EXISTS SongProperty (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    "song_id" INTEGER NOT NULL,
     "composer" TEXT NOT NULL,
     "base_bpm" REAL NOT NULL,
     "sub_bpm" REAL,
@@ -372,7 +373,7 @@ SELECT
 FROM
     SongName
 JOIN
-    SongProperty ON SongName.id = SongProperty.id
+    SongProperty ON SongName.id = SongProperty.song_id
 JOIN
     ShockArrowExists ON SongName.id = ShockArrowExists.id
 JOIN

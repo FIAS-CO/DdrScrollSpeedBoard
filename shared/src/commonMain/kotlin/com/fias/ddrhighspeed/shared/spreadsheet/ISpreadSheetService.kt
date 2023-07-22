@@ -131,11 +131,12 @@ interface ISpreadSheetService {
             val list = it.split("\t")
             SongProperty(
                 list[0].toLong(),
-                list[1],
-                list[2].toDouble(),
+                list[1].toLong(),
+                list[2],
                 list[3].toDouble(),
                 list[4].toDouble(),
-                list[5].toDouble()
+                list[5].toDouble(),
+                list[6].toDouble()
             )
         }
     }
@@ -166,5 +167,5 @@ data class SuccessResult(
 ) : SSDataResult()
 
 data class FailureResult(val exceptions: List<Throwable>) : SSDataResult() {
-    override fun toString(): String = exceptions[0].message!!
+    override fun toString(): String = exceptions[0].stackTraceToString()
 }
