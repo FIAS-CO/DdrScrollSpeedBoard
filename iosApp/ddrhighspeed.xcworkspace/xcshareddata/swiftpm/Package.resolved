@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftui-simple-table",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/darrarski/swiftui-simple-table.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4301861343ed15c42448d17a3c012224a3d38a1f"
+      }
+    },
+    {
+      "identity" : "youtubeplayerkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SvenTiigi/YouTubePlayerKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6bbba75c8a8927e8073765849e22707d96b55205"
+      }
+    }
+  ],
+  "version" : 2
+}
