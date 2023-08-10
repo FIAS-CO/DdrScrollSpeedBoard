@@ -1,0 +1,25 @@
+INSERT INTO Song VALUES
+ (1172,'とこにゃつ☆トロピカル','Dormir','A3','132',NULL,NULL,132.0,NULL,3,7,12,15,NULL,6,12,15,NULL,NULL,NULL),
+ (1173,'I-W-U (I Want U)','nagomu tamaki','A3','150',NULL,NULL,150.0,NULL,3,7,12,17,NULL,7,12,17,NULL,NULL,NULL),
+ (1174,'Sparkle Dreams','Toby Fox','A3','48-190',48.0,NULL,190.0,NULL,2,5,8,13,15,5,8,12,15,NULL,NULL),
+ (1175,'パーフェクトイーター','PIKASONIC','A3','180',NULL,NULL,180.0,NULL,3,8,13,17,NULL,7,13,17,NULL,NULL,NULL),
+ (1176,'Battle Against a True Hero','BEMANI Sound Team "PON" feat.かなたん','A3','175',NULL,NULL,175.0,NULL,3,6,12,17,NULL,6,12,17,NULL,NULL,NULL),
+ (1177,'Death by Glamour','Toby Fox','A3','75-150',75.0,NULL,150.0,NULL,2,7,12,15,18,7,12,15,18,NULL,NULL),
+ (1178,'Finale','Toby Fox','A3','148',NULL,NULL,148.0,NULL,3,7,11,14,17,7,11,14,17,NULL,NULL);
+
+INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
+ (1163, 'ESP', 'Youtube', 'bRR9zqlLtqE'),
+(1172, 'ESP', 'Youtube', 'qrcLdymLcgQ'),
+(1173, 'ESP', 'Youtube', 'KUVWrcjKats'),
+(1174, 'ESP', 'Youtube', 'sxtl0jEOKbc'),
+(1175, 'ESP', 'Youtube', 'KIKF8QcJCik'),
+(1176, 'CSP', 'Youtube', 'wQLzr7Xz2gU'),
+(1176, 'ESP', 'Youtube', 'OEi9FZXMsNo'),
+(1177, 'CSP', 'Youtube', 'IkgYQw_gX4w'),
+(1177, 'ESP', 'Youtube', 'RikDZkCtBSs'),
+(1178, 'CSP', 'Youtube', '85YDHntWmHE'),
+(1178, 'ESP', 'Youtube', 'Eome1KpB7xo');
+
+UPDATE Song SET name = '.59' WHERE id = 50;
+UPDATE Song SET base_bpm = 186.0 WHERE id = 395;
+UPDATE Song SET base_bpm = 150.0, sub_bpm = 300.0 WHERE id = 763;

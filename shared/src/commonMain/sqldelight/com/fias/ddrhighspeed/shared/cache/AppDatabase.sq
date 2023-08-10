@@ -70,7 +70,7 @@ INSERT INTO Song VALUES
  (47,'SUPER STAR','D.J.RICH feat. TAILBROS.','DDR 4thMIX','128',NULL,NULL,128.0,NULL,3,7,8,12,NULL,5,9,11,NULL,NULL,NULL),
  (48,'TRIP MACHINE CLIMAX','DE-SIRE','DDR 4thMIX','180',NULL,NULL,180.0,NULL,5,7,9,12,NULL,7,9,12,NULL,NULL,NULL),
  (49,'WILD RUSH','FACTOR-X','DDR 4thMIX','80-180',80.0,NULL,180.0,NULL,5,6,7,10,NULL,5,9,11,NULL,NULL,NULL),
- (50,'0.59','dj TAKA','DDR 4thMIX','135',123.0,NULL,135.0,NULL,3,5,8,11,NULL,5,8,10,NULL,NULL,NULL),
+ (50,'.59','dj TAKA','DDR 4thMIX','135',123.0,NULL,135.0,NULL,3,5,8,11,NULL,5,8,10,NULL,NULL,NULL),
  (51,'サナ・モレッテ・ネ・エンテ','Togo Project feat. Sana','DDR 5thMIX','90',NULL,NULL,90.0,NULL,3,4,9,12,NULL,5,9,12,NULL,NULL,NULL),
  (52,'ABSOLUTE','dj TAKA','DDR 5thMIX','144',38.0,NULL,144.0,NULL,3,4,8,11,NULL,4,7,11,NULL,NULL,NULL),
  (53,'Abyss','dj TAKA','DDR 5thMIX','142',NULL,NULL,142.0,NULL,3,4,7,10,NULL,5,8,11,NULL,NULL,NULL),
@@ -415,7 +415,7 @@ INSERT INTO Song VALUES
  (392,'Taking It To The Sky','U1 feat. Tammy S. Hansen','DDR X2','130',NULL,NULL,130.0,NULL,1,3,5,8,NULL,4,6,8,NULL,NULL,NULL),
  (393,'Theory of Eternity','TAG','DDR X2','160',NULL,NULL,160.0,NULL,3,6,9,12,10,6,9,12,11,'CSP,CDP',NULL),
  (394,'THIS NIGHT','jun feat. Sonnet','DDR X2','160',NULL,NULL,160.0,NULL,2,5,8,11,NULL,6,8,11,NULL,NULL,NULL),
- (395,'Valkyrie dimension','Spriggan','DDR X2','47-744',47.0,744.0,240.0,480.0,9,13,15,18,19,13,14,18,19,NULL,NULL),
+ (395,'Valkyrie dimension','Spriggan','DDR X2','47-744',47.0,744.0,186.0,480.0,9,13,15,18,19,13,14,18,19,NULL,NULL),
  (396,'VANESSA','朱雀','DDR X2','185',NULL,NULL,185.0,NULL,4,7,11,16,NULL,7,12,16,NULL,NULL,NULL),
  (397,'WH1TE RO5E','Y&Co.','DDR X2','85-170',85.0,NULL,170.0,NULL,3,5,9,13,NULL,5,9,13,NULL,NULL,NULL),
  (398,'What Will Come of Me','Black Rose Garden','DDR X2','140',NULL,NULL,140.0,NULL,2,4,6,13,NULL,5,7,13,NULL,NULL,NULL),
@@ -783,7 +783,7 @@ INSERT INTO Song VALUES
  (760,'POSSESSION (20th Anniversary Mix)','BEMANI Sound Team "Sota Fujimori 2nd Season"','DanceDanceRevolution A','190-380',190.0,NULL,380.0,NULL,8,11,14,16,18,11,15,17,18,'CSP,CDP',NULL),
  (761,'Prey','BEMANI Sound Team "Dustup"','DanceDanceRevolution A','210',NULL,NULL,210.0,NULL,5,11,15,18,18,11,15,18,18,NULL,NULL),
  (762,'Puberty Dysthymia','BEMANI Sound Team "person09"','DanceDanceRevolution A','70-210',67.0,NULL,210.0,NULL,4,8,13,17,NULL,8,13,17,NULL,NULL,NULL),
- (763,'Pursuer','白澤亮（noisycroak）','DanceDanceRevolution A','75-300',75.0,NULL,300.0,NULL,3,7,14,17,NULL,7,14,17,NULL,NULL,NULL),
+ (763,'Pursuer','白澤亮（noisycroak）','DanceDanceRevolution A','75-300',75.0,NULL,150.0,300.0,3,7,14,17,NULL,7,14,17,NULL,NULL,NULL),
  (764,'Reach The Sky, Without you','nc ft. NRGFactory','DanceDanceRevolution A','95-190',47.5,NULL,190.0,NULL,7,10,14,17,NULL,10,14,17,NULL,NULL,NULL),
  (765,'Rejoin','BEMANI Sound Team "HuΣeR feat.PON"','DanceDanceRevolution A','135',NULL,NULL,135.0,NULL,2,6,10,13,NULL,7,11,13,NULL,NULL,NULL),
  (766,'RISING FIRE HAWK','L.E.D.-G','DanceDanceRevolution A','157',NULL,NULL,157.0,NULL,3,6,11,15,17,6,11,15,17,NULL,NULL),
@@ -1529,6 +1529,29 @@ INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
 (1169, 'ESP', 'Youtube', 'bvndx-C-A98'),
 (1170, 'ESP', 'Youtube', '5kWdzOKk_WY'),
 (1171, 'ESP', 'Youtube', 'V_OzKdQpRTk');
+
+-- 10.sqm
+INSERT INTO Song VALUES
+ (1172,'とこにゃつ☆トロピカル','Dormir','A3','132',NULL,NULL,132.0,NULL,3,7,12,15,NULL,6,12,15,NULL,NULL,NULL),
+ (1173,'I-W-U (I Want U)','nagomu tamaki','A3','150',NULL,NULL,150.0,NULL,3,7,12,17,NULL,7,12,17,NULL,NULL,NULL),
+ (1174,'Sparkle Dreams','Toby Fox','A3','48-190',48.0,NULL,190.0,NULL,2,5,8,13,15,5,8,12,15,NULL,NULL),
+ (1175,'パーフェクトイーター','PIKASONIC','A3','180',NULL,NULL,180.0,NULL,3,8,13,17,NULL,7,13,17,NULL,NULL,NULL),
+ (1176,'Battle Against a True Hero','BEMANI Sound Team "PON" feat.かなたん','A3','175',NULL,NULL,175.0,NULL,3,6,12,17,NULL,6,12,17,NULL,NULL,NULL),
+ (1177,'Death by Glamour','Toby Fox','A3','75-150',75.0,NULL,150.0,NULL,2,7,12,15,18,7,12,15,18,NULL,NULL),
+ (1178,'Finale','Toby Fox','A3','148',NULL,NULL,148.0,NULL,3,7,11,14,17,7,11,14,17,NULL,NULL);
+
+INSERT INTO Movie (song_id, difficulty, site, movie_id) VALUES
+ (1163, 'ESP', 'Youtube', 'bRR9zqlLtqE'),
+(1172, 'ESP', 'Youtube', 'qrcLdymLcgQ'),
+(1173, 'ESP', 'Youtube', 'KUVWrcjKats'),
+(1174, 'ESP', 'Youtube', 'sxtl0jEOKbc'),
+(1175, 'ESP', 'Youtube', 'KIKF8QcJCik'),
+(1176, 'CSP', 'Youtube', 'wQLzr7Xz2gU'),
+(1176, 'ESP', 'Youtube', 'OEi9FZXMsNo'),
+(1177, 'CSP', 'Youtube', 'IkgYQw_gX4w'),
+(1177, 'ESP', 'Youtube', 'RikDZkCtBSs'),
+(1178, 'CSP', 'Youtube', '85YDHntWmHE'),
+(1178, 'ESP', 'Youtube', 'Eome1KpB7xo');
 
 getNew:
 SELECT * FROM Song ORDER BY id DESC;
