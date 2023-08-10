@@ -380,10 +380,10 @@ JOIN
     WebMusicId ON SongName.id = WebMusicId.id;
 
 getNew:
-SELECT * FROM Song ORDER BY id DESC;
+SELECT * FROM Song WHERE deleted = 0 ORDER BY id DESC;
 
 getByNameContainWord:
-SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' ORDER BY name ASC;
+SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' AND deleted = 0 ORDER BY name ASC ;
 
 insertSongName:
 INSERT INTO SongName VALUES ?;
