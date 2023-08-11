@@ -9,19 +9,23 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
-import com.fias.ddrhighspeed.SongData
+import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
-class SongDetailFragment(private val songData: SongData) : ScrollSpeedFragmentBase() {
+class SongDetailFragment(private val songId: Long) : ScrollSpeedFragmentBase() {
     override val scrollSpeedTextBox: TextInputEditText
         get() = binding.textInputEditText
 
     private var _fragmentBinding: FragmentSongDetailBinding? = null
     private val binding get() = _fragmentBinding!!
     private val detailBoardAdapter: DetailBoardAdapter by lazy { DetailBoardAdapter() }
-    private val viewModel: SongDetailViewModel by viewModels()
+    private val viewModel: SongDetailViewModel by viewModels {
+        SongDetailViewModelFactory(
+            (activity?.application as SongApplication).db
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +41,7 @@ class SongDetailFragment(private val songData: SongData) : ScrollSpeedFragmentBa
             it.viewModel = this.sharedViewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
-        viewModel.song = songData
+        viewModel.songId = songId
 
         val toolbar = requireActivity().findViewById<MarqueeToolbar>(R.id.toolbar)
         toolbar.title = viewModel.songName

@@ -379,11 +379,30 @@ JOIN
 JOIN
     WebMusicId ON SongName.id = WebMusicId.id;
 
+CREATE VIEW IF NOT EXISTS SongIndex AS
+SELECT
+    SongName.id AS id,
+    SongName.name AS name,
+    WebMusicId.isDeleted AS deleted
+FROM
+    SongName
+JOIN
+    WebMusicId ON SongName.id = WebMusicId.id;
+
 getNew:
 SELECT * FROM Song WHERE deleted = 0 ORDER BY id DESC;
 
+getSongsById:
+SELECT * FROM Song WHERE id = :id;
+
 getByNameContainWord:
 SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' AND deleted = 0 ORDER BY name ASC ;
+
+searchNewSongIndice:
+SELECT * FROM SongIndex WHERE name LIKE '%' || :searchWord || '%' AND deleted = 0 ORDER BY name ASC ;
+
+getNewSongIndice:
+SELECT * FROM SongIndex WHERE deleted = 0 ORDER BY id DESC;
 
 insertSongName:
 INSERT INTO SongName VALUES ?;
