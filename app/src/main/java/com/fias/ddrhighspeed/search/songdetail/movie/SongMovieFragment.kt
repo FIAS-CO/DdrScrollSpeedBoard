@@ -28,7 +28,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class SongMovieFragment(private val songName: String, songId: Long) : Fragment() {
+class SongMovieFragment(songId: Long) : Fragment() {
 
     private val viewModel: SongMovieViewModel by viewModels {
         SongMovieViewModelFactory(
@@ -50,8 +50,9 @@ class SongMovieFragment(private val songName: String, songId: Long) : Fragment()
                             itemsIndexed(viewModel.movieList) { _, movie ->
                                 YoutubeItem(movie)
                             }
+                            // TODO DBから名前をとってくる
                             item {
-                                OpenYoutubeButton(songName)
+                                OpenYoutubeButton("songName")
                             }
                         }
                     }

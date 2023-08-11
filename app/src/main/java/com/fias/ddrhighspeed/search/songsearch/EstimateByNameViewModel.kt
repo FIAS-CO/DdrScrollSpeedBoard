@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
+import com.fias.ddrhighspeed.shared.cache.SongIndex
 import com.fias.ddrhighspeed.shared.spreadsheet.FailureResult
 import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
 import com.fias.ddrhighspeed.shared.spreadsheet.SuccessResult
@@ -45,15 +46,19 @@ class EstimateByNameViewModel(
 //        }
 //    }
 
-    fun getNewSongs(): List<SongData> {
-        return db.getNewSongs().map { convertToSongData(it) }
+//    fun getNewSongs(): List<SongData> {
+//        return db.getNewSongs().map { convertToSongData(it) }
+//    }
+
+    fun getNewSongIndice(): List<SongIndex> {
+        return db.getNewSongIndice()
     }
 
-    fun searchSongsByName(): List<SongData> {
+    fun searchSongsByName(): List<SongIndex> {
         val word = searchWord.value ?: ""
 
-        return if (word == "") getNewSongs()
-        else db.searchSongsByName(word).map { convertToSongData(it) }
+        return if (word == "") getNewSongIndice()
+        else db.searchSongIndiceByName(word)
     }
 
     fun resetSearchWord() {
