@@ -24,6 +24,11 @@ struct SongDetailView: View {
                 .tag(1)
             })
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
+            // Workaround iPadだと広告ロードが失敗するらしいので出さない
+            if UIDevice.current.adAvailable {
+                BannerView().frame(height: UIDevice.current.adSize)
+            }
         }
         // Revisit:検索画面からNavigationView経由で開くと画面上部に空白ができる対策
         .navigationBarTitleDisplayMode(.inline)

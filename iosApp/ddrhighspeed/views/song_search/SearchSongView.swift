@@ -27,13 +27,18 @@ struct SearchSongView: View {
                                 Text(song.name)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray) 
+                                    .foregroundColor(.gray)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         })
                     }
                 }
                 .navigationTitle("曲名検索")
+                
+                // Workaround iPadだと広告ロードが失敗するらしいので出さない
+                if UIDevice.current.adAvailable {
+                    BannerView().frame(height: UIDevice.current.adSize)
+                }
             }
             .background(
                 NavigationLink(
@@ -54,6 +59,6 @@ struct SearchSongView_Previews: PreviewProvider {
             .environmentObject(ModelData())
         
         SearchSongView(isShowSubView: .constant(true))
-                .environmentObject(ModelData())
+            .environmentObject(ModelData())
     }
 }
