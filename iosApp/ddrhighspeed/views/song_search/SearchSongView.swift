@@ -6,7 +6,7 @@ struct SearchSongView: View {
     @Binding var isShowSubView: Bool
     @State private var searchWord: String = ""
     @State private var selectedSong: Song = ModelData().songs[0]
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -35,10 +35,7 @@ struct SearchSongView: View {
                 }
                 .navigationTitle("曲名検索")
                 
-                // Workaround iPadだと広告ロードが失敗するらしいので出さない
-                if UIDevice.current.adAvailable {
-                    BannerView().frame(height: UIDevice.current.adSize)
-                }
+                UnderlineBannerView()
             }
             .background(
                 NavigationLink(

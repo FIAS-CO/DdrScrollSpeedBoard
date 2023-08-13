@@ -10,13 +10,10 @@ struct RoughEstimateView: View {
             InputScrollSpeedView()
             
             Divider()
-            RoughEstimateTableView(items:
-                    SongDetailUtil().toRoughEstimateRows(highSpeedValue: modelData.getScrollSpeedInt()))
+            RoughEstimateTableView(
+                items:SongDetailUtil().toRoughEstimateRows(highSpeedValue: modelData.getScrollSpeedInt()))
             
-            // Workaround iPadだと広告ロードが失敗するらしいので出さない
-            if UIDevice.current.adAvailable {
-                BannerView().frame(height: UIDevice.current.adSize)
-            }
+            UnderlineBannerView()
         }
     }
 }
