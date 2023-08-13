@@ -10,8 +10,10 @@ struct RoughEstimateView: View {
             InputScrollSpeedView()
             
             Divider()
-            RoughEstimateTableView( items:
-                    SongDetailUtil().toRoughEstimateRows(highSpeedValue: modelData.getScrollSpeedInt()))
+            RoughEstimateTableView(
+                items:SongDetailUtil().toRoughEstimateRows(highSpeedValue: modelData.getScrollSpeedInt()))
+            
+            UnderlineBannerView()
         }
     }
 }

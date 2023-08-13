@@ -6,7 +6,7 @@ struct SearchSongView: View {
     @Binding var isShowSubView: Bool
     @State private var searchWord: String = ""
     @State private var selectedSong: Song = ModelData().songs[0]
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -27,13 +27,15 @@ struct SearchSongView: View {
                                 Text(song.name)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray) 
+                                    .foregroundColor(.gray)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         })
                     }
                 }
                 .navigationTitle("曲名検索")
+                
+                UnderlineBannerView()
             }
             .background(
                 NavigationLink(
@@ -54,6 +56,6 @@ struct SearchSongView_Previews: PreviewProvider {
             .environmentObject(ModelData())
         
         SearchSongView(isShowSubView: .constant(true))
-                .environmentObject(ModelData())
+            .environmentObject(ModelData())
     }
 }

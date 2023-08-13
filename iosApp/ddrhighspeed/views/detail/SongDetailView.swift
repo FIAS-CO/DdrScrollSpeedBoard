@@ -21,9 +21,11 @@ struct SongDetailView: View {
                 DetailHighSpeedView(song: song)
                     .tag(0)
                 MoviesModalView(movies: modelData.getMovies(id: song.id), songName: song.name)
-                .tag(1)
+                    .tag(1)
             })
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
+            UnderlineBannerView()
         }
         // Revisit:検索画面からNavigationView経由で開くと画面上部に空白ができる対策
         .navigationBarTitleDisplayMode(.inline)

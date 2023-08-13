@@ -16,6 +16,7 @@
 		182152C929C20F5D00F933F3 /* ddrhighspeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152C829C20F5D00F933F3 /* ddrhighspeedUITestsLaunchTests.swift */; };
 		182152D729C4C0E700F933F3 /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152D629C4C0E700F933F3 /* SongDetailView.swift */; };
 		182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182152DA29C4EAAA00F933F3 /* ModelData.swift */; };
+		1822AFB42A8918C40031461C /* UnderlineBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822AFB32A8918C40031461C /* UnderlineBannerView.swift */; };
 		185BE27729F5213600BB5275 /* MoviesModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185BE27629F5213600BB5275 /* MoviesModalView.swift */; };
 		185BE27A29F52D9400BB5275 /* MovieAccordionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185BE27929F52D9400BB5275 /* MovieAccordionView.swift */; };
 		185BE27C29FD75DD00BB5275 /* SearchMovieButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185BE27B29FD75DD00BB5275 /* SearchMovieButtonView.swift */; };
@@ -24,6 +25,8 @@
 		187333AE29FDB67700F26D77 /* YoutubePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187333AD29FDB67700F26D77 /* YoutubePlayerView.swift */; };
 		187333B02A02E81300F26D77 /* DetailTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187333AF2A02E81300F26D77 /* DetailTabView.swift */; };
 		187333B22A02F0ED00F26D77 /* DetailHighSpeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187333B12A02F0ED00F26D77 /* DetailHighSpeedView.swift */; };
+		187CAE442A7FBC0400E24D1E /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CAE432A7FBC0400E24D1E /* BannerView.swift */; };
+		187CAE472A8098BA00E24D1E /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CAE462A8098BA00E24D1E /* UIDevice.swift */; };
 		1887A25B29E002550070EE1D /* RoughEstimateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887A25A29E002550070EE1D /* RoughEstimateTableView.swift */; };
 		1887A26129E5AA060070EE1D /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1887A26029E5AA060070EE1D /* YouTubePlayerKit */; };
 		18B83D5D29CEC8BB001F61D4 /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */; };
@@ -34,6 +37,9 @@
 		18B83D7229DD4D1B001F61D4 /* SearchSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D7129DD4D1B001F61D4 /* SearchSongView.swift */; };
 		18B83D7529DD4E15001F61D4 /* RoughEstimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B83D7429DD4E15001F61D4 /* RoughEstimateView.swift */; };
 		18CB086E29EC44BF00E8B579 /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CB086D29EC44BF00E8B579 /* TextFieldClearButton.swift */; };
+		192C7448D5021402362CFBF8 /* Pods_ddrhighspeedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B7CC9DB502C627FB04DB21 /* Pods_ddrhighspeedTests.framework */; };
+		2B0AADD91504E2DC7A89B6C6 /* Pods_ddrhighspeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E1A0A843A3BBD1BF489074B /* Pods_ddrhighspeed.framework */; };
+		2C45F69548E69883EB44C2F8 /* Pods_ddrhighspeed_ddrhighspeedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB974B5D4C0545938D399B5 /* Pods_ddrhighspeed_ddrhighspeedUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +72,7 @@
 		182152C829C20F5D00F933F3 /* ddrhighspeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ddrhighspeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		182152D629C4C0E700F933F3 /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
 		182152DA29C4EAAA00F933F3 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		1822AFB32A8918C40031461C /* UnderlineBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineBannerView.swift; sourceTree = "<group>"; };
 		185BE27629F5213600BB5275 /* MoviesModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesModalView.swift; sourceTree = "<group>"; };
 		185BE27929F52D9400BB5275 /* MovieAccordionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAccordionView.swift; sourceTree = "<group>"; };
 		185BE27B29FD75DD00BB5275 /* SearchMovieButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieButtonView.swift; sourceTree = "<group>"; };
@@ -74,6 +81,9 @@
 		187333AD29FDB67700F26D77 /* YoutubePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubePlayerView.swift; sourceTree = "<group>"; };
 		187333AF2A02E81300F26D77 /* DetailTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTabView.swift; sourceTree = "<group>"; };
 		187333B12A02F0ED00F26D77 /* DetailHighSpeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHighSpeedView.swift; sourceTree = "<group>"; };
+		187CAE3C2A7AB5BB00E24D1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		187CAE432A7FBC0400E24D1E /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		187CAE462A8098BA00E24D1E /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		1887A25A29E002550070EE1D /* RoughEstimateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoughEstimateTableView.swift; sourceTree = "<group>"; };
 		18B83D5C29CEC8BB001F61D4 /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
 		18B83D6129CEE4B8001F61D4 /* SongDetailUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailUtil.swift; sourceTree = "<group>"; };
@@ -82,6 +92,15 @@
 		18B83D7129DD4D1B001F61D4 /* SearchSongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongView.swift; sourceTree = "<group>"; };
 		18B83D7429DD4E15001F61D4 /* RoughEstimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoughEstimateView.swift; sourceTree = "<group>"; };
 		18CB086D29EC44BF00E8B579 /* TextFieldClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClearButton.swift; sourceTree = "<group>"; };
+		62E42AC399AA1203FB74149F /* Pods-ddrhighspeedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ddrhighspeedTests.debug.xcconfig"; path = "Target Support Files/Pods-ddrhighspeedTests/Pods-ddrhighspeedTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E6A36763F5C19A664C4ED58 /* Pods-ddrhighspeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ddrhighspeed.debug.xcconfig"; path = "Target Support Files/Pods-ddrhighspeed/Pods-ddrhighspeed.debug.xcconfig"; sourceTree = "<group>"; };
+		8F8BFACAB3AFF1C02F1D5E32 /* Pods-ddrhighspeed-ddrhighspeedUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ddrhighspeed-ddrhighspeedUITests.debug.xcconfig"; path = "Target Support Files/Pods-ddrhighspeed-ddrhighspeedUITests/Pods-ddrhighspeed-ddrhighspeedUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9E1A0A843A3BBD1BF489074B /* Pods_ddrhighspeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ddrhighspeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FFFEAD6BB60649B4369D6A1 /* Pods-ddrhighspeedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ddrhighspeedTests.release.xcconfig"; path = "Target Support Files/Pods-ddrhighspeedTests/Pods-ddrhighspeedTests.release.xcconfig"; sourceTree = "<group>"; };
+		ADB974B5D4C0545938D399B5 /* Pods_ddrhighspeed_ddrhighspeedUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ddrhighspeed_ddrhighspeedUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5B7CC9DB502C627FB04DB21 /* Pods_ddrhighspeedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ddrhighspeedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D95AC7062B0B1D3658F378D7 /* Pods-ddrhighspeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ddrhighspeed.release.xcconfig"; path = "Target Support Files/Pods-ddrhighspeed/Pods-ddrhighspeed.release.xcconfig"; sourceTree = "<group>"; };
+		EDF6624B8CDC9FA4DEC175C0 /* Pods-ddrhighspeed-ddrhighspeedUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ddrhighspeed-ddrhighspeedUITests.release.xcconfig"; path = "Target Support Files/Pods-ddrhighspeed-ddrhighspeedUITests/Pods-ddrhighspeed-ddrhighspeedUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +110,7 @@
 			files = (
 				1887A26129E5AA060070EE1D /* YouTubePlayerKit in Frameworks */,
 				18B83D6029CEDA0C001F61D4 /* SimpleTable in Frameworks */,
+				2B0AADD91504E2DC7A89B6C6 /* Pods_ddrhighspeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				192C7448D5021402362CFBF8 /* Pods_ddrhighspeedTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,12 +126,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C45F69548E69883EB44C2F8 /* Pods_ddrhighspeed_ddrhighspeedUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1338DEE7E774BB84EDD0FEB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E1A0A843A3BBD1BF489074B /* Pods_ddrhighspeed.framework */,
+				ADB974B5D4C0545938D399B5 /* Pods_ddrhighspeed_ddrhighspeedUITests.framework */,
+				B5B7CC9DB502C627FB04DB21 /* Pods_ddrhighspeedTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1821529F29C20F5C00F933F3 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +150,8 @@
 				182152BB29C20F5D00F933F3 /* ddrhighspeedTests */,
 				182152C529C20F5D00F933F3 /* ddrhighspeedUITests */,
 				182152A929C20F5C00F933F3 /* Products */,
+				C3861C9E6524DB7F0AA53FBD /* Pods */,
+				1338DEE7E774BB84EDD0FEB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +168,7 @@
 		182152AA29C20F5C00F933F3 /* ddrhighspeed */ = {
 			isa = PBXGroup;
 			children = (
+				187CAE3C2A7AB5BB00E24D1E /* Info.plist */,
 				18B83D5829CC7627001F61D4 /* views */,
 				182152AB29C20F5C00F933F3 /* ddrhighspeedApp.swift */,
 				182152AD29C20F5C00F933F3 /* ContentView.swift */,
@@ -190,9 +225,20 @@
 			path = movie;
 			sourceTree = "<group>";
 		};
+		187CAE452A80988800E24D1E /* admob */ = {
+			isa = PBXGroup;
+			children = (
+				187CAE432A7FBC0400E24D1E /* BannerView.swift */,
+				187CAE462A8098BA00E24D1E /* UIDevice.swift */,
+				1822AFB32A8918C40031461C /* UnderlineBannerView.swift */,
+			);
+			path = admob;
+			sourceTree = "<group>";
+		};
 		18B83D5829CC7627001F61D4 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				187CAE452A80988800E24D1E /* admob */,
 				185BE27529F5205D00BB5275 /* song_search */,
 				18B83D6529D03B41001F61D4 /* InputScrollSpeedView.swift */,
 				18B83D7329DD4DEC001F61D4 /* rough_estimate */,
@@ -225,6 +271,19 @@
 			path = rough_estimate;
 			sourceTree = "<group>";
 		};
+		C3861C9E6524DB7F0AA53FBD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E6A36763F5C19A664C4ED58 /* Pods-ddrhighspeed.debug.xcconfig */,
+				D95AC7062B0B1D3658F378D7 /* Pods-ddrhighspeed.release.xcconfig */,
+				8F8BFACAB3AFF1C02F1D5E32 /* Pods-ddrhighspeed-ddrhighspeedUITests.debug.xcconfig */,
+				EDF6624B8CDC9FA4DEC175C0 /* Pods-ddrhighspeed-ddrhighspeedUITests.release.xcconfig */,
+				62E42AC399AA1203FB74149F /* Pods-ddrhighspeedTests.debug.xcconfig */,
+				9FFFEAD6BB60649B4369D6A1 /* Pods-ddrhighspeedTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,10 +291,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 182152CC29C20F5D00F933F3 /* Build configuration list for PBXNativeTarget "ddrhighspeed" */;
 			buildPhases = (
+				3EC092A3FE88356AC35B80BB /* [CP] Check Pods Manifest.lock */,
 				182152D529C20F7900F933F3 /* Run Script */,
 				182152A429C20F5C00F933F3 /* Sources */,
 				182152A529C20F5C00F933F3 /* Frameworks */,
 				182152A629C20F5C00F933F3 /* Resources */,
+				44923F798418EBC1C8C34E4E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -254,6 +315,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 182152CF29C20F5D00F933F3 /* Build configuration list for PBXNativeTarget "ddrhighspeedTests" */;
 			buildPhases = (
+				2ACC98AF4D6E52FA2FF786E1 /* [CP] Check Pods Manifest.lock */,
 				182152B429C20F5D00F933F3 /* Sources */,
 				182152B529C20F5D00F933F3 /* Frameworks */,
 				182152B629C20F5D00F933F3 /* Resources */,
@@ -272,9 +334,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 182152D229C20F5D00F933F3 /* Build configuration list for PBXNativeTarget "ddrhighspeedUITests" */;
 			buildPhases = (
+				D87C4D1D3373973064E8CB86 /* [CP] Check Pods Manifest.lock */,
 				182152BE29C20F5D00F933F3 /* Sources */,
 				182152BF29C20F5D00F933F3 /* Frameworks */,
 				182152C029C20F5D00F933F3 /* Resources */,
+				B9D6878803A8ED91F66EBCF0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -378,6 +442,106 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
+		2ACC98AF4D6E52FA2FF786E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ddrhighspeedTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3EC092A3FE88356AC35B80BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ddrhighspeed-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44923F798418EBC1C8C34E4E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ddrhighspeed/Pods-ddrhighspeed-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ddrhighspeed/Pods-ddrhighspeed-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ddrhighspeed/Pods-ddrhighspeed-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9D6878803A8ED91F66EBCF0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ddrhighspeed-ddrhighspeedUITests/Pods-ddrhighspeed-ddrhighspeedUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ddrhighspeed-ddrhighspeedUITests/Pods-ddrhighspeed-ddrhighspeedUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ddrhighspeed-ddrhighspeedUITests/Pods-ddrhighspeed-ddrhighspeedUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D87C4D1D3373973064E8CB86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ddrhighspeed-ddrhighspeedUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -390,6 +554,7 @@
 				185BE27A29F52D9400BB5275 /* MovieAccordionView.swift in Sources */,
 				18B83D7529DD4E15001F61D4 /* RoughEstimateView.swift in Sources */,
 				185BE27C29FD75DD00BB5275 /* SearchMovieButtonView.swift in Sources */,
+				187CAE472A8098BA00E24D1E /* UIDevice.swift in Sources */,
 				18B83D5D29CEC8BB001F61D4 /* DetailTableView.swift in Sources */,
 				187333B22A02F0ED00F26D77 /* DetailHighSpeedView.swift in Sources */,
 				182152AE29C20F5C00F933F3 /* ContentView.swift in Sources */,
@@ -397,8 +562,10 @@
 				187333AA29FD7B3F00F26D77 /* MovieUtil.swift in Sources */,
 				18B83D6629D03B41001F61D4 /* InputScrollSpeedView.swift in Sources */,
 				182152DB29C4EAAA00F933F3 /* ModelData.swift in Sources */,
+				1822AFB42A8918C40031461C /* UnderlineBannerView.swift in Sources */,
 				187333AE29FDB67700F26D77 /* YoutubePlayerView.swift in Sources */,
 				18B83D7229DD4D1B001F61D4 /* SearchSongView.swift in Sources */,
+				187CAE442A7FBC0400E24D1E /* BannerView.swift in Sources */,
 				182152AC29C20F5C00F933F3 /* ddrhighspeedApp.swift in Sources */,
 				185BE27729F5213600BB5275 /* MoviesModalView.swift in Sources */,
 				18CB086E29EC44BF00E8B579 /* TextFieldClearButton.swift in Sources */,
@@ -557,16 +724,21 @@
 		};
 		182152CD29C20F5D00F933F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E6A36763F5C19A664C4ED58 /* Pods-ddrhighspeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"ddrhighspeed/Preview Content\"";
 				DEVELOPMENT_TEAM = Q52AKPW243;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(inherited)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ddrhighspeed/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ハイスピ計算機";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -577,7 +749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -596,16 +768,21 @@
 		};
 		182152CE29C20F5D00F933F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D95AC7062B0B1D3658F378D7 /* Pods-ddrhighspeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"ddrhighspeed/Preview Content\"";
 				DEVELOPMENT_TEAM = Q52AKPW243;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(inherited)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ddrhighspeed/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ハイスピ計算機";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -616,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -635,6 +812,7 @@
 		};
 		182152D029C20F5D00F933F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62E42AC399AA1203FB74149F /* Pods-ddrhighspeedTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -654,6 +832,7 @@
 		};
 		182152D129C20F5D00F933F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FFFEAD6BB60649B4369D6A1 /* Pods-ddrhighspeedTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -673,6 +852,7 @@
 		};
 		182152D329C20F5D00F933F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F8BFACAB3AFF1C02F1D5E32 /* Pods-ddrhighspeed-ddrhighspeedUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -690,6 +870,7 @@
 		};
 		182152D429C20F5D00F933F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDF6624B8CDC9FA4DEC175C0 /* Pods-ddrhighspeed-ddrhighspeedUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
