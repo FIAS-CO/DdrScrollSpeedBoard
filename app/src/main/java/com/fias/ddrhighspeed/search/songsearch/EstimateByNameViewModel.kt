@@ -87,7 +87,8 @@ class EstimateByNameViewModel(
                 edp,
                 cdp,
                 shock_arrow,
-                deleted
+                deleted,
+                chart_count ?: 0
             )
         }
     }

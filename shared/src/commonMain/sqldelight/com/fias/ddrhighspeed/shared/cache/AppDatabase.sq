@@ -369,7 +369,8 @@ SELECT
     SongName.edp AS edp,
     SongName.cdp AS cdp,
     ShockArrowExists.shock AS shock_arrow,
-    WebMusicId.isDeleted AS deleted
+    WebMusicId.isDeleted AS deleted,
+    ChartCount.chart_count AS chart_count
 FROM
     SongName
 JOIN
@@ -377,7 +378,11 @@ JOIN
 JOIN
     ShockArrowExists ON SongName.id = ShockArrowExists.id
 JOIN
-    WebMusicId ON SongName.id = WebMusicId.id;
+    WebMusicId ON SongName.id = WebMusicId.id
+LEFT JOIN
+    (SELECT song_id AS id, COUNT(*) AS chart_count FROM SongProperty GROUP BY song_id) AS ChartCount
+ON
+    SongName.id = ChartCount.id;
 
 CREATE VIEW IF NOT EXISTS SongIndex AS
 SELECT
