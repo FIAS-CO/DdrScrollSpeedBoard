@@ -18,10 +18,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedBoardFragmentDirections
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
-import com.fias.ddrhighspeed.shared.cache.SongIndex
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,10 +50,10 @@ class EstimateByNameFragment : Fragment() {
     }
 
     private val searchedSongsAdapter: SearchedSongsAdapter by lazy {
-        val clickListener = ClickSongListener { song: SongIndex ->
+        val clickListener = ClickSongListener { song: SongData ->
             val navController = findNavController()
             val action =
-                ScrollSpeedBoardFragmentDirections.actionSongSearchToSongDetailPager(song.id)
+                ScrollSpeedBoardFragmentDirections.actionSongSearchToSongDetailPager(song)
             navController.navigate(action)
         }
         SearchedSongsAdapter(clickListener)
@@ -81,7 +81,7 @@ class EstimateByNameFragment : Fragment() {
 
         lifecycleScope.launch {
             val newSongs = withContext(Dispatchers.IO) {
-                viewModel.getNewSongIndice()
+                viewModel.getNewSongs()
             }
             handler.post {
                 searchedSongsAdapter.submitList(newSongs)

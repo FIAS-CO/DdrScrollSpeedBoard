@@ -13,10 +13,6 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         return dbQuery.getNew().executeAsList()
     }
 
-    override fun getSongsById(id: Long): List<Song> {
-        return dbQuery.getSongsById(id).executeAsList()
-    }
-
     override fun reinitializeSongNames(songNames: List<SongName>) {
         dbQuery.transaction {
             dbQuery.deleteSongNames()
@@ -51,14 +47,6 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
                 dbQuery.insertSongProperty(it)
             }
         }
-    }
-
-    override fun getNewSongIndice(): List<SongIndex> {
-        return dbQuery.getNewSongIndice().executeAsList()
-    }
-
-    override fun searchSongIndiceByName(searchWord: String): List<SongIndex> {
-        return dbQuery.searchNewSongIndice(searchWord).executeAsList()
     }
 
     override fun getMovies(songId: Long): List<Movie> {
