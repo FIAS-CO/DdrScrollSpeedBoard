@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.fias.ddrhighspeed.R
+import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailPagerBinding
 import com.fias.ddrhighspeed.search.songdetail.movie.SongMovieFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -61,15 +62,15 @@ class SongDetailPagerFragment : Fragment() {
     }
 }
 
-class SongDetailTabAdapter(fragment: Fragment, private val songId: Long) :
+class SongDetailTabAdapter(fragment: Fragment, private val songData: SongData) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> SongDetailFragment(songId)
-            1 -> SongMovieFragment(songId)
+            0 -> SongDetailFragment(songData)
+            1 -> SongMovieFragment(songData.name, songData.id)
             else -> throw IndexOutOfBoundsException()
         }
     }
