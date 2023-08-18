@@ -83,7 +83,7 @@ class EstimateByNameViewModel(
                 cdp,
                 shock_arrow,
                 deleted,
-                chart_count ?: 0
+                difficulty_label ?: ""
             )
         }
     }
