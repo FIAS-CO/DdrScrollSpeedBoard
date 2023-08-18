@@ -17,16 +17,16 @@ class SongDetailViewModel : ViewModel() {
 
         val list = mutableListOf<ResultRowForDetail>()
         song.apply {
-            max_bpm?.let {
+            maxBpm?.let {
                 list.add(rsFactory.createForDetail(value, "最大", it))
             }
-            min_bpm?.let {
+            minBpm?.let {
                 list.add(rsFactory.createForDetail(value, "最小", it))
             }
-            base_bpm?.let {
+            baseBpm.let {
                 list.add(rsFactory.createForDetail(value, "基本①", it))
             }
-            sub_bpm?.let {
+            subBpm?.let {
                 list.add(rsFactory.createForDetail(value, "基本②", it))
             }
             list.removeIf { it.bpm == "0.0" }

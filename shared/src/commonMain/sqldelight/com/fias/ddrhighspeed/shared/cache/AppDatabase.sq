@@ -338,6 +338,7 @@ CREATE TABLE IF NOT EXISTS WebMusicId (
     "isDeleted" INTEGER NOT NULL
 );
 
+-- TODO:曲名を足して整合性チェックがしたい
 CREATE TABLE IF NOT EXISTS SongProperty (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
     "song_id" INTEGER NOT NULL,
@@ -345,7 +346,8 @@ CREATE TABLE IF NOT EXISTS SongProperty (
     "base_bpm" REAL NOT NULL,
     "sub_bpm" REAL,
     "min_bpm" REAL,
-    "max_bpm" REAL
+    "max_bpm" REAL,
+    "difficulty_label" TEXT
 );
 
 CREATE VIEW IF NOT EXISTS Song AS
@@ -370,7 +372,7 @@ SELECT
     SongName.cdp AS cdp,
     ShockArrowExists.shock AS shock_arrow,
     WebMusicId.isDeleted AS deleted,
-    ChartCount.chart_count AS chart_count
+    SongProperty.difficulty_label
 FROM
     SongName
 JOIN
@@ -378,11 +380,7 @@ JOIN
 JOIN
     ShockArrowExists ON SongName.id = ShockArrowExists.id
 JOIN
-    WebMusicId ON SongName.id = WebMusicId.id
-LEFT JOIN
-    (SELECT song_id AS id, COUNT(*) AS chart_count FROM SongProperty GROUP BY song_id) AS ChartCount
-ON
-    SongName.id = ChartCount.id;
+    WebMusicId ON SongName.id = WebMusicId.id;
 
 getNew:
 SELECT * FROM Song WHERE deleted = 0 ORDER BY id DESC;

@@ -23,7 +23,7 @@ interface ISpreadSheetService {
     suspend fun fetchSongNames(): String = fetchData(getUrlBase() + "0")
     suspend fun fetchShockArrowExists(): String = fetchData(getUrlBase() + "1975740187")
     suspend fun fetchWebMusicIds(): String = fetchData(getUrlBase() + "1376903169")
-    suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "554759448")
+    suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "150576510")
 
     suspend fun getNewDataVersion(): Int {
         var sourceVersion = 0
@@ -127,18 +127,20 @@ interface ISpreadSheetService {
     }
 
     suspend fun createMusicProperties(): List<SongProperty> {
-        return fetchSongProperties().split("\r\n").map {
-            val list = it.split("\t")
-            SongProperty(
-                list[0].toLong(),
-                list[1].toLong(),
-                list[2],
-                list[3].toDouble(),
-                list[4].toDouble(),
-                list[5].toDouble(),
-                list[6].toDouble()
-            )
-        }
+        return fetchSongProperties().split("\r\n")
+            .subList(1, fetchSongProperties().split("\r\n").size).map {
+                val list = it.split("\t")
+                SongProperty(
+                    list[0].toLong(),
+                    list[1].toLong(),
+                    list[2],
+                    list[3].toDouble(),
+                    list[4].toDouble(),
+                    list[5].toDouble(),
+                    list[6].toDouble(),
+                    list[7]
+                )
+            }
     }
 
     suspend fun fetchData(urlString: String): String {

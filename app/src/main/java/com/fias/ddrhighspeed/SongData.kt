@@ -9,11 +9,11 @@ data class SongData(
     val name: String,
     val composer: String?,
     val version: String,
-    val display_bpm: String,
-    val min_bpm: Double?,
-    val max_bpm: Double?,
-    val base_bpm: Double,
-    val sub_bpm: Double?,
+    val displayBpm: String,
+    val minBpm: Double?,
+    val maxBpm: Double?,
+    val baseBpm: Double,
+    val subBpm: Double?,
     val besp: Long,
     val bsp: Long,
     val dsp: Long,
@@ -23,7 +23,10 @@ data class SongData(
     val ddp: Long,
     val edp: Long,
     val cdp: Long,
-    val shock_arrow: String?,
+    val shockArrow: String?,
     val deleted: Long,
-    val chart_count: Long
-) : Parcelable
+    val difficultyLabel: String
+) : Parcelable {
+    fun nameWithDifficultyLabel(): String =
+        name + if (difficultyLabel.isNotEmpty()) "(${difficultyLabel})" else ""
+}
