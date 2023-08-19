@@ -38,49 +38,33 @@ class EstimateByNameViewModelTest {
                 1, "Test Song 1", "composer1", "A3", "123",
                 null, null, 123.0, null,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                "", 0
+                "", 0, null
             ),
             Song(
                 2, "Test Song 2", "composer2", "DDR", "234-567",
                 123.0, 234.0, 345.0, 578.0,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                "DSP,ESP", 1
+                "DSP,ESP", 1, "(Test)"
             ),
         )
-        val mockSongs2 = listOf(
-            Song(
-                2, "Test Song 2", "composer2", "DDR", "234-567",
-                123.0, 234.0, 345.0, 578.0,
-                1, 2, 3, 4, 5, 6, 7, 8, 9,
-                "DSP,ESP", 1
-            ),
-        )
-        whenever(mockDatabase.searchSongsByName("Test")).thenReturn(mockSongs)
-        whenever(mockDatabase.searchSongsByName("")).thenReturn(null)
-        whenever(mockDatabase.getNewSongs()).thenReturn(mockSongs2)
+        whenever(mockDatabase.getNewSongs()).thenReturn(mockSongs)
 
         viewModel = EstimateByNameViewModel(mockDatabase, service)
     }
 
     @Test
     fun searchSongsByName_returns_correct_list_when_searchWord_is_not_empty() {
-        viewModel.searchWord.value = "Test"
+        viewModel.searchWord.value = "Song 2"
 
         // When
         val result = viewModel.searchSongsByName()
 
         val expected = listOf(
             SongData(
-                1, "Test Song 1", "composer1", "A3", "123",
-                null, null, 123.0, null,
-                1, 2, 3, 4, 5, 6, 7, 8, 9,
-                "", 0
-            ),
-            SongData(
                 2, "Test Song 2", "composer2", "DDR", "234-567",
                 123.0, 234.0, 345.0, 578.0,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                "DSP,ESP", 1
+                "DSP,ESP", 1, "(Test)"
             ),
         )
         // Then
@@ -96,10 +80,16 @@ class EstimateByNameViewModelTest {
 
         val expected = listOf(
             SongData(
+                1, "Test Song 1", "composer1", "A3", "123",
+                null, null, 123.0, null,
+                1, 2, 3, 4, 5, 6, 7, 8, 9,
+                "", 0, ""
+            ),
+            SongData(
                 2, "Test Song 2", "composer2", "DDR", "234-567",
                 123.0, 234.0, 345.0, 578.0,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                "DSP,ESP", 1
+                "DSP,ESP", 1, "(Test)"
             ),
         )
         // Then

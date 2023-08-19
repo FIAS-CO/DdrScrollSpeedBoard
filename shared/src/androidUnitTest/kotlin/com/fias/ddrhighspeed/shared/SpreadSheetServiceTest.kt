@@ -146,14 +146,15 @@ class SpreadSheetServiceTest {
 
     @Test
     fun testCreateMusicProperties() {
-        val firstProp = SongProperty(1, 0, "composer0", 123.0, 234.0, 345.0, 456.0)
-        val lastProp = SongProperty(1195, 1242, "composer1194", 123.0, 234.0, 345.0, 456.0)
+        val firstProp = SongProperty(0, 0, "mitsu-O!", 119.0, 0.0, 0.0, 0.0, "")
+        val lastProp =
+            SongProperty(1195, 1238, "jun feat.Godis (Heather Twede)", 157.0, 0.0, 0.0, 0.0, "Test")
         runBlocking {
             launch {
                 val props = spreadSheetService.createMusicProperties()
-                assertEquals(1195, props.size)
+                assertEquals(1196, props.size)
                 assertEquals(firstProp, props[0])
-                assertEquals(lastProp, props[1194])
+                assertEquals(lastProp, props[1195])
             }
         }
     }
@@ -165,12 +166,13 @@ class SpreadSheetServiceTest {
                 val fetchWebMusicIds = spreadSheetService.fetchSongProperties()
                 assertTrue(
                     fetchWebMusicIds.startsWith(
-                        "1\t0\tcomposer0\t123\t234\t345\t456"
+                        "id\tsong_id\tcomposer\tbase_bpm\tsub_bpm\tmin_bpm\tmax_bpm\tdifficulty_label\tMusicNamesのB列"
                     )
                 )
+                // 1195	1238	jun feat.Godis (Heather Twede)	157	0	0	0	Test	Racing with Time (NAOKI's 999 remix)
                 assertTrue(
                     fetchWebMusicIds.endsWith(
-                        "1195\t1242\tcomposer1194\t123\t234\t345\t456"
+                        "1195\t1238\tjun feat.Godis (Heather Twede)\t157\t0\t0\t0\tTest\tRacing with Time (NAOKI's 999 remix)"
                     )
                 )
             }
