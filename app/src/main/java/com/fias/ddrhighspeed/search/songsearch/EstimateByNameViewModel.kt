@@ -15,8 +15,7 @@ import kotlinx.coroutines.coroutineScope
 
 // TODO:テストを足す
 class EstimateByNameViewModel(
-    private val db: IDatabase,
-    private val spreadSheetService: ISpreadSheetService
+    private val db: IDatabase, private val spreadSheetService: ISpreadSheetService
 ) : ViewModel() {
     val searchWord = MutableLiveData<String>()
 
@@ -33,20 +32,25 @@ class EstimateByNameViewModel(
         setUpdateAvailable()
     }
 
+    val songDataList: LiveData<List<SongData>> get() = _songDataList
+    private val _songDataList = MutableLiveData<List<SongData>>()
+
     var sourceDataVersion = 0
         private set(value) {
             field = value
             setUpdateAvailable()
         }
-//
-//    init {
-//        viewModelScope.launch {
-//            sourceDataVersion = spreadSheetService.getNewDataVersion()
-//        }
-//    }
+
+    init {
+        _songDataList.value = getNewSongs()
+    }
 
     fun getNewSongs(): List<SongData> {
         return db.getNewSongs().map { convertToSongData(it) }
+    }
+
+    fun setSongDataListBySearchWord() {
+        _songDataList.value = searchSongsByName()
     }
 
     fun searchSongsByName(): List<SongData> {
@@ -109,9 +113,7 @@ class EstimateByNameViewModel(
                 errorMessage.value =
                     "データの取得に失敗しました。\nしばらく後に再実施していただくか、左上アイコンまたはTwitter(@sig_re)から開発にご連絡ください。"
                 Log.e(
-                    "EstimateByNameViewModel",
-                    "データの取得に失敗しました",
-                    allDataResult.exceptions.first()
+                    "EstimateByNameViewModel", "データの取得に失敗しました", allDataResult.exceptions.first()
                 )
                 return@coroutineScope
             }
@@ -134,6 +136,7 @@ class EstimateByNameViewModel(
                 setLocalDataVersion(version)
             }
         }
+        _songDataList.value = searchSongsByName()
         _isLoading.value = false
     }
 
@@ -146,8 +149,7 @@ class EstimateByNameViewModel(
  * Factory class to instantiate the [ViewModel] instance.
  */
 class EstimateByNameViewModelFactory(
-    private val db: IDatabase,
-    private val spreadSheetService: ISpreadSheetService
+    private val db: IDatabase, private val spreadSheetService: ISpreadSheetService
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EstimateByNameViewModel::class.java)) {
