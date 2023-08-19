@@ -29,7 +29,6 @@ val Context.versionDataStore: DataStore<Preferences> by preferencesDataStore(
 )
 
 class EstimateByNameFragment : Fragment() {
-//    private val handler: Handler = Handler(Looper.getMainLooper())
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val spreadSheetService = SpreadSheetService()
@@ -77,13 +76,11 @@ class EstimateByNameFragment : Fragment() {
         binding.searchedSongs.adapter = searchedSongsAdapter
 
         viewModel.searchWord.observe(viewLifecycleOwner) {
-            viewModel.setSongDataListBySearchWord()
+            setSongsToSearchedResult()
         }
 
-        viewModel.songDataList.observe(viewLifecycleOwner) { songDataList ->
-            searchedSongsAdapter.submitList(songDataList) {
-                binding.searchedSongs.scrollToPosition(0)
-            }
+        viewModel.baseSongDataList.observe(viewLifecycleOwner) {
+            setSongsToSearchedResult()
         }
 
         viewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
@@ -129,8 +126,14 @@ class EstimateByNameFragment : Fragment() {
                 refreshDataAndView()
             } else {
                 viewModel.checkNewDataVersionAvailable(dataVersion)
-                viewModel.setSongDataListBySearchWord()
+                setSongsToSearchedResult()
             }
+        }
+    }
+
+    private fun setSongsToSearchedResult() {
+        searchedSongsAdapter.submitList(viewModel.searchSongsByName()) {
+            binding.searchedSongs.scrollToPosition(0)
         }
     }
 

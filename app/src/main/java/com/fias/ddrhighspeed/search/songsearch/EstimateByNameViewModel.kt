@@ -32,8 +32,8 @@ class EstimateByNameViewModel(
         setUpdateAvailable()
     }
 
-    val songDataList: LiveData<List<SongData>> get() = _songDataList
-    private val _songDataList = MutableLiveData<List<SongData>>()
+    val baseSongDataList: LiveData<List<SongData>> get() = _baseSongDataList
+    private val _baseSongDataList = MutableLiveData<List<SongData>>()
 
     var sourceDataVersion = 0
         private set(value) {
@@ -42,22 +42,15 @@ class EstimateByNameViewModel(
         }
 
     init {
-        _songDataList.value = getNewSongs()
-    }
-
-    fun getNewSongs(): List<SongData> {
-        return db.getNewSongs().map { convertToSongData(it) }
-    }
-
-    fun setSongDataListBySearchWord() {
-        _songDataList.value = searchSongsByName()
+        _baseSongDataList.value = getNewSongsFromDb()
     }
 
     fun searchSongsByName(): List<SongData> {
         val word = searchWord.value ?: ""
 
-        return if (word == "") getNewSongs()
-        else db.searchSongsByName(word).map { convertToSongData(it) }
+        val songData = baseSongDataList.value ?: listOf()
+        return if (word == "") songData
+        else songData.filter { it.nameWithDifficultyLabel().contains(word, true) }
     }
 
     fun resetSearchWord() {
@@ -136,12 +129,16 @@ class EstimateByNameViewModel(
                 setLocalDataVersion(version)
             }
         }
-        _songDataList.value = searchSongsByName()
+        _baseSongDataList.value = getNewSongsFromDb()
         _isLoading.value = false
     }
 
     private fun setUpdateAvailable() {
         _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
+    }
+
+    private fun getNewSongsFromDb(): List<SongData> {
+        return db.getNewSongs().map { convertToSongData(it) }
     }
 }
 
