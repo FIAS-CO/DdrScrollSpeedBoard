@@ -1,8 +1,8 @@
 package com.fias.ddrhighspeed.search.songsearch
 
+import com.fias.ddrhighspeed.TestDatabase
 import com.fias.ddrhighspeed.roughestimate.RoughEstimateViewModel
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
-import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -13,11 +13,14 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@RunWith(RobolectricTestRunner::class)
 class EstimateByNameViewModelFactoryTest {
 
-    private val factory = EstimateByNameViewModelFactory(mock(), SpreadSheetService())
+    private val factory = EstimateByNameViewModelFactory(TestDatabase(), SpreadSheetService())
 
     @Before
     fun setup() {
