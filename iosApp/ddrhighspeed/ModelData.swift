@@ -19,7 +19,8 @@ final class ModelData: ObservableObject {
     @Published var scrollSpeed: String
     
     // SearchSongView
-    @Published var songs: [Song] = load()
+    var baseSongs: [Song] = load()
+    @Published var songs: [Song] = []
     @Published var updateAvailable: Bool = false
     @Published var isLoading: Bool = false
     @Published var showingAlert: Bool = false
@@ -34,27 +35,36 @@ final class ModelData: ObservableObject {
         }
     }
     @Published var versionText: String = "version: checking..."
-    
-    init() {
+        
+    init(isPreviewMode: Bool = false, songsForPreview: [Song] = []) {
         let savedSpeed = UserDefaults.standard.string(forKey: "scrollSpeed")
         _scrollSpeed = Published(initialValue: savedSpeed ?? "")
         
         let localVersion = UserDefaults.standard.integer(forKey: localVersionKey)
         _localDataVersion = Published(initialValue: localVersion)
         
+        // Workaround: プレビュー時にdownloadSongDataが動くとタイムアウトでクラッシュする
+        if isPreviewMode {
+            songs = songsForPreview
+            return
+        }
+        
         if localVersion == 0 {
             self.downloadSongData()
         } else {
             self.checkNewDataVersionAvailable()
         }
+        songs = baseSongs
     }
     
     func searchSong(searchWord: String) {
         if (searchWord=="") {
-            songs = db.getNewSongs()
+            songs = baseSongs
             return
         }
-        songs = db.searchSongsByName(searchWord: searchWord)
+        songs = baseSongs.filter{song in
+            return song.nameWithDifficultyLabel().localizedCaseInsensitiveContains(searchWord)
+        }
     }
     
     func getScrollSpeedInt() -> Int {
@@ -105,7 +115,8 @@ final class ModelData: ObservableObject {
             }
             
             if let r = result as? SuccessResult {
-                if r.songNames.count != r.musicProperties.count || r.songNames.count != r.shockArrowExists.count ||
+                if r.songNames.count > r.musicProperties.count ||
+                    r.songNames.count != r.shockArrowExists.count ||
                     r.songNames.count != r.webMusicIds.count {
                     self.main { [self] in
                         showingAlert = true
@@ -128,6 +139,7 @@ final class ModelData: ObservableObject {
                 print("Unexpected error: allDataResult should be SuccessResult")
             }
         }
+        baseSongs = db.getNewSongs()
     }
     
     private func setUpdateAvailable() {
@@ -152,4 +164,15 @@ func load() -> [Song] {
     let newSongs = db.getNewSongs()
     
     return newSongs
+}
+
+extension Song {
+    func nameWithDifficultyLabel() -> String {
+        var result = name
+        var label = difficulty_label ?? ""
+        if (!label.isEmpty) {
+            result += "(\(label))"
+        }
+        return result
+    }
 }
