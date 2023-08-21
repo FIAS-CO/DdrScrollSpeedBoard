@@ -45,6 +45,15 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         }
     }
 
+    override fun reinitializeMovies(movies: List<Movie>) {
+        dbQuery.transaction {
+            dbQuery.deleteMovies()
+            movies.forEach {
+                dbQuery.insertMovies(it)
+            }
+        }
+    }
+
     override fun getMovies(songId: Long): List<Movie> {
         return dbQuery.getMovies(songId).executeAsList()
     }

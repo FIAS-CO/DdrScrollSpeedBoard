@@ -124,6 +124,7 @@ class EstimateByNameViewModel(
                 db.reinitializeSongProperties(musicProperties)
                 db.reinitializeShockArrowExists(shockArrowExists)
                 db.reinitializeWebMusicIds(webMusicIds)
+                db.reinitializeMovies(movies)
 
                 sourceDataVersion = version
                 setLocalDataVersion(version)

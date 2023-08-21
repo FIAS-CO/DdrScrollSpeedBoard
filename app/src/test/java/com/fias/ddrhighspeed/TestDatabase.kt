@@ -8,7 +8,7 @@ import com.fias.ddrhighspeed.shared.cache.SongName
 import com.fias.ddrhighspeed.shared.cache.SongProperty
 import com.fias.ddrhighspeed.shared.cache.WebMusicId
 
-class TestDatabase: IDatabase {
+class TestDatabase : IDatabase {
     override fun getNewSongs(): List<Song> {
         return listOf()
     }
@@ -23,6 +23,9 @@ class TestDatabase: IDatabase {
     }
 
     override fun reinitializeSongProperties(songProperties: List<SongProperty>) {
+    }
+
+    override fun reinitializeMovies(movies: List<Movie>) {
     }
 
     override fun getMovies(songId: Long): List<Movie> {
