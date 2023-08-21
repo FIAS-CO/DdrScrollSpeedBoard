@@ -106,7 +106,7 @@ final class ModelData: ObservableObject {
             }
             
             if result is FailureResult {
-                print((result as! FailureResult))
+                print(result as! FailureResult)
                 self.main { [self] in
                     showingAlert = true
                     versionText = "version: \(String(localDataVersion))"
@@ -169,7 +169,7 @@ func load() -> [Song] {
 extension Song {
     func nameWithDifficultyLabel() -> String {
         var result = name
-        var label = difficulty_label ?? ""
+        let label = difficulty_label ?? ""
         if (!label.isEmpty) {
             result += "(\(label))"
         }
