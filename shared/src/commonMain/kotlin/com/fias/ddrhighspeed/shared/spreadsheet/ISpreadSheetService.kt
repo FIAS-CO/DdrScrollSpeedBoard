@@ -24,10 +24,10 @@ interface ISpreadSheetService {
     suspend fun fetchSongNames(): String = fetchData(getUrlBase() + "0")
     suspend fun fetchShockArrowExists(): String = fetchData(getUrlBase() + "1975740187")
     suspend fun fetchWebMusicIds(): String = fetchData(getUrlBase() + "1376903169")
-    suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "150576510")
-
-    // 製品版：1323920042
-    suspend fun fetchMovies(): String = fetchData(getUrlBase() + "204755798")
+    // 製品版：1701434546, テスト版：150576510
+    suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "1701434546")
+    // 製品版：1323920042, テスト版：204755798
+    suspend fun fetchMovies(): String = fetchData(getUrlBase() + "1323920042")
 
     suspend fun getNewDataVersion(): Int {
         var sourceVersion = 0
