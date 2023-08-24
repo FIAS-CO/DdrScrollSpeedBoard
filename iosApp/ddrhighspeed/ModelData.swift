@@ -132,6 +132,7 @@ final class ModelData: ObservableObject {
                 self.db.reinitializeSongProperties(songProperties: r.musicProperties)
                 self.db.reinitializeShockArrowExists(shockArrowExists: r.shockArrowExists)
                 self.db.reinitializeWebMusicIds(webMusicIds: r.webMusicIds)
+                self.db.reinitializeMovies(movies: r.movies)
                 
                 self.sourceDataVersion = Int(r.version)
                 self.main { [self] in
