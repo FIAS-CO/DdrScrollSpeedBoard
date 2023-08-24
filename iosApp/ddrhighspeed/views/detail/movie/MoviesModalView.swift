@@ -26,6 +26,7 @@ struct MoviesModalView: View {
                             RoundedRectangle(cornerRadius: 30)
                                 .stroke(Color.init(white: 1, opacity: 0.5), lineWidth: 1)
                         )
+                        .padding(.bottom, 60)
                 }
                 .padding()
             }
