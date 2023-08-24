@@ -33,13 +33,16 @@ CREATE TABLE IF NOT EXISTS WebMusicId (
     "isDeleted" INTEGER NOT NULL
 );
 
+-- TODO:曲名を足して整合性チェックがしたい
 CREATE TABLE IF NOT EXISTS SongProperty (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+    "song_id" INTEGER NOT NULL,
     "composer" TEXT NOT NULL,
     "base_bpm" REAL NOT NULL,
     "sub_bpm" REAL,
     "min_bpm" REAL,
-    "max_bpm" REAL
+    "max_bpm" REAL,
+    "difficulty_label" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Movie (
@@ -77,11 +80,12 @@ SELECT
     SongName.edp AS edp,
     SongName.cdp AS cdp,
     ShockArrowExists.shock AS shock_arrow,
-    WebMusicId.isDeleted AS deleted
+    WebMusicId.isDeleted AS deleted,
+    SongProperty.difficulty_label
 FROM
     SongName
 JOIN
-    SongProperty ON SongName.id = SongProperty.id
+    SongProperty ON SongName.id = SongProperty.song_id
 JOIN
     ShockArrowExists ON SongName.id = ShockArrowExists.id
 JOIN
