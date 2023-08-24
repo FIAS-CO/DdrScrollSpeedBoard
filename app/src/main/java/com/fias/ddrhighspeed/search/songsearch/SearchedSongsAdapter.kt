@@ -14,7 +14,7 @@ class SearchedSongsAdapter(private val clickListener: ClickSongListener) :
     class SearchedSongsViewHolder(private var binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(song: SongData) {
-            binding.searchResultName.text = song.name
+            binding.searchResultName.text = song.nameWithDifficultyLabel()
         }
     }
 

@@ -83,6 +83,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/loading_text"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="vertical"
+            android:visibility="gone"
+            android:text="@string/now_loading"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_word_layout"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searched_songs"
             android:layout_width="match_parent"
@@ -94,6 +108,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_word_layout" />
+
+        <Button
+            style="@style/Widget.Material3.Button.TextButton"
+            android:textSize="14sp"
+            android:id="@+id/update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_data_button_label"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/search_word_layout"
+            />
+
+        <TextView
+            android:textSize="14sp"
+            android:id="@+id/data_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/data_version_undefined"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/search_word_layout"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

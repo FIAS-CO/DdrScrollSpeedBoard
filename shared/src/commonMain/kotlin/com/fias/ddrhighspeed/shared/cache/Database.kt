@@ -5,18 +5,51 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
     private val database = AppDatabase(driver)
     private val dbQuery = database.appDatabaseQueries
 
-    override fun searchSongsByName(searchWord: String): List<Song> {
-        return dbQuery.getByNameContainWord(searchWord).executeAsList()
-    }
-
     override fun getNewSongs(): List<Song> {
         return dbQuery.getNew().executeAsList()
     }
 
-    override fun insert(songs: List<Song>) {
+    override fun reinitializeSongNames(songNames: List<SongName>) {
         dbQuery.transaction {
-            songs.forEach {
-                dbQuery.insert(it)
+            dbQuery.deleteSongNames()
+            songNames.forEach {
+                dbQuery.insertSongName(it)
+            }
+        }
+    }
+
+    override fun reinitializeShockArrowExists(shockArrowExists: List<ShockArrowExists>) {
+        dbQuery.transaction {
+            dbQuery.deleteShockArrowExists()
+            shockArrowExists.forEach {
+                dbQuery.insertShockArrowExists(it)
+            }
+        }
+    }
+
+    override fun reinitializeWebMusicIds(webMusicIds: List<WebMusicId>) {
+        dbQuery.transaction {
+            dbQuery.deleteWebMusicIds()
+            webMusicIds.forEach {
+                dbQuery.insertWebMusicId(it)
+            }
+        }
+    }
+
+    override fun reinitializeSongProperties(songProperties: List<SongProperty>) {
+        dbQuery.transaction {
+            dbQuery.deleteSongProperties()
+            songProperties.forEach {
+                dbQuery.insertSongProperty(it)
+            }
+        }
+    }
+
+    override fun reinitializeMovies(movies: List<Movie>) {
+        dbQuery.transaction {
+            dbQuery.deleteMovies()
+            movies.forEach {
+                dbQuery.insertMovies(it)
             }
         }
     }

@@ -19,8 +19,8 @@ class SongDetailUtil {
         if let bpm = song.sub_bpm?.doubleValue, bpm != 0.0 {
             result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "基本②", bpm: bpm))
         }
-        if let bpm = song.base_bpm?.doubleValue, bpm != 0.0 {
-            result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "基本①", bpm: bpm))
+        if song.base_bpm != 0.0 {
+            result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "基本①", bpm: song.base_bpm))
         }
         if let bpm = song.min_bpm?.doubleValue, bpm != 0.0 {
             result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "最小", bpm: bpm))
