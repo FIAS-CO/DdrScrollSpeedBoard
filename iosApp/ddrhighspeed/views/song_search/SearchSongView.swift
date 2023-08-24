@@ -60,8 +60,8 @@ struct SearchSongView: View {
         }
         .alert(isPresented: $modelData.showingAlert) {
             Alert(
-                title: Text("Error"),
-                message: Text("An error occurred."),
+                title: Text("データ更新に失敗しました"),
+                message: Text(modelData.alertMessage),
                 dismissButton: .default(Text("OK")) {
                     // ここでは単にアラートを非表示にする
                     modelData.showingAlert = false

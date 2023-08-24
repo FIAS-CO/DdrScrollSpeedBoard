@@ -24,6 +24,7 @@ final class ModelData: ObservableObject {
     @Published var updateAvailable: Bool = false
     @Published var isLoading: Bool = false
     @Published var showingAlert: Bool = false
+    @Published var alertMessage: String = ""
     @Published var localDataVersion: Int
     {
         didSet {
@@ -110,6 +111,7 @@ final class ModelData: ObservableObject {
                 self.main { [self] in
                     showingAlert = true
                     versionText = "version: \(String(localDataVersion))"
+                    alertMessage = "更新データのロードに失敗しました。再度実施していただき、それでも失敗した時はX(Twitter)の@sig_reに連絡をお願いします。"
                 }
                 return
             }
@@ -121,6 +123,7 @@ final class ModelData: ObservableObject {
                     self.main { [self] in
                         showingAlert = true
                         versionText = "version: \(String(localDataVersion))"
+                        alertMessage = "更新データの保存に失敗しました。X(Twitter)の@sig_reに連絡をお願いします。(version:\(r.version))"
                     }
                     return
                 }
