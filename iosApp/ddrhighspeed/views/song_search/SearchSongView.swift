@@ -2,6 +2,7 @@ import SwiftUI
 import shared
 
 struct SearchSongView: View {
+    @FocusState var isKeyboardVisible: Bool
     @EnvironmentObject var modelData: ModelData
     @Binding var isShowSubView: Bool
     @State private var searchWord: String = ""
@@ -14,9 +15,20 @@ struct SearchSongView: View {
                     TextField("曲名を入力してください", text: $searchWord)
                         .modifier(TextFieldClearButton(text: $searchWord))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .focused($isKeyboardVisible)
                         .padding(.horizontal)
                         .onChange(of: searchWord) { newValue in
                             modelData.searchSong(searchWord: newValue)
+                        }
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
+                                Button(action: {
+                                    isKeyboardVisible = false
+                                }, label: {
+                                    Text("Close")
+                                })
+                            }
                         }
                 }
                 List{
@@ -57,6 +69,7 @@ struct SearchSongView: View {
                     label: {}
                 )
             )
+            .ignoresSafeArea(.keyboard, edges: .bottom)
         }
         .alert(isPresented: $modelData.showingAlert) {
             Alert(

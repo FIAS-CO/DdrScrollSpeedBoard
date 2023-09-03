@@ -29,6 +29,7 @@ struct SongDetailView: View {
         }
         // Revisit:検索画面からNavigationView経由で開くと画面上部に空白ができる対策
         .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

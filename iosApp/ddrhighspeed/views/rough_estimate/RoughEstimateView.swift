@@ -15,12 +15,13 @@ struct RoughEstimateView: View {
             
             UnderlineBannerView()
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
 struct RoughEstimateView_Previews: PreviewProvider {
     static var previews: some View {
         RoughEstimateView()
-            .environmentObject(ModelData())
+            .environmentObject(ModelData(isPreviewMode: true))
     }
 }
