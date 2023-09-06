@@ -81,6 +81,14 @@ JOIN
 JOIN
     WebMusicId ON SongName.id = WebMusicId.id;
 
+CREATE TABLE IF NOT EXISTS Course (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+  first_song_id INTEGER NOT NULL,
+  second_song_id INTEGER NOT NULL,
+  third_song_id INTEGER NOT NULL,
+  fourth_song_id INTEGER NOT NULL
+);
+
 getNew:
 SELECT * FROM Song WHERE deleted = 0 ORDER BY id DESC;
 
@@ -117,5 +125,14 @@ INSERT INTO Movie VALUES ?;
 deleteMovies:
 DELETE FROM Movie;
 
-getMovies:
+getMoviesById:
 SELECT * FROM Movie WHERE song_id = ?;
+
+insertCourses:
+INSERT INTO Course VALUES ?;
+
+deleteCourses:
+DELETE FROM Course;
+
+getCourseById:
+SELECT * FROM Course WHERE id = ?;
