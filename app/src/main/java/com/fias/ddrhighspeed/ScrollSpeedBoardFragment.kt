@@ -10,6 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.fias.ddrhighspeed.databinding.FragmentScrollSpeedBoardBinding
 import com.fias.ddrhighspeed.roughestimate.RoughEstimateFragment
+import com.fias.ddrhighspeed.search.coursesearch.EstimateCourseFragment
 import com.fias.ddrhighspeed.search.songsearch.EstimateByNameFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -22,6 +23,7 @@ class ScrollSpeedBoardFragment : Fragment() {
     private val tabTitleArray = arrayOf(
         "簡易計算",
         "曲名検索",
+        "コース検索",
     )
 
     override fun onCreateView(
@@ -61,12 +63,13 @@ class ScrollSpeedBoardFragment : Fragment() {
 
 class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> RoughEstimateFragment()
             1 -> EstimateByNameFragment()
+            2 -> EstimateCourseFragment()
             else -> throw IndexOutOfBoundsException()
         }
     }
