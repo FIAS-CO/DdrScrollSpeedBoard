@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_songSearch_to_songDetailPager"
             app:destination="@id/songDetailPagerFragment" />
+        <action
+            android:id="@+id/action_courseSearch_to_courseDetail"
+            app:destination="@id/courseDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
@@ -42,4 +45,12 @@
             android:name="song"
             app:argType="com.fias.ddrhighspeed.SongData" />
     </fragment>
+    <fragment
+        android:id="@+id/estimateCourseFragment"
+        android:name="com.fias.ddrhighspeed.search.coursesearch.EstimateCourseFragment"
+        android:label="EstimateCourseFragment" />
+    <fragment
+        android:id="@+id/courseDetailFragment"
+        android:name="com.fias.ddrhighspeed.search.coursedetail.CourseDetailFragment"
+        android:label="CourseDetailFragment" />
 </navigation>

@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedBoardFragmentDirections
-import com.fias.ddrhighspeed.SongData
+import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
@@ -46,10 +46,10 @@ class EstimateCourseFragment : Fragment() {
     }
 
     private val searchedCoursesAdapter: SearchedCoursesAdapter by lazy {
-        val clickListener = ClickSongListener { song: SongData ->
+        val clickListener = ClickCourseListener { course: CourseData ->
             val navController = findNavController()
             val action =
-                ScrollSpeedBoardFragmentDirections.actionSongSearchToSongDetailPager(song)
+                ScrollSpeedBoardFragmentDirections.actionCourseSearchToCourseDetail(course)
             navController.navigate(action)
         }
         SearchedCoursesAdapter(clickListener)

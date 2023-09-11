@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fias.ddrhighspeed.SongData
+import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.databinding.SearchResultBinding
 
-class SearchedCoursesAdapter(private val clickListener: ClickSongListener) :
-    ListAdapter<SongData, SearchedCoursesAdapter.SearchedCoursesViewHolder>(DiffCallback) {
+class SearchedCoursesAdapter(private val clickListener: ClickCourseListener) :
+    ListAdapter<CourseData, SearchedCoursesAdapter.SearchedCoursesViewHolder>(DiffCallback) {
 
     class SearchedCoursesViewHolder(private var binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(song: SongData) {
-            binding.searchResultName.text = song.nameWithDifficultyLabel()
+        fun bind(song: CourseData) {
+            binding.searchResultName.text = song.name
         }
     }
 
@@ -38,18 +38,18 @@ class SearchedCoursesAdapter(private val clickListener: ClickSongListener) :
     }
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<SongData>() {
-            override fun areItemsTheSame(oldItem: SongData, newItem: SongData): Boolean {
+        private val DiffCallback = object : DiffUtil.ItemCallback<CourseData>() {
+            override fun areItemsTheSame(oldItem: CourseData, newItem: CourseData): Boolean {
                 return oldItem.name == newItem.name
             }
 
-            override fun areContentsTheSame(oldItem: SongData, newItem: SongData): Boolean {
+            override fun areContentsTheSame(oldItem: CourseData, newItem: CourseData): Boolean {
                 return oldItem == newItem
             }
         }
     }
 }
 
-class ClickSongListener(val clickListener: (song: SongData) -> Unit) {
-    fun onClick(song: SongData) = clickListener(song)
+class ClickCourseListener(val clickListener: (course: CourseData) -> Unit) {
+    fun onClick(course: CourseData) = clickListener(course)
 }
