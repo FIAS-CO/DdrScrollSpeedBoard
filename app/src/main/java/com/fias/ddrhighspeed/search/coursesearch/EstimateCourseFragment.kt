@@ -133,9 +133,9 @@ class EstimateCourseFragment : Fragment() {
     }
 
     private fun setSongsToSearchedResult() {
-        searchedCoursesAdapter.submitList(viewModel.searchSongsByName()) {
-            binding.searchedSongs.scrollToPosition(0)
-        }
+//        searchedCoursesAdapter.submitList(viewModel.searchSongsByName()) {
+//            binding.searchedSongs.scrollToPosition(0)
+//        }
     }
 
     private suspend fun refreshDataAndView() {

@@ -29,7 +29,7 @@ class CourseDetailFragment(private val courseData: CourseData) : ScrollSpeedFrag
     ): View {
         _fragmentBinding = DataBindingUtil.inflate<FragmentCourseDetailBinding?>(
             inflater,
-            R.layout.fragment_song_detail,
+            R.layout.fragment_course_detail,
             container,
             false
         ).also {

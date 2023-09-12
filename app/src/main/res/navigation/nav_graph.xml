@@ -52,5 +52,9 @@
     <fragment
         android:id="@+id/courseDetailFragment"
         android:name="com.fias.ddrhighspeed.search.coursedetail.CourseDetailFragment"
-        android:label="CourseDetailFragment" />
+        android:label="CourseDetailFragment">
+    <argument
+        android:name="song"
+        app:argType="com.fias.ddrhighspeed.CourseData" />
+    </fragment>
 </navigation>
