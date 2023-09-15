@@ -9,6 +9,9 @@
         <variable
             name="fragmentViewModel"
             type="com.fias.ddrhighspeed.search.songsearch.EstimateByNameViewModel" />
+     <variable
+            name="dataUpdateViewModel"
+            type="com.fias.ddrhighspeed.search.DataUpdateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,16 +1,13 @@
 package com.fias.ddrhighspeed.search.songsearch
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,27 +17,30 @@ import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
+import com.fias.ddrhighspeed.search.DataUpdateViewModel
+import com.fias.ddrhighspeed.search.DataUpdateViewModelFactory
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.launch
-
-private const val version_PREFERENCES_NAME = "version_preferences"
-val Context.versionDataStore: DataStore<Preferences> by preferencesDataStore(
-    name = version_PREFERENCES_NAME
-)
 
 class EstimateByNameFragment : Fragment() {
     private var _fragmentBinding: FragmentEstimateByNameBinding? = null
     private val binding get() = _fragmentBinding!!
     private val spreadSheetService = SpreadSheetService()
-    private val viewModel: EstimateByNameViewModel by viewModels {
+    private val fragmentViewModel: EstimateByNameViewModel by viewModels {
         EstimateByNameViewModelFactory(
+            (activity?.application as SongApplication).db
+        )
+    }
+
+    private val dataUpdateViewModel: DataUpdateViewModel by activityViewModels {
+        DataUpdateViewModelFactory(
             (activity?.application as SongApplication).db, spreadSheetService
         )
     }
 
     private val versionDataStore: DataVersionDataStore by lazy {
         DataVersionDataStore(
-            requireContext().versionDataStore
+            (requireActivity().application as SongApplication).versionDataStore
         )
     }
 
@@ -64,7 +64,8 @@ class EstimateByNameFragment : Fragment() {
             container,
             false
         ).also {
-            it.fragmentViewModel = this.viewModel
+            it.fragmentViewModel = this.fragmentViewModel
+            it.dataUpdateViewModel = this.dataUpdateViewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
 
@@ -75,27 +76,27 @@ class EstimateByNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.searchedSongs.adapter = searchedSongsAdapter
 
-        viewModel.searchWord.observe(viewLifecycleOwner) {
+        fragmentViewModel.searchWord.observe(viewLifecycleOwner) {
             setSongsToSearchedResult()
         }
 
-        viewModel.baseSongDataList.observe(viewLifecycleOwner) {
+        fragmentViewModel.baseSongDataList.observe(viewLifecycleOwner) {
             setSongsToSearchedResult()
         }
 
-        viewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
+        dataUpdateViewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
             binding.dataVersion.text = getString(R.string.display_version, version.toString())
         }
 
-        viewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
+        dataUpdateViewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
             switchUpdateAvailable(updateAvailable)
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+        dataUpdateViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             switchLoading(isLoading)
         }
 
-        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+        dataUpdateViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
                 AlertDialog.Builder(requireContext())
                     .setMessage(errorMessage)
@@ -105,7 +106,7 @@ class EstimateByNameFragment : Fragment() {
         }
 
         binding.resetButton.setOnClickListener {
-            viewModel.resetSearchWord()
+            fragmentViewModel.resetSearchWord()
         }
 
         binding.updateButton.setOnClickListener {
@@ -116,7 +117,7 @@ class EstimateByNameFragment : Fragment() {
 
         binding.dataVersion.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.checkNewDataVersionAvailable(versionDataStore.getDataVersion())
+                dataUpdateViewModel.checkNewDataVersionAvailable(versionDataStore.getDataVersion())
             }
         }
 
@@ -125,21 +126,21 @@ class EstimateByNameFragment : Fragment() {
             if (dataVersion == 0) {
                 refreshDataAndView()
             } else {
-                viewModel.checkNewDataVersionAvailable(dataVersion)
+                dataUpdateViewModel.checkNewDataVersionAvailable(dataVersion)
                 setSongsToSearchedResult()
             }
         }
     }
 
     private fun setSongsToSearchedResult() {
-        searchedSongsAdapter.submitList(viewModel.searchSongsByName()) {
+        searchedSongsAdapter.submitList(fragmentViewModel.searchSongsByName()) {
             binding.searchedSongs.scrollToPosition(0)
         }
     }
 
     private suspend fun refreshDataAndView() {
-        viewModel.downloadSongData()
-        viewModel.localDataVersion.value?.let {
+        dataUpdateViewModel.downloadSongData()
+        dataUpdateViewModel.localDataVersion.value?.let {
             versionDataStore.saveDataVersionStore(it)
         }
     }

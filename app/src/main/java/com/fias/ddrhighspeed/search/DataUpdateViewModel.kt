@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fias.ddrhighspeed.search.songsearch.EstimateByNameViewModel
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.spreadsheet.FailureResult
 import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
@@ -85,8 +84,6 @@ class DataUpdateViewModel(
         _isLoading.value = false
     }
 
-
-
     private fun setUpdateAvailable() {
         _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
     }
@@ -100,7 +97,7 @@ class DataUpdateViewModelFactory(
     private val db: IDatabase, private val spreadSheetService: ISpreadSheetService
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(EstimateByNameViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(DataUpdateViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST") return DataUpdateViewModel(db, spreadSheetService) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
