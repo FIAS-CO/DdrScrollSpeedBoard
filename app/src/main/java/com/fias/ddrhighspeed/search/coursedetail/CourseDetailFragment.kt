@@ -40,7 +40,7 @@ class CourseDetailFragment(private val courseData: CourseData) : ScrollSpeedFrag
         viewModel.course = courseData
 
         val toolbar = requireActivity().findViewById<MarqueeToolbar>(R.id.toolbar)
-        toolbar.title = viewModel.songName
+        toolbar.title = viewModel.courseName
         toolbar.startMarqueeScroll()
 
         return binding.root

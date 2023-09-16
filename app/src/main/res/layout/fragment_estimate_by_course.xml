@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".search.songsearch.EstimateByNameFragment">
+
+    <data>
+
+        <variable
+            name="fragmentViewModel"
+            type="com.fias.ddrhighspeed.search.coursesearch.EstimateCourseViewModel" />
+     <variable
+            name="dataUpdateViewModel"
+            type="com.fias.ddrhighspeed.search.DataUpdateViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:theme="@style/Theme.DdrScrollSpeedBoard">
+
+        <TextView
+            android:id="@+id/search_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="@string/search_song_name_label"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/search_word_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/search_word_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
+            android:paddingBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/searched_songs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_label">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_text_field"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="11"
+                android:hint="@string/search_song_name_hint"
+                app:errorIconDrawable="@drawable/ic_error"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@id/searched_songs"
+                app:layout_constraintEnd_toStartOf="@id/reset_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_label">
+
+                <com.fias.ddrhighspeed.view.TextEditWithHideKeyBoard
+                    android:id="@+id/search_word_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={fragmentViewModel.searchWord}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/reset_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_vertical_fullsize_material"
+                android:text="@string/reset_button_label"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toTopOf="@id/searched_songs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/search_text_field"
+                app:layout_constraintTop_toBottomOf="@id/search_label" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/loading_text"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="vertical"
+            android:visibility="gone"
+            android:text="@string/now_loading"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_word_layout"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searched_songs"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_word_layout" />
+
+        <Button
+            style="@style/Widget.Material3.Button.TextButton"
+            android:textSize="14sp"
+            android:id="@+id/update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_data_button_label"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/search_word_layout"
+            />
+
+        <TextView
+            android:textSize="14sp"
+            android:id="@+id/data_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/data_version_undefined"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/search_word_layout"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

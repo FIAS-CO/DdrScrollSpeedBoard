@@ -9,7 +9,7 @@ class CourseDetailViewModel : ViewModel() {
     lateinit var course: CourseData
     private val rsFactory = ResultRowSetFactory()
 
-    val songName: String
+    val courseName: String
         get() = course.name
 
     fun createRows(scrollSpeedValue: Int?): List<ResultRowForDetail> {
