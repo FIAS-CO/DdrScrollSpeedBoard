@@ -52,7 +52,7 @@ class EstimateCourseFragment : Fragment() {
         val clickListener = ClickCourseListener { course: CourseData ->
             val navController = findNavController()
             val action =
-                ScrollSpeedBoardFragmentDirections.actionCourseSearchToCourseDetail(course)
+                ScrollSpeedBoardFragmentDirections.actionCourseSearchToCourseDetail()
             navController.navigate(action)
         }
         SearchedCoursesAdapter(clickListener)

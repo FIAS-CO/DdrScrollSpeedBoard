@@ -14,7 +14,7 @@ import com.fias.ddrhighspeed.databinding.FragmentCourseDetailBinding
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
-class CourseDetailFragment(private val courseData: CourseData) : ScrollSpeedFragmentBase() {
+class CourseDetailFragment : ScrollSpeedFragmentBase() {
     override val scrollSpeedTextBox: TextInputEditText
         get() = binding.textInputEditText
 
@@ -22,6 +22,7 @@ class CourseDetailFragment(private val courseData: CourseData) : ScrollSpeedFrag
     private val binding get() = _fragmentBinding!!
     private val detailBoardAdapter: CourseDetailBoardAdapter by lazy { CourseDetailBoardAdapter() }
     private val viewModel: CourseDetailViewModel by viewModels()
+    private val courseData: CourseData = CourseData(0, "course1")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +68,7 @@ class CourseDetailFragment(private val courseData: CourseData) : ScrollSpeedFrag
     }
 
     private fun updateTable() {
-        val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue())
-        detailBoardAdapter.submitList(list)
+//        val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue())
+//        detailBoardAdapter.submitList(list)
     }
 }
