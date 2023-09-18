@@ -8,5 +8,6 @@ interface IDatabase {
     fun reinitializeSongProperties(songProperties: List<SongProperty>)
     fun reinitializeMovies(movies: List<Movie>)
     fun getMovies(songId: Long): List<Movie>
+    fun getSongsById(songId: Long): List<Song>
     fun migrate()
 }

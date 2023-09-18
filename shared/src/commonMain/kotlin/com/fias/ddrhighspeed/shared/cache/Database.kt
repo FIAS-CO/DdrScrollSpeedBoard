@@ -58,6 +58,10 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         return dbQuery.getMoviesById(songId).executeAsList()
     }
 
+    override fun getSongsById(songId: Long): List<Song> {
+        return dbQuery.getSongById(songId).executeAsList()
+    }
+
     override fun migrate() {
         AppDatabase.Schema.migrate(
             driver,

@@ -22,7 +22,7 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
     private val binding get() = _fragmentBinding!!
     private val detailBoardAdapter: CourseDetailBoardAdapter by lazy { CourseDetailBoardAdapter() }
     private val viewModel: CourseDetailViewModel by viewModels()
-    private val courseData: CourseData = CourseData(0, "course1")
+    private val courseData: CourseData = CourseData(0, "course1", 1, 2, 3, 4)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

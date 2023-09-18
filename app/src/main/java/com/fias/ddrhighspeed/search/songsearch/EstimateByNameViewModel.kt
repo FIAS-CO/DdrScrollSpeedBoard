@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fias.ddrhighspeed.SongData
+import com.fias.ddrhighspeed.search.convertToSongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
-import com.fias.ddrhighspeed.shared.cache.Song
 
 // TODO:テストを足す
 class EstimateByNameViewModel(
@@ -52,33 +52,6 @@ class EstimateByNameViewModel(
         searchWord.value = ""
     }
 
-    private fun convertToSongData(song: Song): SongData {
-        with(song) {
-            return SongData(
-                id,
-                name,
-                composer,
-                version,
-                display_bpm,
-                min_bpm,
-                max_bpm,
-                base_bpm,
-                sub_bpm,
-                besp,
-                bsp,
-                dsp,
-                esp,
-                csp,
-                bdp,
-                ddp,
-                edp,
-                cdp,
-                shock_arrow,
-                deleted,
-                difficulty_label ?: ""
-            )
-        }
-    }
 
 //    suspend fun checkNewDataVersionAvailable(localVersion: Int) {
 //        setLocalDataVersion(localVersion)
@@ -134,7 +107,7 @@ class EstimateByNameViewModel(
 //    }
 
     private fun getNewSongsFromDb(): List<SongData> {
-        return db.getNewSongs().map { convertToSongData(it) }
+        return db.getNewSongs().map { it.convertToSongData() }
     }
 }
 

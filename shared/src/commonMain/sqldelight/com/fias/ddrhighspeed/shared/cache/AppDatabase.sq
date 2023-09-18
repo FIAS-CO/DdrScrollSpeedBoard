@@ -92,6 +92,9 @@ CREATE TABLE IF NOT EXISTS Course (
 getNew:
 SELECT * FROM Song WHERE deleted = 0 ORDER BY id DESC;
 
+getSongById:
+SELECT * FROM Song WHERE id = ?;
+
 getByNameContainWord:
 SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' AND deleted = 0 ORDER BY name ASC ;
 

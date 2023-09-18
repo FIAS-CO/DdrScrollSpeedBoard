@@ -2,13 +2,28 @@ package com.fias.ddrhighspeed.search.coursedetail
 
 import androidx.lifecycle.ViewModel
 import com.fias.ddrhighspeed.CourseData
+import com.fias.ddrhighspeed.SongData
+import com.fias.ddrhighspeed.search.convertToSongData
+import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 
-class CourseDetailViewModel : ViewModel() {
-    lateinit var course: CourseData
+class CourseDetailViewModel(
+    private val db: IDatabase
+) : ViewModel() {
+    var course: CourseData
+        get() {
+            TODO()
+        }
+        set(value) {
+            firstSongDetails = db.getSongsById(course.firstSongId).map { it.convertToSongData() }
+        }
     private val rsFactory = ResultRowSetFactory()
 
+    lateinit var firstSongDetails: List<SongData>
+    lateinit var secondSongDetails: List<SongData>
+    lateinit var thirdSongDetails: List<SongData>
+    lateinit var fourthSongDetails: List<SongData>
     val courseName: String
         get() = course.name
 
