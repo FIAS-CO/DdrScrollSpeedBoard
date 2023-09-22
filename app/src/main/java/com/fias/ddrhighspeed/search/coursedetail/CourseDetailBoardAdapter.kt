@@ -5,28 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fias.ddrhighspeed.databinding.ResultRowForDetailBinding
-import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
+import com.fias.ddrhighspeed.databinding.ResultRowForCourseDetailBinding
+import com.fias.ddrhighspeed.shared.model.ResultRowForCourseDetail
 
 /**
- * Adapter for the [RecyclerView] in [SongDetailFragment]. Displays [ResultRowForDetail] data object.
+ * Adapter for the [RecyclerView] in [CourseDetailFragment]. Displays [ResultRowForCourseDetail] data object.
  */
 class CourseDetailBoardAdapter :
-    ListAdapter<ResultRowForDetail, CourseDetailBoardAdapter.DetailBoardViewHolder>(DiffCallback) {
+    ListAdapter<ResultRowForCourseDetail, CourseDetailBoardAdapter.DetailBoardViewHolder>(
+        DiffCallback
+    ) {
 
-    class DetailBoardViewHolder(private var binding: ResultRowForDetailBinding) :
+    class DetailBoardViewHolder(private var binding: ResultRowForCourseDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(row: ResultRowForDetail) {
-            binding.category.text = row.category
+        fun bind(row: ResultRowForCourseDetail) {
+            binding.category.text = row.songName
             binding.bpmView.text = row.bpm
-            binding.highSpeedView.text = row.highSpeed
-            binding.scrollSpeedView.text = row.scrollSpeed
+            binding.highSpeedView.text = row.suggestedHighSpeed.toString()
+            binding.scrollSpeedView.text = row.difficulty
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailBoardViewHolder {
         return DetailBoardViewHolder(
-            ResultRowForDetailBinding.inflate(
+            ResultRowForCourseDetailBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -39,17 +41,17 @@ class CourseDetailBoardAdapter :
     }
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<ResultRowForDetail>() {
+        private val DiffCallback = object : DiffUtil.ItemCallback<ResultRowForCourseDetail>() {
             override fun areItemsTheSame(
-                oldItem: ResultRowForDetail,
-                newItem: ResultRowForDetail
+                oldItem: ResultRowForCourseDetail,
+                newItem: ResultRowForCourseDetail
             ): Boolean {
-                return oldItem.highSpeed == newItem.highSpeed
+                return oldItem.songName == newItem.songName && oldItem.difficulty == newItem.difficulty
             }
 
             override fun areContentsTheSame(
-                oldItem: ResultRowForDetail,
-                newItem: ResultRowForDetail
+                oldItem: ResultRowForCourseDetail,
+                newItem: ResultRowForCourseDetail
             ): Boolean {
                 return oldItem == newItem
             }

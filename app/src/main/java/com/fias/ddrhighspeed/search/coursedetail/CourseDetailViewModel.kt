@@ -5,19 +5,13 @@ import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.search.convertToSongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
-import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
+import com.fias.ddrhighspeed.shared.model.ResultRowForCourseDetail
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 
 class CourseDetailViewModel(
     private val db: IDatabase
 ) : ViewModel() {
-    var course: CourseData
-        get() {
-            TODO()
-        }
-        set(value) {
-            firstSongDetails = db.getSongsById(course.firstSongId).map { it.convertToSongData() }
-        }
+    lateinit var course: CourseData
     private val rsFactory = ResultRowSetFactory()
 
     lateinit var firstSongDetails: List<SongData>
@@ -27,11 +21,15 @@ class CourseDetailViewModel(
     val courseName: String
         get() = course.name
 
-    fun createRows(scrollSpeedValue: Int?): List<ResultRowForDetail> {
+    fun createRows(scrollSpeedValue: Int?): List<ResultRowForCourseDetail> {
         val value = scrollSpeedValue ?: 0
-
-        val list = mutableListOf<ResultRowForDetail>()
-        course.apply {
+        firstSongDetails = db.getSongsById(course.firstSongId).map { it.convertToSongData() }
+        val list = mutableListOf<ResultRowForCourseDetail>()
+        val songData = firstSongDetails[0]
+        songData.apply {
+            val hs = rsFactory.calculateHighSpeed(baseBpm, value)
+            val firstRow =
+                ResultRowForCourseDetail(name, "$minBpm ～ $maxBpm", hs, "")
 //            maxBpm?.let {
 //                list.add(rsFactory.createForDetail(value, "最大", it))
 //            }
@@ -44,9 +42,10 @@ class CourseDetailViewModel(
 //            subBpm?.let {
 //                list.add(rsFactory.createForDetail(value, "基本②", it))
 //            }
-            list.removeIf { it.bpm == "0.0" }
-            list.sortDescending() // BPM でソート
+            list.add(firstRow)
         }
         return list
     }
 }
+
+// TODO ファクトリーつくる

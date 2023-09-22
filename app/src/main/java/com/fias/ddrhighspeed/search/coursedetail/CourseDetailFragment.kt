@@ -68,7 +68,7 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
     }
 
     private fun updateTable() {
-//        val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue())
-//        detailBoardAdapter.submitList(list)
+        val list = viewModel.createRows(sharedViewModel.getScrollSpeedValue())
+        detailBoardAdapter.submitList(list)
     }
 }

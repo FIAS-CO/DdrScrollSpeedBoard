@@ -34,7 +34,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/input_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/input_layout"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/bus_stop_item_vertical_padding"
             android:paddingBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@id/song_detail_table_header"
+            app:layout_constraintBottom_toTopOf="@id/first_song_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scrollSpeedLabel">
@@ -99,70 +99,18 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/song_detail_table_header"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/first_song_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/bus_stop_item_vertical_padding"
-            android:paddingBottom="@dimen/bus_stop_item_vertical_padding"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="1st: xxx"
+            android:textSize="23sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/course_detail_list"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout">
-
-            <TextView
-                android:id="@+id/blank"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:text=""
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/course_detail_list"
-                app:layout_constraintEnd_toStartOf="@id/high_speed_header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-            <TextView
-                android:id="@+id/bpm_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:text="@string/table_header_bpm"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/course_detail_list"
-                app:layout_constraintEnd_toStartOf="@id/high_speed_header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-            <TextView
-                android:id="@+id/high_speed_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="@string/table_header_hs"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/course_detail_list"
-                app:layout_constraintEnd_toStartOf="@id/scroll_speed_header"
-                app:layout_constraintStart_toEndOf="@id/bpm_header"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-            <TextView
-                android:id="@+id/scroll_speed_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="14"
-                android:gravity="end"
-                android:text="@string/table_header_scroll_speed"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/course_detail_list"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/high_speed_header"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
         <com.fias.ddrhighspeed.view.HighSpeedListView
             android:id="@+id/course_detail_list"
@@ -173,25 +121,9 @@
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/song_detail_table_header" />
+            app:layout_constraintTop_toBottomOf="@id/first_song_label" />
 
-        <TextView
-            android:id="@+id/asterisk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/asterisk"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/explain_basic_text"
-            app:layout_constraintTop_toBottomOf="@id/course_detail_list" />
 
-        <TextView
-            android:id="@+id/explain_basic_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/explanation_basic"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/course_detail_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

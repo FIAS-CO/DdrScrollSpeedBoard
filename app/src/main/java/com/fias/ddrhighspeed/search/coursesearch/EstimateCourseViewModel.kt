@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.SongData
-import com.fias.ddrhighspeed.search.songsearch.EstimateByNameViewModel
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
-import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
 
 class EstimateCourseViewModel(
     private val db: IDatabase //, private val spreadSheetService: ISpreadSheetService
@@ -35,8 +33,9 @@ class EstimateCourseViewModel(
     val baseCourseDataList: LiveData<List<CourseData>> get() = _baseCourseDataList
     private val _baseCourseDataList = MutableLiveData<List<CourseData>>().apply {
         value = listOf(
-            CourseData(0, "course1"),
-            CourseData(1, "course2"))
+            CourseData(0, "course1", 1, 2, 3, 4),
+            CourseData(1, "course2", 5, 6, 7, 8)
+        )
     }
 
 //    var sourceDataVersion = 0
