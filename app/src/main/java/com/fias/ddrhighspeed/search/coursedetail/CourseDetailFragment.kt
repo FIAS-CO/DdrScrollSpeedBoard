@@ -10,7 +10,9 @@ import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
+import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentCourseDetailBinding
+import com.fias.ddrhighspeed.search.coursesearch.EstimateCourseViewModelFactory
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
@@ -21,7 +23,11 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
     private var _fragmentBinding: FragmentCourseDetailBinding? = null
     private val binding get() = _fragmentBinding!!
     private val detailBoardAdapter: CourseDetailBoardAdapter by lazy { CourseDetailBoardAdapter() }
-    private val viewModel: CourseDetailViewModel by viewModels()
+    private val viewModel: CourseDetailViewModel by viewModels() {
+        CourseDetailViewModelFactory(
+            (activity?.application as SongApplication).db
+        )
+    }
     private val courseData: CourseData = CourseData(0, "course1", 1, 2, 3, 4)
 
     override fun onCreateView(

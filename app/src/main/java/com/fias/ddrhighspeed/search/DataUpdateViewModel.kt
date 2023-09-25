@@ -46,6 +46,7 @@ class DataUpdateViewModel(
 
     val errorMessage = MutableLiveData<String>()
     suspend fun downloadSongData() {
+        if(_isLoading.value == true) return
         coroutineScope {
             _isLoading.value = true
 

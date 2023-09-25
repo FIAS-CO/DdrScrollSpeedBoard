@@ -86,6 +86,7 @@ class EstimateByNameFragment : Fragment() {
 
         dataUpdateViewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
             binding.dataVersion.text = getString(R.string.display_version, version.toString())
+            setSongsToSearchedResult()
         }
 
         dataUpdateViewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
