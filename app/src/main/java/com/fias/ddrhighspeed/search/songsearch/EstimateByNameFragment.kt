@@ -86,7 +86,10 @@ class EstimateByNameFragment : Fragment() {
 
         dataUpdateViewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
             binding.dataVersion.text = getString(R.string.display_version, version.toString())
-            setSongsToSearchedResult()
+            // localDataVersionが変わる＝DBが更新されるのでviewModelが持っている全曲情報も更新する
+            // 全曲情報が更新されれば画面上のリストも更新される(別画面から更新されることもある)
+            fragmentViewModel.loadAllSongs()
+            // TODO いるかどうか確認 128行目の修正でどうにかなってるかも
         }
 
         dataUpdateViewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
@@ -126,10 +129,12 @@ class EstimateByNameFragment : Fragment() {
             val dataVersion = versionDataStore.getDataVersion()
             if (dataVersion == 0) {
                 refreshDataAndView()
+                fragmentViewModel.loadAllSongs()
             } else {
                 dataUpdateViewModel.checkNewDataVersionAvailable(dataVersion)
-                setSongsToSearchedResult()
             }
+
+            setSongsToSearchedResult()
         }
     }
 

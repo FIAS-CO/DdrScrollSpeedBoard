@@ -37,6 +37,10 @@ class EstimateByNameViewModel(
 //        }
 
     init {
+        loadAllSongs()
+    }
+
+    fun loadAllSongs() {
         _baseSongDataList.value = getNewSongsFromDb()
     }
 

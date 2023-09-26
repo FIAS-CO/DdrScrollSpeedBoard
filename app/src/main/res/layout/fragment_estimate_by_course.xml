@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="11"
-                android:hint="@string/search_song_name_hint"
+                android:hint="@string/search_course_name_hint"
                 app:errorIconDrawable="@drawable/ic_error"
                 app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintBottom_toTopOf="@id/searched_songs"
