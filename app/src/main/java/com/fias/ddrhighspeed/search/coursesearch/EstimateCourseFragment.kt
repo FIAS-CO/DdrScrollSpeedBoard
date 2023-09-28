@@ -22,11 +22,6 @@ import com.fias.ddrhighspeed.search.DataUpdateViewModelFactory
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.launch
 
-//private const val version_PREFERENCES_NAME = "version_preferences"
-//val Context.versionDataStore: DataStore<Preferences> by preferencesDataStore(
-//    name = version_PREFERENCES_NAME
-//)
-
 class EstimateCourseFragment : Fragment() {
     private var _fragmentBinding: FragmentEstimateByCourseBinding? = null
     private val binding get() = _fragmentBinding!!

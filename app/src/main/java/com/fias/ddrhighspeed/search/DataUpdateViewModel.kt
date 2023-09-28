@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.fias.ddrhighspeed.data.IDataVersionDataStore
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.spreadsheet.FailureResult
 import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
@@ -12,7 +13,9 @@ import com.fias.ddrhighspeed.shared.spreadsheet.SuccessResult
 import kotlinx.coroutines.coroutineScope
 
 class DataUpdateViewModel(
-    private val db: IDatabase, private val spreadSheetService: ISpreadSheetService
+    private val db: IDatabase,
+    private val spreadSheetService: ISpreadSheetService,
+    private val versionDataStore: IDataVersionDataStore
 ) : ViewModel() {
 
     val updateAvailable: LiveData<Boolean> get() = _updateAvailable
@@ -23,18 +26,19 @@ class DataUpdateViewModel(
 
     val localDataVersion: LiveData<Int> get() = _localDataVersion
     private val _localDataVersion = MutableLiveData<Int>()
-    private fun setLocalDataVersion(version: Int) {
-        _localDataVersion.value = version
+    private suspend fun setLocalDataVersion(version: Int) {
+        versionDataStore.saveDataVersionStore(version)
         setUpdateAvailable()
     }
 
     suspend fun checkNewDataVersionAvailable(localVersion: Int) {
         setLocalDataVersion(localVersion)
 
-        val dataVersionResult = spreadSheetService.getNewDataVersion()
+        val sourceVersion = spreadSheetService.getNewDataVersion()
 
         // データ更新後に内部バージョンを書き換えるために値を残しておく
-        sourceDataVersion = sourceDataVersion.coerceAtLeast(dataVersionResult)
+//        sourceDataVersion = sourceDataVersion.coerceAtLeast(dataVersionResult)
+        if (sourceVersion)
     }
 
 
@@ -77,7 +81,7 @@ class DataUpdateViewModel(
                 db.reinitializeWebMusicIds(webMusicIds)
                 db.reinitializeMovies(movies)
 
-                sourceDataVersion = version
+//                sourceDataVersion = version
                 setLocalDataVersion(version)
             }
         }
