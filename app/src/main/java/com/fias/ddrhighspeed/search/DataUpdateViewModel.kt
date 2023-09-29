@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.fias.ddrhighspeed.data.IDataVersionDataStore
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.spreadsheet.FailureResult
 import com.fias.ddrhighspeed.shared.spreadsheet.ISpreadSheetService
 import com.fias.ddrhighspeed.shared.spreadsheet.SuccessResult
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class DataUpdateViewModel(
     private val db: IDatabase,
@@ -24,31 +26,33 @@ class DataUpdateViewModel(
     val isLoading: LiveData<Boolean> get() = _isLoading
     private val _isLoading = MutableLiveData(false)
 
+    // localDataVersion にデータを set する場合は setLocalDataVersion を経由すること
     val localDataVersion: LiveData<Int> get() = _localDataVersion
     private val _localDataVersion = MutableLiveData<Int>()
     private suspend fun setLocalDataVersion(version: Int) {
+        _localDataVersion.value = version
         versionDataStore.saveDataVersionStore(version)
         setUpdateAvailable()
     }
 
-    suspend fun checkNewDataVersionAvailable(localVersion: Int) {
-        setLocalDataVersion(localVersion)
-
-        val sourceVersion = spreadSheetService.getNewDataVersion()
-
-        // データ更新後に内部バージョンを書き換えるために値を残しておく
-//        sourceDataVersion = sourceDataVersion.coerceAtLeast(dataVersionResult)
-        if (sourceVersion)
+    init {
+        viewModelScope.launch {
+            val localVersion = versionDataStore.getDataVersion()
+            _localDataVersion.value = localVersion
+            if (localVersion == 0) {
+                downloadSongData()
+            } else {
+                checkNewDataVersionAvailable()
+            }
+        }
     }
 
-
-    var sourceDataVersion = 0
-        private set(value) {
-            field = value
-            setUpdateAvailable()
-        }
+    suspend fun checkNewDataVersionAvailable() {
+        setUpdateAvailable()
+    }
 
     val errorMessage = MutableLiveData<String>()
+
     suspend fun downloadSongData() {
         if(_isLoading.value == true) return
         coroutineScope {
@@ -89,8 +93,13 @@ class DataUpdateViewModel(
         _isLoading.value = false
     }
 
-    private fun setUpdateAvailable() {
-        _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
+    private suspend fun setUpdateAvailable() {
+//        _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
+
+        val sourceVersion = spreadSheetService.getNewDataVersion()
+        val localVersion = versionDataStore.getDataVersion()
+        _updateAvailable.value =  sourceVersion > localVersion
+
     }
 
 }
@@ -99,11 +108,13 @@ class DataUpdateViewModel(
  * Factory class to instantiate the [ViewModel] instance.
  */
 class DataUpdateViewModelFactory(
-    private val db: IDatabase, private val spreadSheetService: ISpreadSheetService
+    private val db: IDatabase,
+    private val spreadSheetService: ISpreadSheetService,
+    private val versionDataStore: IDataVersionDataStore
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DataUpdateViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST") return DataUpdateViewModel(db, spreadSheetService) as T
+            @Suppress("UNCHECKED_CAST") return DataUpdateViewModel(db, spreadSheetService, versionDataStore) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

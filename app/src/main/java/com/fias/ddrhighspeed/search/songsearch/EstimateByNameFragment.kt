@@ -34,7 +34,11 @@ class EstimateByNameFragment : Fragment() {
 
     private val dataUpdateViewModel: DataUpdateViewModel by activityViewModels {
         DataUpdateViewModelFactory(
-            (activity?.application as SongApplication).db, spreadSheetService
+            (activity?.application as SongApplication).db,
+            spreadSheetService,
+            DataVersionDataStore(
+                (requireActivity().application as SongApplication).versionDataStore
+            )
         )
     }
 
@@ -89,7 +93,6 @@ class EstimateByNameFragment : Fragment() {
             // localDataVersionが変わる＝DBが更新されるのでviewModelが持っている全曲情報も更新する
             // 全曲情報が更新されれば画面上のリストも更新される(別画面から更新されることもある)
             fragmentViewModel.loadAllSongs()
-            // TODO いるかどうか確認 128行目の修正でどうにかなってるかも
         }
 
         dataUpdateViewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
@@ -121,21 +124,27 @@ class EstimateByNameFragment : Fragment() {
 
         binding.dataVersion.setOnClickListener {
             lifecycleScope.launch {
-                dataUpdateViewModel.checkNewDataVersionAvailable(versionDataStore.getDataVersion())
+                dataUpdateViewModel.checkNewDataVersionAvailable()
             }
         }
 
-        lifecycleScope.launch {
-            val dataVersion = versionDataStore.getDataVersion()
-            if (dataVersion == 0) {
-                refreshDataAndView()
-                fragmentViewModel.loadAllSongs()
-            } else {
-                dataUpdateViewModel.checkNewDataVersionAvailable(dataVersion)
-            }
 
-            setSongsToSearchedResult()
-        }
+        // 画面起動時の動作
+
+        dataUpdateViewModel.isLoading.value?.let { switchLoading(it) }
+//        setSongsToSearchedResult()
+//
+//        lifecycleScope.launch {
+//            val dataVersion = versionDataStore.getDataVersion()
+//            if (dataVersion == 0) {
+//                refreshDataAndView()
+//                fragmentViewModel.loadAllSongs()
+//            } else {
+//                dataUpdateViewModel.checkNewDataVersionAvailable(dataVersion)
+//            }
+//
+//            setSongsToSearchedResult()
+//        }
     }
 
     private fun setSongsToSearchedResult() {
