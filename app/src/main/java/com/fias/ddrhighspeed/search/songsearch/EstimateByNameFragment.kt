@@ -42,12 +42,6 @@ class EstimateByNameFragment : Fragment() {
         )
     }
 
-    private val versionDataStore: DataVersionDataStore by lazy {
-        DataVersionDataStore(
-            (requireActivity().application as SongApplication).versionDataStore
-        )
-    }
-
     private val searchedSongsAdapter: SearchedSongsAdapter by lazy {
         val clickListener = ClickSongListener { song: SongData ->
             val navController = findNavController()
@@ -128,23 +122,9 @@ class EstimateByNameFragment : Fragment() {
             }
         }
 
-
         // 画面起動時の動作
 
         dataUpdateViewModel.isLoading.value?.let { switchLoading(it) }
-//        setSongsToSearchedResult()
-//
-//        lifecycleScope.launch {
-//            val dataVersion = versionDataStore.getDataVersion()
-//            if (dataVersion == 0) {
-//                refreshDataAndView()
-//                fragmentViewModel.loadAllSongs()
-//            } else {
-//                dataUpdateViewModel.checkNewDataVersionAvailable(dataVersion)
-//            }
-//
-//            setSongsToSearchedResult()
-//        }
     }
 
     private fun setSongsToSearchedResult() {

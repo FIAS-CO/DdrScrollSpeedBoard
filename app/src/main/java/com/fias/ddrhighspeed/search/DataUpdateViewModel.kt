@@ -85,23 +85,18 @@ class DataUpdateViewModel(
                 db.reinitializeWebMusicIds(webMusicIds)
                 db.reinitializeMovies(movies)
 
-//                sourceDataVersion = version
                 setLocalDataVersion(version)
             }
         }
-//        _baseSongDataList.value = getNewSongsFromDb()
         _isLoading.value = false
     }
 
     private suspend fun setUpdateAvailable() {
-//        _updateAvailable.value = sourceDataVersion > (localDataVersion.value ?: Int.MIN_VALUE)
-
         val sourceVersion = spreadSheetService.getNewDataVersion()
         val localVersion = versionDataStore.getDataVersion()
         _updateAvailable.value =  sourceVersion > localVersion
 
     }
-
 }
 
 /**
