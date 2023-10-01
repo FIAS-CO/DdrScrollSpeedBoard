@@ -1,5 +1,6 @@
 package com.fias.ddrhighspeed.shared.spreadsheet
 
+import com.fias.ddrhighspeed.shared.cache.Course
 import com.fias.ddrhighspeed.shared.cache.Movie
 import com.fias.ddrhighspeed.shared.cache.ShockArrowExists
 import com.fias.ddrhighspeed.shared.cache.SongName
@@ -24,10 +25,15 @@ interface ISpreadSheetService {
     suspend fun fetchSongNames(): String = fetchData(getUrlBase() + "0")
     suspend fun fetchShockArrowExists(): String = fetchData(getUrlBase() + "1975740187")
     suspend fun fetchWebMusicIds(): String = fetchData(getUrlBase() + "1376903169")
+
     // 製品版：1701434546, テスト版：150576510
     suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "150576510")
+
     // 製品版：1323920042, テスト版：204755798
     suspend fun fetchMovies(): String = fetchData(getUrlBase() + "204755798")
+
+    // 製品版：xxxxx, テスト版：716892933
+    suspend fun fetchCourses(): String = fetchData(getUrlBase() + "716892933")
 
     suspend fun getNewDataVersion(): Int {
         var sourceVersion = 0
@@ -49,6 +55,7 @@ interface ISpreadSheetService {
         val shockArrowDeferred = safeAsync { createShockArrowExists() }
         val webMusicIdDeferred = safeAsync { createWebMusicIds() }
         val movieDeferred = safeAsync { crateMovies() }
+        val courseDeferred = safeAsync { createCourses() }
 
         val versionResult = versionDeferred.await()
         val songNamesResult = songNameDeferred.await()
@@ -56,6 +63,7 @@ interface ISpreadSheetService {
         val shockArrowExistsResult = shockArrowDeferred.await()
         val webMusicIdsResult = webMusicIdDeferred.await()
         val moviesResult = movieDeferred.await()
+        val coursesResult = courseDeferred.await()
 
         // Check for errors and collect them.
         val exceptions = listOf(
@@ -64,7 +72,8 @@ interface ISpreadSheetService {
             musicPropertiesResult,
             shockArrowExistsResult,
             webMusicIdsResult,
-            moviesResult
+            moviesResult,
+            coursesResult
         ).mapNotNull { it.exceptionOrNull() }
 
         // If there were any errors, return FailureResult with the list of exceptions.
@@ -78,6 +87,7 @@ interface ISpreadSheetService {
         val shockArrowExists = shockArrowExistsResult.getOrNull() ?: emptyList()
         val webMusicIds = webMusicIdsResult.getOrNull() ?: emptyList()
         val movies = moviesResult.getOrNull() ?: emptyList()
+        val courses = coursesResult.getOrNull() ?: emptyList()
 
         return SuccessResult(
             version,
@@ -85,7 +95,8 @@ interface ISpreadSheetService {
             musicProperties,
             shockArrowExists,
             webMusicIds,
-            movies
+            movies,
+            courses
         )
     }
 
@@ -136,7 +147,7 @@ interface ISpreadSheetService {
 
     suspend fun createMusicProperties(): List<SongProperty> {
         val lines = fetchSongProperties().split("\r\n")
-        return lines.subList(1, lines.size).map {
+        return lines.subList(1, lines.size).map { // 1行目はヘッダなのでスキップ
             val list = it.split("\t")
             SongProperty(
                 list[0].toLong(),
@@ -153,7 +164,7 @@ interface ISpreadSheetService {
 
     suspend fun crateMovies(): List<Movie> {
         val lines = fetchMovies().split("\r\n")
-        return lines.subList(1, lines.size).map {
+        return lines.subList(1, lines.size).map { // 1行目はヘッダなのでスキップ
             val list = it.split("\t")
             Movie(
                 list[0].toLong(), // id
@@ -162,6 +173,27 @@ interface ISpreadSheetService {
                 list[3], // site
                 list[4], // movie_id
                 list[5], // song_name
+            )
+        }
+    }
+
+    suspend fun createCourses(): List<Course> {
+        val lines = fetchCourses().split("\r\n")
+        return lines.subList(1, lines.size).map { // 1行目はヘッダなのでスキップ
+            val list = it.split("\t")
+            Course(
+                list[0].toLong(), // id
+                list[1], // name
+                list[2].toLong(), // isDan
+                list[3].toLong(), // firstSongId
+                list[4].toLong(), // firstSongPropertyId
+                list[5].toLong(), // secondSongId
+                list[6].toLong(), // secondSongPropertyId
+                list[7].toLong(), // thirdSongId
+                list[8].toLong(), // thirdSongPropertyId
+                list[9].toLong(), // fourthSongId
+                list[10].toLong(), // fourthSongPropertyId
+                list[11].toLong(), // isDeleted
             )
         }
     }
@@ -189,7 +221,8 @@ data class SuccessResult(
     val musicProperties: List<SongProperty>,
     val shockArrowExists: List<ShockArrowExists>,
     val webMusicIds: List<WebMusicId>,
-    val movies: List<Movie>
+    val movies: List<Movie>,
+    val courses: List<Course>
 ) : SSDataResult()
 
 data class FailureResult(val exceptions: List<Throwable>) : SSDataResult() {

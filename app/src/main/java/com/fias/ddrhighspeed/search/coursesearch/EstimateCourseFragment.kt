@@ -33,13 +33,11 @@ class EstimateCourseFragment : Fragment() {
     }
     private val dataUpdateViewModel: DataUpdateViewModel by activityViewModels {
         DataUpdateViewModelFactory(
-            (activity?.application as SongApplication).db, spreadSheetService
-        )
-    }
-
-    private val versionDataStore: DataVersionDataStore by lazy {
-        DataVersionDataStore(
-            (requireActivity().application as SongApplication).versionDataStore
+            (activity?.application as SongApplication).db,
+            spreadSheetService,
+            DataVersionDataStore(
+                (requireActivity().application as SongApplication).versionDataStore
+            )
         )
     }
 
@@ -85,6 +83,10 @@ class EstimateCourseFragment : Fragment() {
 
         dataUpdateViewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
             binding.dataVersion.text = getString(R.string.display_version, version.toString())
+
+            // localDataVersionが変わる＝DBが更新されるのでviewModelが持っている全曲情報も更新する
+            // 全曲情報が更新されれば画面上のリストも更新される(別画面から更新されることもある)
+            fragmentViewModel.loadAllCourses()
         }
 
         dataUpdateViewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
@@ -110,37 +112,23 @@ class EstimateCourseFragment : Fragment() {
 
         binding.updateButton.setOnClickListener {
             lifecycleScope.launch {
-                refreshDataAndView()
+                dataUpdateViewModel.downloadSongData()
             }
         }
 
         binding.dataVersion.setOnClickListener {
             lifecycleScope.launch {
-                dataUpdateViewModel.checkNewDataVersionAvailable(versionDataStore.getDataVersion())
+                dataUpdateViewModel.checkNewDataVersionAvailable()
             }
         }
 
-        lifecycleScope.launch {
-            val dataVersion = versionDataStore.getDataVersion()
-            if (dataVersion == 0) {
-                refreshDataAndView()
-            } else {
-                dataUpdateViewModel.checkNewDataVersionAvailable(dataVersion)
-                setSongsToSearchedResult()
-            }
-        }
+        // 画面起動時の動作
+        dataUpdateViewModel.isLoading.value?.let { switchLoading(it) }
     }
 
     private fun setSongsToSearchedResult() {
         searchedCoursesAdapter.submitList(fragmentViewModel.searchSongsByCourse()) {
             binding.searchedSongs.scrollToPosition(0)
-        }
-    }
-
-    private suspend fun refreshDataAndView() {
-        dataUpdateViewModel.downloadSongData()
-        dataUpdateViewModel.localDataVersion.value?.let {
-            versionDataStore.saveDataVersionStore(it)
         }
     }
 

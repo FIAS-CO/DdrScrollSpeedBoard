@@ -54,7 +54,7 @@ class DataUpdateViewModel(
     val errorMessage = MutableLiveData<String>()
 
     suspend fun downloadSongData() {
-        if(_isLoading.value == true) return
+        if (_isLoading.value == true) return
         coroutineScope {
             _isLoading.value = true
 
@@ -84,6 +84,7 @@ class DataUpdateViewModel(
                 db.reinitializeShockArrowExists(shockArrowExists)
                 db.reinitializeWebMusicIds(webMusicIds)
                 db.reinitializeMovies(movies)
+                db.reinitializeCourses(courses)
 
                 setLocalDataVersion(version)
             }
@@ -94,7 +95,7 @@ class DataUpdateViewModel(
     private suspend fun setUpdateAvailable() {
         val sourceVersion = spreadSheetService.getNewDataVersion()
         val localVersion = versionDataStore.getDataVersion()
-        _updateAvailable.value =  sourceVersion > localVersion
+        _updateAvailable.value = sourceVersion > localVersion
 
     }
 }
@@ -109,7 +110,11 @@ class DataUpdateViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DataUpdateViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST") return DataUpdateViewModel(db, spreadSheetService, versionDataStore) as T
+            @Suppress("UNCHECKED_CAST") return DataUpdateViewModel(
+                db,
+                spreadSheetService,
+                versionDataStore
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

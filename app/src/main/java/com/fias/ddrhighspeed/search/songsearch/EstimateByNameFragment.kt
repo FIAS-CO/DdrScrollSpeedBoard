@@ -31,7 +31,6 @@ class EstimateByNameFragment : Fragment() {
             (activity?.application as SongApplication).db
         )
     }
-
     private val dataUpdateViewModel: DataUpdateViewModel by activityViewModels {
         DataUpdateViewModelFactory(
             (activity?.application as SongApplication).db,
@@ -112,7 +111,7 @@ class EstimateByNameFragment : Fragment() {
 
         binding.updateButton.setOnClickListener {
             lifecycleScope.launch {
-                refreshDataAndView()
+                dataUpdateViewModel.downloadSongData()
             }
         }
 
@@ -130,13 +129,6 @@ class EstimateByNameFragment : Fragment() {
     private fun setSongsToSearchedResult() {
         searchedSongsAdapter.submitList(fragmentViewModel.searchSongsByName()) {
             binding.searchedSongs.scrollToPosition(0)
-        }
-    }
-
-    private suspend fun refreshDataAndView() {
-        dataUpdateViewModel.downloadSongData()
-        dataUpdateViewModel.localDataVersion.value?.let {
-            versionDataStore.saveDataVersionStore(it)
         }
     }
 

@@ -54,12 +54,25 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         }
     }
 
+    override fun reinitializeCourses(courses: List<Course>) {
+        dbQuery.transaction {
+            dbQuery.deleteCourses()
+            courses.forEach {
+                dbQuery.insertCourses(it)
+            }
+        }
+    }
+
     override fun getMovies(songId: Long): List<Movie> {
         return dbQuery.getMoviesById(songId).executeAsList()
     }
 
     override fun getSongsById(songId: Long): List<Song> {
         return dbQuery.getSongById(songId).executeAsList()
+    }
+
+    override fun getNewCourses(): List<Course> {
+        return dbQuery.getNewCourses().executeAsList()
     }
 
     override fun migrate() {
