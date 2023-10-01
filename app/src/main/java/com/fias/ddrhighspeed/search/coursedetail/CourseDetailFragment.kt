@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.fias.ddrhighspeed.CourseData
+import androidx.navigation.fragment.navArgs
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
 import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentCourseDetailBinding
-import com.fias.ddrhighspeed.search.coursesearch.EstimateCourseViewModelFactory
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
@@ -28,7 +27,7 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
             (activity?.application as SongApplication).db
         )
     }
-    private val courseData: CourseData = CourseData(0, "course1", 1, 2, 3, 4)
+    private val args: CourseDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +43,8 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
             it.viewModel = this.sharedViewModel
             it.lifecycleOwner = viewLifecycleOwner
         }
-        viewModel.course = courseData
+
+        viewModel.course = args.course
 
         val toolbar = requireActivity().findViewById<MarqueeToolbar>(R.id.toolbar)
         toolbar.title = viewModel.courseName

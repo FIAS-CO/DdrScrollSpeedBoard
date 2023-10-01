@@ -18,7 +18,7 @@
             app:destination="@id/songDetailPagerFragment" />
         <action
             android:id="@+id/action_courseSearch_to_courseDetail"
-            app:destination="@id/courseDetailFragment" />
+            app:destination="@id/courseDetailFragment"/>
     </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
@@ -53,5 +53,8 @@
         android:id="@+id/courseDetailFragment"
         android:name="com.fias.ddrhighspeed.search.coursedetail.CourseDetailFragment"
         android:label="CourseDetailFragment">
+        <argument
+            android:name="course"
+            app:argType="com.fias.ddrhighspeed.CourseData"/>
     </fragment>
 </navigation>
