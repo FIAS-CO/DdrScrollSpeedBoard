@@ -105,23 +105,41 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:text="1st: xxx"
+            android:text="@string/song_name_in_course_1st"
             android:textSize="23sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/course_detail_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
-        <com.fias.ddrhighspeed.view.HighSpeedListView
-            android:id="@+id/course_detail_list"
+        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+            android:id="@+id/first_song_view"
             android:layout_width="match_parent"
-            android:layout_height="0pt"
-            android:requiresFadingEdge="vertical"
-            android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/first_song_label" />
+            app:layout_constraintTop_toBottomOf="@id/input_layout"
+            app:layout_constraintBottom_toTopOf="@id/second_song_view"/>
+
+        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+            android:id="@+id/second_song_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_song_view" />
+
+        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+            android:id="@+id/third_song_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/second_song_view" />
+
+        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+            android:id="@+id/fourth_song_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/third_song_view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

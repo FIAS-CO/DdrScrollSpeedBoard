@@ -11,5 +11,7 @@ interface IDatabase {
     fun getMovies(songId: Long): List<Movie>
     fun getSongsById(songId: Long): List<Song>
     fun getNewCourses(): List<Course>
+    fun getSongNameById(songId: Long): SongName
+    fun getSongPropertyById(songId: Long): SongProperty
     fun migrate()
 }

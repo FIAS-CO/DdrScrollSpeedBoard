@@ -103,6 +103,7 @@ class EstimateCourseFragment : Fragment() {
                     .setMessage(errorMessage)
                     .setPositiveButton("OK", null)
                     .show()
+                dataUpdateViewModel.errorMessage.value = ""
             }
         }
 

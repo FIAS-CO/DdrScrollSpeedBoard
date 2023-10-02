@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/song_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text="@string/song_name_in_course_1st"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+
+        <!-- 左側の縦に結合された区画 -->
+        <TextView
+            android:id="@+id/left_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#E0E0E0"
+            android:gravity="center"
+            android:text="推奨BPM: 4.25"
+            android:textSize="18sp"
+            android:textStyle="bold" />  <!-- 背景色は任意で設定 -->
+
+        <!-- 右側の2つの区画を縦に配置 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:orientation="vertical">  <!-- 背景色は任意で設定 -->
+
+            <!-- 上部の区画 -->
+            <TextView
+                android:id="@+id/top_right_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="16dp"
+                android:text="Top Right Text" />
+
+            <!-- 下部の区画 -->
+            <TextView
+                android:id="@+id/bottom_right_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingLeft="16dp"
+                android:text="Bottom Right Text" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -75,6 +75,13 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         return dbQuery.getNewCourses().executeAsList()
     }
 
+    override fun getSongNameById(songId: Long): SongName {
+        return dbQuery.getSongNameById(songId).executeAsOne()
+    }
+
+    override fun getSongPropertyById(songId: Long): SongProperty {
+        return dbQuery.getSongPropertyById(songId).executeAsOne()    }
+
     override fun migrate() {
         AppDatabase.Schema.migrate(
             driver,

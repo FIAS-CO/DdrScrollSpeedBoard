@@ -5,16 +5,21 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CourseData(
-    val id: Long,
-    val name: String,
-    val isDan: Boolean,
-    val firstSongId: Long,
-    val firstSongPropertyId: Long,
-    val secondSongId: Long,
-    val secondSongPropertyId: Long,
-    val thirdSongId: Long,
-    val thirdSongPropertyId: Long,
-    val fourthSongId: Long,
-    val fourthSongPropertyId: Long,
-    val isDeleted: Boolean
-) : Parcelable
+    val id: Long = -1,
+    val name: String = "",
+    val isDan: Boolean = false,
+    val firstSongId: Long = -1,
+    val firstSongPropertyId: Long = -1,
+    val secondSongId: Long = -1,
+    val secondSongPropertyId: Long = -1,
+    val thirdSongId: Long = -1,
+    val thirdSongPropertyId: Long = -1,
+    val fourthSongId: Long = -1,
+    val fourthSongPropertyId: Long = -1,
+    val isDeleted: Boolean = true
+) : Parcelable {
+    fun getCourseLabel(): String {
+        val prefix = if (isDan) "段位認定: " else "コース: "
+        return prefix + name
+    }
+}

@@ -4,15 +4,29 @@ import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.Course
 import com.fias.ddrhighspeed.shared.cache.Song
+import com.fias.ddrhighspeed.shared.cache.SongName
+import com.fias.ddrhighspeed.shared.cache.SongProperty
 
 fun Song.convertToSongData(): SongData {
     with(this) {
+
+        val values = listOfNotNull(base_bpm, sub_bpm, min_bpm, max_bpm).filter { it != 0.0 }
+
+        val min = values.minOrNull()
+        val max = values.maxOrNull()
+
+        val actualDisplayBpm = when {
+            min == null || max == null -> "No valid values."
+            min == max -> "$min"
+            else -> "$min ～ $max"
+        }
+
         return SongData(
             id,
             name,
             composer,
             version,
-            display_bpm,
+            actualDisplayBpm,
             min_bpm,
             max_bpm,
             base_bpm,
@@ -29,6 +43,46 @@ fun Song.convertToSongData(): SongData {
             shock_arrow,
             deleted,
             difficulty_label ?: ""
+        )
+    }
+}
+
+fun SongName.convertToSongData(prop: SongProperty): SongData {
+    with(this) {
+
+        val values = listOfNotNull(prop.base_bpm, prop.sub_bpm, prop.min_bpm, prop.max_bpm).filter { it != 0.0 }
+
+        val min = values.minOrNull()
+        val max = values.maxOrNull()
+
+        val actualDisplayBpm = when {
+            min == null || max == null -> "No valid values."
+            min == max -> "$min"
+            else -> "$min ～ $max"
+        }
+
+        return SongData(
+            id,
+            name,
+            prop.composer,
+            version,
+            actualDisplayBpm,
+            prop.min_bpm,
+            prop.max_bpm,
+            prop.base_bpm,
+            prop.sub_bpm,
+            besp,
+            bsp,
+            dsp,
+            esp,
+            csp,
+            bdp,
+            ddp,
+            edp,
+            cdp,
+            "", // REVISIT: 使用するなら入れるけど別テーブルが必要
+            0, // REVISIT: 使用するなら入れるけど別テーブルが必要
+            prop.difficulty_label ?: ""
         )
     }
 }

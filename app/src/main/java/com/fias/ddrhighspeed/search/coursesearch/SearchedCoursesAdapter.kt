@@ -13,8 +13,8 @@ class SearchedCoursesAdapter(private val clickListener: ClickCourseListener) :
 
     class SearchedCoursesViewHolder(private var binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(song: CourseData) {
-            binding.searchResultName.text = song.name
+        fun bind(course: CourseData) {
+            binding.searchResultName.text = course.getCourseLabel()
         }
     }
 

@@ -149,3 +149,9 @@ DELETE FROM Course;
 
 getCourseById:
 SELECT * FROM Course WHERE id = ?;
+
+getSongNameById:
+SELECT * FROM SongName WHERE id = ?;
+
+getSongPropertyById:
+SELECT * FROM SongProperty WHERE id = ?;

@@ -5,52 +5,59 @@ import androidx.lifecycle.ViewModelProvider
 import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.search.convertToSongData
-import com.fias.ddrhighspeed.search.coursesearch.EstimateCourseViewModel
 import com.fias.ddrhighspeed.shared.cache.IDatabase
-import com.fias.ddrhighspeed.shared.model.ResultRowForCourseDetail
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
+import java.lang.IndexOutOfBoundsException
 
 class CourseDetailViewModel(
     private val db: IDatabase
 ) : ViewModel() {
-    lateinit var course: CourseData
+    var course: CourseData = CourseData()
+        set(value) {
+            field = value
+            field.apply {
+                firstSong = getSongData(firstSongId, firstSongPropertyId)
+                secondSong = getSongData(secondSongId, firstSongPropertyId)
+                thirdSong = getSongData(thirdSongId, firstSongPropertyId)
+                fourthSong = getSongData(fourthSongId, firstSongPropertyId)
+            }
+        }
+
     private val rsFactory = ResultRowSetFactory()
 
-    lateinit var firstSongDetails: List<SongData>
-    lateinit var secondSongDetails: List<SongData>
-    lateinit var thirdSongDetails: List<SongData>
-    lateinit var fourthSongDetails: List<SongData>
+    lateinit var firstSong: SongData
+    lateinit var secondSong: SongData
+    lateinit var thirdSong: SongData
+    lateinit var fourthSong: SongData
     val courseName: String
         get() = course.name
 
-    fun createRows(scrollSpeedValue: Int?): List<ResultRowForCourseDetail> {
+    fun calculate(scrollSpeedValue: Int?, songIndex: Int): Double {
+        if(songIndex<1 || 5 < songIndex) throw IndexOutOfBoundsException()
         val value = scrollSpeedValue ?: 0
-        firstSongDetails = db.getSongsById(course.firstSongId).map { it.convertToSongData() }
-        val list = mutableListOf<ResultRowForCourseDetail>()
-        val songData = firstSongDetails[0]
-        songData.apply {
-            val hs = rsFactory.calculateHighSpeed(baseBpm, value)
-            val firstRow =
-                ResultRowForCourseDetail(name, "$minBpm ～ $maxBpm", hs, "")
-//            maxBpm?.let {
-//                list.add(rsFactory.createForDetail(value, "最大", it))
-//            }
-//            minBpm?.let {
-//                list.add(rsFactory.createForDetail(value, "最小", it))
-//            }
-//            baseBpm.let {
-//                list.add(rsFactory.createForDetail(value, "基本①", it))
-//            }
-//            subBpm?.let {
-//                list.add(rsFactory.createForDetail(value, "基本②", it))
-//            }
-            list.add(firstRow)
+
+        val song = when(songIndex) {
+            1 -> firstSong
+            2 -> secondSong
+            3 -> thirdSong
+            4 -> fourthSong
+            else -> firstSong
         }
-        return list
+
+        return rsFactory.calculateHighSpeed(song.baseBpm, value)
+    }
+
+    private fun getSongData(songId: Long, propertyId: Long): SongData {
+        return if (propertyId == -1L) {
+            db.getSongsById(songId).first().convertToSongData()
+        } else {
+            val songNameData = db.getSongNameById(songId)
+            val propertyData = db.getSongPropertyById(propertyId)
+
+            songNameData.convertToSongData(propertyData)
+        }
     }
 }
-
-// TODO ファクトリーつくる
 
 /**
  * Factory class to instantiate the [ViewModel] instance.
