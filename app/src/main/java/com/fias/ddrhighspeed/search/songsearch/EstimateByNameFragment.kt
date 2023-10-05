@@ -71,6 +71,8 @@ class EstimateByNameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataUpdateViewModel.initialize()
+
         binding.searchedSongs.adapter = searchedSongsAdapter
 
         fragmentViewModel.searchWord.observe(viewLifecycleOwner) {

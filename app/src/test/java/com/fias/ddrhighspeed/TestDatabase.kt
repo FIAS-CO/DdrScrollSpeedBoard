@@ -1,5 +1,6 @@
 package com.fias.ddrhighspeed
 
+import com.fias.ddrhighspeed.shared.cache.Course
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Movie
 import com.fias.ddrhighspeed.shared.cache.ShockArrowExists
@@ -28,8 +29,27 @@ class TestDatabase : IDatabase {
     override fun reinitializeMovies(movies: List<Movie>) {
     }
 
+    override fun reinitializeCourses(courses: List<Course>) {
+    }
+
     override fun getMovies(songId: Long): List<Movie> {
         return emptyList()
+    }
+
+    override fun getSongsById(songId: Long): List<Song> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getNewCourses(): List<Course> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSongNameById(songId: Long): SongName {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSongPropertyById(songId: Long): SongProperty {
+        TODO("Not yet implemented")
     }
 
     override fun migrate() {

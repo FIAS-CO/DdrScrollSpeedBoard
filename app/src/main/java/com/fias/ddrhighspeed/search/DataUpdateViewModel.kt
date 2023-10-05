@@ -35,7 +35,7 @@ class DataUpdateViewModel(
         setUpdateAvailable()
     }
 
-    init {
+    fun initialize() {
         viewModelScope.launch {
             val localVersion = versionDataStore.getDataVersion()
             _localDataVersion.value = localVersion
@@ -96,7 +96,6 @@ class DataUpdateViewModel(
         val sourceVersion = spreadSheetService.getNewDataVersion()
         val localVersion = versionDataStore.getDataVersion()
         _updateAvailable.value = sourceVersion > localVersion
-
     }
 }
 

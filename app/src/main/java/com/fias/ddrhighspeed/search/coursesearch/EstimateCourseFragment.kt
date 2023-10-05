@@ -71,6 +71,8 @@ class EstimateCourseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataUpdateViewModel.initialize()
+
         binding.searchedSongs.adapter = searchedCoursesAdapter
 
         fragmentViewModel.searchWord.observe(viewLifecycleOwner) {

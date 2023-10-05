@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.map
 class DataVersionDataStore(private val dataStore: DataStore<Preferences>) : IDataVersionDataStore {
     private val _displayedPositionOffsetKey = intPreferencesKey("displayed_position_offset")
 
-    override suspend fun saveDataVersionStore(topRowIndex: Int) {
+    override suspend fun saveDataVersionStore(version: Int) {
         dataStore.edit { preferences ->
-            preferences[_displayedPositionOffsetKey] = topRowIndex
+            preferences[_displayedPositionOffsetKey] = version
         }
     }
 
