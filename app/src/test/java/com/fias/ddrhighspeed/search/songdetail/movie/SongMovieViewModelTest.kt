@@ -16,16 +16,16 @@ internal class SongMovieViewModelTest {
 
     private var mockDatabase = mock<IDatabase>()
     private val mockSongs = listOf(
-        Movie(1, "DSP", "Youtube", "movie3"),
-        Movie(11, "BDP", "Youtube", "movie6"),
-        Movie(111, "BESP", "Youtube", "movie1"),
-        Movie(21, "DDP", "Youtube", "movie7"),
-        Movie(221, "CDP", "Youtube", "movie9"),
-        Movie(2221, "error", "Youtube", "movie0"),
-        Movie(331, "ESP", "Youtube", "movie4"),
-        Movie(3331, "EDP", "Youtube", "movie8"),
-        Movie(31, "BSP", "Youtube", "movie2"),
-        Movie(41, "CSP", "Youtube", "movie5"),
+        Movie(1,1, "DSP", "Youtube", "movie3", "movie3"),
+        Movie(11, 11, "BDP", "Youtube", "movie6", "movie6"),
+        Movie(111,111, "BESP", "Youtube", "movie1", "movie1"),
+        Movie(21, 21, "DDP", "Youtube", "movie7", "movie7"),
+        Movie(221, 221, "CDP", "Youtube", "movie9", "movie9"),
+        Movie(2221, 2221, "error", "Youtube", "movie0", "movie0"),
+        Movie(331,331, "ESP", "Youtube", "movie4", "movie4"),
+        Movie(3331,3331, "EDP", "Youtube", "movie8", "movie8"),
+        Movie(31, 31, "BSP", "Youtube", "movie2", "movie2"),
+        Movie(41, 41, "CSP", "Youtube", "movie5", "movie5"),
     )
     private val emptyMockSongs = listOf<Movie>()
 
@@ -35,7 +35,7 @@ internal class SongMovieViewModelTest {
     private val purple = Color(0.5f, 0f, 0.5f, 1.0f)
     private val green = Color(0f, 0.5f, 0f, 1.0f)
     private val gray = Color(0.5f, 0.5f, 0.5f, 1.0f)
-    
+
     @Before
     fun setUp() {
         whenever(mockDatabase.getMovies(1)).thenReturn(mockSongs)
@@ -66,5 +66,6 @@ internal class SongMovieViewModelTest {
     fun getMovieList_No_Movie() {
         val movieList = SongMovieViewModel(mockDatabase, 99999).movieList
 
-        assertEquals(0, movieList.size)    }
+        assertEquals(0, movieList.size)
+    }
 }
