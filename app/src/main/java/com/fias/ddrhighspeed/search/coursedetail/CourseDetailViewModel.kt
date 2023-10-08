@@ -17,9 +17,9 @@ class CourseDetailViewModel(
             field = value
             field.apply {
                 firstSong = getSongData(firstSongId, firstSongPropertyId)
-                secondSong = getSongData(secondSongId, firstSongPropertyId)
-                thirdSong = getSongData(thirdSongId, firstSongPropertyId)
-                fourthSong = getSongData(fourthSongId, firstSongPropertyId)
+                secondSong = getSongData(secondSongId, secondSongPropertyId)
+                thirdSong = getSongData(thirdSongId, thirdSongPropertyId)
+                fourthSong = getSongData(fourthSongId, fourthSongPropertyId)
             }
         }
 
@@ -29,19 +29,16 @@ class CourseDetailViewModel(
     lateinit var secondSong: SongData
     lateinit var thirdSong: SongData
     lateinit var fourthSong: SongData
-    val courseName: String
-        get() = course.name
 
     fun calculate(scrollSpeedValue: Int?, songIndex: Int): Double {
-        if(songIndex<1 || 5 < songIndex) throw IndexOutOfBoundsException()
         val value = scrollSpeedValue ?: 0
 
-        val song = when(songIndex) {
+        val song = when (songIndex) {
             1 -> firstSong
             2 -> secondSong
             3 -> thirdSong
             4 -> fourthSong
-            else -> firstSong
+            else -> throw IndexOutOfBoundsException()
         }
 
         return rsFactory.calculateHighSpeed(song.baseBpm, value)

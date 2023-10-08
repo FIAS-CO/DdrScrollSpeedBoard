@@ -48,7 +48,7 @@ class EstimateByNameViewModelTest {
         val expected = listOf(
             SongData(
                 2, "Test Song 2", "composer2", "DDR", "123.0 ～ 578.0",
-                123.0, 234.0, 345.0, 578.0,
+                345.0, 578.0, 123.0, 234.0,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
                 "DSP,ESP", 1, "(Test)"
             ),
@@ -67,13 +67,13 @@ class EstimateByNameViewModelTest {
         val expected = listOf(
             SongData(
                 1, "Test Song 1", "composer1", "A3", "123.0",
-                null, null, 123.0, null,
+                123.0, null, null, null,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
                 "", 0, ""
             ),
             SongData(
                 2, "Test Song 2", "composer2", "DDR", "123.0 ～ 578.0",
-                123.0, 234.0, 345.0, 578.0,
+                345.0, 578.0, 123.0, 234.0,
                 1, 2, 3, 4, 5, 6, 7, 8, 9,
                 "DSP,ESP", 1, "(Test)"
             ),

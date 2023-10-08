@@ -27,10 +27,10 @@ fun Song.convertToSongData(): SongData {
             composer,
             version,
             actualDisplayBpm,
-            min_bpm,
-            max_bpm,
             base_bpm,
             sub_bpm,
+            min_bpm,
+            max_bpm,
             besp,
             bsp,
             dsp,
@@ -47,10 +47,17 @@ fun Song.convertToSongData(): SongData {
     }
 }
 
+// TODO もしかしたら連結はDB任せにしたほうがいいかもしれない
+// 複数箇所に連結処理があると問題だし、参照しているデータが足りてないし、あんまりいけてない
 fun SongName.convertToSongData(prop: SongProperty): SongData {
     with(this) {
 
-        val values = listOfNotNull(prop.base_bpm, prop.sub_bpm, prop.min_bpm, prop.max_bpm).filter { it != 0.0 }
+        val values = listOfNotNull(
+            prop.base_bpm,
+            prop.sub_bpm,
+            prop.min_bpm,
+            prop.max_bpm
+        ).filter { it != 0.0 }
 
         val min = values.minOrNull()
         val max = values.maxOrNull()
@@ -67,10 +74,10 @@ fun SongName.convertToSongData(prop: SongProperty): SongData {
             prop.composer,
             version,
             actualDisplayBpm,
-            prop.min_bpm,
-            prop.max_bpm,
             prop.base_bpm,
             prop.sub_bpm,
+            prop.min_bpm,
+            prop.max_bpm,
             besp,
             bsp,
             dsp,
