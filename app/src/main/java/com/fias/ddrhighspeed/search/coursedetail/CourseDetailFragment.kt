@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
@@ -79,6 +80,10 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
             }
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+
+        binding.button.setOnClickListener {
+            goToSongDetail(viewModel.firstSong)
+        }
     }
 
     private fun SongPropertyInCourseTable.setStaticData(
@@ -108,5 +113,12 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
                 }"
             )
         }
+    }
+
+    private fun goToSongDetail(song: SongData) {
+        val navController = findNavController()
+        val action =
+            CourseDetailFragmentDirections.actionCourseDetailToSongDetailPager(song)
+        navController.navigate(action)
     }
 }
