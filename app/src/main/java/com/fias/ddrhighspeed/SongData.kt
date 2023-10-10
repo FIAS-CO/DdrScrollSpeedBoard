@@ -29,4 +29,13 @@ data class SongData(
 ) : Parcelable {
     fun nameWithDifficultyLabel(): String =
         name + if (difficultyLabel.isNotEmpty()) "(${difficultyLabel})" else ""
+
+    fun hasHighSpeedArea() = hasMaxBpm() || hasSubBpm()
+    fun hasLowSpeedArea() = hasValue(minBpm)
+
+    private fun hasMaxBpm() = hasValue(maxBpm)
+    private fun hasSubBpm() = hasValue(subBpm)
+
+    private fun hasValue(value: Double?) = value?.let { it > 0.0 } ?: false
+
 }
