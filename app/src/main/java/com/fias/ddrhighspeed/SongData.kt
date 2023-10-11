@@ -10,10 +10,10 @@ data class SongData(
     val composer: String?,
     val version: String,
     val displayBpm: String,
-    val minBpm: Double?,
-    val maxBpm: Double?,
     val baseBpm: Double,
     val subBpm: Double?,
+    val minBpm: Double?,
+    val maxBpm: Double?,
     val besp: Long,
     val bsp: Long,
     val dsp: Long,
@@ -29,4 +29,13 @@ data class SongData(
 ) : Parcelable {
     fun nameWithDifficultyLabel(): String =
         name + if (difficultyLabel.isNotEmpty()) "(${difficultyLabel})" else ""
+
+    fun hasHighSpeedArea() = hasMaxBpm() || hasSubBpm()
+    fun hasLowSpeedArea() = hasValue(minBpm)
+
+    private fun hasMaxBpm() = hasValue(maxBpm)
+    private fun hasSubBpm() = hasValue(subBpm)
+
+    private fun hasValue(value: Double?) = value?.let { it > 0.0 } ?: false
+
 }

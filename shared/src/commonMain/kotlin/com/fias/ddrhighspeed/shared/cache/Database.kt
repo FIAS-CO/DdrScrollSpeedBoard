@@ -54,9 +54,33 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) : IDatabase {
         }
     }
 
-    override fun getMovies(songId: Long): List<Movie> {
-        return dbQuery.getMovies(songId).executeAsList()
+    override fun reinitializeCourses(courses: List<Course>) {
+        dbQuery.transaction {
+            dbQuery.deleteCourses()
+            courses.forEach {
+                dbQuery.insertCourses(it)
+            }
+        }
     }
+
+    override fun getMovies(songId: Long): List<Movie> {
+        return dbQuery.getMoviesById(songId).executeAsList()
+    }
+
+    override fun getSongsById(songId: Long): List<Song> {
+        return dbQuery.getSongById(songId).executeAsList()
+    }
+
+    override fun getNewCourses(): List<Course> {
+        return dbQuery.getNewCourses().executeAsList()
+    }
+
+    override fun getSongNameById(songId: Long): SongName {
+        return dbQuery.getSongNameById(songId).executeAsOne()
+    }
+
+    override fun getSongPropertyById(songId: Long): SongProperty {
+        return dbQuery.getSongPropertyById(songId).executeAsOne()    }
 
     override fun migrate() {
         AppDatabase.Schema.migrate(

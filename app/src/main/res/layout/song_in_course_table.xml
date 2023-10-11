@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/song_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text="@string/song_name_in_course_1st"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- 左側の縦に結合された区画 -->
+        <TextView
+            android:id="@+id/left_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="#E0E0E0"
+            android:gravity="center"
+            android:text="推奨ハイスピ: 4.25"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/detail_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_vertical_fullsize_material"
+            android:text="曲詳細 >>"
+            android:textColor="#0000FF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 左側の縦に結合された区画 -->
+        <TextView
+            android:id="@+id/bottom_left_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:gravity="center"
+            android:text="基本BPM: 190"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bottom_center_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:gravity="center"
+            android:text="高速区間: ◯"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bottom_right_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:gravity="center"
+            android:text="低速区間: ✕"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

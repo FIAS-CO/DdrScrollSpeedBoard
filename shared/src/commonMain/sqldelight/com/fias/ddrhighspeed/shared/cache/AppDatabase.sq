@@ -81,8 +81,26 @@ JOIN
 JOIN
     WebMusicId ON SongName.id = WebMusicId.id;
 
+CREATE TABLE IF NOT EXISTS Course (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  is_dan INTEGER NOT NULL,
+  first_song_id INTEGER NOT NULL,
+  first_song_property_id INTEGER NOT NULL,
+  second_song_id INTEGER NOT NULL,
+  second_song_property_id INTEGER NOT NULL,
+  third_song_id INTEGER NOT NULL,
+  third_song_property_id INTEGER NOT NULL,
+  fourth_song_id INTEGER NOT NULL,
+  fourth_song_property_id INTEGER NOT NULL,
+  deleted INTEGER NOT NULL
+);
+
 getNew:
 SELECT * FROM Song WHERE deleted = 0 ORDER BY id DESC;
+
+getSongById:
+SELECT * FROM Song WHERE id = ?;
 
 getByNameContainWord:
 SELECT * FROM Song WHERE name LIKE '%' || :searchWord || '%' AND deleted = 0 ORDER BY name ASC ;
@@ -117,5 +135,23 @@ INSERT INTO Movie VALUES ?;
 deleteMovies:
 DELETE FROM Movie;
 
-getMovies:
+getMoviesById:
 SELECT * FROM Movie WHERE song_id = ?;
+
+getNewCourses:
+SELECT * FROM Course WHERE deleted = 0 ORDER BY id DESC;
+
+insertCourses:
+INSERT INTO Course VALUES ?;
+
+deleteCourses:
+DELETE FROM Course;
+
+getCourseById:
+SELECT * FROM Course WHERE id = ?;
+
+getSongNameById:
+SELECT * FROM SongName WHERE id = ?;
+
+getSongPropertyById:
+SELECT * FROM SongProperty WHERE id = ?;

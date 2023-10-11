@@ -2,7 +2,6 @@ package com.fias.ddrhighspeed.search.songsearch
 
 import com.fias.ddrhighspeed.TestDatabase
 import com.fias.ddrhighspeed.roughestimate.RoughEstimateViewModel
-import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -20,7 +19,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class EstimateByNameViewModelFactoryTest {
 
-    private val factory = EstimateByNameViewModelFactory(TestDatabase(), SpreadSheetService())
+    private val factory = EstimateByNameViewModelFactory(TestDatabase())
 
     @Before
     fun setup() {

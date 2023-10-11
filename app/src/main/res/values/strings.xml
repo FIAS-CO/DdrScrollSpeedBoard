@@ -9,6 +9,7 @@
     <string name="table_header_scroll_speed">ｽｸﾛｰﾙｽﾋﾟｰﾄﾞ</string>
     <string name="search_song_name_label">検索条件</string>
     <string name="search_song_name_hint">曲名を入力してください</string>
+    <string name="search_course_name_hint">コース、段位名を入力してください</string>
     <string name="back_to_search_description">back</string>
     <string name="song_name_sample_text">曲名</string>
     <string name="display_version">Version: %1$s</string>
@@ -20,4 +21,8 @@
     <string name="data_version_undefined">DataVersion: Undefined</string>
     <string name="update_data_button_label">楽曲データを更新</string>
     <string name="now_loading">Now Loading…</string>
+    <string name="song_name_in_course_1st">1st: %1$s</string>
+    <string name="song_name_in_course_2nd">2nd: %1$s</string>
+    <string name="song_name_in_course_3rd">3rd: %1$s</string>
+    <string name="song_name_in_course_4th">4th: %1$s</string>
 </resources>

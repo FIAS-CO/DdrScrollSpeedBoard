@@ -52,13 +52,7 @@ class ResultRowSetFactory {
             return ResultRowForDetail(category, bpm.toString(), "-", "-")
         }
 
-        var matchedHs = 0.25
-        for (hs in highSpeedSet) {
-            if ((hs * bpm) <= scrollSpeed) {
-                matchedHs = hs
-                break
-            }
-        }
+        var matchedHs = calculateHighSpeed(bpm, scrollSpeed)
 
         return ResultRowForDetail(
             category,
@@ -66,5 +60,16 @@ class ResultRowSetFactory {
             "× $matchedHs",
             "= " + (bpm * matchedHs)
         )
+    }
+
+    fun calculateHighSpeed(bpm: Double, scrollSpeed: Int): Double {
+        var matchedHs = 0.25
+        for (hs in highSpeedSet) {
+            if ((hs * bpm) <= scrollSpeed) {
+                matchedHs = hs
+                break
+            }
+        }
+        return matchedHs
     }
 }

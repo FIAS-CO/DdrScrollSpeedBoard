@@ -62,7 +62,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.7.0'
     // AdMob
-    implementation 'com.google.android.gms:play-services-ads:22.3.0'
+    implementation 'com.google.android.gms:play-services-ads:22.4.0'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -122,6 +122,8 @@ dependencies {
     testImplementation 'androidx.test:monitor:1.4.0'
 
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+
+    testImplementation 'io.ktor:ktor-client-core:2.3.2'
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"

@@ -7,6 +7,11 @@ interface IDatabase {
     fun reinitializeWebMusicIds(webMusicIds: List<WebMusicId>)
     fun reinitializeSongProperties(songProperties: List<SongProperty>)
     fun reinitializeMovies(movies: List<Movie>)
+    fun reinitializeCourses(courses: List<Course>)
     fun getMovies(songId: Long): List<Movie>
+    fun getSongsById(songId: Long): List<Song>
+    fun getNewCourses(): List<Course>
+    fun getSongNameById(songId: Long): SongName
+    fun getSongPropertyById(songId: Long): SongProperty
     fun migrate()
 }

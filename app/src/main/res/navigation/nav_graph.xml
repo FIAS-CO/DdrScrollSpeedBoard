@@ -9,13 +9,16 @@
         android:id="@+id/scrollSpeedBoardFragment"
         android:name="com.fias.ddrhighspeed.ScrollSpeedBoardFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_scroll_speed_board" >
+        tools:layout="@layout/fragment_scroll_speed_board">
         <action
             android:id="@+id/action_scrollSpeedBoard_to_songDetail"
             app:destination="@id/songDetailFragment" />
         <action
             android:id="@+id/action_songSearch_to_songDetailPager"
             app:destination="@id/songDetailPagerFragment" />
+        <action
+            android:id="@+id/action_courseSearch_to_courseDetail"
+            app:destination="@id/courseDetailFragment"/>
     </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
@@ -29,7 +32,7 @@
         tools:layout="@layout/fragment_rough_estimate" />
     <fragment
         android:id="@+id/songDetailFragment"
-        android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment" >
+        android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment">
         <argument
             android:name="song"
             app:argType="com.fias.ddrhighspeed.SongData" />
@@ -41,5 +44,20 @@
         <argument
             android:name="song"
             app:argType="com.fias.ddrhighspeed.SongData" />
+    </fragment>
+    <fragment
+        android:id="@+id/estimateCourseFragment"
+        android:name="com.fias.ddrhighspeed.search.coursesearch.EstimateCourseFragment"
+        android:label="EstimateCourseFragment" />
+    <fragment
+        android:id="@+id/courseDetailFragment"
+        android:name="com.fias.ddrhighspeed.search.coursedetail.CourseDetailFragment"
+        android:label="CourseDetailFragment">
+        <argument
+            android:name="course"
+            app:argType="com.fias.ddrhighspeed.CourseData"/>
+        <action
+            android:id="@+id/action_courseDetail_to_songDetailPager"
+            app:destination="@id/songDetailPagerFragment" />
     </fragment>
 </navigation>

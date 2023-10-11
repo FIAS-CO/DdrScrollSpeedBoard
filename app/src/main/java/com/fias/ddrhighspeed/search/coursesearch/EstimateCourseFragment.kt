@@ -1,4 +1,4 @@
-package com.fias.ddrhighspeed.search.songsearch
+package com.fias.ddrhighspeed.search.coursesearch
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,23 +11,23 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedBoardFragmentDirections
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.data.DataVersionDataStore
 import com.fias.ddrhighspeed.database.SongApplication
-import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
+import com.fias.ddrhighspeed.databinding.FragmentEstimateByCourseBinding
 import com.fias.ddrhighspeed.search.DataUpdateViewModel
 import com.fias.ddrhighspeed.search.DataUpdateViewModelFactory
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import kotlinx.coroutines.launch
 
-class EstimateByNameFragment : Fragment() {
-    private var _fragmentBinding: FragmentEstimateByNameBinding? = null
+class EstimateCourseFragment : Fragment() {
+    private var _fragmentBinding: FragmentEstimateByCourseBinding? = null
     private val binding get() = _fragmentBinding!!
     private val spreadSheetService = SpreadSheetService()
-    private val fragmentViewModel: EstimateByNameViewModel by viewModels {
-        EstimateByNameViewModelFactory(
+    private val fragmentViewModel: EstimateCourseViewModel by viewModels {
+        EstimateCourseViewModelFactory(
             (activity?.application as SongApplication).db
         )
     }
@@ -41,23 +41,23 @@ class EstimateByNameFragment : Fragment() {
         )
     }
 
-    private val searchedSongsAdapter: SearchedSongsAdapter by lazy {
-        val clickListener = ClickSongListener { song: SongData ->
+    private val searchedCoursesAdapter: SearchedCoursesAdapter by lazy {
+        val clickListener = ClickCourseListener { course: CourseData ->
             val navController = findNavController()
             val action =
-                ScrollSpeedBoardFragmentDirections.actionSongSearchToSongDetailPager(song)
+                ScrollSpeedBoardFragmentDirections.actionCourseSearchToCourseDetail(course)
             navController.navigate(action)
         }
-        SearchedSongsAdapter(clickListener)
+        SearchedCoursesAdapter(clickListener)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _fragmentBinding = DataBindingUtil.inflate<FragmentEstimateByNameBinding?>(
+        _fragmentBinding = DataBindingUtil.inflate<FragmentEstimateByCourseBinding?>(
             inflater,
-            R.layout.fragment_estimate_by_name,
+            R.layout.fragment_estimate_by_course,
             container,
             false
         ).also {
@@ -73,21 +73,22 @@ class EstimateByNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dataUpdateViewModel.initialize()
 
-        binding.searchedSongs.adapter = searchedSongsAdapter
+        binding.searchedSongs.adapter = searchedCoursesAdapter
 
         fragmentViewModel.searchWord.observe(viewLifecycleOwner) {
             setSongsToSearchedResult()
         }
 
-        fragmentViewModel.baseSongDataList.observe(viewLifecycleOwner) {
+        fragmentViewModel.baseCourseDataList.observe(viewLifecycleOwner) {
             setSongsToSearchedResult()
         }
 
         dataUpdateViewModel.localDataVersion.observe(viewLifecycleOwner) { version ->
             binding.dataVersion.text = getString(R.string.display_version, version.toString())
+
             // localDataVersionが変わる＝DBが更新されるのでviewModelが持っている全曲情報も更新する
             // 全曲情報が更新されれば画面上のリストも更新される(別画面から更新されることもある)
-            fragmentViewModel.loadAllSongs()
+            fragmentViewModel.loadAllCourses()
         }
 
         dataUpdateViewModel.updateAvailable.observe(viewLifecycleOwner) { updateAvailable ->
@@ -104,7 +105,6 @@ class EstimateByNameFragment : Fragment() {
                     .setMessage(errorMessage)
                     .setPositiveButton("OK", null)
                     .show()
-
                 dataUpdateViewModel.errorMessage.value = ""
             }
         }
@@ -126,12 +126,11 @@ class EstimateByNameFragment : Fragment() {
         }
 
         // 画面起動時の動作
-
         dataUpdateViewModel.isLoading.value?.let { switchLoading(it) }
     }
 
     private fun setSongsToSearchedResult() {
-        searchedSongsAdapter.submitList(fragmentViewModel.searchSongsByName()) {
+        searchedCoursesAdapter.submitList(fragmentViewModel.searchSongsByCourse()) {
             binding.searchedSongs.scrollToPosition(0)
         }
     }
