@@ -24,7 +24,6 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
 
     private var _fragmentBinding: FragmentCourseDetailBinding? = null
     private val binding get() = _fragmentBinding!!
-    private val detailBoardAdapter: CourseDetailBoardAdapter by lazy { CourseDetailBoardAdapter() }
     private val viewModel: CourseDetailViewModel by viewModels() {
         CourseDetailViewModelFactory(
             (activity?.application as SongApplication).db
@@ -80,25 +79,18 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
             }
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
-
-        binding.button.setOnClickListener {
-            goToSongDetail(viewModel.firstSong)
-        }
     }
 
     private fun SongPropertyInCourseTable.setStaticData(
-        firstSong: SongData,
+        song: SongData,
         @StringRes resId: Int
     ) {
         this.apply {
-            setSongLabel(
-                getString(
-                    resId,
-                    firstSong.name
-                )
-            )
-            setTopRightText("基本BPM: ${firstSong.baseBpm}")
-            setBottomRightText("ゲーム内表示BPM: ${firstSong.displayBpm}")
+            setSongLabel(getString(resId, song.nameWithDifficultyLabel()))
+            setBottomLeftText("基本BPM: ${song.baseBpm}")
+            setBottomCenterText("高速地帯: ${if (song.hasHighSpeedArea()) "◯" else "✕"}")
+            setBottomRightText("低速地帯: ${if (song.hasLowSpeedArea()) "◯" else "✕"}")
+            setButtonOnClick { goToSongDetail(song) }
         }
     }
 

@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
     android:orientation="vertical">
 
     <TextView
@@ -18,60 +19,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
-
 
         <!-- 左側の縦に結合された区画 -->
         <TextView
             android:id="@+id/left_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="#E0E0E0"
             android:gravity="center"
-            android:text="推奨BPM: 4.25"
-            android:textSize="18sp"
-            android:textStyle="bold" />  <!-- 背景色は任意で設定 -->
+            android:text="推奨ハイスピ: 4.25"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <!-- 右側の2つの区画を縦に配置 -->
-        <LinearLayout
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reset_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_vertical_fullsize_material"
+            android:text="曲詳細 >>"
+            android:textColor="#0000FF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- 左側の縦に結合された区画 -->
+        <TextView
+            android:id="@+id/bottom_left_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#F0F0F0"
-            android:orientation="vertical">  <!-- 背景色は任意で設定 -->
+            android:gravity="center"
+            android:text="基本BPM: 190"
+            android:textSize="16sp" />
 
-            <!-- 上部の区画 -->
-            <TextView
-                android:id="@+id/top_right_text"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="start||center_vertical"
-                android:paddingStart="16dp"
-                android:text="Top Right Text" />
+        <TextView
+            android:id="@+id/bottom_center_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:gravity="center"
+            android:text="高速区間: ◯"
+            android:textSize="16sp" />
 
-            <!-- 下部の区画 -->
-<!--            <TextView-->
-<!--                android:id="@+id/bottom_right_text"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="left"-->
-<!--                android:paddingLeft="16dp"-->
-<!--                android:text="Bottom Right Text" />-->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/reset_button"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_vertical_fullsize_material"
-                android:layout_marginHorizontal="16dp"
-                android:text="曲詳細 >>"
-                android:textColor="#0000FF" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/bottom_right_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#F0F0F0"
+            android:gravity="center"
+            android:text="低速区間: ✕"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

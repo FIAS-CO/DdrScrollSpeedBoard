@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import com.fias.ddrhighspeed.R
 
 class SongPropertyInCourseTable @JvmOverloads constructor(
@@ -13,16 +14,20 @@ class SongPropertyInCourseTable @JvmOverloads constructor(
 
     private val songNameText: TextView
     private val leftText: TextView
-    private val topRightText: TextView
     private val bottomRightText: TextView
+    private val bottomCenterText: TextView
+    private val bottomLeftText: TextView
+    private val button: AppCompatButton
 
     init {
         LayoutInflater.from(context).inflate(R.layout.song_property_in_course_table, this, true)
 
         songNameText = findViewById(R.id.song_label)
         leftText = findViewById(R.id.left_text)
-        topRightText = findViewById(R.id.top_right_text)
         bottomRightText = findViewById(R.id.bottom_right_text)
+        bottomCenterText = findViewById(R.id.bottom_center_text)
+        bottomLeftText = findViewById(R.id.bottom_left_text)
+        button = findViewById(R.id.reset_button)
     }
 
     fun setSongLabel(text: String) {
@@ -33,11 +38,21 @@ class SongPropertyInCourseTable @JvmOverloads constructor(
         leftText.text = text
     }
 
-    fun setTopRightText(text: String) {
-        topRightText.text = text
-    }
-
     fun setBottomRightText(text: String) {
         bottomRightText.text = text
+    }
+
+    fun setBottomCenterText(text: String) {
+        bottomCenterText.text = text
+    }
+
+    fun setBottomLeftText(text: String) {
+        bottomLeftText.text = text
+    }
+
+    fun setButtonOnClick(action: () -> Unit) {
+        button.setOnClickListener {
+            action.invoke()
+        }
     }
 }
