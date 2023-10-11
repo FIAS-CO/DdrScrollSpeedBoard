@@ -111,7 +111,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
-        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+        <com.fias.ddrhighspeed.search.coursedetail.SongInCourseTable
             android:id="@+id/first_song_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
             app:layout_constraintTop_toBottomOf="@id/input_layout"
             app:layout_constraintBottom_toTopOf="@id/second_song_view"/>
 
-        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+        <com.fias.ddrhighspeed.search.coursedetail.SongInCourseTable
             android:id="@+id/second_song_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,14 +127,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/first_song_view" />
 
-        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+        <com.fias.ddrhighspeed.search.coursedetail.SongInCourseTable
             android:id="@+id/third_song_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/second_song_view" />
 
-        <com.fias.ddrhighspeed.search.coursedetail.SongPropertyInCourseTable
+        <com.fias.ddrhighspeed.search.coursedetail.SongInCourseTable
             android:id="@+id/fourth_song_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

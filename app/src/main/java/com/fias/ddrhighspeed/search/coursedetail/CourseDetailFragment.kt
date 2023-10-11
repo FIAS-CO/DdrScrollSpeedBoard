@@ -81,7 +81,7 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
     }
 
-    private fun SongPropertyInCourseTable.setStaticData(
+    private fun SongInCourseTable.setStaticData(
         song: SongData,
         @StringRes resId: Int
     ) {
@@ -94,7 +94,7 @@ class CourseDetailFragment : ScrollSpeedFragmentBase() {
         }
     }
 
-    private fun SongPropertyInCourseTable.setHighSpeed(songIndex: Int) {
+    private fun SongInCourseTable.setHighSpeed(songIndex: Int) {
         this.apply {
             setLeftText(
                 "推奨ハイスピ:${

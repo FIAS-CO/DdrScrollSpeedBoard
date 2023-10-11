@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import com.fias.ddrhighspeed.R
 
-class SongPropertyInCourseTable @JvmOverloads constructor(
+class SongInCourseTable @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
@@ -20,14 +20,14 @@ class SongPropertyInCourseTable @JvmOverloads constructor(
     private val button: AppCompatButton
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.song_property_in_course_table, this, true)
+        LayoutInflater.from(context).inflate(R.layout.song_in_course_table, this, true)
 
         songNameText = findViewById(R.id.song_label)
         leftText = findViewById(R.id.left_text)
         bottomRightText = findViewById(R.id.bottom_right_text)
         bottomCenterText = findViewById(R.id.bottom_center_text)
         bottomLeftText = findViewById(R.id.bottom_left_text)
-        button = findViewById(R.id.reset_button)
+        button = findViewById(R.id.detail_button)
     }
 
     fun setSongLabel(text: String) {
