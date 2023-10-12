@@ -115,9 +115,9 @@
             android:id="@+id/first_song_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/second_song_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout"
-            app:layout_constraintBottom_toTopOf="@id/second_song_view"/>
+            app:layout_constraintTop_toBottomOf="@id/input_layout" />
 
         <com.fias.ddrhighspeed.search.coursedetail.SongInCourseTable
             android:id="@+id/second_song_view"
@@ -141,6 +141,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/third_song_view" />
 
+        <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
+        <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

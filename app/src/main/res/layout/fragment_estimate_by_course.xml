@@ -9,7 +9,8 @@
         <variable
             name="fragmentViewModel"
             type="com.fias.ddrhighspeed.search.coursesearch.EstimateCourseViewModel" />
-     <variable
+
+        <variable
             name="dataUpdateViewModel"
             type="com.fias.ddrhighspeed.search.DataUpdateViewModel" />
     </data>
@@ -92,13 +93,13 @@
             android:layout_height="0pt"
             android:requiresFadingEdge="vertical"
             android:scrollbars="vertical"
-            android:visibility="gone"
             android:text="@string/now_loading"
+            android:visibility="gone"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_word_layout"/>
+            app:layout_constraintTop_toBottomOf="@id/search_word_layout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searched_songs"
@@ -107,35 +108,46 @@
             android:requiresFadingEdge="vertical"
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/adView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_word_layout" />
 
         <Button
-            style="@style/Widget.Material3.Button.TextButton"
-            android:textSize="14sp"
             android:id="@+id/update_button"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update_data_button_label"
+            android:textSize="14sp"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/search_word_layout"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:textSize="14sp"
             android:id="@+id/data_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/data_version_undefined"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/search_word_layout"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
+        <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

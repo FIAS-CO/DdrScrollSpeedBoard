@@ -16,6 +16,7 @@ import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
 import com.fias.ddrhighspeed.data.ScrollPositionDataStore
 import com.fias.ddrhighspeed.databinding.FragmentRoughEstimateBinding
+import com.fias.ddrhighspeed.view.AdViewUtil
 import com.fias.ddrhighspeed.view.HighSpeedListView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -78,6 +79,8 @@ class RoughEstimateFragment : ScrollSpeedFragmentBase() {
         }
 
         loadSavedListPosition(recyclerView)
+
+        AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
     private fun loadSavedListPosition(recyclerView: HighSpeedListView) {

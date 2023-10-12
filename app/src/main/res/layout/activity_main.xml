@@ -41,13 +41,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimary"
-                    app:layout_scrollFlags="enterAlways|scroll"
                     android:elevation="4dp"
                     android:minHeight="?attr/actionBarSize"
                     app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_scrollFlags="enterAlways|scroll"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:title="@string/app_name"
                     app:titleTextColor="?attr/colorOnPrimary" />
@@ -61,26 +61,11 @@
                     android:fitsSystemWindows="true"
                     android:label="Page title"
                     app:defaultNavHost="true"
-                    app:layout_constraintBottom_toTopOf="@id/adView"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/toolbar"
                     app:navGraph="@navigation/nav_graph" />
-
-                <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
-                <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/adView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    app:adSize="BANNER"
-                    app:adUnitId="ca-app-pub-3940256099942544/6300978111"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
@@ -108,7 +93,7 @@
                     android:gravity="end|bottom"
                     android:text="Version:1.5"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.navigation.NavigationView>
 

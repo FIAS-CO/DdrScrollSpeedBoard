@@ -11,6 +11,7 @@ import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
 import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
+import com.fias.ddrhighspeed.view.AdViewUtil
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText
 
@@ -64,6 +65,8 @@ class SongDetailFragment(private val songData: SongData) : ScrollSpeedFragmentBa
             }
         }
         sharedViewModel.scrollSpeed.observe(viewLifecycleOwner, scrollSpeedObserver)
+
+        AdViewUtil().loadAdView(binding.adView, requireContext())
     }
 
     private fun updateTable() {
