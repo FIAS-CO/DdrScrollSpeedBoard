@@ -17,7 +17,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import com.fias.ddrhighspeed.view.AdViewUtil
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -52,8 +51,6 @@ class MainActivity : AppCompatActivity() {
             navController,
             appBarConfiguration
         )
-
-        AdViewUtil().loadAdView(findViewById(R.id.adView), this)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

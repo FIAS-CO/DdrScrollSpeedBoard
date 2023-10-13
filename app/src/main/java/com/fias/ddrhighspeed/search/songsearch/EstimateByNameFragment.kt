@@ -20,6 +20,7 @@ import com.fias.ddrhighspeed.databinding.FragmentEstimateByNameBinding
 import com.fias.ddrhighspeed.search.DataUpdateViewModel
 import com.fias.ddrhighspeed.search.DataUpdateViewModelFactory
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
+import com.fias.ddrhighspeed.view.AdViewUtil
 import kotlinx.coroutines.launch
 
 class EstimateByNameFragment : Fragment() {
@@ -124,6 +125,8 @@ class EstimateByNameFragment : Fragment() {
                 dataUpdateViewModel.checkNewDataVersionAvailable()
             }
         }
+
+        AdViewUtil().loadAdView(binding.adView, requireContext())
 
         // 画面起動時の動作
 

@@ -25,4 +25,7 @@
     <string name="song_name_in_course_2nd">2nd: %1$s</string>
     <string name="song_name_in_course_3rd">3rd: %1$s</string>
     <string name="song_name_in_course_4th">4th: %1$s</string>
+    <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
+    <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
+    <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

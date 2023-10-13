@@ -20,6 +20,7 @@ import com.fias.ddrhighspeed.databinding.FragmentEstimateByCourseBinding
 import com.fias.ddrhighspeed.search.DataUpdateViewModel
 import com.fias.ddrhighspeed.search.DataUpdateViewModelFactory
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
+import com.fias.ddrhighspeed.view.AdViewUtil
 import kotlinx.coroutines.launch
 
 class EstimateCourseFragment : Fragment() {
@@ -124,6 +125,8 @@ class EstimateCourseFragment : Fragment() {
                 dataUpdateViewModel.checkNewDataVersionAvailable()
             }
         }
+
+        AdViewUtil().loadAdView(binding.adView, requireContext())
 
         // 画面起動時の動作
         dataUpdateViewModel.isLoading.value?.let { switchLoading(it) }
