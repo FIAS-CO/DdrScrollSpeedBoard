@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS Course (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  is_dan INTEGER NOT NULL,
+  first_song_id INTEGER NOT NULL,
+  first_song_property_id INTEGER NOT NULL,
+  second_song_id INTEGER NOT NULL,
+  second_song_property_id INTEGER NOT NULL,
+  third_song_id INTEGER NOT NULL,
+  third_song_property_id INTEGER NOT NULL,
+  fourth_song_id INTEGER NOT NULL,
+  fourth_song_property_id INTEGER NOT NULL,
+  deleted INTEGER NOT NULL
+);
