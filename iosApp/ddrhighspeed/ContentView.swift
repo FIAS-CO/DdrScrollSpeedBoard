@@ -8,6 +8,7 @@ struct ContentView: View {
     enum Tab {
         case featured
         case list
+        case course
     }
     
     init() {
@@ -37,6 +38,12 @@ struct ContentView: View {
                     Label("曲名検索", systemImage: "magnifyingglass")
                 }
                 .tag(Tab.featured)
+            
+            SearchCourseView(isShowSubView: $isShowSubView)
+                .tabItem {
+                    Label("コース検索", systemImage: "magnifyingglass")
+                }
+                .tag(Tab.course)
             
             RoughEstimateView()
                 .tabItem {

@@ -19,8 +19,12 @@ final class ModelData: ObservableObject {
     @Published var scrollSpeed: String
     
     // SearchSongView
-    var baseSongs: [Song] = load()
+    var baseSongs: [Song] = loadSongs()
     @Published var songs: [Song] = []
+    
+    var baseCourses: [Course] = loadCourses()
+    @Published var courses: [Course] = []
+    
     @Published var updateAvailable: Bool = false
     @Published var isLoading: Bool = false
     @Published var showingAlert: Bool = false
@@ -36,8 +40,8 @@ final class ModelData: ObservableObject {
         }
     }
     @Published var versionText: String = "version: checking..."
-        
-    init(isPreviewMode: Bool = false, songsForPreview: [Song] = []) {
+    
+    init(isPreviewMode: Bool = false, songsForPreview: [Song] = [], coursesForPreview: [Course] = []) {
         let savedSpeed = UserDefaults.standard.string(forKey: "scrollSpeed")
         _scrollSpeed = Published(initialValue: savedSpeed ?? "")
         
@@ -47,6 +51,7 @@ final class ModelData: ObservableObject {
         // Workaround: プレビュー時にdownloadSongDataが動くとタイムアウトでクラッシュする
         if isPreviewMode {
             songs = songsForPreview
+            courses = coursesForPreview
             return
         }
         
@@ -56,9 +61,20 @@ final class ModelData: ObservableObject {
             self.checkNewDataVersionAvailable()
         }
         songs = baseSongs
+        courses = baseCourses
     }
     
     func searchSong(searchWord: String) {
+        if (searchWord=="") {
+            songs = baseSongs
+            return
+        }
+        songs = baseSongs.filter{song in
+            return song.nameWithDifficultyLabel().localizedCaseInsensitiveContains(searchWord)
+        }
+    }
+    
+    func searchCourse(searchWord: String) {
         if (searchWord=="") {
             songs = baseSongs
             return
@@ -90,6 +106,10 @@ final class ModelData: ObservableObject {
     }
     
     func downloadSongData() {
+        if (isLoading) {
+            return
+        }
+        
         isLoading = true
         
         // Downloading表示にするために表示をTextに切り替える
@@ -133,6 +153,7 @@ final class ModelData: ObservableObject {
                 self.db.reinitializeShockArrowExists(shockArrowExists: r.shockArrowExists)
                 self.db.reinitializeWebMusicIds(webMusicIds: r.webMusicIds)
                 self.db.reinitializeMovies(movies: r.movies)
+                self.db.reinitializeCourses(courses: r.courses)
                 
                 self.sourceDataVersion = Int(r.version)
                 self.main { [self] in
@@ -163,11 +184,18 @@ func connectDb() -> Database {
     return Database(databaseDriverFactory: DatabaseDriverFactory())
 }
 
-func load() -> [Song] {
+func loadSongs() -> [Song] {
     let db = connectDb()
     let newSongs = db.getNewSongs()
     
     return newSongs
+}
+
+func loadCourses() -> [Course] {
+    let db = connectDb()
+    let newCourses = db.getNewCourses()
+    
+    return newCourses
 }
 
 extension Song {
