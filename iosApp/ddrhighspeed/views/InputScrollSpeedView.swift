@@ -9,7 +9,7 @@ struct InputScrollSpeedView: View {
     @State var isLongPressing = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: -10) {
             Text("スクロールスピード")
                 .font(.title2)
                 .fontWeight(.bold)
