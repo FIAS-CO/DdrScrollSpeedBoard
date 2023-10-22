@@ -22,8 +22,8 @@ final class ModelData: ObservableObject {
     var baseSongs: [Song] = loadSongs()
     @Published var songs: [Song] = []
     
-    var baseCourses: [Course] = loadCourses()
-    @Published var courses: [Course] = []
+    var baseCourses: [CourseData] = loadCourses()
+    @Published var courses: [CourseData] = []
     
     @Published var updateAvailable: Bool = false
     @Published var isLoading: Bool = false
@@ -41,7 +41,7 @@ final class ModelData: ObservableObject {
     }
     @Published var versionText: String = "version: checking..."
     
-    init(isPreviewMode: Bool = false, songsForPreview: [Song] = [], coursesForPreview: [Course] = []) {
+    init(isPreviewMode: Bool = false, songsForPreview: [Song] = [], coursesForPreview: [CourseData] = []) {
         let savedSpeed = UserDefaults.standard.string(forKey: "scrollSpeed")
         _scrollSpeed = Published(initialValue: savedSpeed ?? "")
         
@@ -76,11 +76,11 @@ final class ModelData: ObservableObject {
     
     func searchCourse(searchWord: String) {
         if (searchWord=="") {
-            songs = baseSongs
+            courses = baseCourses
             return
         }
-        songs = baseSongs.filter{song in
-            return song.nameWithDifficultyLabel().localizedCaseInsensitiveContains(searchWord)
+        courses = baseCourses.filter{course in
+            return course.getCourseLabel().localizedCaseInsensitiveContains(searchWord)
         }
     }
     
@@ -122,7 +122,11 @@ final class ModelData: ObservableObject {
                 self.main { [self] in
                     checkNewDataVersionAvailable()
                     isLoading = false
-                    songs = self.db.getNewSongs()
+                    
+                    baseSongs = db.getNewSongs()
+                    baseCourses = loadCourses()
+                    songs = baseSongs
+                    courses = baseCourses
                 }
             }
             
@@ -164,7 +168,17 @@ final class ModelData: ObservableObject {
                 print("Unexpected error: allDataResult should be SuccessResult")
             }
         }
-        baseSongs = db.getNewSongs()
+    }
+    
+    public func getSongData(songId: Int64, propertyId: Int64) -> SongData {
+        if (propertyId == -1) {
+            return (db.getSongsById(songId: songId).first ?? createDummySong()).convertToSongData()
+        }
+        
+        let songNameData = db.getSongNameById(songId: songId)
+        let propertyData = db.getSongPropertyById(songId: propertyId)
+        
+        return songNameData.convertToSongData(prop: propertyData)
     }
     
     private func setUpdateAvailable() {
@@ -177,6 +191,10 @@ final class ModelData: ObservableObject {
         DispatchQueue.main.async {
             block()
         }
+    }
+    
+    private func createDummySong() -> Song {
+        return Song(id: -1, name: "NoData", composer: "NoData", version: "NoData", display_bpm: "NoData", min_bpm: nil, max_bpm: nil, base_bpm: 100.0, sub_bpm: nil, besp: 1, bsp: 1, dsp: 1, esp: 1, csp: 1, bdp: 1, ddp: 1, edp: 1, cdp: 1, shock_arrow: "1", deleted: 1, difficulty_label: "NoData")
     }
 }
 
@@ -191,9 +209,9 @@ func loadSongs() -> [Song] {
     return newSongs
 }
 
-func loadCourses() -> [Course] {
+func loadCourses() -> [CourseData] {
     let db = connectDb()
-    let newCourses = db.getNewCourses()
+    let newCourses = db.getNewCourses().map{$0.convertToCourseData()}
     
     return newCourses
 }
