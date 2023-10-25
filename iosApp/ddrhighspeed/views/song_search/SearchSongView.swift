@@ -31,37 +31,49 @@ struct SearchSongView: View {
                             }
                         }
                 }
+                
                 List{
-                    ForEach(modelData.songs, id: \.self) { song in
-                        Button(action: {
-                            selectedSong = song
-                            isShowSubView = true
-                        }, label: {
-                            HStack {
-                                Text(song.nameWithDifficultyLabel())
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                    Section {
+                        if modelData.songs.isEmpty {
+                            Text("上の\"PUSH TO UPDATE SONG DATA.\"をタップしてデータを更新してください")
+                            Text("Now Loadingと表示されている場合は少しお待ちください")
+                        } else {
+                            ForEach(modelData.songs, id: \.self) { song in
+                                Button(action: {
+                                    selectedSong = song
+                                    isShowSubView = true
+                                }, label: {
+                                    HStack {
+                                        Text(song.nameWithDifficultyLabel())
+                                            .foregroundColor(.primary)
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .foregroundColor(.gray)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                })
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        })
+                        }
+                    } header: {
+                        HStack {
+                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.songs.isEmpty)) {
+                                Text(modelData.versionText)
+                            } else {
+                                Button(action: {
+                                    modelData.downloadSongData()
+                                    modelData.searchSong(searchWord: searchWord)
+                                }){ Text("Push to update song data.") }
+                            }
+                            
+                            Spacer()
+                        }
                     }
                 }
-                .navigationTitle("曲名検索")
+                .listStyle(InsetGroupedListStyle())
                 
                 UnderlineBannerView()
-                HStack {
-                    Spacer()
-                    if (modelData.updateAvailable) {
-                        Button(action: {
-                            modelData.downloadSongData()
-                            modelData.searchSong(searchWord: searchWord)
-                        }){ Text("Push to update song data.") }
-                    } else {
-                        Text(modelData.versionText)
-                    }
-                }
             }
+            .navigationTitle("曲名検索")
             .background(
                 NavigationLink(
                     destination: selectedSong != nil ? SongDetailView(song: selectedSong!) : nil,
