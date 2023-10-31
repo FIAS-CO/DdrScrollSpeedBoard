@@ -19,8 +19,12 @@ final class ModelData: ObservableObject {
     @Published var scrollSpeed: String
     
     // SearchSongView
-    var baseSongs: [Song] = load()
+    var baseSongs: [Song] = loadSongs()
     @Published var songs: [Song] = []
+    
+    var baseCourses: [CourseData] = loadCourses()
+    @Published var courses: [CourseData] = []
+    
     @Published var updateAvailable: Bool = false
     @Published var isLoading: Bool = false
     @Published var showingAlert: Bool = false
@@ -36,8 +40,8 @@ final class ModelData: ObservableObject {
         }
     }
     @Published var versionText: String = "version: checking..."
-        
-    init(isPreviewMode: Bool = false, songsForPreview: [Song] = []) {
+    
+    init(isPreviewMode: Bool = false, songsForPreview: [Song] = [], coursesForPreview: [CourseData] = []) {
         let savedSpeed = UserDefaults.standard.string(forKey: "scrollSpeed")
         _scrollSpeed = Published(initialValue: savedSpeed ?? "")
         
@@ -47,6 +51,7 @@ final class ModelData: ObservableObject {
         // Workaround: プレビュー時にdownloadSongDataが動くとタイムアウトでクラッシュする
         if isPreviewMode {
             songs = songsForPreview
+            courses = coursesForPreview
             return
         }
         
@@ -56,6 +61,7 @@ final class ModelData: ObservableObject {
             self.checkNewDataVersionAvailable()
         }
         songs = baseSongs
+        courses = baseCourses
     }
     
     func searchSong(searchWord: String) {
@@ -65,6 +71,16 @@ final class ModelData: ObservableObject {
         }
         songs = baseSongs.filter{song in
             return song.nameWithDifficultyLabel().localizedCaseInsensitiveContains(searchWord)
+        }
+    }
+    
+    func searchCourse(searchWord: String) {
+        if (searchWord=="") {
+            courses = baseCourses
+            return
+        }
+        courses = baseCourses.filter{course in
+            return course.getCourseLabel().localizedCaseInsensitiveContains(searchWord)
         }
     }
     
@@ -90,6 +106,10 @@ final class ModelData: ObservableObject {
     }
     
     func downloadSongData() {
+        if (isLoading) {
+            return
+        }
+        
         isLoading = true
         
         // Downloading表示にするために表示をTextに切り替える
@@ -102,7 +122,11 @@ final class ModelData: ObservableObject {
                 self.main { [self] in
                     checkNewDataVersionAvailable()
                     isLoading = false
-                    songs = self.db.getNewSongs()
+                    
+                    baseSongs = db.getNewSongs()
+                    baseCourses = loadCourses()
+                    songs = baseSongs
+                    courses = baseCourses
                 }
             }
             
@@ -133,6 +157,7 @@ final class ModelData: ObservableObject {
                 self.db.reinitializeShockArrowExists(shockArrowExists: r.shockArrowExists)
                 self.db.reinitializeWebMusicIds(webMusicIds: r.webMusicIds)
                 self.db.reinitializeMovies(movies: r.movies)
+                self.db.reinitializeCourses(courses: r.courses)
                 
                 self.sourceDataVersion = Int(r.version)
                 self.main { [self] in
@@ -143,7 +168,17 @@ final class ModelData: ObservableObject {
                 print("Unexpected error: allDataResult should be SuccessResult")
             }
         }
-        baseSongs = db.getNewSongs()
+    }
+    
+    public func getSongData(songId: Int64, propertyId: Int64) -> SongData {
+        if (propertyId == -1) {
+            return (db.getSongsById(songId: songId).first ?? createDummySong()).convertToSongData()
+        }
+        
+        let songNameData = db.getSongNameById(songId: songId)
+        let propertyData = db.getSongPropertyById(songId: propertyId)
+        
+        return songNameData.convertToSongData(prop: propertyData)
     }
     
     private func setUpdateAvailable() {
@@ -157,17 +192,28 @@ final class ModelData: ObservableObject {
             block()
         }
     }
+    
+    private func createDummySong() -> Song {
+        return Song(id: -1, name: "NoData", composer: "NoData", version: "NoData", display_bpm: "NoData", min_bpm: nil, max_bpm: nil, base_bpm: 100.0, sub_bpm: nil, besp: 1, bsp: 1, dsp: 1, esp: 1, csp: 1, bdp: 1, ddp: 1, edp: 1, cdp: 1, shock_arrow: "1", deleted: 1, difficulty_label: "NoData")
+    }
 }
 
 func connectDb() -> Database {
     return Database(databaseDriverFactory: DatabaseDriverFactory())
 }
 
-func load() -> [Song] {
+func loadSongs() -> [Song] {
     let db = connectDb()
     let newSongs = db.getNewSongs()
     
     return newSongs
+}
+
+func loadCourses() -> [CourseData] {
+    let db = connectDb()
+    let newCourses = db.getNewCourses().map{$0.convertToCourseData()}
+    
+    return newCourses
 }
 
 extension Song {

@@ -2,12 +2,15 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    @State private var selection: Tab = .featured
-    @State private var isShowSubView = false
+    @State private var isShowSongSubView = false
+    @State private var isShowCourseSubView = false
+    
+    @State private var selection: Tab = .song_search
     
     enum Tab {
-        case featured
-        case list
+        case rough_calc
+        case song_search
+        case course_search
     }
     
     init() {
@@ -26,23 +29,33 @@ struct ContentView: View {
             selection
         }, set: {
             if $0 == selection {
-                isShowSubView = false
+                if (selection == Tab.song_search) {
+                    isShowSongSubView = false
+                } else if (selection == Tab.course_search) {
+                    isShowCourseSubView = false
+                }
             }
             self.selection = $0
         })
         
         TabView(selection: selectedTab) {
-            SearchSongView(isShowSubView: $isShowSubView)
+            SearchSongView(isShowSubView: $isShowSongSubView)
                 .tabItem {
                     Label("曲名検索", systemImage: "magnifyingglass")
                 }
-                .tag(Tab.featured)
+                .tag(Tab.song_search)
+            
+            SearchCourseView(isShowSubView: $isShowCourseSubView)
+                .tabItem {
+                    Label("コース検索", systemImage: "magnifyingglass")
+                }
+                .tag(Tab.course_search)
             
             RoughEstimateView()
                 .tabItem {
                     Label("BPM簡易計算", systemImage: "list.bullet")
                 }
-                .tag(Tab.list)
+                .tag(Tab.rough_calc)
         }
     }
 }

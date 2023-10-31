@@ -1,6 +1,7 @@
 import Foundation
 import shared
 
+// TODO 名前を変える
 class SongDetailUtil {
     var factory: ResultRowSetFactory = ResultRowSetFactory()
     
@@ -27,5 +28,9 @@ class SongDetailUtil {
         }
         
         return result
+    }
+    
+    func culcateSuggestHighSpeed(bpm:Double, scrollSpeed: Int) -> Double {
+        return factory.calculateHighSpeed(bpm: bpm, scrollSpeed: Int32(scrollSpeed))
     }
 }

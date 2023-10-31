@@ -1,12 +1,14 @@
 import SwiftUI
 import shared
 
-struct SearchSongView: View {
+struct SearchCourseView: View {
     @FocusState var isKeyboardVisible: Bool
     @EnvironmentObject var modelData: ModelData
     @Binding var isShowSubView: Bool
     @State private var searchWord: String = ""
-    @State private var selectedSong: Song?
+    
+    // Workaround: Preview用。画面遷移時の表示テストのために設定している。
+    @State private var selectedCourse: CourseData? = Course(id: 0, name:"course1", is_dan: 0, first_song_id: 1, first_song_property_id: -1, second_song_id: 2, second_song_property_id: -1, third_song_id: 3, third_song_property_id: -1, fourth_song_id: 4, fourth_song_property_id: -1, deleted: 0).convertToCourseData()
     
     var body: some View {
         NavigationView {
@@ -18,7 +20,7 @@ struct SearchSongView: View {
                         .focused($isKeyboardVisible)
                         .padding(.horizontal)
                         .onChange(of: searchWord) { newValue in
-                            modelData.searchSong(searchWord: newValue)
+                            modelData.searchCourse(searchWord: newValue)
                         }
                         .toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
@@ -31,20 +33,19 @@ struct SearchSongView: View {
                             }
                         }
                 }
-                
                 List{
                     Section {
-                        if modelData.songs.isEmpty {
-                            Text("上の\"PUSH TO UPDATE SONG DATA.\"をタップしてデータを更新してください")
+                        if modelData.courses.isEmpty {
+                            Text("上の\"PUSH TO UPDATE COURSE DATA.\"をタップしてデータを更新してください")
                             Text("Now Loadingと表示されている場合は少しお待ちください")
                         } else {
-                            ForEach(modelData.songs, id: \.self) { song in
+                            ForEach(modelData.courses, id: \.self) { course in
                                 Button(action: {
-                                    selectedSong = song
+                                    selectedCourse = course
                                     isShowSubView = true
                                 }, label: {
                                     HStack {
-                                        Text(song.nameWithDifficultyLabel())
+                                        Text(course.getCourseLabel())
                                             .foregroundColor(.primary)
                                         Spacer()
                                         Image(systemName: "chevron.right")
@@ -56,7 +57,7 @@ struct SearchSongView: View {
                         }
                     } header: {
                         HStack {
-                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.songs.isEmpty)) {
+                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.courses.isEmpty)) {
                                 Text(modelData.versionText)
                             } else {
                                 Button(action: {
@@ -73,10 +74,10 @@ struct SearchSongView: View {
                 
                 UnderlineBannerView()
             }
-            .navigationTitle("曲名検索")
+            .navigationTitle("コース検索")
             .background(
                 NavigationLink(
-                    destination: selectedSong != nil ? SongDetailView(song: selectedSong!) : nil,
+                    destination: selectedCourse != nil ? CourseDetailView(course: selectedCourse!) : nil,
                     isActive: $isShowSubView,
                     label: {}
                 )
@@ -96,20 +97,19 @@ struct SearchSongView: View {
     }
 }
 
-struct SearchSongView_Previews: PreviewProvider {
+struct SearchCourseView_Previews: PreviewProvider {
     static var previews: some View {
         // Workaround: リンクがプレビューでうまく動作しない。
         // isShowSubViewでリンク先に遷移するのでそれの再現として２つ配置しています
-        
-        let songs = [
-            Song(id: 0, name:"name1", composer:"comp", version: "A3", display_bpm: "123-345", min_bpm: 123.0, max_bpm: 345.0, base_bpm: 234.0, sub_bpm: 345.0, besp: 1, bsp: 1, dsp: 2, esp: 3, csp: 4, bdp: 5, ddp: 6, edp: 7, cdp: 8, shock_arrow: "", deleted: 0, difficulty_label: "test"),
-            Song(id: 1, name:"name2", composer:"comp", version: "A3", display_bpm: "123-345", min_bpm: 123.0, max_bpm: 345.0, base_bpm: 234.0, sub_bpm: 345.0, besp: 1, bsp: 1, dsp: 2, esp: 3, csp: 4, bdp: 5, ddp: 6, edp: 7, cdp: 8, shock_arrow: "", deleted: 0, difficulty_label: nil),
-            Song(id: 2, name:"name3", composer:"comp", version: "A3", display_bpm: "123-345", min_bpm: 123.0, max_bpm: 345.0, base_bpm: 234.0, sub_bpm: 345.0, besp: 1, bsp: 1, dsp: 2, esp: 3, csp: 4, bdp: 5, ddp: 6, edp: 7, cdp: 8, shock_arrow: "", deleted: 1, difficulty_label: "test")
+        let course = CourseData(id: 0, name:"course1", isDan: false, firstSongId: 1, firstSongPropertyId: -1, secondSongId: 2, secondSongPropertyId: -1, thirdSongId: 3, thirdSongPropertyId: -1, fourthSongId: 4, fourthSongPropertyId: -1, isDeleted: false)
+        let courses = [
+            course,
+            CourseData(id: 2, name:"dan1", isDan: true, firstSongId: 1, firstSongPropertyId: -1, secondSongId: 2, secondSongPropertyId: -1, thirdSongId: 3, thirdSongPropertyId: -1, fourthSongId: 4, fourthSongPropertyId: -1, isDeleted: false),
         ]
-        SearchSongView(isShowSubView: .constant(false))
-            .environmentObject(ModelData(isPreviewMode: true, songsForPreview: songs))
+        SearchCourseView(isShowSubView: .constant(false))
+            .environmentObject(ModelData(isPreviewMode: true, coursesForPreview: courses))
         
-        SearchSongView(isShowSubView: .constant(true))
-            .environmentObject(ModelData(isPreviewMode: true, songsForPreview: songs))
+        SearchCourseView(isShowSubView: .constant(true))
+            .environmentObject(ModelData(isPreviewMode: true, coursesForPreview: courses))
     }
 }
