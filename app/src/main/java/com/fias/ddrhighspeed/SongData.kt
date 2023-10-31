@@ -1,9 +1,9 @@
 package com.fias.ddrhighspeed
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
-@Parcelize
+// TODO Android側にあるものをこちらに置き換える
+@Serializable
 data class SongData(
     val id: Long,
     val name: String,
@@ -26,7 +26,7 @@ data class SongData(
     val shockArrow: String?,
     val deleted: Long,
     val difficultyLabel: String
-) : Parcelable {
+) {
     fun nameWithDifficultyLabel(): String =
         name + if (difficultyLabel.isNotEmpty()) "(${difficultyLabel})" else ""
 

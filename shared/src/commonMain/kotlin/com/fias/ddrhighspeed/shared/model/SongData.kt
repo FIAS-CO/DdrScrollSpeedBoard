@@ -1,6 +1,9 @@
 package com.fias.ddrhighspeed.shared.model
 
+import kotlinx.serialization.Serializable
+
 // TODO Android側にあるものをこちらに置き換える
+@Serializable
 data class SongData(
     val id: Long,
     val name: String,
