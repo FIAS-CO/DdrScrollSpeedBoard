@@ -1,8 +1,8 @@
 package com.fias.ddrhighspeed.search.songsearch
 
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
+import com.fias.ddrhighspeed.shared.model.SongData
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals

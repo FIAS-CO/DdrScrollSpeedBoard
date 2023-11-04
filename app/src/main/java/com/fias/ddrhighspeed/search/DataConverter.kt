@@ -1,11 +1,11 @@
 package com.fias.ddrhighspeed.search
 
 import com.fias.ddrhighspeed.CourseData
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.cache.Course
 import com.fias.ddrhighspeed.shared.cache.Song
 import com.fias.ddrhighspeed.shared.cache.SongName
 import com.fias.ddrhighspeed.shared.cache.SongProperty
+import com.fias.ddrhighspeed.shared.model.SongData
 
 fun Song.convertToSongData(): SongData {
     with(this) {

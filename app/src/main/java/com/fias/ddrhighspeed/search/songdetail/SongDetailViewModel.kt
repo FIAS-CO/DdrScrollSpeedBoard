@@ -1,9 +1,9 @@
 package com.fias.ddrhighspeed.search.songdetail
 
 import androidx.lifecycle.ViewModel
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.shared.model.ResultRowForDetail
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
+import com.fias.ddrhighspeed.shared.model.SongData
 
 class SongDetailViewModel : ViewModel() {
     lateinit var song: SongData

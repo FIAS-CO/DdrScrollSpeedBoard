@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedFragmentBase
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.databinding.FragmentSongDetailBinding
+import com.fias.ddrhighspeed.shared.model.SongData
 import com.fias.ddrhighspeed.view.AdViewUtil
 import com.fias.ddrhighspeed.view.MarqueeToolbar
 import com.google.android.material.textfield.TextInputEditText

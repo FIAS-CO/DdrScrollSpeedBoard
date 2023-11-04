@@ -18,7 +18,7 @@
             app:destination="@id/songDetailPagerFragment" />
         <action
             android:id="@+id/action_courseSearch_to_courseDetail"
-            app:destination="@id/courseDetailFragment"/>
+            app:destination="@id/courseDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/estimateByNameFragment"
@@ -35,7 +35,7 @@
         android:name="com.fias.ddrhighspeed.search.songdetail.SongDetailFragment">
         <argument
             android:name="song"
-            app:argType="com.fias.ddrhighspeed.SongData" />
+            app:argType="com.fias.ddrhighspeed.shared.model.SongData" />
     </fragment>
     <fragment
         android:id="@+id/songDetailPagerFragment"
@@ -43,7 +43,7 @@
         android:label="SongDetailPagerFragment">
         <argument
             android:name="song"
-            app:argType="com.fias.ddrhighspeed.SongData" />
+            app:argType="com.fias.ddrhighspeed.shared.model.SongData" />
     </fragment>
     <fragment
         android:id="@+id/estimateCourseFragment"
@@ -55,7 +55,7 @@
         android:label="CourseDetailFragment">
         <argument
             android:name="course"
-            app:argType="com.fias.ddrhighspeed.CourseData"/>
+            app:argType="com.fias.ddrhighspeed.CourseData" />
         <action
             android:id="@+id/action_courseDetail_to_songDetailPager"
             app:destination="@id/songDetailPagerFragment" />

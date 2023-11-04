@@ -3,11 +3,10 @@ package com.fias.ddrhighspeed.search.coursedetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fias.ddrhighspeed.CourseData
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.search.convertToSongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
-import java.lang.IndexOutOfBoundsException
+import com.fias.ddrhighspeed.shared.model.SongData
 
 class CourseDetailViewModel(
     private val db: IDatabase

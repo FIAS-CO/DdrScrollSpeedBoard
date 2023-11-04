@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fias.ddrhighspeed.SongData
 import com.fias.ddrhighspeed.search.convertToSongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
+import com.fias.ddrhighspeed.shared.model.SongData
 
 // TODO:テストを足す
 class EstimateByNameViewModel(
