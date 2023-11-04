@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fias.ddrhighspeed.CourseData
-import com.fias.ddrhighspeed.search.convertToCourseData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
+import com.fias.ddrhighspeed.shared.convertToCourseData
+import com.fias.ddrhighspeed.shared.model.CourseData
 
 class EstimateCourseViewModel(
     private val db: IDatabase

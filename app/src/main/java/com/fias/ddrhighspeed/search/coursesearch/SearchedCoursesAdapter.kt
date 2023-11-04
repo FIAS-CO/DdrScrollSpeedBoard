@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.databinding.SearchResultBinding
+import com.fias.ddrhighspeed.shared.model.CourseData
 
 class SearchedCoursesAdapter(private val clickListener: ClickCourseListener) :
     ListAdapter<CourseData, SearchedCoursesAdapter.SearchedCoursesViewHolder>(DiffCallback) {

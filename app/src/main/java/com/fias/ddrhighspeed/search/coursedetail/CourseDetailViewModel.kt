@@ -2,9 +2,9 @@ package com.fias.ddrhighspeed.search.coursedetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fias.ddrhighspeed.CourseData
-import com.fias.ddrhighspeed.search.convertToSongData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
+import com.fias.ddrhighspeed.shared.convertToSongData
+import com.fias.ddrhighspeed.shared.model.CourseData
 import com.fias.ddrhighspeed.shared.model.ResultRowSetFactory
 import com.fias.ddrhighspeed.shared.model.SongData
 

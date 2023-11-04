@@ -1,8 +1,8 @@
 package com.fias.ddrhighspeed.search.coursesearch
 
-import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.shared.cache.Course
 import com.fias.ddrhighspeed.shared.cache.IDatabase
+import com.fias.ddrhighspeed.shared.model.CourseData
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals

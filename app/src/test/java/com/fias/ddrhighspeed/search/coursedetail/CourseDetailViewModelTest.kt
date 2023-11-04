@@ -1,10 +1,10 @@
 package com.fias.ddrhighspeed.search.coursedetail
 
-import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.shared.cache.IDatabase
 import com.fias.ddrhighspeed.shared.cache.Song
 import com.fias.ddrhighspeed.shared.cache.SongName
 import com.fias.ddrhighspeed.shared.cache.SongProperty
+import com.fias.ddrhighspeed.shared.model.CourseData
 import com.fias.ddrhighspeed.shared.model.SongData
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever

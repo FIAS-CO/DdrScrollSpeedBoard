@@ -55,7 +55,7 @@
         android:label="CourseDetailFragment">
         <argument
             android:name="course"
-            app:argType="com.fias.ddrhighspeed.CourseData" />
+            app:argType="com.fias.ddrhighspeed.shared.model.CourseData" />
         <action
             android:id="@+id/action_courseDetail_to_songDetailPager"
             app:destination="@id/songDetailPagerFragment" />

@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.fias.ddrhighspeed.CourseData
 import com.fias.ddrhighspeed.R
 import com.fias.ddrhighspeed.ScrollSpeedBoardFragmentDirections
 import com.fias.ddrhighspeed.data.DataVersionDataStore
@@ -19,6 +18,7 @@ import com.fias.ddrhighspeed.database.SongApplication
 import com.fias.ddrhighspeed.databinding.FragmentEstimateByCourseBinding
 import com.fias.ddrhighspeed.search.DataUpdateViewModel
 import com.fias.ddrhighspeed.search.DataUpdateViewModelFactory
+import com.fias.ddrhighspeed.shared.model.CourseData
 import com.fias.ddrhighspeed.shared.spreadsheet.SpreadSheetService
 import com.fias.ddrhighspeed.view.AdViewUtil
 import kotlinx.coroutines.launch
