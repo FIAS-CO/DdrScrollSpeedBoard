@@ -10,20 +10,20 @@ class SongDetailUtil {
     }
     
     // TODO このメソッドをKotlin側で実装する
-    func toDetailRows(song: Song, highSpeedValue: Int) -> [ResultRowForDetail] {
+    func toDetailRows(song: SongData, highSpeedValue: Int) -> [ResultRowForDetail] {
         var result: [ResultRowForDetail] = []
         let highSpeed: Int32 = Int32(highSpeedValue)
         // TODO: if節を1メソッドにまとめる
-        if let bpm = song.max_bpm?.doubleValue, bpm != 0.0 {
+        if let bpm = song.maxBpm?.doubleValue, bpm != 0.0 {
             result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "最大", bpm: bpm))
         }
-        if let bpm = song.sub_bpm?.doubleValue, bpm != 0.0 {
+        if let bpm = song.subBpm?.doubleValue, bpm != 0.0 {
             result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "基本②", bpm: bpm))
         }
-        if song.base_bpm != 0.0 {
-            result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "基本①", bpm: song.base_bpm))
+        if song.baseBpm != 0.0 {
+            result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "基本①", bpm: song.baseBpm))
         }
-        if let bpm = song.min_bpm?.doubleValue, bpm != 0.0 {
+        if let bpm = song.minBpm?.doubleValue, bpm != 0.0 {
             result.append(factory.createForDetail(scrollSpeed: highSpeed, category: "最小", bpm: bpm))
         }
         

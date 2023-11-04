@@ -19,8 +19,8 @@ final class ModelData: ObservableObject {
     @Published var scrollSpeed: String
     
     // SearchSongView
-    var baseSongs: [Song] = loadSongs()
-    @Published var songs: [Song] = []
+    var baseSongs: [SongData] = loadSongs()
+    @Published var songs: [SongData] = []
     
     var baseCourses: [CourseData] = loadCourses()
     @Published var courses: [CourseData] = []
@@ -41,7 +41,7 @@ final class ModelData: ObservableObject {
     }
     @Published var versionText: String = "version: checking..."
     
-    init(isPreviewMode: Bool = false, songsForPreview: [Song] = [], coursesForPreview: [CourseData] = []) {
+    init(isPreviewMode: Bool = false, songsForPreview: [SongData] = [], coursesForPreview: [CourseData] = []) {
         let savedSpeed = UserDefaults.standard.string(forKey: "scrollSpeed")
         _scrollSpeed = Published(initialValue: savedSpeed ?? "")
         
@@ -123,7 +123,7 @@ final class ModelData: ObservableObject {
                     checkNewDataVersionAvailable()
                     isLoading = false
                     
-                    baseSongs = db.getNewSongs()
+                    baseSongs = loadSongs()
                     baseCourses = loadCourses()
                     songs = baseSongs
                     courses = baseCourses
@@ -202,9 +202,9 @@ func connectDb() -> Database {
     return Database(databaseDriverFactory: DatabaseDriverFactory())
 }
 
-func loadSongs() -> [Song] {
+func loadSongs() -> [SongData] {
     let db = connectDb()
-    let newSongs = db.getNewSongs()
+    let newSongs = db.getNewSongs().map{$0.convertToSongData()}
     
     return newSongs
 }

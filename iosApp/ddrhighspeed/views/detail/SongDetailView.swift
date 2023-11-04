@@ -6,7 +6,7 @@ struct SongDetailView: View {
     @EnvironmentObject var modelData: ModelData
     @State var selectedTab = 0
     
-    var song: Song
+    var song: SongData
     
     var body: some View {
         VStack {
@@ -38,7 +38,7 @@ struct SongDetailView_Previews: PreviewProvider {
         let data: ModelData = ModelData(isPreviewMode: true)
         data.scrollSpeed = "123"
         
-        return SongDetailView(song: Song(id: 1, name: "TestSongName", composer: "Test", version: "testVersion", display_bpm: "123-456", min_bpm: 123, max_bpm: 456, base_bpm: 345, sub_bpm: 234, besp: 1, bsp: 2, dsp: 3, esp: 4, csp: 5, bdp: 6, ddp: 7, edp: 8, cdp: 9, shock_arrow: "CSP,CDP", deleted: 0, difficulty_label: "test"))
+        return SongDetailView(song: SongData(id: 1, name: "TestSongName", composer: "Test", version: "testVersion", displayBpm: "123-456", baseBpm: 123, subBpm: 456, minBpm: 345, maxBpm: 234, besp: 1, bsp: 2, dsp: 3, esp: 4, csp: 5, bdp: 6, ddp: 7, edp: 8, cdp: 9, shockArrow: "CSP,CDP", deleted: 0, difficultyLabel: "test"))
             .environmentObject(data)
     }
 }

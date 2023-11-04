@@ -73,7 +73,7 @@ struct SongView: View {
                         .padding()
                         .background(Color.gray.opacity(0.9))
                     Spacer()
-                    NavigationLink(destination: SongDetailView(song: song.toSong())) {
+                    NavigationLink(destination: SongDetailView(song: song)) {
                         Text("曲詳細>>")
                             .font(Font.system(size: 18, weight: .medium))
                             .padding()
@@ -114,13 +114,6 @@ struct SongView: View {
         return SongDetailUtil().culcateSuggestHighSpeed(bpm: song.baseBpm, scrollSpeed: scrollSpeed)
     }
     
-}
-
-// TODO 全体でSongを使わずSongDataを使うようにする
-extension SongData {
-    func toSong() -> Song {
-        return Song(id: id, name: name, composer: composer ?? "", version: version, display_bpm: displayBpm, min_bpm: minBpm, max_bpm: maxBpm, base_bpm: baseBpm, sub_bpm: subBpm, besp: besp, bsp: bsp, dsp: dsp, esp: esp, csp: csp, bdp: bdp, ddp: ddp, edp: edp, cdp: cdp, shock_arrow: shockArrow ?? "", deleted: deleted, difficulty_label: difficultyLabel)
-    }
 }
 
 struct CourseDetailView_Previews: PreviewProvider {
