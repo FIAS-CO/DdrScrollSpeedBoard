@@ -35,7 +35,7 @@ struct SearchCourseView: View {
                 }
                 List{
                     Section {
-                        if modelData.courses.isEmpty {
+                        if modelData.baseCourses.isEmpty {
                             Text("上の\"PUSH TO UPDATE COURSE DATA.\"をタップしてデータを更新してください")
                             Text("Now Loadingと表示されている場合は少しお待ちください")
                         } else {
@@ -57,7 +57,7 @@ struct SearchCourseView: View {
                         }
                     } header: {
                         HStack {
-                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.courses.isEmpty)) {
+                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.baseCourses.isEmpty)) {
                                 Text(modelData.versionText)
                             } else {
                                 Button(action: {

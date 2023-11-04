@@ -34,7 +34,7 @@ struct SearchSongView: View {
                 
                 List{
                     Section {
-                        if modelData.songs.isEmpty {
+                        if modelData.baseSongs.isEmpty {
                             Text("上の\"PUSH TO UPDATE SONG DATA.\"をタップしてデータを更新してください")
                             Text("Now Loadingと表示されている場合は少しお待ちください")
                         } else {
@@ -56,7 +56,7 @@ struct SearchSongView: View {
                         }
                     } header: {
                         HStack {
-                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.songs.isEmpty)) {
+                            if (modelData.isLoading || (!modelData.updateAvailable && !modelData.baseSongs.isEmpty)) {
                                 Text(modelData.versionText)
                             } else {
                                 Button(action: {
