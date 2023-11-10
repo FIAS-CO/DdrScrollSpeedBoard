@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="?attr/actionBarSize"
+    android:fitsSystemWindows="true"
     android:background="@color/purple_500">
 
-    <!--  TODO ツールバーと同じ高さに設定したい。一部環境で高さが低い  -->
     <ImageView
         android:id="@+id/close_drawer"
-        android:layout_width="75sp"
-        android:layout_height="75sp"
-        android:layout_marginTop="5sp"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
         android:fitsSystemWindows="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
