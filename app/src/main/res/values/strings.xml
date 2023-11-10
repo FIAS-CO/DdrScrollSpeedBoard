@@ -28,4 +28,11 @@
     <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
     <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
     <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="app_version_sample">Version:1.5</string>
+    <string name="close_navigation">閉じる</string>
+    <string name="suggested_highspeed_sample">推奨ハイスピ: 4.25</string>
+    <string name="song_detail_link_label"><![CDATA[曲詳細 >>]]></string>
+    <string name="base_bpm_sample">基本BPM: 190</string>
+    <string name="highspeed_area_sample">高速区間: ◯</string>
+    <string name="lowspeed_area_sample">低速区間: ✕</string>
 </resources>

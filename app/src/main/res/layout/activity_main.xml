@@ -59,7 +59,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0pt"
                     android:fitsSystemWindows="true"
-                    android:label="Page title"
                     app:defaultNavHost="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end|bottom"
-                    android:text="Version:1.5"
+                    android:text="@string/app_version_sample"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
