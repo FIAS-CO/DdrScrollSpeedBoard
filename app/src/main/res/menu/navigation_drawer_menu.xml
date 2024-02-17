@@ -5,11 +5,11 @@
         android:id="@+id/security_policy"
         android:icon="@android:drawable/ic_menu_info_details"
         android:onClick="onDrawerItemSelected"
-        android:title="セキュリティポリシー\n(外部ページ)" />
+        android:title="@string/security_policy_title" />
     <item
         android:id="@+id/mail"
         android:icon="@android:drawable/sym_action_email"
         android:onClick="onDrawerItemSelected"
-        android:title="お問い合わせ\n(メール)" />
+        android:title="@string/contact_us_title" />
 
 </menu>

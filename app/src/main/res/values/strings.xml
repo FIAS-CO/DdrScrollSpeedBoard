@@ -28,4 +28,6 @@
     <!--  Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111 -->
     <!--  product app ID: ca-app-pub-8151928728657048/6961473178 -->
     <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="security_policy_title">セキュリティポリシー\n(外部ページ)</string>
+    <string name="contact_us_title">お問い合わせ\n(メール)</string>
 </resources>

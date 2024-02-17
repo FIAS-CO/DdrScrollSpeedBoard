@@ -2,22 +2,18 @@ package com.fias.ddrhighspeed
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -34,23 +30,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        // あとでけす
         @Suppress("DEPRECATION") val packageInfo =
             packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA)
-        findViewById<TextView>(R.id.version).text =
-            getString(R.string.display_version, packageInfo.versionName)
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        val navHeader = navigationView.getHeaderView(0)
-        navHeader.findViewById<ImageView>(R.id.close_drawer).setOnClickListener {
-            onCloseDrawerIconClicked()
-        }
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        findViewById<Toolbar>(R.id.toolbar).setupWithNavController(
-            navController,
-            appBarConfiguration
-        )
+        findViewById<Toolbar>(R.id.toolbar).setupWithNavController(navController)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -76,8 +63,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onCloseDrawerIconClicked() {
-        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.navigation_drawer_menu, menu)
+        return true
     }
 
     private fun openPrivacyPolicyPage() {
