@@ -36,7 +36,6 @@ class MarqueeToolbar : Toolbar {
         selectTitle()
     }
 
-
     /** Viewが生成されたときに呼ばれる */
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         super.onWindowFocusChanged(hasWindowFocus)
