@@ -1,7 +1,11 @@
 package com.fias.ddrhighspeed
 
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -30,9 +34,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // あとでけす
-        @Suppress("DEPRECATION") val packageInfo =
-            packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -69,6 +70,17 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        super.onPrepareOptionsMenu(menu)
+        val menuItem = menu?.findItem(R.id.option_menu_version)
+
+        val spanString = SpannableString(getAppVersion())
+        spanString.setSpan(ForegroundColorSpan(Color.GRAY), 0, spanString.length, 0)
+        menuItem?.title = spanString
+
+        return true
+    }
+
     private fun openPrivacyPolicyPage() {
         val intent = IntentBuilder().createPrivacyPolicyIntent()
         if (intent.resolveActivity(packageManager) != null) {
@@ -81,5 +93,23 @@ class MainActivity : AppCompatActivity() {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         }
+    }
+
+    // Note Deprecateせざるをえないらしい
+    // https://stackoverflow.com/questions/73388061/android-13-sdk-33-packagemanager-getpackageinfostring-int-deprecated-what
+    @Suppress("DEPRECATION")
+    private fun getAppVersion(): String {
+        var result = "x.xx"
+        try {
+            val packageName = packageName
+            val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            } else {
+                packageManager.getPackageInfo(packageName, 0)
+            }
+            result = packageInfo.versionName
+        } catch (_: PackageManager.NameNotFoundException) {
+        }
+        return getString(R.string.display_version, result)
     }
 }

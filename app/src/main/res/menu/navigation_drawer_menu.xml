@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <!-- onDrawerItemSelected は MainAActivity で定義 -->
     <item
         android:id="@+id/security_policy"
-        android:icon="@android:drawable/ic_menu_info_details"
         android:onClick="onDrawerItemSelected"
         android:title="@string/security_policy_title" />
     <item
         android:id="@+id/mail"
-        android:icon="@android:drawable/sym_action_email"
         android:onClick="onDrawerItemSelected"
         android:title="@string/contact_us_title" />
+    <item
+        android:id="@+id/option_menu_version"
+        android:title="@string/version_dummy" />
 
 </menu>
