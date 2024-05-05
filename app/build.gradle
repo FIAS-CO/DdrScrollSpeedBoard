@@ -136,7 +136,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
 
     // Assertions
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.ext:truth:1.4.0")
 
     // Espresso dependencies
