@@ -123,7 +123,7 @@ dependencies {
 
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
-    testImplementation 'io.ktor:ktor-client-core:2.3.2'
+    testImplementation 'io.ktor:ktor-client-core:2.3.10'
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
