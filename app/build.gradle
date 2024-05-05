@@ -98,7 +98,7 @@ dependencies {
     ksp "androidx.room:room-compiler:2.4.0"
 
     // Jetpack compose 関連
-    implementation 'androidx.compose.ui:ui:1.4.1' // UI関連の基本的な要素
+    implementation 'androidx.compose.ui:ui:1.6.7' // UI関連の基本的な要素
     implementation 'androidx.compose.material:material:1.4.1' // Material DesignスタイルのUI要素
     implementation 'androidx.compose.ui:ui-tooling:1.4.1' // ツール関連、主にプレビュー表示に使用
     implementation 'androidx.activity:activity-compose:1.7.2' // ComposeとActivityとの連携に必要
