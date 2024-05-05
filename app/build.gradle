@@ -1,19 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id("com.google.devtools.ksp") version "1.8.0-1.0.8"
+    id("com.google.devtools.ksp") version "1.9.23-1.0.20"
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
 }
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.fias.ddrhighspeed"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 37
         versionName "2.5.2"
 
@@ -43,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = '1.4.1'
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
 
     testOptions {
@@ -60,66 +60,66 @@ android {
 dependencies {
     implementation project(':shared')
 
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     // AdMob
-    implementation 'com.google.android.gms:play-services-ads:22.4.0'
+    implementation 'com.google.android.gms:play-services-ads:23.0.0'
 
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidXLifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidXLifecycle"
     // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation "androidx.datastore:datastore-preferences:$androidXDatastore"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
 
-    implementation 'androidx.datastore:datastore-core:1.0.0'
-    implementation 'androidx.datastore:datastore-preferences-core:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-common:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.fragment:fragment-ktx:1.5.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation "androidx.datastore:datastore-core:$androidXDatastore"
+    implementation "androidx.datastore:datastore-preferences-core:$androidXDatastore"
+    implementation "androidx.lifecycle:lifecycle-common:$androidXLifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$androidXLifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidXLifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidXLifecycle"
+    implementation "androidx.navigation:navigation-fragment-ktx:$androidXNavigation"
+    implementation "androidx.navigation:navigation-runtime-ktx:$androidXNavigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$androidXNavigation"
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation "androidx.fragment:fragment-ktx:$androidXFragment"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
-    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    implementation platform('com.google.firebase:firebase-bom:33.0.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     implementation 'androidx.customview:customview:1.1.0'
-    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
-    implementation 'androidx.navigation:navigation-common:2.5.3'
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'androidx.navigation:navigation-common:2.7.7'
 
-    implementation "androidx.room:room-runtime:2.4.0"
-    implementation "androidx.room:room-ktx:2.4.0"
-    implementation 'androidx.navigation:navigation-testing:2.5.3'
-    ksp "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-runtime:$androidXRoom"
+    implementation "androidx.room:room-ktx:$androidXRoom"
+    implementation 'androidx.navigation:navigation-testing:2.7.7'
+    ksp "androidx.room:room-compiler:$androidXRoom"
 
     // Jetpack compose 関連
-    implementation 'androidx.compose.ui:ui:1.4.1' // UI関連の基本的な要素
-    implementation 'androidx.compose.material:material:1.4.1' // Material DesignスタイルのUI要素
-    implementation 'androidx.compose.ui:ui-tooling:1.4.1' // ツール関連、主にプレビュー表示に使用
-    implementation 'androidx.activity:activity-compose:1.7.2' // ComposeとActivityとの連携に必要
+    implementation "androidx.compose.ui:ui:$compose" // UI関連の基本的な要素
+    implementation "androidx.compose.material:material:$compose" // Material DesignスタイルのUI要素
+    implementation "androidx.compose.ui:ui-tooling:$compose" // ツール関連、主にプレビュー表示に使用
+    implementation 'androidx.activity:activity-compose:1.9.0' // ComposeとActivityとの連携に必要
     implementation "com.google.accompanist:accompanist-themeadapter-material:0.31.3-beta"
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0'
 
-    debugImplementation "androidx.fragment:fragment-testing:1.5.4"
-    debugImplementation 'androidx.fragment:fragment-ktx:1.5.4'
+    debugImplementation "androidx.fragment:fragment-testing:$androidXFragment"
+    debugImplementation "androidx.fragment:fragment-ktx:$androidXFragment"
 
     testImplementation "com.google.truth:truth:1.1.3"
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
 
     // Dependencies for local unit tests
-    testImplementation "org.robolectric:robolectric:4.9"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     // AndroidX Test - JVM testing
     testImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
 
-    testImplementation 'androidx.test:monitor:1.4.0'
+    testImplementation 'androidx.test:monitor:1.6.1'
 
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
@@ -127,31 +127,30 @@ dependencies {
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.5.1"
     // Core library
-    androidTestImplementation("androidx.test:core:1.4.0")
+    androidTestImplementation("androidx.test:core:1.5.0")
 
     // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation("androidx.test:runner:$testRunnerVersion")
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
 
     // Assertions
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.ext:truth:1.4.0")
+    androidTestImplementation("androidx.test.ext:truth:1.5.0")
 
     // Espresso dependencies
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-accessibility:3.4.0")
-    androidTestImplementation("androidx.test.espresso:espresso-web:3.4.0")
-    androidTestImplementation("androidx.test.espresso.idling:idling-concurrent:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$testEspresso")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:$testEspresso")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:$testEspresso")
+    androidTestImplementation("androidx.test.espresso:espresso-accessibility:$testEspresso")
+    androidTestImplementation("androidx.test.espresso:espresso-web:$testEspresso")
+    androidTestImplementation("androidx.test.espresso.idling:idling-concurrent:$testEspresso")
 
     // The following Espresso dependency can be either "implementation",
     // or "androidTestImplementation", depending on whether you want the
     // dependency to appear on your APK"s compile classpath or the test APK
     // classpath.
-    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:$testEspresso")
 }
 
 apply from: './jacoco.gradle'
