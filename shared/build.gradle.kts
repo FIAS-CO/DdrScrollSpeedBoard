@@ -26,7 +26,7 @@ kotlin {
     }
 
     val coroutinesVersion = "1.6.4"
-    val ktorVersion = "2.3.2"
+    val ktorVersion = "2.3.10"
     val sqlDelightVersion = "1.5.5"
 
     sourceSets {
