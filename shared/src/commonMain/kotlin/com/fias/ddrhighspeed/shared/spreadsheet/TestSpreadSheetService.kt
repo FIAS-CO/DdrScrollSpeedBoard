@@ -7,4 +7,6 @@ class TestSpreadSheetService(private val urlBase: String): ISpreadSheetService {
     override fun getHttpClient(): HttpClient = HttpClient(CIO) { expectSuccess = true }
 
     override fun getUrlBase(): String = urlBase
+
+    override suspend fun fetchSongProperties(): String = fetchData(getUrlBase() + "150576510")
 }
