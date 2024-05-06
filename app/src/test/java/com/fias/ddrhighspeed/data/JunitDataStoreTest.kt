@@ -19,7 +19,7 @@ abstract class JunitDataStoreTest(dataStoreName :String) {
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
     val scope = TestScope(dispatcher + Job())
     val dataStore = PreferenceDataStoreFactory.create(
-        scope = scope,
+        scope = scope.backgroundScope,
         produceFile = { context.preferencesDataStoreFile(dataStoreName) }
     )
 
