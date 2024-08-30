@@ -14,8 +14,8 @@ android {
         applicationId "com.fias.ddrhighspeed"
         minSdk 24
         targetSdk 34
-        versionCode 37
-        versionName "2.5.2"
+        versionCode 38
+        versionName "2.5.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,7 +62,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.12.0'
     // AdMob
-    implementation 'com.google.android.gms:play-services-ads:23.0.0'
+    implementation 'com.google.android.gms:play-services-ads:23.3.0'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -85,7 +85,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$androidXFragment"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
-    implementation platform('com.google.firebase:firebase-bom:33.0.0')
+    implementation platform('com.google.firebase:firebase-bom:33.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     implementation 'androidx.customview:customview:1.1.0'

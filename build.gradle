@@ -34,7 +34,7 @@ buildscript {
         // in the individual module build.gradle files
 
         // firebase
-        classpath 'com.google.gms:google-services:4.4.1'
+        classpath 'com.google.gms:google-services:4.4.2'
 
         classpath("com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion")
     }
@@ -57,10 +57,10 @@ dependencyAnalysis {
     }
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
