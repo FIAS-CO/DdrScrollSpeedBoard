@@ -101,7 +101,7 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose" // UI関連の基本的な要素
     implementation "androidx.compose.material:material:$compose" // Material DesignスタイルのUI要素
     implementation "androidx.compose.ui:ui-tooling:$compose" // ツール関連、主にプレビュー表示に使用
-    implementation 'androidx.activity:activity-compose:1.9.0' // ComposeとActivityとの連携に必要
+    implementation 'androidx.activity:activity-compose:1.11.0' // ComposeとActivityとの連携に必要
     implementation "com.google.accompanist:accompanist-themeadapter-material:0.31.3-beta"
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0'
