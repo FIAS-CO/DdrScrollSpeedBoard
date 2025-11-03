@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.8" //ツールバージョンを指定可能。省略可。
+    toolVersion = "0.8.14" //ツールバージョンを指定可能。省略可。
 }
 
 android.applicationVariants.all { variant ->
