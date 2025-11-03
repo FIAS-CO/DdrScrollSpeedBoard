@@ -8,7 +8,7 @@ buildscript {
         androidXDatastore = "1.1.1"
         androidXFragment = "1.8.9"
         androidXRoom = "2.6.1"
-        androidXLifecycle = "2.7.0"
+        androidXLifecycle = "2.9.4"
         androidXNavigation = "2.7.7"
         espressoVersion = '3.4.0'
         robolectricVersion = '4.11'
