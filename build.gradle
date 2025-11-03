@@ -6,7 +6,7 @@ buildscript {
 
         androidXTestExtKotlinRunnerVersion = '1.1.5'
         androidXDatastore = "1.1.1"
-        androidXFragment = "1.7.0"
+        androidXFragment = "1.8.9"
         androidXRoom = "2.6.1"
         androidXLifecycle = "2.7.0"
         androidXNavigation = "2.7.7"
