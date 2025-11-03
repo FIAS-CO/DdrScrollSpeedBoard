@@ -5,7 +5,7 @@ buildscript {
         room_version = '2.4.2'
 
         androidXTestExtKotlinRunnerVersion = '1.1.5'
-        androidXDatastore = "1.1.1"
+        androidXDatastore = "1.1.7"
         androidXFragment = "1.8.9"
         androidXRoom = "2.6.1"
         androidXLifecycle = "2.9.4"
