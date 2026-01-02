@@ -9,7 +9,7 @@ buildscript {
         androidXFragment = "1.8.9"
         androidXRoom = "2.6.1"
         androidXLifecycle = "2.9.4"
-        androidXNavigation = "2.9.5"
+        androidXNavigation = "2.9.6"
         espressoVersion = '3.4.0'
         robolectricVersion = '4.11'
         rulesVersion = '1.0.1'
