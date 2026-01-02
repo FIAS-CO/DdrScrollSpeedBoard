@@ -7,7 +7,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
@@ -80,7 +80,7 @@ kotlin {
 
 android {
     namespace = "com.fias.ddrhighspeed.shared"
-    compileSdk = 34
+    compileSdk = 36
     defaultConfig {
         minSdk = 24
     }

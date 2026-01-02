@@ -1,19 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id("com.google.devtools.ksp") version "1.9.23-1.0.20"
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.1.0'
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
 }
 
 android {
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.fias.ddrhighspeed"
         minSdk 24
-        targetSdk 34
+        targetSdk 36
         versionCode 38
         versionName "2.5.3"
 

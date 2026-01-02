@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 packageManager.getPackageInfo(packageName, 0)
             }
-            result = packageInfo.versionName
+            result = packageInfo.versionName ?: "x.xx"
         } catch (_: PackageManager.NameNotFoundException) {
         }
         return getString(R.string.display_version, result)
